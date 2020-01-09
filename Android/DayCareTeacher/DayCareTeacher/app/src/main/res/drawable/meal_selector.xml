@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+   <!-- <item
+            android:state_selected="true"
+            android:drawable="@mipmap/meal" />
+    <item
+            android:state_selected="false"
+            android:drawable="@mipmap/meal_gray"
+    />-->
+
+
+    <item android:drawable="@mipmap/meal_gray"
+          android:state_checked="false"/>
+    <item android:drawable="@mipmap/meal"
+          android:state_checked="true"/>
+    <item android:drawable="@mipmap/meal_gray"/>
+
+</selector>

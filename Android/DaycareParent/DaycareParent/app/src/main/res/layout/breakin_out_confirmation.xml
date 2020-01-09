@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareparent.ui.dashboard.fragments.attendence.AttendanceViewModel"/>
+    </data>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
+
+    <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/space_20">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16">
+
+
+        <TextView
+                android:id="@+id/txtDate"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="22 November 2018"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <View
+                android:id="@+id/view_drop_off"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
+
+
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtBreakOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock"
+                android:drawablePadding="@dimen/space_10"
+                android:focusable="false"
+                android:hint="Break Out Time"
+                android:textSize="15sp"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/view_drop_off"
+              />
+
+
+        <TextView
+                android:id="@+id/pickupTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Picked-Up By"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtBreakOut" />
+
+        <Spinner
+                android:id="@+id/pickupBreakSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="@dimen/space_10"
+                android:entries="@array/pick_n_drop_list"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupTv" />
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtBreakIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock"
+                android:drawablePadding="@dimen/space_10"
+                android:focusable="false"
+                android:hint="Break In Time"
+                android:textSize="15sp"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/pickupBreakSpinner"
+               />
+
+
+        <TextView
+                android:id="@+id/dropoffTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Drop-Off By"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtBreakIn" />
+
+        <Spinner
+                android:id="@+id/dropoffBreakSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dropoffTv" />
+
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Reason"
+                android:layout_marginTop="@dimen/space_10"
+                android:textSize="15sp"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/dropoffBreakSpinner"
+        />
+
+        <View
+                android:id="@+id/view_pick_up"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtReason" />
+
+        
+
+        <Button
+                android:id="@+id/btnCCheckin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/rounded_bg"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/btnCCancel"
+                app:layout_constraintTop_toBottomOf="@+id/view_pick_up" />
+
+        <Button
+                android:id="@+id/btnCCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/colorBtnCancel"
+                android:text="Cancel"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toStartOf="@+id/btnCCheckin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pick_up" />
+
+        <ImageButton
+                android:id="@+id/editTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtDate"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_edit" />
+
+        <ProgressBar
+                android:id="@+id/spin_kit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:padding="@dimen/space_16"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupBreakSpinner" />
+
+    </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+    </LinearLayout>
+</layout>

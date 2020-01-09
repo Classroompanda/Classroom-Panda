@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/dashboard" />
+
+        <item
+                android:id="@+id/nav_dailysheet"
+                android:icon="@drawable/ic_menu_dailysheet"
+                android:title="@string/dailysheet" />
+
+        <item
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_menu_attendance"
+            android:title="@string/attendance" />
+
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="@string/calender" />
+
+        <item
+                android:id="@+id/nav_message"
+                android:icon="@drawable/ic_msg"
+                android:title="@string/message" />
+        <item
+            android:id="@+id/nav_incident"
+            android:icon="@drawable/ic_incident"
+            android:title="@string/incident" />
+
+        <item
+                android:id="@+id/nav_enrollment"
+                android:icon="@drawable/ic_mybreak"
+                android:visible="true"
+                android:title="@string/enrollment" />
+
+        <item
+                android:id="@+id/nav_payment"
+                android:icon="@drawable/ic_bill"
+                android:visible="true"
+                android:title="@string/payment_history" />
+
+        <item
+                android:id="@+id/nav_add"
+                android:icon="@drawable/ic_add"
+                android:visible="true"
+                android:title="@string/add_child" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_usermang"
+            android:visible="true"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
+    </group>
+</menu>

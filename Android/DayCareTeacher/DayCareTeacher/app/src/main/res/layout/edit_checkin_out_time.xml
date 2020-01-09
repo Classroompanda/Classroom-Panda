@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.model.ClassLogData" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16">
+
+
+        <TextView
+                android:id="@+id/checkinTimeTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Check In time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+    <!--    <Spinner
+                android:id="@+id/dropoffSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkinTimeTv" />
+-->
+
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtCheckInTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock"
+                android:drawablePadding="@dimen/space_10"
+                android:focusable="false"
+                android:hint="Check In Time"
+                android:textSize="15sp"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkinTimeTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="MissingConstraints"/>
+
+        <View
+                android:id="@+id/view_pick_up"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintHorizontal_bias="0.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtCheckInTime" />
+
+        <TextView
+                android:id="@+id/checkoutTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Check Out Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_pick_up" />
+
+     <!--   <Spinner
+                android:id="@+id/pickupSpinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:entries="@array/pick_n_drop_list"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutTv" />-->
+        <android.support.design.widget.TextInputEditText
+                android:id="@+id/edtCheckOutTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:drawableEnd="@drawable/ic_clock"
+                android:drawablePadding="@dimen/space_10"
+                android:focusable="false"
+                android:hint="Check In Time"
+                android:textSize="15sp"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutTv"
+                tools:ignore="MissingConstraints"/>
+
+
+        <Button
+                android:id="@+id/btnCCheckin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/spinner_background"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/btnCCancel"
+                app:layout_constraintTop_toBottomOf="@+id/edtCheckOutTime" />
+
+        <Button
+                android:id="@+id/btnCCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/spinner_background"
+                android:backgroundTint="@color/colorBtnCancel"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toStartOf="@+id/btnCCheckin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/edtCheckOutTime" />
+
+
+
+        <ProgressBar
+                android:id="@+id/spin_kit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:padding="@dimen/space_16"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pickupSpinner" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

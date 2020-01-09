@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="model"
+                type="com.daycare.daycareparent.model.IncidentData"/>
+    </data>
+
+
+
+            <android.support.v7.widget.CardView
+                    android:id="@+id/incidentContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            >
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <android.support.constraint.ConstraintLayout
+                            android:id="@+id/incidentHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorIncidentHeader">
+
+                        <com.daycare.daycareparent.utill.MyRegularTextView
+                                android:id="@+id/descriptionTxt"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="@dimen/space_8"
+                                android:layout_marginEnd="@dimen/space_8"
+                                android:layout_marginBottom="@dimen/space_8"
+                                android:hint="@string/incident"
+                                android:text="@{model.description}"
+                                android:textColor="@color/colorAbsent"
+                                android:textSize="@dimen/text_size_16"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/dateTxt"
+                                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                        <com.daycare.daycareparent.utill.MyRegularTextView
+                                android:id="@+id/dateTxt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_8"
+                                android:layout_marginEnd="@dimen/space_8"
+                                android:layout_marginBottom="@dimen/space_8"
+                                android:gravity="end"
+                                android:hint="12 Nov 2018"
+                                android:textColor="@color/colorTextLight"
+                                android:textSize="@dimen/text_size_16"
+                                app:convertDate="@{model.incidentDate}"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/descriptionTxt"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <com.daycare.daycareparent.utill.MyLightTextView
+                            android:id="@+id/reportedbyHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_marginTop="@dimen/space_4"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@string/reported_by"
+                            android:textColor="@color/colorTextExtraLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                            android:id="@+id/reportedByTxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@{model.teacherName}"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reportedbyHeader"/>
+
+                    <com.daycare.daycareparent.utill.MyLightTextView
+                            android:id="@+id/locationHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@string/location"
+                            android:textColor="@color/colorTextExtraLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reportedByTxt"/>
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                            android:id="@+id/loactionTxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:layout_marginBottom="@dimen/space_8"
+                            android:text="@{model.placeOfIncident}"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/locationHeader"/>
+
+                    <View
+                            android:id="@+id/partitionView"
+                            android:layout_width="@dimen/space_1"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_marginEnd="@dimen/space_8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+                    <com.daycare.daycareparent.utill.MyLightTextView
+                            android:id="@+id/studentHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_4"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@string/student"
+                            android:textColor="@color/colorTextExtraLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/partitionView"
+                            app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                            android:id="@+id/studentTxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@{model.studentName}"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/partitionView"
+                            app:layout_constraintTop_toBottomOf="@+id/studentHeader"/>
+
+                    <com.daycare.daycareparent.utill.MyLightTextView
+                            android:id="@+id/actionTakenHeader"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_8"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:text="@string/action_taken"
+                            android:textColor="@color/colorTextExtraLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/partitionView"
+                            app:layout_constraintTop_toBottomOf="@+id/studentTxt"/>
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                            android:id="@+id/actionTakenTxt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/space_8"
+                            android:layout_marginBottom="@dimen/space_8"
+                            android:text="@{model.actionTaken}"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_16"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/partitionView"
+                            app:layout_constraintTop_toBottomOf="@+id/actionTakenHeader"/>
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+
+</layout>

@@ -1,0 +1,11 @@
+<resources>
+    <!--<string name="app_name">DaycareKiosk</string>-->
+    <string name="ok">Ok</string>
+    <string name="enter_your_pin">Enter Your Pin</string>
+    <string name="checkin_checkout">CheckIn/Out</string>
+    <string name="breakin_out">BreakOut/In</string>
+    <string name="enter">Enter</string>
+
+    <string name="logout">Log Out</string>
+
+</resources>

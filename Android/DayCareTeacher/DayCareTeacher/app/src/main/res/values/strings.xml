@@ -1,0 +1,231 @@
+<resources>
+    <string name="app_name">Class Teacher </string>
+    <string name="login">Login</string>
+    <string name="phone_no">Mobile No.</string>
+    <string name="usernam">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">
+        <u>Forgot Password?</u>
+    </string>
+    <string name="title_activity_dashboard">Dashboard Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Anna Williams</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_notifications">Notifications</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="submit">Submit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="attendance">Attendance</string>
+    <string name="check_out">Check Out</string>
+    <string name="picked_by">Picked By:</string>
+    <string name="check_in">Check In</string>
+    <string name="dropped_by">Dropped By:</string>
+    <string name="teacher_login">Teacher Login</string>
+    <string name="checked_out">Checked Out</string>
+    <string name="present">Present</string>
+    <string name="absent">absent</string>
+    <string name="dailysheet">Daily Sheets</string>
+    <string name="postactivity">Post Activity</string>
+    <string name="reason">Reason</string>
+    <string name="incident">Incident</string>
+    <string name="write_here">Write here</string>
+    <string name="involved_participants">Involved Student(s)</string>
+    <string name="activity_participants">Select Student(s)</string>
+    <string name="choose">Select</string>
+    <string name="search_here">Search here...</string>
+
+    <string name="due_to">Absent due to :</string>
+    <string name="message">Message</string>
+    <string name="broadcast_message">Broadcast Message</string>
+    <string-array name="reasons_array">
+        <item>Fever</item>
+        <item>Family Reasons</item>
+        <item>Health Checkup</item>
+        <item>Went on Vacations</item>
+        <item>Cold</item>
+        <item>Accident</item>
+        <item>Other</item>
+    </string-array>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="large_text">
+        "In Progress \n\n"
+    </string>
+    <string name="profile">Profile</string>
+    <string name="calender">Calendar</string>
+    <string name="event_planner">Event Planner</string>
+    <string name="meal_planner">Meal Planner</string>
+    <string name="logo">Logo</string>
+    <string name="login_logo">Login Logo</string>
+    <string name="forgot_password_txt">Forgot Password</string>
+    <string name="back_to_login">
+        <u>Back To Login</u>
+    </string>
+    <string name="home">Home</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="report_incident">Report Incident</string>
+    <string name="post_activity">Post Activity</string>
+    <string-array name="class_name">
+        <item>Toddler</item>
+        <item>Dance</item>
+        <item>Singing</item>
+        <item>Yoga</item>
+    </string-array>
+
+    <string-array name="repeat_event">
+        <item>--Select--</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
+    <string-array name="pick_n_drop_list">
+        <item>Select</item>
+        <item>Father</item>
+        <item>Mother</item>
+        <item>Bus</item>
+        <item>Other</item>
+    </string-array>
+    <string name="daily_details">Daily Sheet Detail</string>
+    <string name="recent_activity">Recent Activity</string>
+    <string name="user_name">Joe William</string>
+    <string name="toddler">Toddler</string>
+    <string name="today">Today</string>
+    <string name="edit">Edit</string>
+    <string name="current_class">Current Class</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="food_item">Food Item</string>
+    <string name="beverage_item">Beverage Item</string>
+    <string name="clock_in">Clock In</string>
+    <string name="logout">Log Out</string>
+    <string name="empty_error_string">Enter Username</string>
+    <string name="invalid_error_string">Invalid Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="student">Student</string>
+    <string name="username">Username :</string>
+    <string name="dob">DOB :</string>
+    <string name="parent_name">Parent Name :</string>
+    <string name="gender">Gender</string>
+    <string name="email">Email :</string>
+    <string name="mobile">Mobile :</string>
+    <string name="phone">Phone :</string>
+    <string name="immunization">Immunization</string>
+    <string name="medication">Medication</string>
+    <string name="disability">Disability</string>
+    <string name="no_record_available">No record available</string>
+    <string name="allergies">Allergies</string>
+    <string name="student_detail">Student Detail</string>
+    <string name="add_new_event">Add New Event</string>
+    <string name="title">Title</string>
+    <string name="student_list">Student List</string>
+    <string name="calendar">Calendar</string>
+    <string name="dailysheetdetail">Daily Sheet Detail</string>
+    <string name="noguardianfound">No guardians found</string>
+    <string name="nostudentfound">No Student found</string>
+    <string name="enterstudent">Enter student name</string>
+
+
+    <!--Incident Report-->
+    <string name="txt_classname">Class name</string>
+    <string name="txt_studentname">Student name</string>
+    <string name="txt_placeofincident">Place of incident</string>
+    <string name="txt_natureofinjury">Nature of injury</string>
+    <string name="txt_involvedparticipants">Involved Participant</string>
+    <string name="txt_firstaid">First Aid Administered</string>
+    <string name="txt_docrequired">Doctor Required</string>
+    <string name="txt_dateofincident">Date of Incident</string>
+    <string name="txt_timeofincident">Time of Incident</string>
+    <string name="txt_parentinformed">Was Parent Informed?</string>
+    <string name="txt_informeddessc">If Yes, Then How?</string>
+    <string name="absent_due_to">Absent Due to :</string>
+    <string name="undo">Undo</string>
+    <string name="incident_report">Incident Report</string>
+    <string name="biting_log">Biting Log</string>
+    <string name="location">Location</string>
+    <string name="reported_by">Reported by:</string>
+    <string name="action_taken">Action Taken</string>
+
+    <string name="acknowledge_by">Acknowledged By Parent</string>
+    <string name="immunization_detail">Immunization Detail</string>
+    <string name="no_immunization">No Immunization</string>
+    <string name="medication_details">Medication Details</string>
+    <string name="strength">Strength</string>
+    <string name="units">Units</string>
+    <string name="dose">Dose</string>
+    <string name="how_taken">How Taken?</string>
+    <string name="reaction">Reaction</string>
+    <string name="treatment">Treatment</string>
+    <string name="allergies_details">Allergies Details</string>
+    <string name="date_recieved">Date Recieved</string>
+    <string name="other_immunization">Other Immunization</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_incident">Add Incident</string>
+    <string name="add_post">Add Post</string>
+
+    <string name="disability_detail">Disability Detail</string>
+    <string name="update_incident">Update Incident</string>
+
+    <string name="update_event">Update Event</string>
+
+    <string name="selected_class">Select Class</string>
+    <string name="update">Update</string>
+    <string name="breakout_header">Breakout Time</string>
+    <string name="breakin_header">Breakin Time</string>
+    <string name="reason_header">Reason</string>
+
+
+    <!--Profile Hint-->
+    <string name="hint_fname">Enter first name</string>
+    <string name="hint_lname">Enter last name</string>
+    <string name="hint_email">Enter email id</string>
+    <string name="hint_mobile">Enter mobile no.</string>
+    <string name="hint_address">Enter address</string>
+    <string name="hint_zip">Enter zip code</string>
+    <string name="hint_certification">Enter certification detail</string>
+    <string name="hint_homephone">Enter home phone no.</string>
+
+    <!--Daily Sheet-->
+    <string name="select_all">Select All</string>
+    <string name="deselect_all">Deselect All</string>
+    <string name="add_new_daily_sheet">Add New Daily Sheet</string>
+    <string name="add_post_activity">Add New Post</string>
+    <string name="read_file">Read video</string>
+
+
+    <string name="student_break_status">Breaks</string>
+    <string name="add_break">Add Break</string>
+    <string name="break_out_time">Break out time</string>
+    <string name="pick_up_by">Pick up by</string>
+    <string name="break_in_time">Break in time</string>
+    <string name="drop_of_by">Drop of by</string>
+    <string name="break_out">Break Out</string>
+    <string name="break_in">Break In</string>
+
+    <string name="my_breaks">My Breaks</string>
+    <string name="student_medication">Medication</string>
+    <string name="mybreak_log">My Breaks</string>
+    <string name="mymedication">Medication</string>
+    <string name="change_password">Change Password</string>
+
+    <string-array name="qty_dropdown">
+        <item>None</item>
+        <item>Some</item>
+        <item>Most</item>
+        <item>All</item>
+    </string-array>
+    <string-array name="no_data">
+        <item>No Data</item>
+
+    </string-array>
+
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+    <string name="lbl_set_profile_photo">Set profile image</string>
+    <string name="lbl_take_camera_picture">Take a picture</string>
+    <string name="lbl_choose_from_gallery">Choose from gallery</string>
+
+</resources>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+           type="com.daycare.kiosk.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8"
+        android:layout_marginTop="@dimen/space_8"
+        app:cardCornerRadius="@dimen/space_30"
+        app:cardElevation="@dimen/space_5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_5"
+            android:paddingTop="@dimen/space_10"
+            android:paddingBottom="@dimen/space_30"
+            app:state="@{viewModel.statusFlag}"
+            android:orientation="vertical">
+
+
+            <com.daycare.kiosk.utill.CircleImageView
+                android:id="@+id/circleImageView2"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_margin="@dimen/space_16"
+                android:src="@drawable/child"
+              
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/childNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/font_medium"
+                android:text=""
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_24"
+                app:layout_constraintBottom_toTopOf="@+id/catgTxt"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView2"
+                app:layout_constraintTop_toTopOf="@+id/circleImageView2" />
+
+            <TextView
+                android:id="@+id/catgTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/font_regular"
+                android:text=""
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_19"
+                app:layout_constraintBottom_toBottomOf="@+id/circleImageView2"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView2"
+                app:layout_constraintTop_toBottomOf="@+id/childNameTxt" />
+
+            <TextView
+                android:id="@+id/statusTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/font_regular"
+                android:text=""
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_19"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/circleImageView2"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView2"
+                app:layout_constraintTop_toBottomOf="@+id/catgTxt" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/statusTxt">
+
+            <Button
+                android:id="@+id/buttonCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/space_30"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_btn"
+                android:paddingStart="@dimen/space_40"
+                android:paddingTop="@dimen/space_16"
+                android:paddingEnd="@dimen/space_40"
+                android:paddingBottom="@dimen/space_16"
+                android:text="Drop-off"
+
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_20"
+                android:visibility="visible"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                 />
+            <Button
+
+                android:id="@+id/buttonbreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="@dimen/space_30"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_disable_btn"
+
+                android:paddingStart="@dimen/space_40"
+                android:paddingTop="@dimen/space_16"
+                android:paddingEnd="@dimen/space_40"
+                android:paddingBottom="@dimen/space_16"
+                android:text="Drop-off"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_20"
+                android:visibility="visible"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+            </LinearLayout>
+
+            <CheckBox
+                android:visibility="gone"
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:scaleX="2.70"
+                android:scaleY="2.70"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="NotSibling" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

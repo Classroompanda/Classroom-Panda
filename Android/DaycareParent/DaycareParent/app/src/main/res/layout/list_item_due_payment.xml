@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.daycare.daycareparent.model.DuePayment" />
+
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/guardianContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_1"
+        app:cardCornerRadius="@dimen/space_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16">
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/studentNameTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/user_name"
+                android:text="@{model.studentName}"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintBottom_toTopOf="@+id/classesTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/classesTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/user_name"
+                android:text="@{model.className}"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_14"
+                app:layout_constraintBottom_toTopOf="@+id/dateTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/studentNameTxt"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/dateTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:hint="@string/user_name"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_14"
+                app:edate="@{model.invoiceToDate}"
+                app:layout_constraintBottom_toTopOf="@+id/amountTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/classesTxt"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:sdate="@{model.invoiceFromDate}" />
+
+            <com.daycare.daycareparent.utill.MyBoldTextView
+                android:id="@+id/amountTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="$0"
+                android:maxLength="6"
+                app:pay="@{model.totalAmount}"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/dateTxt"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/dateTxt"
+                app:layout_constraintTop_toBottomOf="@+id/dateTxt" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

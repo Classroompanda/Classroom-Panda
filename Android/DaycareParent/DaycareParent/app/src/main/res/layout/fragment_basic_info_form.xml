@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.ui.dashboard.addchildform.BasicInfoViewModel" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/scrollContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.03" />
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/basicInfoTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_size_16"
+                android:text="Basic Information"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_17"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/childImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_margin="@dimen/text_size_16"
+                android:src="@drawable/ic_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/basicInfoTxt"
+                app:profile="@{viewModel.image}"
+                app:url="@{viewModel.imageUrl}" />
+
+            <Button
+                android:id="@+id/uploadBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/colorPrimary"
+                android:paddingStart="@dimen/space_25"
+                android:paddingEnd="@dimen/space_25"
+                android:text="Upload"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_17"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/childImg" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/fNameTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/lNameTxt"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/uploadBtn">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/fNameTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_size_16"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+                    android:maxLength="15"
+                    android:hint="First Name"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.MFirstName}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/lNameTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@+id/fNameTxt"
+                app:layout_constraintTop_toBottomOf="@+id/uploadBtn">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/lNameTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/text_size_16"
+                    android:ems="10"
+                    android:maxLength="15"
+                    android:hint="Last Name"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.MLastName}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/classNameTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/dobTxt"
+                app:layout_constraintHorizontal_chainStyle="spread"
+
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/fNameTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/classNameTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_size_16"
+                    android:layout_marginEnd="8dp"
+                    android:ems="10"
+
+                    android:hint="Contact No."
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/dobTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:hintAnimationEnabled="false"
+                app:layout_constraintBottom_toTopOf="@+id/iamTxt"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toEndOf="@+id/classNameTxt"
+                app:layout_constraintTop_toBottomOf="@+id/lNameTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/dobTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_size_16"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_calendar_"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="DOB"
+                    android:inputType="date"
+                    android:onClick="@{viewModel::onClickDob}"
+                    android:text="@={viewModel.MDob}"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_18" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/iamTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="I am a"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/dobTxt" />
+
+            <RadioGroup
+                android:id="@+id/genderGrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/iamTxt">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:layout_margin="@dimen/space_8"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:onClick="@{viewModel::closeKeyboard}"
+                    android:drawableTop="@drawable/radio_custom_boy"
+                    android:gravity="center"
+                    android:text="Boy" />
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:layout_margin="@dimen/space_8"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:onClick="@{viewModel::closeKeyboard}"
+                    android:drawableTop="@drawable/radio_custom_girl"
+                    android:gravity="center"
+                    android:text="Girl" />
+            </RadioGroup>
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/detailTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/text_size_16"
+                android:text="Other Details"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_17"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/genderGrp" />
+
+
+            <CheckBox
+                android:id="@+id/checkSameAsParent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Same as parent details"
+                android:textColor="@color/colorTextLight"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/detailTxt"
+                tools:layout_editor_absoluteX="145dp"
+                tools:layout_editor_absoluteY="405dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/addressTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@id/guidelineEnd"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@id/checkSameAsParent">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/addressTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLines="2"
+                    android:maxLength="100"
+                    android:hint="Address"
+                    android:inputType="textPersonName"
+                    android:text="@={viewModel.MAddress}"
+                    android:textColor="@color/colorTextLight" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/countryTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/no_data"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            <TextView
+                android:id="@+id/countryerr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Please select country"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/countryTxt" />
+
+            <Spinner
+                android:id="@+id/stateTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/no_data"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/textView37" />
+            <TextView
+                android:id="@+id/stateerr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Please select state"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/stateTxt" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/zipTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/cityerr">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/zipTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_size_16"
+                    android:maxLength="6"
+                    android:hint="Zip Code"
+                    android:inputType="number"
+                    android:text="@={viewModel.MZipCode}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/cityTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/no_data"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/textView38" />
+
+            <TextView
+                android:id="@+id/cityerr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Please select city"
+                android:textColor="@color/colorError"
+                android:textSize="@dimen/text_size_12"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/cityTxt" />
+
+            <!--<android.support.design.widget.TextInputEditText-->
+            <!--android:id="@+id/cityTxtedt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/text_size_16"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="City"-->
+            <!--android:inputType="textPersonName" />-->
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/emailTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/phoneTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/emailTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="30"
+                    android:hint="Physician name"
+                    android:inputType="text"
+                    android:text="@={viewModel.MEmail}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/numberTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/emailTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/physiciannumberTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="15"
+                    android:hint="Physician number"
+                    android:inputType="phone"
+
+                    android:text="@={viewModel.MPContact}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/phoneTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/zipTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/phoneTxtedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="12"
+                    android:hint="Phone No."
+                    android:inputType="phone"
+                    android:text="@={viewModel.MContact}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/prefferedhospTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/numberTxt">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/preffHospedt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:maxLength="30"
+                    android:hint="Preferred hospital"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.prefferedhosp}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/saveBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/space_30"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/space_30"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_bg"
+                android:backgroundTint="@color/colorPrimary"
+                android:onClick="@{viewModel::onClickSaveBtn}"
+                android:text="Add"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_19"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prefferedhospTxt" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guidelineEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.97" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Country"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/addressTxt" />
+
+            <TextView
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="State"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/countryerr" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="City"
+                app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/stateerr" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+</layout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareparent.ui.dashboard.payment.PaymentViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+                android:id="@+id/paymentTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_4"
+                android:background="@color/white"
+                android:elevation="@dimen/space_4"
+                app:layout_constraintBottom_toTopOf="@+id/viewpager_post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="@dimen/space_4"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/colorTextLight"
+                app:tabTextAppearance="@style/tabfontstyle" />
+
+        <FrameLayout
+                android:id="@+id/viewpager_post"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/paymentTabs" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/selectMealContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="@{viewModel.studentName}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/foodItemTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:hint="Food Item "
+                android:padding="@dimen/space_8"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/amountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:hint="Amount "
+                android:padding="@dimen/space_8"
+                android:textSize="@dimen/space_12" />
+
+            <TextView
+                android:id="@+id/unitTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:hint="unit "
+                android:padding="@dimen/space_8"
+                android:textSize="@dimen/text_size_12" />
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/consumeAmountTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_5"
+                android:backgroundTint="@color/colorPrimary"
+                android:clickable="false"
+                android:drawablePadding="@dimen/space_16"
+                android:editable="false"
+                android:enabled="false"
+                android:gravity="center"
+                android:hint="Consume Amount "
+                android:inputType="text"
+                android:maxLength="3"
+                android:textAlignment="center"
+                android:textSize="@dimen/space_12"
+                android:visibility="gone" />
+
+
+            <!--
+            <org.angmarch.views.NiceSpinner
+                    android:id="@+id/food_spinner_options"
+                    android:entries="@array/qty_dropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:textSize="@dimen/space_12"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                       </org.angmarch.views.NiceSpinner>
+                    -->
+
+            <TextView
+                android:id="@+id/food_spinner_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_2"
+                android:gravity="center"
+                android:padding="@dimen/space_8"
+                android:textSize="@dimen/text_size_12" />
+
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

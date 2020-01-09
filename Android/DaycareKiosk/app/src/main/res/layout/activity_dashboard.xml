@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daycare.kiosk.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:paddingBottom="@dimen/space_30"
+        tools:context=".ui.dashboard.DashboardActivity">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/logodayhcare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread" />
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1"
+            android:layout_marginTop="32dp"
+            android:background="@color/border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <com.daycare.kiosk.utill.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/images"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/welcometxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/font_regular"
+            android:text="Welcome,"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_24"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/nameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/font_medium"
+            android:text=""
+            android:textColor="@color/colorBtnText"
+            android:textSize="34sp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView"
+            app:layout_constraintTop_toBottomOf="@+id/welcometxt" />
+
+        <TextView
+            android:id="@+id/dayTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/font_regular"
+            android:text="28"
+            android:textColor="@color/colorBtnText"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintStart_toEndOf="@+id/view3"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <TextView
+            android:id="@+id/monthTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/font_regular"
+            android:text="February 2019"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_25"
+            app:layout_constraintBottom_toTopOf="@+id/weekDayTxt"
+            app:layout_constraintStart_toEndOf="@+id/dayTxt"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/weekDayTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/font_regular"
+            android:text="Thursday"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_25"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintStart_toEndOf="@+id/dayTxt"
+            app:layout_constraintTop_toBottomOf="@+id/monthTxt" />
+
+
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/font_regular"
+            android:text="08:32"
+            android:textColor="@color/colorBtnText"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view4"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_1"
+            android:layout_marginTop="16dp"
+            android:background="@color/border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
+            app:layout_constraintStart_toEndOf="@+id/monthTxt"
+            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="18dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/space_24"
+            android:paddingEnd="@dimen/space_20"
+            android:paddingBottom="@dimen/space_30"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/space_100"
+            android:paddingEnd="@dimen/space_100"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+            <Button
+                android:id="@+id/enterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_btn"
+                android:paddingStart="@dimen/space_100"
+
+                android:paddingEnd="@dimen/space_100"
+                android:text="@string/checkin_checkout"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            <!--android:onClick="@{viewModel::onClickCheckInBtn}"-->
+
+            <Button
+                android:id="@+id/breakBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_30"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/rounded_btn"
+                android:paddingStart="@dimen/space_100"
+                android:paddingEnd="@dimen/space_100"
+                android:text="@string/breakin_out"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_24"
+                android:visibility="gone"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            <!--android:onClick="@{viewModel::onClickCheckInBtn}"-->
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/sign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/logOut"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_writing" />
+
+        <ImageButton
+            android:id="@+id/logOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/sign"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_logout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

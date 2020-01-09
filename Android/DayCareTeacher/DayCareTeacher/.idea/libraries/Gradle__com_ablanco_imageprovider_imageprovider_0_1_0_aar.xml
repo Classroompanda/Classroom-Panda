@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.ablanco.imageprovider:imageprovider:0.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/imageprovider-0.1.0.aar/7e5da3e31ac62d6ad8a00ab63b0a2af7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/imageprovider-0.1.0.aar/7e5da3e31ac62d6ad8a00ab63b0a2af7/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ablanco.imageprovider/imageprovider/0.1.0/7cca766888a01f74ea2616a3eae76fa3e1333458/imageprovider-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

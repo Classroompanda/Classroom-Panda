@@ -1,0 +1,1289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/parentLLyt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.dashboard.activities.AddDailySheetActivity">
+
+                <!--<FrameLayout-->
+                <!--android:id="@+id/parentFrame"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
+
+                <ScrollView
+                    android:id="@+id/dailysheetScroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_marginTop="@dimen/space_25"
+                        android:layout_marginEnd="@dimen/space_10"
+                        android:paddingTop="@dimen/space_10">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cardView7"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            app:cardCornerRadius="@dimen/space_16"
+                            app:cardElevation="@dimen/space_8"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingTop="@dimen/space_10"
+                                        android:paddingBottom="@dimen/space_10"
+                                        android:weightSum="3">
+
+                                        <LinearLayout
+                                            android:id="@+id/activityLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:paddingLeft="@dimen/space_4">
+
+                                            <ImageButton
+                                                android:id="@+id/activityBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                app:srcCompat="@mipmap/activity" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Activity"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/mealLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/mealBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                android:src="@mipmap/meal_gray" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Meal"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/healthLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/healthBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                android:src="@drawable/health_selector" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Health"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        android:paddingBottom="@dimen/space_10"
+                                        android:weightSum="3">
+
+                                        <LinearLayout
+                                            android:id="@+id/notesLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/notesBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                android:src="@drawable/notes_selector" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Notes"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/moodLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/moodBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                app:srcCompat="@mipmap/happy_gray" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Mood"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/napLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/napBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                app:srcCompat="@mipmap/nap_gray" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Nap"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+
+                                        android:paddingBottom="@dimen/space_20"
+                                        android:weightSum="3">
+
+                                        <LinearLayout
+                                            android:id="@+id/diaperLyt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <ImageButton
+                                                android:id="@+id/diaperBtn"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                android:src="@drawable/diaper_selector" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Toileting"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/moodLyt1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:visibility="invisible">
+
+                                            <ImageButton
+                                                android:id="@+id/moodBtn1"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                app:srcCompat="@mipmap/happy_gray" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Mood"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/napLyt1"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:visibility="invisible">
+
+                                            <ImageButton
+                                                android:id="@+id/napBtn1"
+                                                android:layout_width="40dp"
+                                                android:layout_height="40dp"
+                                                android:adjustViewBounds="true"
+                                                android:background="@null"
+                                                android:scaleType="fitCenter"
+                                                app:srcCompat="@mipmap/nap_gray" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:paddingTop="@dimen/space_4"
+                                                android:text="Nap"
+                                                android:textSize="@dimen/text_size_16"></TextView>
+
+                                        </LinearLayout>
+
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <!-- <ImageView
+                                         android:layout_width="36dp"
+                                         android:layout_height="53dp" app:srcCompat="@drawable/ic_da_food"
+                                         tools:layout_editor_absoluteY="25dp" tools:layout_editor_absoluteX="108dp"
+                                         android:id="@+id/imageView11"/>-->
+                            </android.support.constraint.ConstraintLayout>
+                        </android.support.v7.widget.CardView>
+
+                        <LinearLayout
+                            android:id="@+id/dataLyt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/space_10"
+                            app:layout_constraintTop_toBottomOf="@+id/cardView7">
+
+                            <!--Mood Layout-->
+                            <LinearLayout
+                                android:id="@+id/moodFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_50"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/descriptionTxt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingTop="@dimen/space_4"
+                                    android:text="My Mood was"
+                                    android:textSize="@dimen/text_size_16"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <LinearLayout
+                                    android:id="@+id/moodDescLyt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:paddingTop="@dimen/space_4"
+                                    android:weightSum="5">
+
+                                    <LinearLayout
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingTop="10dp">
+
+                                        <ImageButton
+                                            android:id="@+id/moodhappyIV"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:adjustViewBounds="true"
+                                            android:background="@null"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@mipmap/happy" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingTop="@dimen/space_4"
+                                            android:text="Happy"
+                                            android:textSize="@dimen/text_size_16"></TextView>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingTop="10dp">
+
+                                        <ImageButton
+                                            android:id="@+id/sadhappyIV"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:adjustViewBounds="true"
+                                            android:background="@null"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@mipmap/crying_gray" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingTop="@dimen/space_4"
+                                            android:text="Sad"
+                                            android:textSize="@dimen/text_size_16"></TextView>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingTop="10dp">
+
+                                        <ImageButton
+                                            android:id="@+id/moodnapIV"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:adjustViewBounds="true"
+                                            android:background="@null"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@mipmap/ic_playfullgray" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingTop="@dimen/space_4"
+                                            android:text="Playful"
+                                            android:textSize="@dimen/text_size_16"></TextView>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingTop="10dp"
+                                        android:visibility="visible">
+
+                                        <ImageButton
+                                            android:id="@+id/moodgrumpyIV"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:adjustViewBounds="true"
+                                            android:background="@null"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@mipmap/grumpy_gray" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingTop="@dimen/space_4"
+                                            android:text="Grumpy"
+                                            android:textSize="@dimen/text_size_16"></TextView>
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:paddingTop="10dp"
+                                        android:visibility="visible">
+
+                                        <ImageButton
+                                            android:id="@+id/moodfussyIV"
+                                            android:layout_width="40dp"
+                                            android:layout_height="40dp"
+                                            android:adjustViewBounds="true"
+                                            android:background="@null"
+                                            android:scaleType="fitCenter"
+                                            app:srcCompat="@mipmap/fussy_gray" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:paddingTop="@dimen/space_4"
+                                            android:text="Fussy"
+                                            android:textSize="@dimen/text_size_16"></TextView>
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/atTimeHeader"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Comment"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/moodDescEdtTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:hint="Enter comment"
+                                    android:inputType="textPersonName"
+                                    android:text="@={viewModel.moodDesc}"
+                                    android:textSize="@dimen/text_size_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+                            </LinearLayout>
+                            <!--End of Mood Layout-->
+
+                            <!--Activiyt Layout-->
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:id="@+id/activityFrameLyt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:visibility="visible">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/space_10"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="8dp"
+                                                android:text="Start Time"
+                                                android:textSize="@dimen/text_size_16">
+
+                                            </TextView>
+
+                                            <android.support.design.widget.TextInputEditText
+                                                android:id="@+id/atTimeActivityEdtTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:backgroundTint="@color/colorPrimary"
+                                                android:cursorVisible="false"
+                                                android:drawableEnd="@drawable/ic_clock"
+                                                android:drawablePadding="@dimen/space_16"
+                                                android:focusable="false"
+                                                android:hint="Select time"
+                                                android:inputType="textPersonName"
+                                                android:onClick="@{viewModel::onClickActivityStartTime}"
+                                                android:text="@={viewModel.activityStartTime}"
+                                                android:textSize="@dimen/text_size_16">
+
+                                            </android.support.design.widget.TextInputEditText>
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="8dp"
+                                                android:text="End Time"
+                                                android:textSize="@dimen/text_size_16">
+
+                                            </TextView>
+
+                                            <android.support.design.widget.TextInputEditText
+                                                android:id="@+id/toTimeActivityEdtTxt"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:backgroundTint="@color/colorPrimary"
+                                                android:cursorVisible="false"
+                                                android:drawableEnd="@drawable/ic_clock"
+                                                android:drawablePadding="@dimen/space_16"
+                                                android:focusable="false"
+                                                android:hint="Select time"
+                                                android:inputType="textPersonName"
+                                                android:onClick="@{viewModel::onClickActivityEndTime}"
+                                                android:text="@={viewModel.activityEndTime}"
+                                                android:textSize="@dimen/text_size_16">
+
+                                            </android.support.design.widget.TextInputEditText>
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+
+                                    <TextView
+                                        android:id="@+id/activitydescriptionTxt"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:paddingTop="@dimen/space_4"
+                                        android:text="Activity Notes"
+                                        android:textSize="@dimen/space_16"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintHorizontal_bias="0.0"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/activityDescEdtTxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:backgroundTint="@color/colorPrimary"
+                                        android:hint="Enter description"
+                                        android:inputType="text"
+                                        android:lines="7"
+                                        android:scrollHorizontally="true"
+                                        android:text="@={viewModel.activityDesc}"
+                                        android:textSize="@dimen/text_size_16">
+
+                                    </android.support.design.widget.TextInputEditText>
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/daily_sheet_suggestion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:clipToPadding="false"
+                                        android:nestedScrollingEnabled="false"
+                                        android:paddingBottom="@dimen/space_75"
+                                        android:visibility="gone"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent" />
+
+                                    <include
+                                        android:id="@+id/activitySuggestions"
+                                        layout="@layout/custom_activity_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="@dimen/space_10" />
+                                    <!--<LinearLayout-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_marginBottom="@dimen/space_60"-->
+                                    <!--android:orientation="horizontal"-->
+                                    <!--android:scrollbars="vertical">-->
+                                    <!--<Button-->
+                                    <!--android:id="@+id/cryingSuggestion"-->
+                                    <!--android:text="Crying"-->
+                                    <!--android:textAllCaps="false"-->
+                                    <!--android:background="@drawable/shape"-->
+                                    <!--android:textColor="@color/white"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:textSize="@dimen/text_size_10"-->
+                                    <!--android:layout_marginEnd="@dimen/space_4"-->
+                                    <!--android:layout_width="wrap_content"/>-->
+                                    <!--<Button-->
+                                    <!--android:id="@+id/playingSuggestion"-->
+                                    <!--android:text="Playing"-->
+                                    <!--android:textAllCaps="false"-->
+                                    <!--android:background="@drawable/shape"-->
+                                    <!--android:textColor="@color/white"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:textSize="@dimen/text_size_10"-->
+                                    <!--android:layout_marginEnd="@dimen/space_4"-->
+                                    <!--android:layout_width="wrap_content"/>-->
+                                    <!--<Button-->
+                                    <!--android:id="@+id/playingoutsideSuggestion"-->
+                                    <!--android:text="Playing Outside"-->
+                                    <!--android:padding="@dimen/space_8"-->
+                                    <!--android:textAllCaps="false"-->
+                                    <!--android:background="@drawable/shape"-->
+                                    <!--android:textColor="@color/white"-->
+                                    <!--android:textSize="@dimen/text_size_10"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:layout_width="wrap_content"/>-->
+                                    <!--</LinearLayout>-->
+
+
+                                </LinearLayout>
+                            </ScrollView>
+                            <!--End of Activity Layout-->
+
+                            <!--Health Lyt-->
+                            <LinearLayout
+                                android:id="@+id/healthFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_50"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Add Temperature(F) "
+                                    android:textSize="@dimen/text_size_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tempEdtTxt"
+                                    android:layout_width="150dp"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:hint="Enter temp"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="5"
+                                    android:text="@={viewModel.healthTemp}"
+                                    android:textSize="@dimen/space_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Health Note* "
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/healthDescTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:hint="Enter Health Note"
+                                    android:inputType="text"
+                                    android:lines="4"
+                                    android:scrollbars="vertical"
+                                    android:text="@={viewModel.healthNote}"
+                                    android:textSize="@dimen/space_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+
+                            </LinearLayout>
+                            <!--End of HealthLyt-->
+
+                            <!--Note Lyt-->
+                            <LinearLayout
+                                android:id="@+id/notesFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_50"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Notes if any* "
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/notesDescTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:hint="Enter notes if any"
+                                    android:inputType="text"
+                                    android:lines="4"
+                                    android:scrollbars="vertical"
+                                    android:text="@={viewModel.notesDesc}"
+                                    android:textSize="@dimen/space_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+
+                            </LinearLayout>
+                            <!--End of NoLyt-->
+
+                            <!--Nap Layout-->
+                            <LinearLayout
+                                android:id="@+id/napFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_50"
+                                android:visibility="gone">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="@dimen/space_10"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:text="Sleep At Time"
+                                            android:textSize="@dimen/space_16">
+
+                                        </TextView>
+
+                                        <android.support.design.widget.TextInputEditText
+                                            android:id="@+id/napStartTimeEdtTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:backgroundTint="@color/colorPrimary"
+                                            android:cursorVisible="false"
+                                            android:drawableEnd="@drawable/ic_clock"
+                                            android:drawablePadding="@dimen/space_16"
+                                            android:focusable="false"
+                                            android:hint="Enter time"
+                                            android:inputType="textPersonName"
+                                            android:onClick="@{viewModel::onClickActivityEndTime}"
+                                            android:text="@={viewModel.napStartTime}"
+                                            android:textSize="@dimen/space_16">
+
+
+                                        </android.support.design.widget.TextInputEditText>
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:text="Woke-up Time"
+                                            android:textSize="@dimen/space_16">
+
+                                        </TextView>
+
+                                        <android.support.design.widget.TextInputEditText
+                                            android:id="@+id/napEndTimeEdtTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:backgroundTint="@color/colorPrimary"
+                                            android:cursorVisible="false"
+                                            android:drawableEnd="@drawable/ic_clock"
+                                            android:drawablePadding="@dimen/space_16"
+                                            android:focusable="false"
+                                            android:hint="Enter time"
+                                            android:inputType="textPersonName"
+                                            android:onClick="@{viewModel::onClickActivityEndTime}"
+                                            android:text="@={viewModel.napEndTime}"
+                                            android:textSize="@dimen/space_16">
+
+                                        </android.support.design.widget.TextInputEditText>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Description"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/napdescriptionTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_5"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:drawablePadding="@dimen/space_16"
+                                    android:hint="Enter description "
+                                    android:inputType="textPersonName"
+                                    android:text="@={viewModel.napDescription}"
+                                    android:textSize="@dimen/space_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+
+                            </LinearLayout>
+                            <!--End of Nap Layout-->
+
+
+                            <!--Meal Layout-->
+                            <LinearLayout
+                                android:id="@+id/mealFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_100"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Select Meal Plan"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <org.angmarch.views.NiceSpinner
+                                    android:id="@+id/mealPlanSpinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/space_48"
+                                    android:entries="@array/class_name"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/selectMealContainer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center_vertical"
+                                        android:orientation="horizontal"
+                                        android:textAlignment="center"
+                                        android:weightSum="4"
+                                        tools:ignore="MissingConstraints">
+
+                                        <TextView
+                                            android:id="@+id/foodItemTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/space_5"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:padding="@dimen/space_10"
+                                            android:text="Food Item "
+                                            android:textSize="@dimen/space_12" />
+
+                                        <TextView
+                                            android:id="@+id/amountTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/space_5"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:padding="@dimen/space_10"
+                                            android:text="Amount "
+                                            android:textSize="@dimen/space_12" />
+
+                                        <TextView
+                                            android:id="@+id/unitTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/space_5"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:padding="@dimen/space_10"
+                                            android:text="Unit"
+                                            android:textSize="@dimen/space_12" />
+
+                                        <TextView
+                                            android:id="@+id/consumeTxt"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/space_5"
+                                            android:layout_weight="1"
+                                            android:gravity="center"
+                                            android:padding="@dimen/space_10"
+                                            android:text="Consume"
+                                            android:textSize="@dimen/space_12" />
+
+
+                                    </LinearLayout>
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.v7.widget.RecyclerView
+                                    android:id="@+id/recentMealRv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:background="@android:color/transparent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/mealPlanSpinner" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Other Than Meal Plan"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <EditText
+                                    android:id="@+id/mealdescriptionTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="top|left"
+                                    android:hint="Enter Other Than Meal Plan "
+                                    android:inputType="textMultiLine"
+                                    android:lines="2"
+                                    android:maxLines="2"
+                                    android:minLines="2"
+                                    android:scrollbars="vertical"
+                                    android:text="@={viewModel.otherThanMeal}"
+                                    android:textSize="@dimen/space_16">
+
+                                </EditText>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Other Than Meal Plan Comment"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <EditText
+                                    android:id="@+id/othermealcommentTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="top|left"
+                                    android:hint="Enter Other Than Meal Plan Comment "
+                                    android:inputType="textMultiLine"
+                                    android:lines="2"
+                                    android:maxLines="2"
+                                    android:minLines="2"
+                                    android:scrollbars="vertical"
+                                    android:text="@={viewModel.otherThanMealComment}"
+                                    android:textSize="@dimen/space_16" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Comment"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <EditText
+                                    android:id="@+id/mealcommentTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:gravity="top|left"
+                                    android:hint="Enter Comment "
+                                    android:inputType="textMultiLine"
+                                    android:lines="2"
+                                    android:maxLines="2"
+                                    android:minLines="2"
+                                    android:scrollbars="vertical"
+                                    android:text="@={viewModel.mealComment}"
+                                    android:textSize="@dimen/space_16">
+
+                                </EditText>
+
+
+                            </LinearLayout>
+                            <!--End of Meal Layout-->
+
+                            <!--Diaper Layout-->
+                            <LinearLayout
+                                android:id="@+id/diaperFrameLyt"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/space_50"
+                                android:visibility="gone">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginRight="@dimen/space_10"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:text="Diaper Change Time"
+                                            android:textSize="@dimen/space_16">
+
+                                        </TextView>
+
+                                        <android.support.design.widget.TextInputEditText
+                                            android:id="@+id/diaperChangeTimeEdtTxt"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:backgroundTint="@color/colorPrimary"
+                                            android:cursorVisible="false"
+                                            android:drawableEnd="@drawable/ic_clock"
+                                            android:drawablePadding="@dimen/space_15"
+                                            android:focusable="false"
+                                            android:hint="Enter time"
+                                            android:inputType="textPersonName"
+                                            android:onClick="@{viewModel::onClickActivityEndTime}"
+                                            android:text="@={viewModel.diaperChangeTime}"
+                                            android:textSize="@dimen/space_16">
+
+
+                                        </android.support.design.widget.TextInputEditText>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Description"
+                                    android:textSize="@dimen/space_16">
+
+                                </TextView>
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/diaperdescriptionTxt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_5"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:drawablePadding="@dimen/space_16"
+                                    android:hint="Enter description "
+                                    android:inputType="textMultiLine"
+                                    android:lines="3"
+                                    android:maxLines="3"
+                                    android:text="@={viewModel.diaperDescription}"
+                                    android:textSize="@dimen/space_16">
+
+                                </android.support.design.widget.TextInputEditText>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/space_40"
+                                    android:orientation="horizontal"
+                                    android:scrollbars="vertical"
+                                    android:weightSum="1">
+
+                                    <Button
+                                        android:id="@+id/diaperSuggestion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/space_4"
+                                        android:layout_weight="0.20"
+                                        android:background="@drawable/shape"
+                                        android:text="Diaper"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_10" />
+
+                                    <Button
+                                        android:id="@+id/toiletSuggestion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/space_4"
+                                        android:layout_weight="0.20"
+                                        android:background="@drawable/shape"
+                                        android:text="Toilet"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_10" />
+
+                                    <Button
+                                        android:id="@+id/wetSuggestion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/space_4"
+                                        android:layout_weight="0.20"
+                                        android:background="@drawable/shape"
+                                        android:padding="@dimen/space_8"
+                                        android:text="Wet"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_10" />
+
+                                    <Button
+                                        android:id="@+id/bmSuggestion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/space_4"
+                                        android:layout_weight="0.20"
+                                        android:background="@drawable/shape"
+                                        android:padding="@dimen/space_8"
+                                        android:text="B/M"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_10" />
+
+                                    <Button
+                                        android:id="@+id/drySuggestion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="0.20"
+                                        android:background="@drawable/shape"
+                                        android:padding="@dimen/space_8"
+                                        android:text="Dry"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/text_size_10" />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                            <!--End of Diaper Layout-->
+
+
+                        </LinearLayout>
+
+
+                    </android.support.constraint.ConstraintLayout>
+                </ScrollView>
+                <!--</FrameLayout>-->
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_30"
+                    android:layout_marginRight="@dimen/space_30"
+                    android:background="@drawable/rounded_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:onClick="@{viewModel::onClickAddDSBtn}"
+                    android:text="Add Activity"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dailysheetScroll" />
+            </android.support.constraint.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</layout>

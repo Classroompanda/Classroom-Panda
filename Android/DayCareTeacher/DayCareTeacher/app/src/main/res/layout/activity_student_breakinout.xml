@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.ui.dashboard.fragments.attendence.AttendanceViewModel"/>
+    </data>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <include
+                    android:id="@+id/include"
+                    layout="@layout/toolbar"
+                    app:layout_constraintBottom_toTopOf="@+id/cardView5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <RelativeLayout
+                    android:id="@+id/cardView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5"
+                    app:layout_constraintTop_toBottomOf="@+id/include"
+                    android:padding="@dimen/space_5">
+
+                <!--   <RelativeLayout
+                           android:id="@+id/headerLayout"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+                       <TextView
+                               android:id="@+id/txtUsername"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginStart="@dimen/space_10"
+                               android:text="@string/app_name"
+                               android:textSize="@dimen/space_16"
+                               android:textColor="@color/colorTextLight"
+                               android:textStyle="bold"/>
+
+                       <TextView
+                               android:id="@+id/txtDate"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_below="@id/txtUsername"
+                               android:layout_marginStart="@dimen/space_10"
+                               android:text="@string/app_name"
+                               android:textColor="@color/colorTextExtraLight"
+                               android:textSize="@dimen/text_size_12"/>
+
+                    &lt;!&ndash;   <TextView
+                               android:id="@+id/txtUsername"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginStart="@dimen/space_10"
+                               android:layout_toRightOf="@id/userProfilePic"
+                               android:text="@string/app_name"
+                               android:textSize="@dimen/space_16"
+                               android:textColor="@color/colorTextLight"
+                               android:textStyle="bold"/>
+
+                       <TextView
+                               android:id="@+id/txtDate"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_below="@id/txtUsername"
+                               android:layout_marginStart="@dimen/space_10"
+                               android:layout_toRightOf="@id/userProfilePic"
+                               android:text="@string/app_name"
+                               android:textColor="@color/colorTextExtraLight"
+                               android:textSize="@dimen/text_size_12"/>&ndash;&gt;
+
+
+
+
+                   </RelativeLayout>-->
+
+
+                <RelativeLayout
+                        android:id="@+id/headerLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                    <!--  <ImageView
+                              android:id="@+id/userProfilePic"
+                              android:layout_width="@dimen/image_width"
+                              android:layout_height="@dimen/image_height"
+                              android:layout_gravity="center_horizontal"
+                              android:scaleType="fitCenter"
+                              android:src="@drawable/ic_placeholder"/>-->
+                    <ImageView
+                            android:id="@+id/userProfilePic"
+                            android:layout_width="@dimen/image_width"
+                            android:layout_height="@dimen/image_height"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:src="@drawable/ic_placeholder"/>
+
+                    <TextView
+                            android:id="@+id/txtUsername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_10"
+                            android:layout_toRightOf="@id/userProfilePic"
+                            android:text="@string/app_name"
+                            android:textSize="@dimen/space_16"
+                            android:textColor="@color/colorTextLight"
+                            android:textStyle="bold"/>
+
+                    <TextView
+                            android:id="@+id/txtDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtUsername"
+                            android:layout_marginStart="@dimen/space_10"
+                            android:layout_toRightOf="@id/userProfilePic"
+                            android:text="@string/app_name"
+                            android:textColor="@color/colorTextExtraLight"
+                            android:textSize="@dimen/text_size_12"/>
+
+
+                </RelativeLayout>
+
+
+                <!--  <com.mikhaellopez.circularimageview.CircularImageView
+                          android:id="@+id/userProfilePic"
+                          android:layout_width="@dimen/image_width"
+                          android:layout_height="@dimen/image_height"
+                          android:layout_gravity="center_horizontal"
+                          android:src="@drawable/ic_placeholder"
+                  />-->
+
+                <View
+                        android:id="@+id/mView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_1"
+                        android:layout_below="@id/headerLayout"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:background="@color/gray"/>
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/studentBreakReportRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingTop="@dimen/space_10"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_below="@id/mView"
+                        android:paddingBottom="@dimen/space_40"
+                        android:visibility="gone"
+                        android:scrollbarStyle="outsideOverlay"
+                        android:scrollbars="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                />
+
+
+            </RelativeLayout>
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:id="@+id/txtError"
+                    android:text="No record Found"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:onClick="@{viewModel::onClickAddBreakFab}"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/fab_add"/>
+    </FrameLayout>
+
+
+</layout>

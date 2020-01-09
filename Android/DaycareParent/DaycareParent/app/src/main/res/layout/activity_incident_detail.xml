@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+     <data>
+
+         <variable
+             name="viewModel"
+             type="com.daycare.daycareparent.ui.dashboard.fragments.incident.IncidentViewModel" />
+     </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        tools:context=".ui.dashboard.addchildform.AddFormActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/includeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/gradient_toolbar_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/headerTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Incident Details"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_19" />
+        </android.support.v7.widget.Toolbar>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_8">
+
+                <TextView
+                    android:id="@+id/begins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Class Name"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/ends"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Student Name"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/begins"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/involveParttxttxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/begins" />
+
+                <TextView
+                    android:id="@+id/studentNametxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/begins"
+                    app:layout_constraintTop_toBottomOf="@+id/ends" />
+
+                <TextView
+                    android:id="@+id/beginsT"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Reported By"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/involveParttxttxt" />
+
+                <TextView
+                    android:id="@+id/endsT"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Place Of Incident"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/beginsT"
+                    app:layout_constraintTop_toBottomOf="@+id/studentNametxt" />
+
+                <TextView
+                    android:id="@+id/reportedBytxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beginsT" />
+
+                <TextView
+                    android:id="@+id/placeOfIncidenttxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/reportedBytxt"
+                    app:layout_constraintTop_toBottomOf="@+id/endsT" />
+
+
+
+                <TextView
+                    android:id="@+id/natureofInjury"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Nature Of Injury"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reportedBytxt" />
+
+                <TextView
+                    android:id="@+id/bodyPart"
+                    android:layout_width="0dp"
+                    android:layout_height="23dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Part Of Body"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/natureofInjury"
+                    app:layout_constraintTop_toBottomOf="@+id/placeOfIncidenttxt" />
+
+                <TextView
+                    android:id="@+id/natureofinjurytxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/natureofInjury" />
+
+                <TextView
+                    android:id="@+id/bodyParttxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/natureofinjurytxt"
+                    app:layout_constraintTop_toBottomOf="@+id/bodyPart" />
+
+
+
+
+
+                <TextView
+                    android:id="@+id/contextEnvior"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Context Enviorment"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/natureofinjurytxt" />
+
+                <TextView
+                    android:id="@+id/contextChild"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Context Child"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/contextEnvior"
+                    app:layout_constraintTop_toBottomOf="@+id/bodyParttxt" />
+
+                <TextView
+                    android:id="@+id/contextEnviortxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contextEnvior" />
+
+                <TextView
+                    android:id="@+id/contextChildtxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/contextEnviortxt"
+                    app:layout_constraintTop_toBottomOf="@+id/contextChild" />
+
+
+
+
+
+
+                <TextView
+                    android:id="@+id/firstAid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="First Aid Administered By"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contextEnviortxt" />
+
+                <TextView
+                    android:id="@+id/docReq"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Doctor Required"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/firstAid"
+                    app:layout_constraintTop_toBottomOf="@+id/contextChildtxt" />
+
+                <TextView
+                    android:id="@+id/firstAidtxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/firstAid" />
+
+                <TextView
+                    android:id="@+id/docReqtxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/contextEnviortxt"
+                    app:layout_constraintTop_toBottomOf="@+id/docReq" />
+
+
+
+                <TextView
+                    android:id="@+id/incedentDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Date Of Incident"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/firstAidtxt" />
+
+                <TextView
+                    android:id="@+id/incedentTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Time Of Incident"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/incedentDate"
+                    app:layout_constraintTop_toBottomOf="@+id/docReqtxt" />
+
+                <TextView
+                    android:id="@+id/incedentDatetxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/incedentDate" />
+
+                <TextView
+                    android:id="@+id/incedentTimetxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/incedentDatetxt"
+                    app:layout_constraintTop_toBottomOf="@+id/incedentTime" />
+
+                <!--New Fileds-->
+
+                <TextView
+                    android:id="@+id/wasInform"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Was Parent Informed?"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/incedentDatetxt" />
+
+                <TextView
+                    android:id="@+id/informBy"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Parent Informed By"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/wasInform"
+                    app:layout_constraintTop_toBottomOf="@+id/incedentTimetxt" />
+
+                <TextView
+                    android:id="@+id/wasInformtxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wasInform" />
+
+                <TextView
+                    android:id="@+id/informBytxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/wasInformtxt"
+                    app:layout_constraintTop_toBottomOf="@+id/informBy" />
+
+                <!--End of New fields-->
+
+
+
+
+
+
+
+
+                <TextView
+                    android:id="@+id/involvePart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Involve Participants"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/wasInformtxt" />
+
+
+
+                <!--<TextView
+                    android:id="@+id/involveParttxt"
+                    android:layout_width="395dp"
+                    android:layout_height="15dp"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="131dp"
+                    app:layout_constraintTop_toBottomOf="@+id/involvePart"/>-->
+
+                <TextView
+                    android:id="@+id/involveParttxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="131dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/involvePart" />
+
+
+
+                <TextView
+                    android:id="@+id/descr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Description"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/involveParttxt" />
+
+                <TextView
+                    android:id="@+id/descrtxt"
+                    android:layout_width="0dp"
+                    android:layout_height="19dp"
+
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/descr" />
+
+                <TextView
+                    android:id="@+id/actionTaken"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Action Taken"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/descrtxt" />
+
+                <TextView
+                    android:id="@+id/actionTakentxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/actionTaken" />
+
+                <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Comment"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/actionTakentxt" />
+
+                <EditText
+                    android:id="@+id/commentText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:focusedByDefault="false"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+
+             <!--   <CheckBox
+                    android:id="@+id/statusBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:gravity="left"
+                    android:background="@drawable/checkboxselector"
+                    android:button="@null"
+                    android:layout_marginLeft="@dimen/space_20"
+                    android:padding="@dimen/space_10"
+                    android:text="Acknowledge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentText"
+                    android:layout_marginEnd="8dp"/>-->
+
+                <LinearLayout
+                   android:id="@+id/checkLyt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentText"
+                     >
+                    <CheckBox
+                        android:id="@+id/isAcknowledge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:buttonTint="@color/colorPrimary"
+                        android:layout_weight="4.5" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Acknowledge" />
+
+
+
+                </LinearLayout>
+
+
+
+
+                <Button
+                    android:id="@+id/btnUpdateIncident"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/rounded_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:onClick="@{viewModel::onClickUpdateIncidentBtn}"
+                    android:text="@string/update_incident"
+                    android:textColor="@color/colorBtnText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkLyt"/>
+              <!--  android:onClick="@{viewModel::onClickUpdateIncidentBtn}"-->
+
+
+
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.model.HealthModel.Data" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--Health Lyt-->
+        <LinearLayout
+            android:id="@+id/healthEditLyt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10"
+            android:paddingBottom="@dimen/space_40"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Add Temperature(in fahrenheit) "
+                android:textSize="@dimen/text_size_16">
+
+            </TextView>
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/tempEditEdtTxt"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="false"
+                android:enabled="false"
+                android:hint="Enter Temp"
+                android:inputType="numberDecimal"
+                android:maxLength="5"
+                android:text="@{viewModel.recordedTemparture.toString()}"
+                android:textSize="@dimen/text_size_16">
+
+            </android.support.design.widget.TextInputEditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Health Note* "
+                android:textSize="@dimen/text_size_16">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/healthEditDescTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:clickable="false"
+                android:ems="8"
+                android:enabled="false"
+                android:hint="Enter Health Note"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:text="@{viewModel.studentHealthDescription}"
+                android:textSize="@dimen/text_size_16">
+
+            </EditText>
+
+            <LinearLayout
+                android:id="@+id/medicationCardData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Medicine Name "
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/medicineNameEdtTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_gray"
+                    android:enabled="false"
+                    android:hint="Medicine Name"
+                    android:inputType="text"
+                    android:text="@{viewModel.studentMedicationName}"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="How To Take "
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/howtotakeNameEdtTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_gray"
+                    android:enabled="false"
+                    android:hint="How Taken"
+                    android:inputType="text"
+                    android:text="@{viewModel.howTaken}"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Dosage "
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/dosageEdtTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_gray"
+                    android:enabled="false"
+                    android:hint="Dosage"
+                    android:inputType="text"
+                    android:text="@{viewModel.doseRepeatName}"
+                    android:textSize="@dimen/text_size_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Unit "
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/unitEdtTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_gray"
+                    android:enabled="false"
+                    android:hint="Unit"
+                    android:inputType="text"
+                    android:text="@{viewModel.unit.toString()}"
+                    android:textSize="@dimen/text_size_16" />
+
+                <CheckBox
+                    android:id="@+id/acknowledge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Acknowledge"
+                    android:textColor="@color/colorTextLight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnCCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:background="@drawable/btn_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Ok"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBtnText" />
+
+                <Button
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/spinner_background"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorBtnText"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <!--End of HealthLyt-->
+    </ScrollView>
+
+
+</layout>

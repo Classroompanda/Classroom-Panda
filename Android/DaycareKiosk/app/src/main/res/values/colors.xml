@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#58A7FE</color>
+    <color name="colorPrimaryDark">#0079ca</color>
+    <color name="colorAccent">#58A7FE</color>
+    <color name="colorError">#E45641</color>
+    <color name="colorPresent">#59be83</color>
+    <color name="colorAbsent">#FF6C6C</color>
+    <color name="colorShadow">#c4c4c4</color>
+    <color name="colorBackground">#F5F5F5</color>
+    <color name="colorBackgroundWhite">#FFFFFF</color>
+    <color name="pin_normal">#6B767E</color>
+    <!--TEXT COLOR-->
+    <color name="colorText">#000000</color>
+    <color name="colorTextLight">#707070</color>
+    <color name="colorTextExtraLight">#B0B6BC</color>
+    <color name="colorBtnText">#FFFFFF</color>
+    <!--Button Color-->
+    <color name="colorBtnCancel">#B5B5B5</color>
+    <color name="colorCheckout">#FF6C6C</color>
+    <color name="colorDisable">#E6E6E6</color>
+
+    <color name="colorLightGray">#c4c4c4</color>
+    <color name="gray">#cccccc</color>
+    <color name="border">#A1C7F0</color>
+
+
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/activityContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:paddingStart="@dimen/space_16"
+        android:onClick="@{viewModel::onClickDSEditBtn}"
+        android:paddingEnd="@dimen/space_16">
+
+        <ImageView
+            android:id="@+id/activity_IV"
+            android:layout_width="@dimen/space_48"
+            android:layout_height="@dimen/space_48"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_da_time" />
+
+
+        <com.daycare.daycareparent.utill.MyRegularTextView
+            android:id="@+id/activityName"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="Dipper Change"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toTopOf="@+id/scheduleTime"
+            app:layout_constraintStart_toEndOf="@+id/activity_IV"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.daycare.daycareparent.utill.MyRegularTextView
+            android:id="@+id/scheduleTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="9:00 am - 9:45 am"
+            android:textColor="@color/colorTextExtraLight"
+            android:textSize="@dimen/text_size_12"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/activityStatus"
+            app:layout_constraintStart_toEndOf="@+id/activity_IV"
+            app:layout_constraintTop_toBottomOf="@+id/activityName" />
+
+        <com.daycare.daycareparent.utill.MyLightTextView
+            android:id="@+id/activityStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="16dp"
+            android:text="completed"
+            android:textColor="@color/colorPresent"
+            android:textSize="@dimen/text_size_12"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activity_IV"
+            app:layout_constraintTop_toBottomOf="@+id/activityName" />
+
+        <ImageButton
+            android:id="@+id/btn_ds_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="40dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/activityName"
+            app:srcCompat="@drawable/ic_view" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

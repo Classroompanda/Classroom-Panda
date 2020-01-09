@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/gradient_toolbar_background"
+        >
+
+        <com.daycare.daycareparent.utill.MyRegularTextView
+            android:id="@+id/headerTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_18"
+            />
+        <com.daycare.daycareparent.utill.MyRegularTextView
+            android:id="@+id/passChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:layout_gravity="end"
+            android:padding="@dimen/space_8"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_18"
+            android:visibility="gone"
+            />
+    </android.support.v7.widget.Toolbar>
+
+</layout>

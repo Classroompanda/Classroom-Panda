@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.model.EditMealModel.Data" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/mealEditLyt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_10"
+            android:paddingBottom="@dimen/space_40"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/mealFrameLyt"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Meal Plan"
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/mealPlanSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_48"
+                    android:background="@color/colorDisable"
+                    android:padding="@dimen/space_10" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/selectMealContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+
+                    <LinearLayout
+                        android:id="@+id/ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:textAlignment="center"
+                        android:weightSum="4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/foodItemTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_weight="1"
+                            android:padding="@dimen/space_10"
+                            android:text="Food Item "
+                            android:textSize="@dimen/text_size_12" />
+
+                        <TextView
+                            android:id="@+id/amountTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_weight="1"
+                            android:padding="@dimen/space_10"
+
+                            android:text="Amount "
+                            android:textSize="@dimen/text_size_12" />
+
+                        <TextView
+                            android:id="@+id/unitTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_weight="1"
+                            android:padding="@dimen/space_10"
+                            android:text="Unit"
+                            android:textSize="@dimen/text_size_12" />
+
+                        <TextView
+                            android:id="@+id/consumeTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_5"
+                            android:layout_weight="1"
+                            android:padding="@dimen/space_10"
+                            android:text="Consume"
+                            android:textSize="@dimen/text_size_12" />
+
+
+                    </LinearLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recentMealRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Other Than Meal Plan"
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/mealdescriptionTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:clickable="false"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModel.otherThanPlanMeal}"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Other Than Meal Plan Comment"
+                    android:textSize="@dimen/space_16">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/othermealcommentTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:clickable="false"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModel.otherThanPlanMealComment}"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Comment"
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/mealcommentTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:scrollbars="vertical"
+                    android:text="@={viewModel.mealComment}"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16">
+
+                </TextView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnCCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/btn_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="Ok"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText" />
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/btn_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="Save"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <data>
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.ui.dashboard.fragments.student.StudentViewModel"/>
+    </data>
+    <android.support.v7.widget.CardView
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_4"
+            android:onClick="@{viewModel::onClickStudentCard}"
+            app:cardCornerRadius="@dimen/space_8">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/space_12">
+
+            <ImageView
+                    android:id="@+id/studentProfileImage"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:image="@{viewModel.imgUrl}"
+                    android:src="@drawable/ic_placeholder"/>
+
+            <RelativeLayout android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+                            app:layout_constraintStart_toEndOf="@+id/studentProfileImage"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="spread">
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/StudentNameTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.studentName}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                       />
+                <com.daycare.daycareteacher.utill.MyLightTextView
+                        android:id="@+id/parentNameTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.parentName}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:layout_below="@+id/StudentNameTxt"
+                      />
+
+
+
+                <com.daycare.daycareteacher.utill.MyLightTextView
+                        android:id="@+id/enrolledClassTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.className}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:layout_below="@+id/parentNameTxt"
+                       />
+
+            </RelativeLayout>
+
+
+
+           <!-- @{viewModel.studentName}-->
+
+
+
+
+            <!--@{viewModel.parentName}-->
+
+
+          <!--  @{viewModel.className}-->
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

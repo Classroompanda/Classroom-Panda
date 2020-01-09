@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "727081543339",
+    "firebase_url": "https://daycare-f7f08.firebaseio.com",
+    "project_id": "daycare-f7f08",
+    "storage_bucket": "daycare-f7f08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727081543339:android:36de38d3ccdfc543",
+        "android_client_info": {
+          "package_name": "com.daycare.daycareparent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727081543339-ogr5gc34gn9fhijbgnl0b6n94h4ndatq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg7YN8wuy1nFS-qK3xt3DtpCVHlGH_dF0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727081543339-ogr5gc34gn9fhijbgnl0b6n94h4ndatq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "727081543339-gaa5cgbo2m6dgkfm3os0scnjfugud4g8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.classroompanda.daycareparent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

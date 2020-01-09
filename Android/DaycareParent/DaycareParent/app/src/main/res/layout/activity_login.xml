@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareparent.ui.login.LoginViewModel"/>
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+                android:background="@drawable/gradient_background"
+    >
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/space_8">
+
+            <ImageView
+                    android:id="@+id/Logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/space_40"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:contentDescription="@string/logo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/login_logo_space"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Logo">
+
+                <android.support.v7.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_8"
+                        app:cardCornerRadius="@dimen/space_10">
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/space_20">
+
+                        <android.support.design.widget.TextInputLayout
+                                android:id="@+id/edtlPhoneNo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="@dimen/space_86"
+                                android:layout_marginEnd="@dimen/space_8"
+                                app:errorTextAppearance="@style/error_appearance"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/edtPhoneNo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:drawableStart="@drawable/ic_person_black_24dp"
+                                    android:drawablePadding="@dimen/space_8"
+                                    android:hint="@string/usernam"
+                                    android:inputType="text"
+                                    android:textSize="@dimen/space_16"
+                                    android:focusableInTouchMode="true"
+                                    android:text="@={viewModel.phoneNo}"/>
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                                android:id="@+id/edtlPassword"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="@dimen/space_16"
+                                android:layout_marginEnd="@dimen/space_8"
+                                app:errorTextAppearance="@style/error_appearance"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edtlPhoneNo">
+
+                            <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/edtPassword"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:focusableInTouchMode="true"
+                                    android:drawableStart="@drawable/ic_lock_24dp"
+                                    android:drawablePadding="@dimen/space_8"
+                                    android:hint="@string/password"
+                                    android:inputType="textPassword" android:textSize="@dimen/space_16"
+                                    android:text="@={viewModel.password}"/>
+                        </android.support.design.widget.TextInputLayout>
+
+                        <Button
+                                android:id="@+id/btnLogin"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/space_32"
+                                android:layout_marginTop="@dimen/space_24"
+                                android:background="@drawable/rounded_bg"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:textColor="@color/colorBtnText"
+                                android:onClick="@{viewModel::onClickLoginBtn}"
+                                android:text="@string/login"
+
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edtlPassword"/>
+
+                        <ProgressBar
+                                android:id="@+id/progressbar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/space_32"
+                                android:layout_marginTop="@dimen/space_24"
+                                android:visibility="invisible"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/edtlPassword"/>
+
+                        <com.daycare.daycareparent.utill.MyRegularTextView
+                                android:id="@+id/txtForgotPassword"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_24"
+                                android:onClick="@{viewModel::onClickForgotPassword}"
+                                android:text="@string/forgot_password"
+                                android:textColor="@color/colorTextLight"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/btnLogin"/>
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+            </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/frameLayout"
+                    android:layout_width="@dimen/space_200"
+                    android:layout_height="@dimen/space_200"
+                    android:layout_marginTop="@dimen/space_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Logo">
+
+                <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="@dimen/space_100"
+                        app:cardElevation="0dp">
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <ImageView
+                                android:id="@+id/imageView8"
+                                android:layout_width="@dimen/space_86"
+                                android:layout_height="@dimen/login_logo_space"
+                                android:layout_marginStart="@dimen/space_8"
+                                android:layout_marginTop="@dimen/space_8"
+                                android:layout_marginEnd="@dimen/space_8"
+                                android:layout_marginBottom="@dimen/space_8"
+                                android:contentDescription="@string/login_logo"
+                                app:layout_constraintBottom_toTopOf="@+id/Header"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_child"/>
+
+                        <com.daycare.daycareparent.utill.MyMediumTextView
+                                android:id="@+id/Header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/space_24"
+                                android:text="@string/parent_login"
+                                android:textColor="@color/colorTextLight"
+                                android:textSize="@dimen/text_size_20"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+            </FrameLayout>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

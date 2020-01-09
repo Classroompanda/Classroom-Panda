@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="model"
+            type="com.daycare.daycareteacher.model.StudentDetailData" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            android:padding="@dimen/space_16"
+            >
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardView6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.725"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/space_16">
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/nameHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/username"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toTopOf="@+id/studentNameTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/studentNameTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@={model.studentName}"
+                        android:textColor="@color/colorTextLight"
+                        app:layout_constraintBottom_toTopOf="@+id/headerDOBTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameHeaderTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/headerDOBTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:text="@string/dob"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+
+                        app:layout_constraintBottom_toTopOf="@+id/studentDOBTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/studentNameTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/studentDOBTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:convertDate="@{model.dateOfBirth}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/headerDOBTxt" />
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="@dimen/space_1"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/parentHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:text="@string/parent_name"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/view4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/parentNameTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:text="@={model.parentName}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/view4"
+                        app:layout_constraintTop_toBottomOf="@+id/parentHeaderTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/genderHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:text="@string/gender"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/view4"
+                        app:layout_constraintTop_toBottomOf="@+id/parentNameTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/genderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:text="Boy"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/view4"
+                        app:layout_constraintTop_toBottomOf="@+id/genderHeaderTxt" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView6">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/space_16">
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/emailHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/email"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toTopOf="@+id/mobilHeaderTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/emailTxt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/mobilHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mobile"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toTopOf="@+id/phoneHeaderTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/mobileTxt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/emailHeaderTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyItalicTextView
+                        android:id="@+id/phoneHeaderTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/phone"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="italic"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/phoneTxt"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mobilHeaderTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/emailTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@={model.parentEmailAddress}"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toTopOf="@+id/mobileTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/emailHeaderTxt"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/mobileTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toTopOf="@+id/phoneTxt"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/mobilHeaderTxt"
+                        app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/phoneTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+1 7777 777 777"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_16"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/phoneHeaderTxt"
+                        app:layout_constraintTop_toBottomOf="@+id/mobileTxt" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.v7.widget.CardView>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.model.TeacherMedicationData" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16">
+
+        <LinearLayout
+                android:id="@+id/healthFrameLyt"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:paddingBottom="@dimen/space_50">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/space_16"
+                    android:layout_marginTop="8dp"
+                    android:text="Add Temperature(F) ">
+
+            </TextView>
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/tempEdtTxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/space_16"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:hint="Enter temp">
+
+            </android.support.design.widget.TextInputEditText>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/space_16"
+                    android:layout_marginTop="8dp"
+                    android:text="Health Note* ">
+
+            </TextView>
+            <android.support.design.widget.TextInputEditText
+                    android:id="@+id/healthDescTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/space_16"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:lines="4"
+                    android:inputType="text"
+                    android:hint="Enter Health Note"
+                    android:scrollbars="vertical">
+
+            </android.support.design.widget.TextInputEditText>
+
+
+        </LinearLayout>
+        <Button
+                android:id="@+id/btnCCheckin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/spinner_background"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/btnCCancel"
+                app:layout_constraintTop_toBottomOf="@+id/healthFrameLyt" />
+
+        <Button
+                android:id="@+id/btnCCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/spinner_background"
+                android:backgroundTint="@color/colorBtnCancel"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/colorBtnText"
+                app:layout_constraintEnd_toStartOf="@+id/btnCCheckin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/healthFrameLyt" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

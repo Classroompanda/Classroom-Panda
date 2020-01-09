@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="model"
+                type="com.daycare.daycareparent.model.EnrollmentData"/>
+    </data>
+
+
+    <android.support.v7.widget.CardView
+            android:id="@+id/breakContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_10"
+    >
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                android:id="@+id/enddateTxt2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_8"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/partitionView"
+                app:layout_constraintTop_toBottomOf="@+id/enddateHeader2" />
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                android:id="@+id/enddateHeader2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/space_8"
+                android:text="Fees"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/partitionView"
+                app:layout_constraintTop_toBottomOf="@+id/enddateTxt" />
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/incidentHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+            >
+
+                <com.daycare.daycareparent.utill.MyRegularTextView
+                        android:id="@+id/descriptionTxt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_8"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:layout_marginBottom="@dimen/space_8"
+                        android:hint="@string/incident"
+                        android:visibility="gone"
+                        android:textColor="@color/colorAbsent"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/dateTxt"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                    android:id="@+id/breakoutHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:text="Child Name"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                    android:id="@+id/childTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/breakoutHeader"/>
+
+
+            <View
+                    android:id="@+id/partitionView"
+                    android:layout_width="@dimen/space_1"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                    android:id="@+id/breakinHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:text="Class Name"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/partitionView"
+                    app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                    android:id="@+id/classTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/partitionView"
+                    app:layout_constraintTop_toBottomOf="@+id/breakinHeader"/>
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                    android:id="@+id/startHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:text="Start Date"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/childTxt"/>
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                    android:id="@+id/startdateTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/startHeader"/>
+
+
+            <View
+                    android:id="@+id/partitionView1"
+                    android:layout_width="@dimen/space_1"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                    android:id="@+id/enddateHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_4"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:text="End Date"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/partitionView"
+                    app:layout_constraintTop_toBottomOf="@+id/classTxt"/>
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                    android:id="@+id/enddateTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/partitionView"
+                    app:layout_constraintTop_toBottomOf="@+id/enddateHeader"/>
+
+            <com.daycare.daycareparent.utill.MyLightTextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="8dp"
+                android:text="Status"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toStartOf="@+id/enddateTxt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/startdateTxt" />
+            <com.daycare.daycareparent.utill.MyBoldTextView
+                    android:id="@+id/statusTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/status"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+
+</layout>

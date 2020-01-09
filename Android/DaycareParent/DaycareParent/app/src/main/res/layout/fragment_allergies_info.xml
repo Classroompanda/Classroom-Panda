@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareparent.ui.dashboard.addchildform.AllergiesInfoViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".ui.dashboard.addchildform.AllergiesInfoFrag">
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/immunizationCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/immunizationlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{viewModel::onClickImmunization}">
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                        android:id="@+id/immunizationTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_size_16"
+                        android:text="Immunization"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_17"
+                        app:layout_constraintEnd_toStartOf="@+id/addImmunization"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/addImmunization"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_bg_white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:onClick="@{viewModel::onClickAddImmunization}"
+                        android:src="@drawable/ic_icon_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/immunizationTxt"
+                        app:layout_constraintTop_toTopOf="@+id/immunizationTxt" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="No record available"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_16"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/addImmunization"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/immunizationTxt"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:records="@{viewModel.imRecord}" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guidelineImmunization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="73dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/immunizationRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/guidelineImmunization" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/allergiesCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/immunizationCard">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/allergieslayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{viewModel::onClickAllergy}">
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                        android:id="@+id/allergyTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_size_16"
+                        android:text="Allergy"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_17"
+                        app:layout_constraintEnd_toStartOf="@+id/addAllergy"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/addAllergy"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_bg_white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:onClick="@{viewModel::onClickAddAllergies}"
+                        android:src="@drawable/ic_icon_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/allergyTxt"
+                        app:layout_constraintTop_toTopOf="@+id/allergyTxt" />
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="No record available"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/addAllergy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/allergyTxt"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:records="@{viewModel.allgRecord}" />
+
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guidelineAllergy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="73dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/allergynRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/guidelineAllergy" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/medicationCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/allergiesCard">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/medicationlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{viewModel::onClickMedication}">
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                        android:id="@+id/medicationTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_size_16"
+                        android:text="Medication"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_17"
+                        app:layout_constraintEnd_toStartOf="@+id/addMedication"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/addMedication"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_bg_white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:onClick="@{viewModel::onClickAddMedication}"
+                        android:src="@drawable/ic_icon_add"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/medicationTxt"
+                        app:layout_constraintTop_toTopOf="@+id/medicationTxt" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="No record available"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/addMedication"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/medicationTxt"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:records="@{viewModel.medRecord}" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guidelineMedication"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="73dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/mediactionRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/guidelineMedication" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/disablityCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                app:cardCornerRadius="@dimen/space_4"
+                app:cardElevation="@dimen/space_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/medicationCard">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/disablitylayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="@{viewModel::onClickDisablity}">
+
+                    <com.daycare.daycareparent.utill.MyRegularTextView
+                        android:id="@+id/disablityTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/text_size_16"
+                        android:text="Disablity"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_17"
+                        app:layout_constraintEnd_toStartOf="@+id/addDisablity"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/addDisablity"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_bg_white"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:src="@drawable/ic_icon_add"
+                        android:onClick="@{viewModel::onClickAddDisablity}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/disablityTxt"
+                        app:layout_constraintTop_toTopOf="@+id/disablityTxt" />
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="No record available"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/addDisablity"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/disablityTxt"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:records="@{viewModel.disbRecord}" />
+
+                    <android.support.constraint.Guideline
+                        android:id="@+id/guidelineDisablity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_begin="73dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/disablityRv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/guidelineDisablity" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+            </android.support.v7.widget.CardView>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</layout>

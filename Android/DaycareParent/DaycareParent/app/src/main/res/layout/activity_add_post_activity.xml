@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+>
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareparent.ui.dashboard.fragments.postactivity.PostActivityViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
+
+        <include
+                android:id="@+id/include"
+                layout="@layout/toolbar"/>
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/space_20">
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/addPostActivityContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="@dimen/space_20"
+                    tools:context=".ui.dashboard.AddIncidentActivity">
+
+                <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:text="Upload Gallery"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:id="@+id/imageLyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/textView3"
+                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:id="@+id/imageLyt1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:weightSum="3"
+                                android:visibility="gone"
+                                android:layout_marginStart="8dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+                            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         android:id="@+id/img_lyt_1"
+                                         android:layout_weight="1"
+                                         android:layout_width="100dp"
+                                         android:layout_marginRight="@dimen/space_4"
+                                         android:background="@drawable/round_outline"
+                                         android:layout_height="70dp">
+
+                                <ImageView
+                                        android:id="@+id/img1"
+                                        android:gravity="center"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@id/txtLongDescription"
+                                        android:padding="10dp"
+                                        android:layout_toEndOf="@id/img1"
+                                        android:src="@drawable/ic_gallery"
+                                />
+
+
+                                <ImageView
+                                        android:id="@+id/delete_button_img1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top|right"
+                                        android:adjustViewBounds="true"
+                                        android:paddingTop="-10dp"
+                                        android:visibility="gone"
+                                        android:paddingRight="@dimen/space_4"
+                                        android:scaleType="fitStart"
+                                        android:src="@drawable/ic_delete"/>
+
+                            </FrameLayout>
+                            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         android:id="@+id/img_lyt_2"
+                                         android:layout_weight="1"
+                                         android:layout_width="100dp"
+                                         android:layout_marginRight="@dimen/space_4"
+                                         android:background="@drawable/round_outline"
+                                         android:layout_height="70dp">
+
+                                <ImageView
+                                        android:id="@+id/img2"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@id/txtLongDescription"
+
+                                        android:layout_toEndOf="@id/img1"
+                                        android:src="@drawable/ic_gallery"
+                                />
+
+
+                                <ImageView
+                                        android:id="@+id/delete_button_img2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top|right"
+                                        android:adjustViewBounds="true"
+                                        android:paddingTop="-10dp"
+                                        android:visibility="gone"
+                                        android:paddingRight="@dimen/space_4"
+                                        android:scaleType="fitStart"
+                                        android:src="@drawable/ic_delete"/>
+
+                            </FrameLayout>
+                            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         android:id="@+id/img_lyt_3"
+                                         android:layout_weight="1"
+                                         android:layout_width="100dp"
+                                         android:layout_marginRight="@dimen/space_4"
+                                         android:background="@drawable/round_outline"
+                                         android:layout_height="70dp">
+
+                                <ImageView
+                                        android:id="@+id/img3"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@id/txtLongDescription"
+                                        android:layout_toEndOf="@id/img1"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_gallery"
+                                />
+                                <TextView
+                                        android:textSize="@dimen/space_12"
+                                        android:text="Upload"
+                                        android:textAllCaps="false"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal|bottom"
+                                        android:layout_marginBottom="1dp"
+                                        android:id="@+id/textView"/>
+
+
+                                <ImageView
+                                        android:id="@+id/delete_button_img3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top|right"
+                                        android:adjustViewBounds="true"
+                                        android:paddingTop="-10dp"
+                                        android:visibility="gone"
+                                        android:paddingRight="@dimen/space_4"
+                                        android:scaleType="fitStart"
+                                        android:src="@drawable/ic_delete"/>
+
+
+                            </FrameLayout>
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                                android:orientation="horizontal"
+                                android:id="@+id/videoLyt1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:visibility="visible"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp">
+
+                            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                         android:id="@+id/img_lyt_4"
+                                         android:layout_weight="1"
+                                         android:layout_width="100dp"
+                                         android:layout_marginRight="@dimen/space_4"
+                                         android:background="@drawable/round_outline"
+                                         android:layout_height="70dp">
+
+                                <ImageView
+                                        android:id="@+id/uploadVideo"
+                                        android:gravity="center"
+                                        android:padding="10dp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_below="@id/txtLongDescription"
+                                        android:layout_toEndOf="@id/img1"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_gallery"
+                                />
+                                <TextView
+                                        android:textSize="@dimen/space_12"
+                                        android:text="Upload Video"
+                                        android:textAllCaps="false"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal|bottom"
+                                        android:layout_marginBottom="1dp"
+                                        android:id="@+id/textView5"/>
+
+
+                                <ImageView
+                                        android:id="@+id/delete_button_img5"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="top|right"
+                                        android:adjustViewBounds="true"
+                                        android:paddingTop="-10dp"
+                                        android:visibility="gone"
+                                        android:paddingRight="@dimen/space_4"
+                                        android:scaleType="fitStart"
+                                        android:src="@drawable/ic_delete"/>
+
+
+                            </FrameLayout>
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/imageLyt"
+
+                />
+
+                <EditText
+                        android:id="@+id/titleedt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_16"
+                        android:layout_marginTop="@dimen/space_15"
+                        android:layout_marginEnd="@dimen/space_16"
+                        android:ems="10"
+                        android:textSize="15sp"
+                        android:hint="Title"
+
+                        android:inputType="textPersonName"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintTop_toBottomOf="@id/textView1"/>
+
+
+                <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginTop="8dp"
+                        android:text="Description"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/titleedt"/>
+
+                <EditText
+                        android:id="@+id/edtincidentplace"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginEnd="16dp"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top|left"
+                        android:maxLines="10"
+                        android:scrollbars="vertical"
+                        android:ems="8"
+                        android:lines="2"
+                        android:hint="@string/write_here"
+                        android:text=""
+                        android:textColor="@color/colorTextLight"
+                        android:backgroundTint="@color/colorPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView10"/>
+
+
+                <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+
+                        android:text="Class name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edtincidentplace"/>
+
+                <org.angmarch.views.NiceSpinner
+                        android:id="@+id/spinnerClassName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:arrowTint="@color/black"
+                        android:textSize="@dimen/text_size_16"
+                        app:backgroundSelector="2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView8"
+                        app:textTint="@color/black"/>
+
+
+                <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="26dp"
+                        android:layout_marginStart="16dp"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/activity_participants"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/spinnerClassName"/>
+
+                <TextView
+                        android:id="@+id/tvParticipant"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/colorWhite"
+                        android:drawableEnd="@drawable/arrow"
+                        android:textSize="@dimen/text_size_16"
+                        android:gravity="center_vertical"
+
+                        android:padding="@dimen/space_12"
+                        android:paddingStart="@dimen/space_25"
+                        android:paddingEnd="@dimen/space_12"
+                        android:text="@string/choose"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+
+                <TextView
+                        android:id="@+id/selectedStudents"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="@dimen/space_10"
+                        android:background="@drawable/text_view_bg"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/space_40"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvParticipant"/>
+
+                <!--  android:onClick="@{viewModel::onClickInvolvedStudents}"
+  -->
+
+
+                <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginTop="8dp"
+                        android:text="Public post"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/selectedStudents"/>
+
+                <Switch
+                        android:id="@+id/switchpublic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:checked="@={viewModel.isPublic}"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView21"
+                        app:switch="@{viewModel.isPublic}"
+                />
+
+
+                <Button
+                        android:id="@+id/btnAddPost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/rounded_bg_white"
+                        android:backgroundTint="@color/colorPrimary"
+
+                        android:text="@string/add_post"
+                        android:textColor="@color/colorBtnText"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView21"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+
+</layout>

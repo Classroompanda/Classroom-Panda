@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_4"
+        app:cardCornerRadius="@dimen/space_4">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_8">
+
+
+            <RelativeLayout
+                android:id="@+id/frameLyt"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/childImg"
+                    android:layout_width="@dimen/space_75"
+                    android:layout_height="@dimen/space_75"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:src="@drawable/ic_placeholder" />
+                <!--    app:image="@{viewModel.imgUrl}"-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/checkboxselector"
+                        android:button="@null"
+                        android:gravity="center">
+
+                    </CheckBox>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:hint="Name"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLyt" />
+            <!--   android:text="@{viewModel.studentName}"-->
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="ClassName"
+                android:text="@{viewModel.className}"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView28" />
+            <View
+                android:id="@+id/selectView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_1"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+            <LinearLayout
+                android:id="@+id/redirectLyt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+                <!-- android:onClick="@{viewModel::onClickStudentCard}"-->
+                <TextView
+                    android:id="@+id/textView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="Recent Activty  "
+                    android:textColor="@color/colorTextLight"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/space_5"
+                    android:paddingRight="@dimen/space_5"
+                    app:layout_constraintTop_toBottomOf="@+id/textView30">
+
+                    <TextView
+                        android:id="@+id/sample"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:gravity="center"
+                        android:text="No recent activity"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/notesIV"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_da_study" />
+
+                    <ImageView
+                        android:id="@+id/activityIV"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_ds_activity" />
+
+                    <ImageView
+                        android:id="@+id/foodIV"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_da_food" />
+
+                    <ImageView
+                        android:id="@+id/medicineIV"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_medication" />
+
+                    <ImageView
+                        android:id="@+id/moodIV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_happy" />
+
+                    <Button
+                        android:id="@+id/viewMoreBtn"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/rounded_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="+4"
+                        android:textColor="@color/colorBtnText"
+                        android:textSize="@dimen/space_16"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>

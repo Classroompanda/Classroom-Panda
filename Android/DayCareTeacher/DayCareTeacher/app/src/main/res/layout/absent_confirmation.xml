@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.daycare.daycareteacher.model.AttendanceData" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        android:padding="@dimen/space_16">
+
+        <ImageView
+            android:id="@+id/childImg"
+            android:layout_width="@dimen/space_32"
+            android:layout_height="@dimen/space_32"
+            app:image="@{model.imagePath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_person_black_24dp" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
+            android:text="@{model.studentName}"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/text_size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/childImg"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
+            android:text="22 November 2018"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/childImg"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
+            android:text="Monday 9:00 AM"
+            android:textColor="@color/colorTextLight"
+            android:textSize="@dimen/text_size_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/childImg"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
+        <View
+            android:id="@+id/view_drop_off"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_1"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTime" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="@string/absent_due_to"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_drop_off" />
+
+        <Spinner
+            android:id="@+id/spinner5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@drawable/spinner_background"
+            android:entries="@array/reasons_array"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16"
+            android:text="Add Notes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner5" />
+
+        <EditText
+            android:id="@+id/absentComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:text="@{model.onLeaveComment}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <Button
+            android:id="@+id/absBtnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="@dimen/space_8"
+            android:layout_marginEnd="@dimen/space_8"
+            android:background="@drawable/btn_bg"
+            android:foreground="?attr/selectableItemBackground"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBtnText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/btnCCancel"
+            app:layout_constraintTop_toBottomOf="@+id/undoCheckBox" />
+
+        <Button
+            android:id="@+id/btnCCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_8"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/space_24"
+            android:background="@drawable/btn_bg"
+            android:foreground="?attr/selectableItemBackground"
+            android:backgroundTint="@color/colorBtnCancel"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBtnText"
+            app:layout_constraintEnd_toStartOf="@+id/absBtnSave"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/undoCheckBox" />
+
+        <ProgressBar
+            android:id="@+id/spin_kit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="@dimen/space_16"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/absentComment" />
+
+        <CheckBox
+            android:id="@+id/undoCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/undo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/absentComment" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

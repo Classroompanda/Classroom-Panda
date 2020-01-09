@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareparent.ui.dashboard.addchildform.AddFormViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground"
+            tools:context=".ui.dashboard.addchildform.AddFormActivity">
+
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/includeToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/gradient_toolbar_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <ImageView
+                    android:id="@+id/cancelTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:onClick="@{viewModel::onClickCancel}"
+                    android:padding="@dimen/space_8"
+                    android:src="@drawable/ic_arrow_back_24dp" />
+
+            <com.daycare.daycareparent.utill.MyRegularTextView
+                    android:id="@+id/headerTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Add Child"
+                    android:textColor="@color/colorBtnText"
+                    android:textSize="@dimen/text_size_19" />
+
+            <!--<com.daycare.daycareparent.utill.MyRegularTextView-->
+            <!--android:id="@+id/nextTxt"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:layout_marginEnd="@dimen/space_16"-->
+            <!--android:onClick="@{viewModel::onClickNext}"-->
+            <!--android:text="Next"-->
+            <!--android:textColor="@color/colorBtnText"-->
+            <!--android:textSize="@dimen/text_size_19" />-->
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
+
+            <android.support.design.widget.TabLayout
+                    android:id="@+id/tabs_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_4"
+                    android:background="@color/white"
+                    android:elevation="@dimen/space_4"
+                    app:layout_constraintBottom_toTopOf="@+id/viewpager_student"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tabIndicatorColor="@color/colorAccent"
+                    app:tabIndicatorHeight="@dimen/space_4"
+                    app:tabMode="scrollable"
+                    app:tabSelectedTextColor="@color/colorTextLight"
+                    app:tabTextAppearance="@style/tabfontstyle" />
+
+            <FrameLayout
+                    android:id="@+id/viewpager_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tabs_student" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,6 @@
+framework module Pods_Daycare_Parent {
+  umbrella header "Pods-Daycare Parent-umbrella.h"
+
+  export *
+  module * { export * }
+}

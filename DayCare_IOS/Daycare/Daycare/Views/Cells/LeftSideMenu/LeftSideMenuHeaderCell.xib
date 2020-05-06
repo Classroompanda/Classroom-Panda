@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="poppins_light.ttf">
+            <string>Poppins-Light</string>
+        </array>
+        <array key="poppins_regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="LeftSideMenuHeaderCell" customModule="Daycare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="199.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SW-bi-QA4">
+                        <rect key="frame" x="5" y="0.0" width="310" height="200"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Aj0-l8-4by">
+                                <rect key="frame" x="19" y="21" width="77" height="77"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Aj0-l8-4by" secondAttribute="height" multiplier="1:1" id="XuS-vk-Bvu"/>
+                                    <constraint firstAttribute="width" constant="77" id="iEg-z6-ZZq"/>
+                                    <constraint firstAttribute="height" constant="77" id="zjJ-en-BaQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="38.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Anna Williams" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00x-Ox-awv">
+                                <rect key="frame" x="25" y="116" width="275" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="poM-Hs-D4B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="24"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="27"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="anna@yopmail.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ni-nd-kwm">
+                                <rect key="frame" x="24" y="154" width="276" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="6Qx-YF-lZf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="17"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daU-3Y-rq7">
+                                <rect key="frame" x="-5" y="191" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.34509803919999998" green="0.65490196079999996" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="bnX-MF-QKl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.65490196079999996" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="DkJ-6k-M0t"/>
+                            <constraint firstItem="Aj0-l8-4by" firstAttribute="top" secondItem="1SW-bi-QA4" secondAttribute="top" constant="21" id="GlM-5x-uTk"/>
+                            <constraint firstAttribute="trailing" secondItem="daU-3Y-rq7" secondAttribute="trailing" constant="-5" id="HFT-hI-sJS"/>
+                            <constraint firstItem="00x-Ox-awv" firstAttribute="leading" secondItem="1SW-bi-QA4" secondAttribute="leading" constant="25" id="Pbe-H7-Saw"/>
+                            <constraint firstItem="6Ni-nd-kwm" firstAttribute="leading" secondItem="1SW-bi-QA4" secondAttribute="leading" constant="24" id="SVf-Tl-M9H"/>
+                            <constraint firstAttribute="trailing" secondItem="00x-Ox-awv" secondAttribute="trailing" constant="10" id="VES-hl-FbO"/>
+                            <constraint firstAttribute="trailing" secondItem="6Ni-nd-kwm" secondAttribute="trailing" constant="10" id="fm4-mi-3cy"/>
+                            <constraint firstItem="daU-3Y-rq7" firstAttribute="leading" secondItem="1SW-bi-QA4" secondAttribute="leading" constant="-5" id="i5n-x2-lAw"/>
+                            <constraint firstItem="6Ni-nd-kwm" firstAttribute="top" secondItem="00x-Ox-awv" secondAttribute="bottom" constant="5" id="ii2-DA-YS5"/>
+                            <constraint firstItem="Aj0-l8-4by" firstAttribute="leading" secondItem="1SW-bi-QA4" secondAttribute="leading" constant="19" id="mgm-aE-RKx"/>
+                            <constraint firstAttribute="bottom" secondItem="daU-3Y-rq7" secondAttribute="bottom" constant="8" id="qo6-Kw-LeY"/>
+                            <constraint firstItem="00x-Ox-awv" firstAttribute="top" secondItem="Aj0-l8-4by" secondAttribute="bottom" constant="18" id="ypm-14-CS0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="1SW-bi-QA4" secondAttribute="trailing" constant="5" id="K68-BB-zd6"/>
+                    <constraint firstItem="1SW-bi-QA4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="PTa-6Q-AZ3"/>
+                    <constraint firstAttribute="bottom" secondItem="1SW-bi-QA4" secondAttribute="bottom" constant="-0.5" id="dl8-LT-fXq"/>
+                    <constraint firstItem="1SW-bi-QA4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="p1j-0I-7wa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imgViewForProfile" destination="Aj0-l8-4by" id="Q6L-1L-cnH"/>
+                <outlet property="lblForEmail" destination="6Ni-nd-kwm" id="RUC-hI-cjB"/>
+                <outlet property="lblForName" destination="00x-Ox-awv" id="h1i-0r-rlJ"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="placeholder" width="64" height="64"/>
+    </resources>
+</document>

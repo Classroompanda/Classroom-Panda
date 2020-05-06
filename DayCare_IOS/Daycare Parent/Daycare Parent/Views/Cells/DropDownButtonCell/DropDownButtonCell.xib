@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="poppins_regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="112" id="KGk-i7-Jjw" customClass="DropDownButtonCell" customModule="Daycare_Parent" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="112"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="glI-tN-OnG">
+                        <rect key="frame" x="2" y="2" width="316" height="108"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BtnForFieldTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXj-bV-bO0">
+                                <rect key="frame" x="20" y="10" width="291" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="TjS-rq-6Me">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                </variation>
+                            </label>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VXV-Dc-cM4" customClass="CustomTextField" customModule="Daycare_Parent" customModuleProvider="target">
+                                <rect key="frame" x="20" y="40" width="266" height="40"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                </variation>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="REL-BM-Cg8">
+                                <rect key="frame" x="20" y="40" width="266" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="SYU-pc-TYV">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                                <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-200" maxY="0.0"/>
+                                <state key="normal" title="Select">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.74509803919999995" green="0.74509803919999995" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="20"/>
+                                </variation>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowDown" translatesAutoresizingMaskIntoConstraints="NO" id="xae-F4-qI6">
+                                <rect key="frame" x="246" y="45" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="xae-F4-qI6" secondAttribute="height" multiplier="1:1" id="Yf6-wx-UfP"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="REL-BM-Cg8" firstAttribute="leading" secondItem="glI-tN-OnG" secondAttribute="leading" constant="20" id="8fB-HA-E5V"/>
+                            <constraint firstItem="xae-F4-qI6" firstAttribute="trailing" secondItem="REL-BM-Cg8" secondAttribute="trailing" id="GBh-jw-KM3"/>
+                            <constraint firstItem="REL-BM-Cg8" firstAttribute="top" secondItem="cXj-bV-bO0" secondAttribute="bottom" constant="10" id="Gg4-Yh-G9B"/>
+                            <constraint firstAttribute="trailing" secondItem="REL-BM-Cg8" secondAttribute="trailing" constant="30" id="IUF-j8-iP3"/>
+                            <constraint firstItem="VXV-Dc-cM4" firstAttribute="centerX" secondItem="REL-BM-Cg8" secondAttribute="centerX" id="QSs-9l-KQi"/>
+                            <constraint firstItem="cXj-bV-bO0" firstAttribute="leading" secondItem="glI-tN-OnG" secondAttribute="leading" constant="20" id="W6M-V3-70z"/>
+                            <constraint firstItem="VXV-Dc-cM4" firstAttribute="width" secondItem="REL-BM-Cg8" secondAttribute="width" id="YQr-Id-CRC"/>
+                            <constraint firstItem="VXV-Dc-cM4" firstAttribute="centerY" secondItem="REL-BM-Cg8" secondAttribute="centerY" id="erC-Vn-cGw"/>
+                            <constraint firstAttribute="trailing" secondItem="cXj-bV-bO0" secondAttribute="trailing" constant="5" id="idy-mr-0kL"/>
+                            <constraint firstItem="VXV-Dc-cM4" firstAttribute="height" secondItem="REL-BM-Cg8" secondAttribute="height" id="imK-h1-Shx"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="kSJ-bM-kgM">
+                                <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                            </constraint>
+                            <constraint firstItem="cXj-bV-bO0" firstAttribute="top" secondItem="glI-tN-OnG" secondAttribute="top" constant="10" id="oa3-hW-hjo"/>
+                            <constraint firstItem="xae-F4-qI6" firstAttribute="centerY" secondItem="REL-BM-Cg8" secondAttribute="centerY" constant="5" id="s4c-Kr-aLk"/>
+                            <constraint firstItem="xae-F4-qI6" firstAttribute="height" secondItem="REL-BM-Cg8" secondAttribute="height" id="t7z-rP-ddY"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="glI-tN-OnG" secondAttribute="bottom" constant="2" id="A83-8O-Mu8"/>
+                    <constraint firstAttribute="trailing" secondItem="glI-tN-OnG" secondAttribute="trailing" constant="2" id="cuI-ck-e1G"/>
+                    <constraint firstItem="glI-tN-OnG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="hg1-LU-Rnu"/>
+                    <constraint firstItem="glI-tN-OnG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="ue5-nz-B7Y"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnForField" destination="REL-BM-Cg8" id="cFA-gO-wLj"/>
+                <outlet property="imgViewForArrow" destination="xae-F4-qI6" id="1e4-Op-Z39"/>
+                <outlet property="lblForFieldTitle" destination="cXj-bV-bO0" id="wPl-ch-JG8"/>
+                <outlet property="txtFieldForField" destination="VXV-Dc-cM4" id="KOS-6U-d4W"/>
+            </connections>
+            <point key="canvasLocation" x="132.80000000000001" y="144.82758620689657"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arrowDown" width="15" height="15"/>
+    </resources>
+</document>

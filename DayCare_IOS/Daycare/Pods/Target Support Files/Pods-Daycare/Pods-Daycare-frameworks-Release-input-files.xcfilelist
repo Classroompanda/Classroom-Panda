@@ -1,0 +1,18 @@
+${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ActionSheetPicker-3.0/ActionSheetPicker_3_0.framework
+${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework
+${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
+${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework
+${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework
+${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework
+${BUILT_PRODUCTS_DIR}/Material/Material.framework
+${BUILT_PRODUCTS_DIR}/Motion/Motion.framework
+${BUILT_PRODUCTS_DIR}/OpalImagePicker/OpalImagePicker.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SpinKit/SpinKit.framework
+${BUILT_PRODUCTS_DIR}/SwiftSignalRClient/SwiftSignalRClient.framework
+${BUILT_PRODUCTS_DIR}/TKImageShowing/TKImageShowing.framework
+${BUILT_PRODUCTS_DIR}/VACalendar/VACalendar.framework
+${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

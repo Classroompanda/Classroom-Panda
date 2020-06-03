@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
         <array key="poppins_bold.ttf">
             <string>Poppins-Bold</string>
         </array>
@@ -3309,14 +3312,33 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oh-Wy-vUn">
+                                                            <rect key="frame" x="53" y="46" width="20" height="20"/>
+                                                            <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="Rjd-5f-WlF"/>
+                                                                <constraint firstAttribute="width" constant="20" id="hqe-I8-lC6"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="9"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="10"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstItem="89U-md-c2w" firstAttribute="leading" secondItem="pQU-vb-FcZ" secondAttribute="leading" constant="20" id="1Bd-bw-5cL"/>
                                                         <constraint firstItem="tKS-ma-vp4" firstAttribute="leading" secondItem="89U-md-c2w" secondAttribute="trailing" constant="15" id="8zX-NM-Myt"/>
+                                                        <constraint firstItem="1oh-Wy-vUn" firstAttribute="top" secondItem="pQU-vb-FcZ" secondAttribute="top" constant="46" id="Bkq-lv-XBU"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1oh-Wy-vUn" secondAttribute="bottom" constant="14" id="Hk2-66-gN7"/>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="VGs-0k-zd1"/>
                                                         <constraint firstItem="tKS-ma-vp4" firstAttribute="centerY" secondItem="pQU-vb-FcZ" secondAttribute="centerY" id="Vb1-PA-K2F"/>
                                                         <constraint firstItem="tKS-ma-vp4" firstAttribute="top" relation="lessThanOrEqual" secondItem="pQU-vb-FcZ" secondAttribute="top" constant="20" id="Y1l-ss-Ls3"/>
+                                                        <constraint firstItem="tKS-ma-vp4" firstAttribute="leading" secondItem="1oh-Wy-vUn" secondAttribute="trailing" constant="12" id="Y2P-7c-KuC"/>
                                                         <constraint firstAttribute="trailing" secondItem="tKS-ma-vp4" secondAttribute="trailing" constant="5" id="ZyH-LY-Obz"/>
                                                         <constraint firstItem="xYJ-kY-1jq" firstAttribute="top" relation="lessThanOrEqual" secondItem="tKS-ma-vp4" secondAttribute="bottom" constant="17" id="cYi-7u-Vle"/>
                                                         <constraint firstAttribute="bottom" secondItem="xYJ-kY-1jq" secondAttribute="bottom" constant="2" id="enm-6m-szo"/>
@@ -3341,6 +3363,7 @@
                                             <outlet property="imgViewForTeacher" destination="89U-md-c2w" id="saU-25-VNY"/>
                                             <outlet property="lblForDivider" destination="xYJ-kY-1jq" id="5gx-xE-OTo"/>
                                             <outlet property="lblForTeacherName" destination="tKS-ma-vp4" id="uWL-bd-HF5"/>
+                                            <outlet property="lblForUnreadMessages" destination="1oh-Wy-vUn" id="uGS-fX-iG4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

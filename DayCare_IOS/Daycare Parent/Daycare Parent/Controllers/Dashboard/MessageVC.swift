@@ -66,6 +66,11 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
             if (arrForTeacherList?.count ?? 0) > 0 {
                 cell.lblForDivider.isHidden = (indexPath.row == (arrForTeacherList?.count ?? 0) - 1)
             }
+            cell.lblForUnreadMessages.isHidden = true
+            if let unreadMessages = arrForTeacherList?[indexPath.row].unreadMessageCount, unreadMessages > 0 {
+                cell.lblForUnreadMessages.text = "\(unreadMessages)"
+                cell.lblForUnreadMessages.isHidden = false
+            }
             cell.lblForTeacherName.text = arrForTeacherList?[indexPath.row].listUserName
             cell.imgViewForTeacher.sd_setShowActivityIndicatorView(true)
             cell.imgViewForTeacher.sd_setIndicatorStyle(.gray)
@@ -109,6 +114,7 @@ extension MessageVC:UITextFieldDelegate{
 //MARK:------ UITableView Cell -----------
 class MessageListTableViewCell: UITableViewCell{
     @IBOutlet weak var imgViewForTeacher: UIImageView!
+    @IBOutlet weak var lblForUnreadMessages: UILabel!
     @IBOutlet weak var lblForTeacherName: UILabel!
     @IBOutlet weak var lblForDivider: UILabel!
     override func awakeFromNib() {

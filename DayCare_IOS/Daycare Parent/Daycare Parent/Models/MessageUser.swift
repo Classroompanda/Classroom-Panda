@@ -7,7 +7,8 @@ public class MessageUser {
 	public var listUserId : Int?
 	public var listUserName : String?
 	public var imagePath : String?
-	
+    public var unreadMessageCount : Int?
+
     public class func modelsFromDictionaryArray(array:Array<Dictionary<String,Any>>) -> [MessageUser]
     {
         var models:[MessageUser] = []
@@ -21,6 +22,7 @@ public class MessageUser {
 
 	required public init?(dictionary: Dictionary<String,Any>) {
 		listUserId = dictionary["listUserId"] as? Int ?? 0
+        unreadMessageCount = dictionary["count"] as? Int ?? 0
 		listUserName = dictionary["listUserName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
 	}

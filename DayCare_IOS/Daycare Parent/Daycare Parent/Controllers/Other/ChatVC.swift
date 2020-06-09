@@ -23,6 +23,7 @@ class ChatVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       signalRConnection = SignalRConnection.sharedInstance
         IQKeyboardManager.shared.enable = false
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -32,14 +33,16 @@ class ChatVC: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
 //        self.signalRConnection = SignalRConnection()
 //        self.signalRConnection?.delegate = self
 //        self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
+      self.signalRConnection?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         IQKeyboardManager.shared.enable = true
-        signalRConnection?.closeConnection(userId: AppInstance.shared.user?.loginUserID ?? 0)
+//        signalRConnection?.closeConnection(userId: AppInstance.shared.user?.loginUserID ?? 0)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -134,11 +137,12 @@ class ChatVC: BaseViewController {
         let service = MessageService()
         self.showLoader()
         service.getAllMessages(with: nil, senderID: AppInstance.shared.user?.loginUserID ?? 0, receiverID: teacherUser?.listUserId ?? 0, complition: {(result) in
+            self.hideLoader()
             if result != nil {
                 self.arrForMessages = result as? [Message] ?? []
-                self.signalRConnection = SignalRConnection()
-                self.signalRConnection?.delegate = self
-                self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
+//                self.signalRConnection = SignalRConnection()
+//                self.signalRConnection?.delegate = self
+//                self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
                 self.tblViewForChat.reloadData()
                 if self.arrForMessages.count >= 1 {
                     self.tblViewForChat.scrollToRow(at: IndexPath(item: self.arrForMessages.count-1, section: 0), at: .bottom, animated: false)
@@ -232,7 +236,6 @@ extension ChatVC: SignalRConnectionDelegate{
     func connectionDidOpen(hubConnection: HubConnection) {
         self.hideLoader()
     }
-    
     func signalRConnection(didDisconnected disconnected: Bool) {
         self.hideLoader()
         toggleUI(isEnabled: disconnected)

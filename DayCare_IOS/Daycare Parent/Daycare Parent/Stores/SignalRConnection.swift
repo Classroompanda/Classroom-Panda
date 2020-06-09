@@ -9,6 +9,10 @@
 import Foundation
 import SwiftSignalRClient
 
+// Notifications
+let kMessageReceiveNotification = "ChatMessageReceived"
+let kChatCoonectionFailNotification = "ChatCoonectionFail"
+
 /* Here is the communication protocol
  * for the UI part. Confirm this protocol into view controller
  * or in any other Ui class for get the message from signal are server
@@ -28,7 +32,7 @@ protocol SignalRConnectionDelegate {
  * AppDelegate class and call startConnection for connection setup
  */
 class SignalRConnection{
-    
+    static let sharedInstance = SignalRConnection()
     var chatHubConnection: HubConnection?
     var chatHubConnectionDelegate: ChatHubConnectionDelegate?
     var delegate : SignalRConnectionDelegate?
@@ -63,8 +67,12 @@ class SignalRConnection{
     func registerReceiver(){
       self.chatHubConnection!.on(method: ChatEvents.receiveMessage.rawValue, callback: {(user: String, message: String) in
             self.delegate?.signalRConnection(receiveMessage:self.getMessageFromString(string: message) ?? Message())
-      })
-        
+//      })
+        if let messageObj : Message = self.getMessageFromString(string: message)
+        {
+           NotificationCenter.default.post(name: NSNotification.Name(kMessageReceiveNotification), object: messageObj, userInfo: nil)
+        }
+        })
   /*      self.chatHubConnection!.on(method: ChatEvents.receiveMessage.rawValue, callback: {args, typeConverter in
             // Index 1 will give the id of sender user
 //            let user = try! typeConverter.convertFromWireType(obj: args[1], targetType: String.self)
@@ -141,6 +149,7 @@ class SignalRConnection{
     fileprivate func connectionDidFailToOpen(error: Error) {
         delegate?.signalRConnection(errorInConnection: error.localizedDescription)
 //       delegate?.signalRConnection(error: error.localizedDescription)
+       NotificationCenter.default.post(name: NSNotification.Name(kChatCoonectionFailNotification), object: nil, userInfo: nil)
     }
     
     fileprivate func connectionDidClose(error: Error?) {
@@ -171,6 +180,7 @@ class ChatHubConnectionDelegate: HubConnectionDelegate {
     
     func connectionDidFailToOpen(error: Error) {
         controller?.connectionDidFailToOpen(error: error)
+       NotificationCenter.default.post(name: NSNotification.Name(kChatCoonectionFailNotification), object: nil, userInfo: nil)
     }
     
     func connectionDidClose(error: Error?) {

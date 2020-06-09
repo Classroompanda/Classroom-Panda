@@ -3,6 +3,7 @@ import Foundation
 
 
 public class Enrollment:NSObject {
+  public var updatedFlag = 1
 	public var id : Int?
 	public var agencyID : Int?
 	public var classesID : Int?
@@ -42,7 +43,7 @@ public class Enrollment:NSObject {
 
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
 		id = dictionary["id"] as? Int ?? 0
 		agencyID = dictionary["agencyID"] as? Int ?? 0
 		classesID = dictionary["classesID"] as? Int ?? 0
@@ -70,7 +71,7 @@ public class Enrollment:NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
-
+ dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
 		dictionary.setValue(self.id, forKey: "id")
 		dictionary.setValue(self.agencyID, forKey: "agencyID")
 		dictionary.setValue(self.classesID, forKey: "classesID")

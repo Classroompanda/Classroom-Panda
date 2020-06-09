@@ -33,6 +33,7 @@ class AddDisabilityPopupVC: UIViewController {
     }
     
     @IBAction func actionForSave(_ sender: Any) {
+      self.disabilty.updatedBy = AppInstance.shared.user?.loginUserID ?? 0
         self.disabilty.studentID = self.child?.studentId ?? 0
         self.disabilty.agencyID = AppInstance.shared.user?.agencyID ?? 0
         self.disabilty.id = self.disabilty.id ?? 0

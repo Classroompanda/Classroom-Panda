@@ -49,19 +49,19 @@ public class APIService: NSObject {
     func startService(with method:HttpMethod,path:String,parameters:Dictionary<String,Any>?,files:Array<File>?,withVersion version: ApiVersion = ApiVersion.v1, completion: @escaping (Result<Any?>) -> Void) {
         
         guard let url =  URL(string:Macros.Config.baseServer+path) else { return completion(.Error("Invalid URL, we can't proceed.")) }
-        print(url)
-        print(parameters ?? "")
+        print("\n API URL = \(url)")
+      print("\n Request parameters = \(parameters ?? [:])")
        
         let request = self.buildRequest(with: method, url: url, parameters: parameters,apiVersion: version, files: files)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard error == nil else { return completion(.Error(error!.localizedDescription)) }
             guard let data = data else { return completion(.Error(error?.localizedDescription ?? "Data not found."))
             }
+          print("\n Response = \(String(describing: response))")
             self.handleResponse(data: data, response: response, completion: completion)
         }
         task.resume()
     }
-    
     
     func internalJsonResponseHandler(data: Data, completion: @escaping (Result<Any?>) -> Void) {
         do {

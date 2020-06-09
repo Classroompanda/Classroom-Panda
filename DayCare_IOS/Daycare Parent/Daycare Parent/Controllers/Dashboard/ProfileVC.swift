@@ -448,6 +448,7 @@ class ProfileVC: BaseViewController {
             parentUser.id = parentUser.id ?? 0
             parentUser.addedByID = AppInstance.shared.user?.releventUserID
             parentUser.createdBy = AppInstance.shared.user?.loginUserID
+          parentUser.updatedBy = AppInstance.shared.user?.loginUserID
         } else {
             for child in parentUser.associatedChild ?? [] {
                 arrForAssociateChild.append(child.dictionaryRepresentation())

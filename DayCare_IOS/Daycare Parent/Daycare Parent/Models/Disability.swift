@@ -5,6 +5,7 @@ import Foundation
 
 
 public class Disability:NSObject {
+   public var updatedFlag = 1
 	public var id : Int?
 	public var studentID : Int?
 	public var disabilityDescription : String?
@@ -37,7 +38,7 @@ public class Disability:NSObject {
     }
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
 		id = dictionary["id"] as? Int ?? 0
 		studentID = dictionary["studentID"] as? Int ?? 0
 		disabilityDescription = dictionary["description"] as? String ?? ""
@@ -60,7 +61,7 @@ public class Disability:NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
-
+ dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
 		dictionary.setValue(self.id, forKey: "id")
 		dictionary.setValue(self.studentID, forKey: "studentID")
 		dictionary.setValue(self.disabilityDescription, forKey: "description")

@@ -36,6 +36,7 @@ class AddImmunizationPopupVC: UIViewController {
     
     @IBAction func actionForSave(_ sender: Any) {
         if self.isValidate() {
+            immunization.updatedBy = AppInstance.shared.user?.loginUserID ?? 0
             immunization.agencyID = AppInstance.shared.user?.agencyID ?? 0
             immunization.studentID = child?.studentId ?? 0
             immunization.studentImmunizationID = immunization.studentImmunizationID ?? 0
@@ -196,7 +197,6 @@ extension AddImmunizationPopupVC: UITableViewDelegate, UITableViewDataSource{
             case 2:
                 cell.txtFieldForField.text = self.immunization.otherImmunization
             case 3:
-               
                 cell.txtFieldForField.text = self.immunization.abbreviation
             default:
                 print("Invalid Case")

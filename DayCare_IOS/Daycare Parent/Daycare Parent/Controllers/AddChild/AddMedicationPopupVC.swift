@@ -38,6 +38,7 @@ class AddMedicationPopupVC: UIViewController {
     @IBAction func actionForSave(_ sender: Any) {
         resignTextFieldResponder()
         if self.isValidate() {
+          self.medication.updatedBy = AppInstance.shared.user?.loginUserID ?? 0
             self.medication.id = self.medication.studentMedicationID ?? 0
             self.medication.studentMedicationID = self.medication.studentMedicationID ?? 0
             self.medication.studentID = self.child?.studentId ?? 0

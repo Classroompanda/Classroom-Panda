@@ -1141,7 +1141,10 @@ Codeless drop-in universal library allows to prevent issues of keyboard sliding 
                     if move > 0 {
                         shouldContinue =  move > (-scrollView.contentOffset.y - scrollView.contentInset.top)
 
-                    } else if let tableView = scrollView.superviewOfClassType(UITableView.self) as? UITableView {
+                    }
+//                      else if let tableView = scrollView.superviewOfClassType(UITableView.self) as? UITableView {
+
+                    else if let tableView = scrollView as? UITableView {
 
                         shouldContinue = scrollView.contentOffset.y > 0
                         

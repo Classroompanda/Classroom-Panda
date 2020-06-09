@@ -3,6 +3,7 @@
 import Foundation
 
 public class Medication: NSObject {
+   public var updatedFlag = 1
 	public var studentMedicationID : Int?
 	public var studentID : Int?
 	public var medicationName : String?
@@ -49,7 +50,7 @@ public class Medication: NSObject {
 
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
 		studentMedicationID = dictionary["studentMedicationID"] as? Int ?? 0
 		studentID = dictionary["studentID"] as? Int ?? 0
 		medicationName = dictionary["medicationName"] as? String ?? ""
@@ -84,7 +85,7 @@ public class Medication: NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
-
+ dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
 		dictionary.setValue(self.studentMedicationID, forKey: "studentMedicationID")
 		dictionary.setValue(self.studentID, forKey: "studentID")
 		dictionary.setValue(self.medicationName, forKey: "medicationName")

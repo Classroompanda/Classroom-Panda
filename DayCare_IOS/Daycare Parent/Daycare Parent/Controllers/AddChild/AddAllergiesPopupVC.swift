@@ -37,10 +37,25 @@ class AddAllergiesPopupVC: UIViewController {
             }
         }
         // Do any additional setup after loading the view.
+//      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+  
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//            tblViewForAddAllergies.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+          tblViewForAddAllergies.setContentOffset(CGPoint(x: 0, y: -keyboardSize.height), animated: false)
+      }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+//        tblViewForAddAllergies.contentInset = .zero
+      tblViewForAddAllergies.contentOffset = .zero
+    }
+  
     @IBAction func actionForSaveAllergies(_ sender: Any) {
         if isValidate() {
+          self.allergy.updatedBy = AppInstance.shared.user?.loginUserID ?? 0
             self.allergy.studentID = self.child?.studentId ?? 0
             self.allergy.agencyID =  AppInstance.shared.user?.agencyID ?? 0
             self.allergy.id = self.allergy.studentAllergiesID ?? 0

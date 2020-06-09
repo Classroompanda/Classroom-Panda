@@ -594,8 +594,10 @@ class AddKidVC: BaseViewController {
     }
     
     func apiCallForSaveChildInformation() {
+      self.child.updatedFlag = self.child.updatedFlag
         self.child.id = self.child.studentId ?? 0
         self.child.parentID = AppInstance.shared.user?.releventUserID ?? 0
+       self.child.updatedBy = AppInstance.shared.user?.loginUserID ?? 0
         self.child.transportationID = self.child.transportationID ?? 1
         self.child.feePaymentTypeID = self.child.feePaymentTypeID ?? 1
         self.child.studentId = self.child.studentId ?? 0

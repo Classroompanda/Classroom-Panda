@@ -9,7 +9,7 @@
 import UIKit
 
 class LeftSideMenuTableViewCell: UITableViewCell {
-    
+    @IBOutlet weak var lblMessageCount: UILabel!
     @IBOutlet weak var btnForTitle: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()

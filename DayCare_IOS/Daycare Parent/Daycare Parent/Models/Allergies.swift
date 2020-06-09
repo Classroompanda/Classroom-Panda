@@ -10,6 +10,7 @@
 import Foundation
 
 public class Allergies: NSObject {
+   public var updatedFlag = 1
     public var studentAllergiesID : Int?
     public var studentID : Int?
     public var allergyReactionTypeID : Int?
@@ -55,7 +56,7 @@ public class Allergies: NSObject {
     
     
     required public init?(dictionary: Dictionary<String,Any>) {
-        
+        updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
         studentAllergiesID = dictionary["studentAllergiesID"] as? Int
         studentID = dictionary["studentID"] as? Int
         allergyReactionTypeID = dictionary["allergyReactionTypeID"] as? Int
@@ -89,7 +90,7 @@ public class Allergies: NSObject {
     public func dictionaryRepresentation() -> Dictionary<String,Any> {
         
         let dictionary = NSMutableDictionary()
-        
+        dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
         dictionary.setValue(self.studentAllergiesID, forKey: "studentAllergiesID")
         dictionary.setValue(self.studentID, forKey: "studentID")
         dictionary.setValue(self.allergyReactionTypeID, forKey: "allergyReactionTypeID")

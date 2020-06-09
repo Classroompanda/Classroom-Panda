@@ -3,6 +3,7 @@ import Foundation
 
 
 public class Child:NSObject {
+  public var updatedFlag = 1
 	public var studentId : Int?
 	public var studentName : String?
 	public var classId : Int?
@@ -80,7 +81,7 @@ public class Child:NSObject {
     }
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
 		studentId = dictionary["studentId"] as? Int ?? 0
 		studentName = dictionary["studentName"] as? String ?? ""
 		classId = dictionary["classId"] as? Int ?? 0
@@ -148,7 +149,7 @@ public class Child:NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
-
+    dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
 		dictionary.setValue(self.studentId, forKey: "studentId")
 		dictionary.setValue(self.studentName, forKey: "studentName")
 		dictionary.setValue(self.classId, forKey: "classId")

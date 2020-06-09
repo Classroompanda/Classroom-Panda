@@ -4,6 +4,7 @@ import Foundation
  
 
 public class Parent : NSObject {
+  public var updatedFlag = 1
 	public var id : Int?
 	public var parentName : String?
 	public var agencyID : Int?
@@ -69,7 +70,7 @@ public class Parent : NSObject {
     }
 
 	required public init?(dictionary: Dictionary<String, Any>) {
-
+updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
 		id = dictionary["id"] as? Int ?? 0
 		parentName = dictionary["parentName"] as? String ?? ""
 		agencyID = dictionary["agencyID"] as? Int ?? 0
@@ -123,7 +124,7 @@ public class Parent : NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String, Any> {
 
 		let dictionary = NSMutableDictionary()
-
+ dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
 		dictionary.setValue(self.id, forKey: "id")
 		dictionary.setValue(self.parentName, forKey: "parentName")
 		dictionary.setValue(self.agencyID, forKey: "agencyID")

@@ -129,9 +129,10 @@ class LoginVC: BaseViewController {
             if result != nil {
                 AppInstance.shared.parent = result as? Parent
                 AppInstance.shared.kUserDefault.setValue( AppInstance.shared.parent?.dictionaryRepresentation(), forKey: Macros.DefaultKeys.kParentDetails)
+              SignalRConnection.sharedInstance.startConnection(currentUser: AppInstance.shared.user ?? User())
                 if (AppInstance.shared.user?.childCount == 0 || AppInstance.shared.user?.childCount == nil) {
                     self.navigateToAddChild()
-                } else {
+                } else {                  
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: Macros.Identifiers.Controllers.ChildListVC) as! ChildListVC
                     self.navigationController?.pushViewController(vc, animated: true)
                 }

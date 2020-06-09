@@ -11,9 +11,9 @@ import UIKit
 class MessageService: APIService {
     
     //MARK:---- Parent List API -----
-    func getAllParents(with target:BaseViewController?, agencyID:Int, teacherID:Int, roleID: Int, complition:@escaping(Any?) -> Void){
+  func getAllParents(with target:BaseViewController?, agencyID:Int, teacherID:Int, roleID: Int, userID:Int, complition:@escaping(Any?) -> Void) {
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kroleID: roleID] as [String : Any]
+    let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kroleID: roleID, Macros.ApiKeys.kuserID: userID] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetListForChat, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -35,6 +35,7 @@ class MessageService: APIService {
     }
     
     //MARK:---- Message List API -----
+  
     func getAllMessages(with target:BaseViewController?, senderID:Int, receiverID:Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
         let param   =   [Macros.ApiKeys.ksenderUserID : senderID, Macros.ApiKeys.kreceiverUserID : receiverID] as [String : Any]
@@ -57,4 +58,26 @@ class MessageService: APIService {
             }
         }
     }
+  
+  //MARK:----Unread Message Count API -----
+  func getAllUnreadMessagesCount(with target:BaseViewController?, userID:Int, complition:@escaping(Any?) -> Void) {
+      let param   =   [Macros.ApiKeys.kreceiverUserID : userID] as [String : Any]
+    super.startService(with: .POST, path: Macros.ServiceName.GetUnreadMessageCount, parameters: param, files: []) { (result) in
+        DispatchQueue.main.async {
+            target?.hideLoader()
+            switch result {
+            case .Success(let response):
+                if let data = (response as? Dictionary<String,Any>) {
+                    complition(data)
+                } else {
+                    complition(nil)
+                }
+            case .Error(let error):
+                target?.hideLoader()
+                target?.showAlert(with: error)
+                complition(nil)
+            }
+        }
+    }
+  }
 }

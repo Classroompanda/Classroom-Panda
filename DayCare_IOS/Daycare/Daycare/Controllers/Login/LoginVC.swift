@@ -24,6 +24,7 @@ class LoginVC: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+      SignalRConnection.sharedInstance.closeConnection()
         initialSetup()
     }
     
@@ -55,6 +56,7 @@ class LoginVC: BaseViewController {
         if let navigationController    =   storyboard.instantiateViewController(withIdentifier: Macros.Identifiers.Controller.NavigationVC) as? NavigationVC {
             navigationController.setViewControllers([storyboard.instantiateViewController(withIdentifier: Macros.Identifiers.Controller.DashboardVC)], animated: false)
             if let mainViewController  =   storyboard.instantiateInitialViewController() as? SideMenuVC {
+                  SignalRConnection.sharedInstance.startConnection(currentUser: AppInstance.shared.user ?? User())
                 mainViewController.rootViewController   =   navigationController
                 let window = UIApplication.shared.delegate!.window!!
                 window.rootViewController   =   mainViewController

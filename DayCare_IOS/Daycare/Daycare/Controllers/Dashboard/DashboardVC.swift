@@ -15,6 +15,7 @@ class DashboardVC: BaseViewController{
     var selectedImageView: UIImageView!
     var arrForTeacherlogs:[TeacherClassLog] = []
     var isFirstLoad:Bool = true
+  
     //MARK:---- View Methods -----
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +35,7 @@ class DashboardVC: BaseViewController{
         self.setNavigationBar(title: Macros.NavigationTitle.Dashboard)
         self.tblViewForDashboard.contentInset = UIEdgeInsets(top: -35.0, left: 0, bottom: 0, right: 0)
     }
-    
-
+ 
     //MARK:---- @IBActions ---
     @IBAction func actionForCamera(_ sender: UIButton) {
     }
@@ -232,11 +232,8 @@ class DashboardVC: BaseViewController{
         }
     }
     
-    func apiCallForEdit(){
-        
-    }
-    
-    
+  func apiCallForEdit(){
+  }
 }
 
 //MARK:----- UITableView DataSource and Delegates -----
@@ -502,4 +499,3 @@ class DashboardBottomTableViewCell: UITableViewCell {
             // Configure the view for the selected state
         }
 }
-

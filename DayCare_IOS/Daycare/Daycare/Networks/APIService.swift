@@ -58,7 +58,11 @@ public class APIService: NSObject {
           print(url)
           print(parameters)
           let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-              guard error == nil else { return completion(.Error(error!.localizedDescription)) }
+              guard error == nil else {              
+                 print("\n Error = \(error!.localizedDescription)")
+                completion(.Error(error!.localizedDescription))
+                  return
+            }
               guard let data = data else { return completion(.Error(error?.localizedDescription ?? "Data not found."))
               }
               self.handleResponse(data: data, response: response, completion: completion)
@@ -95,7 +99,6 @@ public class APIService: NSObject {
 //             }
          default:
              completion(.Error("Some error occurred"))
-             
          }
          
      }

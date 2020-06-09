@@ -68,6 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+      if  AppInstance.shared.user?.loginUserID ?? 0 > 0
+         {
+           SignalRConnection.sharedInstance.closeConnection()
+         }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -76,6 +80,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+      if  AppInstance.shared.user?.loginUserID ?? 0 > 0
+      {
+        SignalRConnection.sharedInstance.startConnection(currentUser:AppInstance.shared.user ?? User())
+      }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
@@ -109,6 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             }
         })
     }
+  
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler(
             [UNNotificationPresentationOptions.alert,
@@ -139,3 +148,6 @@ extension AppDelegate : MessagingDelegate {
     }
     
 }
+
+//login teacher app - toby@yopmail.com/daycare@123
+//Parent app - parent1@yopmail.com/daycare@123

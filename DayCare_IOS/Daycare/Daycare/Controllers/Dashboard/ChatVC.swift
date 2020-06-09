@@ -24,6 +24,7 @@ class ChatVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      signalRConnection = SignalRConnection.sharedInstance
         IQKeyboardManager.shared.enable = false
         self.setNavigationBarWithBackButton(title: Macros.NavigationTitle.chat)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -33,17 +34,19 @@ class ChatVC: BaseViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+      super.viewDidDisappear(animated)
         IQKeyboardManager.shared.enable = true
-        signalRConnection?.closeConnection()
+//        signalRConnection?.closeConnection()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
 //        self.signalRConnection = SignalRConnection()
-//        self.signalRConnection?.delegate = self
-//        self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
+//      self.signalRConnection?.startConnection(currentUser: AppInstance.shared.user ?? User())
+        self.signalRConnection?.delegate = self
     }
-    
-    @IBAction func actionForMessageSend(_ sender: Any) {
+  
+  @IBAction func actionForMessageSend(_ sender: Any) {
         let message = Message()
         message.agencyID = AppInstance.shared.user?.agencyID ?? 0
         message.SenderUserID = AppInstance.shared.user?.loginUserID ?? 0
@@ -131,11 +134,12 @@ class ChatVC: BaseViewController {
         let service = MessageService()
         self.showLoader()
         service.getAllMessages(with: nil, senderID: AppInstance.shared.user?.loginUserID ?? 0, receiverID: parentUser?.listUserId ?? 0, complition: {(result) in
+          self.hideLoader()
             if result != nil {
                 self.arrForMessages = result as? [Message] ?? []
-                self.signalRConnection = SignalRConnection()
-                self.signalRConnection?.delegate = self
-                self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
+//                self.signalRConnection = SignalRConnection()
+//                self.signalRConnection?.delegate = self
+//                self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
                 self.tblViewForChat.reloadData()
                 if self.arrForMessages.count > 0 {
                     self.tblViewForChat.scrollToRow(at: IndexPath(item: self.arrForMessages.count-1, section: 0), at: .bottom, animated: true)

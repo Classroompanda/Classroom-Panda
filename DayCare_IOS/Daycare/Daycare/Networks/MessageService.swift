@@ -80,4 +80,26 @@ class MessageService: APIService {
         }
     }
   }
+  
+  func getAllUnreadMessagesByID(with target:BaseViewController?, userID:Int, senderID:Int, complition:@escaping(Any?) -> Void){
+      let param   =   [Macros.ApiKeys.kreceiverUserID : userID, Macros.ApiKeys.ksenderUserID : senderID] as [String : Any]
+         super.startService(with: .POST, path: Macros.ServiceName.UnreadMessageByID, parameters: param, files: []) { (result) in
+        DispatchQueue.main.async {
+            target?.hideLoader()
+            switch result {
+            case .Success(let response):
+                if let data = (response as? Dictionary<String,Any>) {
+                    complition(data)
+                } else {
+                    complition(nil)
+                }
+            case .Error(let error):
+                target?.hideLoader()
+                target?.showAlert(with: error)
+                complition(nil)
+            }
+        }
+    }
+  }
+  
 }

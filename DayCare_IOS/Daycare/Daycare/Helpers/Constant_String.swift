@@ -92,6 +92,7 @@ struct Macros
     static let GetListForChat                 =   "/Message/GetListForChat"
     static let GetMessageByID                 =   "/Message/GetMessageByID"
     static let GetUnreadMessageCount           =   "/Message/GetUnReadMessageCount"
+    static let     UnreadMessageByID           :   String  = "/Message/UnreadMessageByID"
     static let GetAllStudentDropdown          =   "/Masters/GetAllStudentDropdown"
     static let GetTeacherOperationalClasses   =   "/Teacher/GetTeacherOperationalClasses"
     static let GetTeacherTodayMedicationTasks =   "/Teacher/GetTeacherTodayMedicationTasks"

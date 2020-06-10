@@ -131,7 +131,6 @@ class SignalRConnection{
      */
     
     func connectUser(userId:Int){
-        
         chatHubConnection?.invoke(method: ChatEvents.connect.rawValue, arguments: [userId], invocationDidComplete:
             {error in
                 if let e = error {

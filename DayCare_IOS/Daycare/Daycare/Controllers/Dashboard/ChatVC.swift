@@ -36,14 +36,13 @@ class ChatVC: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
       super.viewDidDisappear(animated)
         IQKeyboardManager.shared.enable = true
-//        signalRConnection?.closeConnection()
+NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-//        self.signalRConnection = SignalRConnection()
-//      self.signalRConnection?.startConnection(currentUser: AppInstance.shared.user ?? User())
         self.signalRConnection?.delegate = self
+      signalRChatNotification()
     }
   
   @IBAction func actionForMessageSend(_ sender: Any) {
@@ -136,17 +135,32 @@ class ChatVC: BaseViewController {
         service.getAllMessages(with: nil, senderID: AppInstance.shared.user?.loginUserID ?? 0, receiverID: parentUser?.listUserId ?? 0, complition: {(result) in
           self.hideLoader()
             if result != nil {
+               self.apiForUnreadMessageByID()
                 self.arrForMessages = result as? [Message] ?? []
-//                self.signalRConnection = SignalRConnection()
-//                self.signalRConnection?.delegate = self
-//                self.signalRConnection?.startConnection(currentUser:AppInstance.shared.user ?? User())
                 self.tblViewForChat.reloadData()
                 if self.arrForMessages.count > 0 {
                     self.tblViewForChat.scrollToRow(at: IndexPath(item: self.arrForMessages.count-1, section: 0), at: .bottom, animated: true)
                 }
             }
         })
-    }}
+    }
+  func signalRChatNotification()
+   {
+     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
+   }
+  @objc func signalRChatMessageReceived(_ notification: Notification)
+  {
+    self.apiForUnreadMessageByID()
+  }
+  func apiForUnreadMessageByID(){
+     let service = MessageService()
+     service.getAllUnreadMessagesByID(with:nil, userID: AppInstance.shared.user?.loginUserID ?? 0, senderID: parentUser?.listUserId ?? 0) { (result) in
+       self.hideLoader()
+       if result != nil {
+       }
+     }
+   }
+}
 
 //MARK:----- UITableView Delegate and Datasources ------
 extension ChatVC: UITableViewDataSource,UITableViewDelegate{

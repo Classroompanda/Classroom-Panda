@@ -174,10 +174,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3F-2z-juZ">
-                                <rect key="frame" x="10" y="340" width="280" height="70"/>
+                                <rect key="frame" x="0.0" y="340" width="300" height="70"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8qc-Qr-DLs" customClass="CustomPopupButton" customModule="Daycare_Parent" customModuleProvider="target">
-                                        <rect key="frame" x="150" y="10" width="110" height="50"/>
+                                        <rect key="frame" x="160" y="10" width="110" height="50"/>
                                         <color key="backgroundColor" red="1" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                         <state key="normal" title="Save">
@@ -188,7 +188,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cAK-VS-SH4" customClass="CustomPopupButton" customModule="Daycare_Parent" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="10" width="110" height="50"/>
+                                        <rect key="frame" x="30" y="10" width="110" height="50"/>
                                         <color key="backgroundColor" red="0.70980392160000005" green="0.70980392160000005" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="TOo-NX-d2r"/>
@@ -207,35 +207,43 @@
                                     <constraint firstItem="8qc-Qr-DLs" firstAttribute="centerY" secondItem="cAK-VS-SH4" secondAttribute="centerY" id="Eda-6l-Nn7"/>
                                     <constraint firstItem="8qc-Qr-DLs" firstAttribute="leading" secondItem="cAK-VS-SH4" secondAttribute="trailing" constant="20" id="GlN-YT-MWf"/>
                                     <constraint firstItem="cAK-VS-SH4" firstAttribute="centerY" secondItem="q3F-2z-juZ" secondAttribute="centerY" id="SwG-HW-pEt"/>
-                                    <constraint firstItem="cAK-VS-SH4" firstAttribute="leading" secondItem="q3F-2z-juZ" secondAttribute="leading" constant="20" id="aBv-nJ-qir"/>
+                                    <constraint firstItem="cAK-VS-SH4" firstAttribute="leading" secondItem="q3F-2z-juZ" secondAttribute="leading" constant="30" id="aBv-nJ-qir"/>
                                     <constraint firstItem="cAK-VS-SH4" firstAttribute="height" secondItem="8qc-Qr-DLs" secondAttribute="height" id="blP-zj-38m"/>
                                     <constraint firstAttribute="height" constant="70" id="fiu-Os-Djn"/>
                                     <constraint firstItem="cAK-VS-SH4" firstAttribute="width" secondItem="8qc-Qr-DLs" secondAttribute="width" id="gml-YI-Eyo"/>
-                                    <constraint firstAttribute="trailing" secondItem="8qc-Qr-DLs" secondAttribute="trailing" constant="20" id="opI-Ua-9Jw"/>
+                                    <constraint firstAttribute="trailing" secondItem="8qc-Qr-DLs" secondAttribute="trailing" constant="30" id="opI-Ua-9Jw"/>
                                     <constraint firstItem="8qc-Qr-DLs" firstAttribute="centerY" secondItem="q3F-2z-juZ" secondAttribute="centerY" id="txW-tK-Fsk"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="k4r-aE-X5f">
                                 <rect key="frame" x="0.0" y="40" width="300" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="u2A-T9-RIM"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="u2A-T9-RIM"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="6fS-26-KqP" id="p6G-oi-xT5"/>
                                     <outlet property="delegate" destination="6fS-26-KqP" id="8mu-jZ-qZ1"/>
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qcw-xC-smF" firstAttribute="leading" secondItem="NWs-GJ-BX2" secondAttribute="leading" id="5wi-mk-KBP"/>
                             <constraint firstItem="qcw-xC-smF" firstAttribute="trailing" secondItem="NWs-GJ-BX2" secondAttribute="trailing" id="AQa-Kj-xqg"/>
                             <constraint firstItem="k4r-aE-X5f" firstAttribute="trailing" secondItem="NWs-GJ-BX2" secondAttribute="trailing" id="Sc1-XM-Dkg"/>
-                            <constraint firstItem="NWs-GJ-BX2" firstAttribute="trailing" secondItem="q3F-2z-juZ" secondAttribute="trailing" constant="10" id="dSJ-OH-smr"/>
+                            <constraint firstItem="NWs-GJ-BX2" firstAttribute="trailing" secondItem="q3F-2z-juZ" secondAttribute="trailing" id="dSJ-OH-smr"/>
                             <constraint firstItem="q3F-2z-juZ" firstAttribute="top" secondItem="k4r-aE-X5f" secondAttribute="bottom" id="fU6-ok-w65"/>
                             <constraint firstItem="qcw-xC-smF" firstAttribute="top" secondItem="NWs-GJ-BX2" secondAttribute="top" id="hP2-fJ-ub6"/>
                             <constraint firstItem="k4r-aE-X5f" firstAttribute="top" secondItem="qcw-xC-smF" secondAttribute="bottom" id="iMf-yC-egw"/>
                             <constraint firstItem="k4r-aE-X5f" firstAttribute="leading" secondItem="NWs-GJ-BX2" secondAttribute="leading" id="n3q-us-0P7"/>
-                            <constraint firstItem="q3F-2z-juZ" firstAttribute="leading" secondItem="NWs-GJ-BX2" secondAttribute="leading" constant="10" id="oCV-cl-wef"/>
-                            <constraint firstItem="q3F-2z-juZ" firstAttribute="bottom" secondItem="NWs-GJ-BX2" secondAttribute="bottom" id="sG7-x9-az7"/>
+                            <constraint firstItem="q3F-2z-juZ" firstAttribute="leading" secondItem="NWs-GJ-BX2" secondAttribute="leading" id="oCV-cl-wef"/>
+                            <constraint firstItem="q3F-2z-juZ" firstAttribute="bottom" secondItem="NWs-GJ-BX2" secondAttribute="bottom" priority="999" id="sG7-x9-az7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NWs-GJ-BX2"/>
                     </view>
@@ -356,6 +364,7 @@
                         <viewLayoutGuide key="safeArea" id="C03-s2-DNX"/>
                     </view>
                     <connections>
+                        <outlet property="bottomConstraintForView" destination="5ro-hx-8zw" id="4fy-Ov-3IS"/>
                         <outlet property="lblForNavTitle" destination="Fsc-W0-vVD" id="tBL-wo-e5C"/>
                         <outlet property="tblViewForAddAllergies" destination="b3F-gC-zFQ" id="20P-N0-WK4"/>
                     </connections>

@@ -35,6 +35,43 @@ class AddMedicationPopupVC: UIViewController {
         self.lblForNavTitle.text =  (isEdited ?? false) ? Macros.NavigationBarTitle.editMedication : Macros.NavigationBarTitle.addMedication
         // Do any additional setup after loading the view.
     }
+  override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+  
+  // MARK: Keyboard Handling
+    @objc func keyboardDidShow(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else { return }
+
+        var contentInset = self.tblViewForAddMedication.contentInset
+        contentInset.bottom += keyboardFrame.height
+
+        tblViewForAddMedication.contentInset = contentInset
+        tblViewForAddMedication.scrollIndicatorInsets = contentInset
+      tblViewForAddMedication.contentSize = CGSize.init(width: 0, height: tblViewForAddMedication.contentSize.height - contentInset.bottom)
+    }
+
+    @objc func keyboardWillHide(with notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: AnyObject],
+            let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            else { return }
+
+        var contentInset = self.tblViewForAddMedication.contentInset
+        contentInset.bottom -= keyboardFrame.height
+
+        tblViewForAddMedication.contentInset = contentInset
+        tblViewForAddMedication.scrollIndicatorInsets = contentInset
+    }
+  
     @IBAction func actionForSave(_ sender: Any) {
         resignTextFieldResponder()
         if self.isValidate() {
@@ -278,6 +315,19 @@ extension AddMedicationPopupVC: UITableViewDelegate,UITableViewDataSource {
 
 //MARK:----- UITextField Delegates -----
 extension AddMedicationPopupVC:UITextFieldDelegate{
+  
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    perform(#selector(scrollTable(_:)), with: textField, afterDelay: 0.3)
+  }
+  
+  @objc func scrollTable(_ txtField:Any?)
+  {
+      let pathToLastRow = IndexPath.init(row: 1, section: 0)
+    let cell = tblViewForAddMedication.cellForRow(at: pathToLastRow)
+    let cellrect = cell?.convert(cell?.frame ?? CGRect.zero, to: tblViewForAddMedication) ?? CGRect.zero
+    tblViewForAddMedication.scrollRectToVisible(cellrect, animated: false)
+  }
+  
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentString:NSString = textField.text! as NSString
         let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString

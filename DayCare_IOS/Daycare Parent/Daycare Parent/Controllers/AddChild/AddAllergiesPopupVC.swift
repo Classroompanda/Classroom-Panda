@@ -24,34 +24,60 @@ class AddAllergiesPopupVC: UIViewController {
     var delegate: HealthDescriptionDelegate?
     var isEdited:Bool?
     var selectedIndex:Int?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.lblForNavTitle.text =  (isEdited ?? false) ? Macros.NavigationBarTitle.editAllergies : Macros.NavigationBarTitle.addAllergies
-        if (isEdited ?? false) {
-            if allergy.firstAllergyObservation != nil && allergy.firstAllergyObservation != "" {
-                allergy.firstAllergyObservationDate = CommonClassMethods.dateObjectFromDateString(date: allergy.firstAllergyObservation ?? "")
-            }
-            if allergy.lastAllergyObservation != nil && allergy.lastAllergyObservation != "" {
-                allergy.lastAllergyObservationDate = CommonClassMethods.dateObjectFromDateString(date: allergy.lastAllergyObservation ?? "")
-            }
-        }
-        // Do any additional setup after loading the view.
-//      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-//      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
   
-    @objc private func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-//            tblViewForAddAllergies.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
-          tblViewForAddAllergies.setContentOffset(CGPoint(x: 0, y: -keyboardSize.height), animated: false)
+    @IBOutlet weak var bottomConstraintForView: NSLayoutConstraint!
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.lblForNavTitle.text =  (isEdited ?? false) ? Macros.NavigationBarTitle.editAllergies : Macros.NavigationBarTitle.addAllergies
+    if (isEdited ?? false) {
+      if allergy.firstAllergyObservation != nil && allergy.firstAllergyObservation != "" {
+        allergy.firstAllergyObservationDate = CommonClassMethods.dateObjectFromDateString(date: allergy.firstAllergyObservation ?? "")
+      }
+      if allergy.lastAllergyObservation != nil && allergy.lastAllergyObservation != "" {
+        allergy.lastAllergyObservationDate = CommonClassMethods.dateObjectFromDateString(date: allergy.lastAllergyObservation ?? "")
       }
     }
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(animated)
+//      NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+      super.viewWillDisappear(animated)
+      NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+      NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+  
+// MARK: Keyboard Handling
+//  @objc func keyboardDidShow(with notification: Notification) {
+  @objc func keyboardDidShow() {
+//      guard let userInfo = notification.userInfo as? [String: AnyObject],
+//          let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+//          else { return }
 
-    @objc private func keyboardWillHide(notification: NSNotification) {
-//        tblViewForAddAllergies.contentInset = .zero
-      tblViewForAddAllergies.contentOffset = .zero
-    }
+      var contentInset = self.tblViewForAddAllergies.contentInset
+//      contentInset.bottom += keyboardFrame.height
+contentInset.bottom += 244
+      tblViewForAddAllergies.contentInset = contentInset
+      tblViewForAddAllergies.scrollIndicatorInsets = contentInset
+    tblViewForAddAllergies.contentSize = CGSize.init(width: 0, height:tblViewForAddAllergies.contentSize.height - contentInset.bottom)
+  }
+
+  @objc func keyboardWillHide(with notification: Notification) {
+      guard let userInfo = notification.userInfo as? [String: AnyObject],
+          let keyboardFrame = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+          else { return }
+
+      var contentInset = self.tblViewForAddAllergies.contentInset
+      contentInset.bottom -= keyboardFrame.height
+
+      tblViewForAddAllergies.contentInset = contentInset
+      tblViewForAddAllergies.scrollIndicatorInsets = contentInset
+  }
   
     @IBAction func actionForSaveAllergies(_ sender: Any) {
         if isValidate() {
@@ -313,17 +339,24 @@ extension AddAllergiesPopupVC: UITableViewDelegate,UITableViewDataSource{
     }
 }
 
-extension AddAllergiesPopupVC:UITextFieldDelegate{
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentString:NSString = textField.text! as NSString
-        let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-        self.allergy.treatment = newString as String
-        if let textfield = textField as? ErrorTextField {
-            textfield.isErrorRevealed = newString.trimmingCharacters(in: CharacterSet.whitespaces).length() == 0
-        }
-        return true
+extension AddAllergiesPopupVC:UITextFieldDelegate {
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    perform(#selector(scrollTable(_:)), with: textField, afterDelay: 0.3)
+//    perform(#selector(keyboardDidShow), with: textField, afterDelay: 0.5)
+    
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    let currentString:NSString = textField.text! as NSString
+    let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+    self.allergy.treatment = newString as String
+    if let textfield = textField as? ErrorTextField {
+      textfield.isErrorRevealed = newString.trimmingCharacters(in: CharacterSet.whitespaces).length() == 0
     }
+    return true
+  }
 }
+
 //MARK:----- UITextView Delegates -----
 extension AddAllergiesPopupVC: UITextViewDelegate{
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -331,17 +364,34 @@ extension AddAllergiesPopupVC: UITextViewDelegate{
         let newString: NSString = currentString.replacingCharacters(in: range, with: text) as NSString
         self.allergy.allergyComment = newString as String
         return true
+    }   
+    
+  func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    if let cell = self.tblViewForAddAllergies.cellForRow(at: IndexPath(row:6, section: 0)) as? TextViewTableViewCell {
+      cell.lblForDivider.backgroundColor = colorCode.applicationColor
+      cell.lblForDivider.frame = CGRect(x: cell.lblForDivider.frame.minX, y: cell.lblForDivider.frame.minY, width: cell.lblForDivider.frame.width, height: 2.0)
     }
-    
-    
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if let cell = self.tblViewForAddAllergies.cellForRow(at: IndexPath(row:6, section: 0)) as? TextViewTableViewCell {
-            cell.lblForDivider.backgroundColor = colorCode.applicationColor
-            cell.lblForDivider.frame = CGRect(x: cell.lblForDivider.frame.minX, y: cell.lblForDivider.frame.minY, width: cell.lblForDivider.frame.width, height: 2.0)
-        }
-        return true
+    return true
+  }
+  
+   func textViewDidBeginEditing(_ textView: UITextView) {
+    perform(#selector(scrollTable(_:)), with: textView, afterDelay: 0.3)
+  }
+  
+  @objc func scrollTable(_ txtField:Any?)
+  {
+    if (txtField as? UITextField) != nil
+    {
+    let pathToLastRow = IndexPath.init(row: 2, section: 0)
+    tblViewForAddAllergies.scrollToRow(at: pathToLastRow, at: .top, animated: false)
     }
-    
+    else if (txtField as? UITextView) != nil
+    {
+      tblViewForAddAllergies.scrollRectToVisible(CGRect.init(center: view.center, size: tblViewForAddAllergies.contentSize), animated: false)
+    }
+    keyboardDidShow()
+  }
+  
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if let cell = self.tblViewForAddAllergies.cellForRow(at: IndexPath(row:6, section: 0)) as? TextViewTableViewCell {
             cell.lblForDivider.backgroundColor = .lightGray

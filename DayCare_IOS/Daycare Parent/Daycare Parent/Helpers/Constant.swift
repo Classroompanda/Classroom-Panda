@@ -141,6 +141,7 @@ struct Macros
     static let GetParticularMealPlan        :   String  =   "/Agency/GetParticularMealPlan"
     static let UpdatedPassword              :   String  =   "/Common/UpdatedPassword"
     static let GetListForChat               :   String  =   "/Message/GetListForChat"
+    static let     UnreadMessageByID           :   String  = "/Message/UnreadMessageByID"
     static let GetMessageByID               :   String  =   "/Message/GetMessageByID"
     static let GetUnreadMessageCount           =   "/Message/GetUnReadMessageCount"
     static let SaveStudentActivity          :   String  =   "/Classes/SaveStudentActivity"

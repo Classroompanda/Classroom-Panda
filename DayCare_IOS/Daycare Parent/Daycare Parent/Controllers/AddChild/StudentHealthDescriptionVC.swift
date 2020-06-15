@@ -126,14 +126,15 @@ class StudentHealthDescriptionVC: BaseViewController {
         popoverContent.arrForAllergyReactionType = arrForAllergyReactionType
         popoverContent.allergy = self.arrForAllergies[indexPath.row]
         popoverContent.selectedIndex = indexPath.row
-        popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
+        /*popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
         popoverContent.preferredContentSize = CGSize(width:(self.view.bounds.width - 60),height:(self.view.bounds.height - 100))
         let popover = popoverContent.popoverPresentationController
         popover?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
         popover?.delegate = self
         popover?.sourceView = self.view
         popover?.sourceRect = CGRect(x:(self.view.center.x-50),y:(self.view.center.y-75),width:100.0,height:100.0)
-        self.present(popoverContent, animated: true, completion: nil)
+        self.present(popoverContent, animated: true, completion: nil)*/
+      self.navigationController?.pushViewController(popoverContent, animated: true)
     }
     
     func openImmunizationsPopup(indexPath: IndexPath){
@@ -185,14 +186,15 @@ class StudentHealthDescriptionVC: BaseViewController {
         popoverContent.isEdited = true
         popoverContent.medication = self.arrForMedication[indexPath.row]
         popoverContent.selectedIndex = indexPath.row
-        popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
+      /*  popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
         popoverContent.preferredContentSize = CGSize(width:(self.view.bounds.width - 60),height:(self.view.bounds.height - 100))
         let popover = popoverContent.popoverPresentationController
         popover?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
         popover?.delegate = self
         popover?.sourceView = self.view
         popover?.sourceRect = CGRect(x:(self.view.center.x-50),y:(self.view.center.y-75),width:100.0,height:100.0)
-        self.present(popoverContent, animated: true, completion: nil)
+        self.present(popoverContent, animated: true, completion: nil)*/
+      self.navigationController?.pushViewController(popoverContent, animated: true)
     }
     
     

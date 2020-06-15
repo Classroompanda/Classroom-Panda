@@ -11,7 +11,7 @@ import ActionSheetPicker_3_0
 import DropDown
 import Material
 
-class AddMedicationPopupVC: UIViewController {
+class AddMedicationPopupVC: BaseViewController {
 
     @IBOutlet weak var tblViewForAddMedication: UITableView!
     var arrForDoes:[DropDownModel]?
@@ -33,17 +33,19 @@ class AddMedicationPopupVC: UIViewController {
             medication.endDatee = CommonClassMethods.dateObjectFromDateString(date: medication.endDate ?? "")
         }
         self.lblForNavTitle.text =  (isEdited ?? false) ? Macros.NavigationBarTitle.editMedication : Macros.NavigationBarTitle.addMedication
+      self.setNavigationBarWithBackButton(title:(isEdited ?? false) ? Macros.NavigationBarTitle.editMedication : Macros.NavigationBarTitle.addMedication)
+
         // Do any additional setup after loading the view.
     }
   override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow(with:)), name: UIResponder.keyboardDidShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(with:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
   
   // MARK: Keyboard Handling
@@ -84,12 +86,14 @@ class AddMedicationPopupVC: UIViewController {
             self.medication.otherMedication = self.medication.otherMedication ?? ""
             (self.isEdited ?? false) ? (medication.updatedBy = AppInstance.shared.user?.loginUserID) : (medication.createdBy = AppInstance.shared.user?.loginUserID)
             self.delegate?.saveAction(param: self.medication.dictionaryRepresentation(), healthStatusType: HealthDecriptionStatus.Medication, selectedIndex: selectedIndex)
-            self.dismiss(animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
+          self.navigationController?.popViewController(animated: true)
         }
     }
     
     @IBAction func actionForCancel(_ sender: Any) {
-         self.dismiss(animated: true, completion: nil)
+//         self.dismiss(animated: true, completion: nil)
+      self.navigationController?.popViewController(animated: true)
     }
     
     @objc func actionForDropDown(_ sender: UIButton){
@@ -317,7 +321,7 @@ extension AddMedicationPopupVC: UITableViewDelegate,UITableViewDataSource {
 extension AddMedicationPopupVC:UITextFieldDelegate{
   
   func textFieldDidBeginEditing(_ textField: UITextField) {
-    perform(#selector(scrollTable(_:)), with: textField, afterDelay: 0.3)
+//    perform(#selector(scrollTable(_:)), with: textField, afterDelay: 0.3)
   }
   
   @objc func scrollTable(_ txtField:Any?)

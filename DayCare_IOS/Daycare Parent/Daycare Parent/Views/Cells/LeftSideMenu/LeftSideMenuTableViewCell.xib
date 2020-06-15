@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -36,8 +36,8 @@
                         </variation>
                     </button>
                     <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vvi-YX-Rp6">
-                        <rect key="frame" x="160" y="17" width="20" height="20"/>
-                        <color key="backgroundColor" red="0.3437703848" green="0.6546054482" blue="0.9972477555" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="140" y="17" width="20" height="20"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="E1K-l3-63j"/>
                             <constraint firstAttribute="width" secondItem="Vvi-YX-Rp6" secondAttribute="height" id="yMk-1m-gSg"/>
@@ -58,8 +58,8 @@
                     <constraint firstAttribute="trailing" secondItem="Y1r-uL-uVr" secondAttribute="trailing" constant="20" id="IPf-Sn-z1a"/>
                     <constraint firstItem="Y1r-uL-uVr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="XAs-cU-gbG"/>
                     <constraint firstItem="Y1r-uL-uVr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dga-Mo-ODf"/>
-                    <constraint firstItem="Vvi-YX-Rp6" firstAttribute="trailing" secondItem="Y1r-uL-uVr" secondAttribute="trailing" constant="-190" id="imX-y6-biu">
-                        <variation key="heightClass=regular-widthClass=regular" constant="-120"/>
+                    <constraint firstItem="Vvi-YX-Rp6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="140" id="imX-y6-biu">
+                        <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                     </constraint>
                     <constraint firstItem="Vvi-YX-Rp6" firstAttribute="centerY" secondItem="Y1r-uL-uVr" secondAttribute="centerY" id="wnM-nb-SsB"/>
                 </constraints>

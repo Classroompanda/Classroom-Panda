@@ -50,7 +50,8 @@ public class Medication: NSObject {
 
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 0
+//    updatedFlag = 1
 		studentMedicationID = dictionary["studentMedicationID"] as? Int ?? 0
 		studentID = dictionary["studentID"] as? Int ?? 0
 		medicationName = dictionary["medicationName"] as? String ?? ""
@@ -85,7 +86,9 @@ public class Medication: NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
- dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+// dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+    dictionary.setValue(1, forKey: "updatedFlag")
+       dictionary.setValue(AppInstance.shared.user?.releventUserID ?? 0, forKey: "updatedBy")
 		dictionary.setValue(self.studentMedicationID, forKey: "studentMedicationID")
 		dictionary.setValue(self.studentID, forKey: "studentID")
 		dictionary.setValue(self.medicationName, forKey: "medicationName")
@@ -109,7 +112,7 @@ public class Medication: NSObject {
 		dictionary.setValue(self.createdBy, forKey: "createdBy")
 		dictionary.setValue(self.createdDate, forKey: "createdDate")
 		dictionary.setValue(self.updatedDate, forKey: "updatedDate")
-		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
+//		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
 		dictionary.setValue(self.deletedFromIP, forKey: "deletedFromIP")
 		dictionary.setValue(self.createdFromIP, forKey: "createdFromIP")
 		dictionary.setValue(self.updatedFromIP, forKey: "updatedFromIP")

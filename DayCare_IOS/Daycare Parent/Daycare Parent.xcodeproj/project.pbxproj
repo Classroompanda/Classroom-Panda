@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1552,7 +1552,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.classroompandaParent.development;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareparent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare Parent/Applications/DaycareParent-bridging-header.h";
@@ -1577,7 +1577,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.classroompandaParent.development;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareparent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare Parent/Applications/DaycareParent-bridging-header.h";
 				SWIFT_VERSION = 4.2;

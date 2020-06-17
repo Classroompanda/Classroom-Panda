@@ -38,7 +38,8 @@ public class Disability:NSObject {
     }
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 0
+//    updatedFlag = 1
 		id = dictionary["id"] as? Int ?? 0
 		studentID = dictionary["studentID"] as? Int ?? 0
 		disabilityDescription = dictionary["description"] as? String ?? ""
@@ -61,7 +62,9 @@ public class Disability:NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
- dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+// dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+    dictionary.setValue(1, forKey: "updatedFlag")
+       dictionary.setValue(AppInstance.shared.user?.releventUserID ?? 0, forKey: "updatedBy")
 		dictionary.setValue(self.id, forKey: "id")
 		dictionary.setValue(self.studentID, forKey: "studentID")
 		dictionary.setValue(self.disabilityDescription, forKey: "description")
@@ -74,7 +77,7 @@ public class Disability:NSObject {
 		dictionary.setValue(self.createdBy, forKey: "createdBy")
 		dictionary.setValue(self.createdDate, forKey: "createdDate")
 		dictionary.setValue(self.updatedDate, forKey: "updatedDate")
-		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
+//		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
 		dictionary.setValue(self.deletedFromIP, forKey: "deletedFromIP")
 		dictionary.setValue(self.createdFromIP, forKey: "createdFromIP")
 		dictionary.setValue(self.updatedFromIP, forKey: "updatedFromIP")

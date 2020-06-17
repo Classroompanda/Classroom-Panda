@@ -81,7 +81,7 @@ public class Child:NSObject {
     }
 
 	required public init?(dictionary: Dictionary<String,Any>) {
-    updatedFlag = dictionary["updatedFlag"] as? Int ?? 1
+    updatedFlag = dictionary["updatedFlag"] as? Int ?? 0
 		studentId = dictionary["studentId"] as? Int ?? 0
 		studentName = dictionary["studentName"] as? String ?? ""
 		classId = dictionary["classId"] as? Int ?? 0
@@ -149,7 +149,9 @@ public class Child:NSObject {
 	public func dictionaryRepresentation() -> Dictionary<String,Any> {
 
 		let dictionary = NSMutableDictionary()
-    dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+//    dictionary.setValue(self.updatedFlag, forKey: "updatedFlag")
+    dictionary.setValue(1, forKey: "updatedFlag")
+    dictionary.setValue(AppInstance.shared.user?.releventUserID ?? 0, forKey: "updatedBy")
 		dictionary.setValue(self.studentId, forKey: "studentId")
 		dictionary.setValue(self.studentName, forKey: "studentName")
 		dictionary.setValue(self.classId, forKey: "classId")
@@ -202,7 +204,8 @@ public class Child:NSObject {
 		dictionary.setValue(self.createdBy, forKey: "createdBy")
 		dictionary.setValue(self.createdDate, forKey: "createdDate")
 		dictionary.setValue(self.updatedDate, forKey: "updatedDate")
-		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
+//		dictionary.setValue(self.updatedBy, forKey: "updatedBy")
+   // dictionary.setValue(AppInstance.shared.user?.loginUserID ?? 0, forKey: "updatedBy")
 		dictionary.setValue(self.deletedFromIP, forKey: "deletedFromIP")
 		dictionary.setValue(self.createdFromIP, forKey: "createdFromIP")
 		dictionary.setValue(self.updatedFromIP, forKey: "updatedFromIP")

@@ -36,8 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     return true
   }
   
-  func registerNotificationFunction(application:UIApplication){
+  func registerNotificationFunction(application:UIApplication) {
     FirebaseApp.configure()
+    Messaging.messaging().delegate = self
     UNUserNotificationCenter.current().delegate = self
     if #available(iOS 10.0, *) {
       // For iOS 10 display notification (sent via APNS)
@@ -49,9 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             DispatchQueue.main.async(execute: {
               UIApplication.shared.registerForRemoteNotifications()
             })
-          }else{
+          } else {
             print("permission denied")
-            
           }
       })
     } else {
@@ -153,3 +153,6 @@ extension AppDelegate : MessagingDelegate {
 }
 //login teacher app - toby@yopmail.com/daycare@123
 //Parent app - parent1@yopmail.com/daycare@123
+
+//  9692DDD6-1C58-4AD5-8388-46E2E5
+// xcrun simctl push 9692DDD6-1C58-4AD5-8388-46E2E5 com.classroompandaParent.development notification.apns

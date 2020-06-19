@@ -28,6 +28,7 @@ class LoginVC: BaseViewController {
         initialSetup()
     }
     
+ 
     func initialSetup(){
         viewForImageCircle.cornerRadius =  UIDevice.current.userInterfaceIdiom == .pad ? 125.0 : viewForImageCircle.bounds.size.width / 2
         viewForImageCircle.layer.masksToBounds = true

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     var window: UIWindow?
     
     //MARK :-Appdelegate ShareInstance:--
-    func sharedInstance() -> AppDelegate{
+    func sharedInstance() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
 
@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     func registerNotificationFunction(application:UIApplication){
         FirebaseApp.configure()
+       Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -76,6 +77,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+      if  AppInstance.shared.user?.loginUserID ?? 0 > 0
+      {
+        
+      }
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

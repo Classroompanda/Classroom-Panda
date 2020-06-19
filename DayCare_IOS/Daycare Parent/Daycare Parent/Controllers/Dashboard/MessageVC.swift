@@ -35,10 +35,11 @@ class MessageVC: BaseViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kMessageReceiveNotification), object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   //MARK:----- API Calling Functions -----
   
-  func apiForGetAllTeachers(){
+ @objc func apiForGetAllTeachers(){
     let service = MessageService()
     service.getAllTeacher(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, parentID: AppInstance.shared.user?.releventUserID ?? 0, roleID: RoleId.teacher, userID:AppInstance.shared.user?.loginUserID ?? 0,complition: { (result) in
       if result != nil {
@@ -52,6 +53,7 @@ class MessageVC: BaseViewController {
   {
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatReconnect), name: NSNotification.Name(kChatCoonectionFailNotification), object: nil)
+     NotificationCenter.default.addObserver(self, selector: #selector(apiForGetAllTeachers), name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   @objc func signalRChatMessageReceived(_ notification: Notification)
   {
@@ -119,7 +121,7 @@ extension MessageVC:UITextFieldDelegate{
     let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
     if newString == "" {
       isSearchActive = false
-    }else {
+    } else {
       isSearchActive = true
       self.arrForSortedTeacher = self.arrForTeachers?.filter({ (teacher) -> Bool in
         return teacher.listUserName?.lowercased().contains(newString.lowercased) ?? false

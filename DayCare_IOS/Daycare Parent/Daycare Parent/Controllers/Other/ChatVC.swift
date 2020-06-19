@@ -41,9 +41,10 @@ class ChatVC: BaseViewController {
   override func viewWillDisappear(_ animated: Bool) {
     IQKeyboardManager.shared.enable = true
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kMessageReceiveNotification), object: nil)
+  NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   override func viewDidDisappear(_ animated: Bool) {
-    
+    super.viewDidDisappear(animated)
   }
   @IBAction func actionForMessageSend(_ sender: Any) {
     let message = Message()
@@ -126,7 +127,7 @@ class ChatVC: BaseViewController {
   
   //MARK:----- API Calling Functions -----
   
-  func apiForGetAllMessages() {
+ @objc func apiForGetAllMessages() {
     let service = MessageService()
     self.showLoader()
     service.getAllMessages(with: nil, senderID: teacherUser?.listUserId ?? 0, receiverID:AppInstance.shared.user?.loginUserID ?? 0  , complition: {(result) in
@@ -144,6 +145,7 @@ class ChatVC: BaseViewController {
   func signalRChatNotification()
   {
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(apiForGetAllMessages), name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   @objc func signalRChatMessageReceived(_ notification: Notification)
   {

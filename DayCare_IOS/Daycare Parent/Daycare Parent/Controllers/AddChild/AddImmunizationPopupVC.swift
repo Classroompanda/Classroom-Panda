@@ -35,6 +35,16 @@ class AddImmunizationPopupVC: UIViewController {
     if immunization.dateReceived != nil && immunization.dateReceived != "" {
       immunization.receivedDate = CommonClassMethods.dateObjectFromDateString(date: immunization.dateReceived ?? "")
     }
+    if let other = immunization.immunizationName {
+      if other.lowercased() != Macros.ControllerString.Other.lowercased() {
+        self.dropDownCellCount = 2
+        self.preferredContentSize = CGSize(width:(self.view.bounds.width - 60),height:300)
+      }
+      else{
+        self.dropDownCellCount = 4
+        self.preferredContentSize = CGSize(width:(self.view.bounds.width - 60),height:440)
+      }
+    }
   }
   
   @IBAction func actionForSave(_ sender: Any) {

@@ -116,8 +116,11 @@ class ProfileService: APIService {
                 target?.hideLoader()
                 switch result {
                 case .Success(let response):
-                    if let data = (response as? Dictionary<String,Any>)?["message"] as? String{
-                        complition(data)
+                  if let data = (response as? Dictionary<String,Any>){
+                    let teachers = Teacher.modelsFromDictionaryArray(array: [data])
+                  complition(teachers)
+//                    if let data = (response as? Dictionary<String,Any>)?["message"] as? String{
+//                        complition(data)
                     } else {
                         complition(nil)
                     }

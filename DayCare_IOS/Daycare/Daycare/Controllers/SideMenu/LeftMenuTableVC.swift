@@ -16,6 +16,7 @@ class LeftMenuTableVC: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initialSetup()
+    
   }
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillAppear(animated)
@@ -58,13 +59,15 @@ class LeftMenuTableVC: UITableViewController {
   {
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatReconnect), name: NSNotification.Name(kChatCoonectionFailNotification), object: nil)
+     NotificationCenter.default.addObserver(self, selector: #selector(apiCallUnreadMessageCount), name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   @objc func signalRChatReconnect(_ notification: Notification)
    {
     SignalRConnection.sharedInstance.startConnection(currentUser: AppInstance.shared.user ?? User())
   }
-  func apiCallUnreadMessageCount()
+@objc  func apiCallUnreadMessageCount()
   {
+     messageCount = 0
     let service = MessageService()
     service.getAllUnreadMessagesCount(with: nil, userID: AppInstance.shared.user?.loginUserID ?? 0) {(result) in
       if result != nil {
@@ -108,7 +111,7 @@ class LeftMenuTableVC: UITableViewController {
   }
   
   //MARK:----- API Calling Function -----
-  func apiCallForGetTeacherInformation(){
+  func apiCallForGetTeacherInformation() {
     let service = ProfileService()
     service.getTeacherInformation(with: nil, agencyID: AppInstance.shared.user?.agencyID ?? 0, teacherId: AppInstance.shared.user?.releventUserID ?? 0) { (result) in
       if result != nil {

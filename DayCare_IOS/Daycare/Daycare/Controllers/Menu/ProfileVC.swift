@@ -312,9 +312,11 @@ class ProfileVC: BaseViewController {
         dictForParam[Macros.ApiKeys.kdateOfBirth] = CommonClassMethods.convertDateToServerReadableFormat(date: self.teacher.dateofBirth ?? Date())
         dictForParam[Macros.ApiKeys.kdateHired] = CommonClassMethods.convertDateToServerReadableFormat(date: self.teacher.dateofHired ?? Date())
         service.saveProfileData(with: self, param: dictForParam) { (result) in
-            if result as? String != nil {
-                self.teacher.teacherName = "\(self.teacher.firstName ?? "") \(self.teacher.lastName ?? "")"
-                AppInstance.shared.teacher = self.teacher
+            if let teacherObj = result as? Teacher {
+//                self.teacher.teacherName = "\(self.teacher.firstName ?? "") \(self.teacher.lastName ?? "")"
+//                AppInstance.shared.teacher = self.teacher
+              self.teacher.teacherName = "\(teacherObj.firstName ?? "") \(teacherObj.lastName ?? "")"
+                              AppInstance.shared.teacher = teacherObj
                 AppInstance.shared.kUserDefault.setValue(AppInstance.shared.teacher?.dictionaryRepresentation(), forKey: Macros.DefaultKeys.kTeacherDetails)
                 let alertAction = AlertButton.init(style: .default, title: Macros.alertMessages.okString)
                 _ = AlertManager.showAlert(withTitle: Macros.ApplictionName , withMessage: Macros.alertMessages.profileUpdate, buttons: [alertAction], onViewController: self, animatedly: true, presentationCompletionHandler:nil, returnBlock: { (index) in

@@ -75,8 +75,9 @@ class LeftMenuTableVC: UITableViewController {
   {
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatReconnect), name: NSNotification.Name(kChatCoonectionFailNotification), object: nil)
+     NotificationCenter.default.addObserver(self, selector: #selector(apiCallUnreadMessageCount), name: UIApplication.didBecomeActiveNotification, object: nil)
   }
-  func apiCallUnreadMessageCount()
+ @objc func apiCallUnreadMessageCount()
   {
     let service = MessageService()
     service.getAllUnreadMessagesCount(with: nil, userID: AppInstance.shared.user?.loginUserID ?? 0) {(result) in

@@ -33,10 +33,11 @@ class MessageVC: BaseViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillAppear(animated)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kMessageReceiveNotification), object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   
   //MARK:----- API Calling Functions -----
-  func apiForGetAllParents() {
+ @objc func apiForGetAllParents() {
     let service = MessageService()
     service.getAllParents(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, teacherID: AppInstance.shared.user?.releventUserID ?? 0, roleID: RoleId.parent, userID:AppInstance.shared.user?.loginUserID ?? 0, complition: { (result) in
       if result != nil {
@@ -49,6 +50,7 @@ class MessageVC: BaseViewController {
   {
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatMessageReceived), name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(signalRChatReconnect), name: NSNotification.Name(kChatCoonectionFailNotification), object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(apiForGetAllParents), name: UIApplication.didBecomeActiveNotification, object: nil)
   }
   @objc func signalRChatMessageReceived(_ notification: Notification)
   {

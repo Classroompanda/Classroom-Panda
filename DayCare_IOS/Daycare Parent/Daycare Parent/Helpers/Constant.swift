@@ -80,11 +80,11 @@ struct Macros
     static let kLoginUser : String = "LoginUser"
   }
   enum Config {
-    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat" // Live server
-    //        static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" //Azure server
+//    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat" // Live server
+            static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" //Azure server
     
-    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
-    //        static let baseServer : String = "https://schoolpandaapp.azurewebsites.net/api" //Azure server
+//    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
+            static let baseServer : String = "https://schoolpandaapp.azurewebsites.net/api" //Azure server
     
     
     //Image Server URL

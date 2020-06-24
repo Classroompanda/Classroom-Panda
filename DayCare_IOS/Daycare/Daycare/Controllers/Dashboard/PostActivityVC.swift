@@ -447,6 +447,8 @@ class PostActivityTableViewCell: UITableViewCell{
     @IBOutlet weak var btnForComments: UIButton!
     @IBOutlet weak var btnForLikes: UIButton!
     @IBOutlet weak var btnForDelete: UIButton!
+    @IBOutlet weak var approvalStatusLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         imgViewForProfile.cornerRadius = imgViewForProfile.bounds.height/2

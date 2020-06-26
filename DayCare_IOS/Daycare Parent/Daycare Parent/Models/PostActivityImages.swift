@@ -50,6 +50,7 @@ public class PostActivityImages {
 		studentID = dictionary["studentID"] as? Int
 		classesID = dictionary["classesID"] as? Int
 		imageServerPath = dictionary["imageServerPath"] as? String
+        imageServerPath = imageServerPath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		likeCount = dictionary["likeCount"] as? Int
 		loveCount = dictionary["loveCount"] as? Int
 		thumbsUpCount = dictionary["thumbsUpCount"] as? Int

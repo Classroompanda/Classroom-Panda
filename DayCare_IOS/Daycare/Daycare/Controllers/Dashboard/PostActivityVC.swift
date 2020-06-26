@@ -451,6 +451,7 @@ class PostActivityTableViewCell: UITableViewCell{
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        approvalStatusLabel.isHidden = true
         imgViewForProfile.cornerRadius = imgViewForProfile.bounds.height/2
         // Initialization code
     }

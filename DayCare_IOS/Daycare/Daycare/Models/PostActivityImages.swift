@@ -44,6 +44,7 @@ public class PostActivityImages: NSObject {
 		studentID = dictionary["studentID"] as? Int ?? 0
 		classesID = dictionary["classesID"] as? Int ?? 0
 		imageServerPath = dictionary["imageServerPath"] as? String ?? ""
+        imageServerPath = imageServerPath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		isActive = dictionary["isActive"] as? Bool ?? false
 		isDeleted = dictionary["isDeleted"] as? Bool ?? false
 		deletedBy = dictionary["deletedBy"] as? Int ?? 0

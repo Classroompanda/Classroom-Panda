@@ -12,7 +12,9 @@ class ChildActivityService: APIService {
     //MARK:---- Child Activity List API -----
     func getAllChildActivities(with target:BaseViewController?, agencyID:Int, studentID: Int, parentID: Int, askedDate: String,complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kaskedDate: askedDate, Macros.ApiKeys.kparentID: parentID] as [String : Any]
+        // send asked Date in UTC and askeDateString in local timezone
+        let UTCDate = CommonClassMethods.localToUTC(date: askedDate, format: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kaskedDate: UTCDate, Macros.ApiKeys.kparentID: parentID, Macros.ApiKeys.kaskedDateString : askedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetForParent, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

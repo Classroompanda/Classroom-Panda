@@ -25,7 +25,7 @@ enum ApiVersion: String {
 struct DateFormat {
   static let DatePickerFormat = "yyyy-MM-dd HH:mm:ss Z" // used while creating recurring payment
   static let utcDateFormat = "yyyy-MM-ddHH:mm:ss.sssZ" // used while creating recurring payment
-  
+  static let YYYY_MM_DD_T_HH_MM_SS_SSSZ   =   "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" // used while sending ask Date String
 }
 
 struct AppDateFormat {
@@ -499,6 +499,7 @@ struct Macros
     static let kstudentID           :   String  =   "studentID"
     static let kincidentDate        :   String  =   "incidentDate"
     static let kaskedDate           :   String  =   "askedDate"
+    static let kaskedDateString     :   String  =   "askedDateString"
     static let kcountryID           :   String  =   "countryID"
     static let kstateID             :   String  =   "stateID"
     static let kclassAttendenceID   :   String  =   "classAttendenceID"

@@ -69,6 +69,7 @@ public class Teacher: NSObject {
 		genderID = dictionary["genderID"] as? Int ?? 0
 		dateOfBirth = dictionary["dateOfBirth"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		positionTypeID = dictionary["positionTypeID"] as? Int ?? 0
 		teacherStatusID = dictionary["teacherStatusID"] as? Int ?? 0
 		dateHired = dictionary["dateHired"] as? String ?? ""

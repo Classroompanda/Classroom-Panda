@@ -63,6 +63,7 @@ extension ChildListVC: UITableViewDelegate,UITableViewDataSource {
              cell.lblForDOB.text = CommonClassMethods.dateFromDateStringS(date: self.arrForChild?[indexPath.row].dateOfBirth ?? "")
             cell.imgViewForChild.sd_setShowActivityIndicatorView(true)
             cell.imgViewForChild.sd_setIndicatorStyle(.gray)
+       
             cell.imgViewForChild.sd_setImage(with: URL(string: (self.arrForChild?[indexPath.row].imagePath ?? ""))) { (image, error, type, url) in
                 if (error != nil) {
                     cell.imgViewForChild.image = UIImage(named: "placeholder")

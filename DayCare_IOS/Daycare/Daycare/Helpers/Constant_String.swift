@@ -31,12 +31,12 @@ struct Macros
   //MARK:----- URLs -----
   struct URLs{
     // Here we will fetch BASE SERVER URL from pList
-    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
-//            static let baseServer  : String = "https://schoolpandaapp.azurewebsites.net/api" // AZURE SERVER
+//    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
+            static let baseServer  : String = "https://schoolpandaapp.azurewebsites.net/api" // AZURE SERVER
     
     
-    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat"
-//            static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" // AZURE SERVER
+//    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat"
+            static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" // AZURE SERVER
     
     
   }
@@ -504,6 +504,7 @@ struct Macros
     static let kstudentID             =   "studentID"
     static let kclassID               =   "classID"
     static let kaskedDate             =   "askedDate"
+    static let kaskedDateString       =   "askedDateString"
     static let kstudentName           =   "studentName"
     static let kattendanceDate        =   "attendanceDate"
     static let kattendenceStatusID    =   "attendenceStatusID"

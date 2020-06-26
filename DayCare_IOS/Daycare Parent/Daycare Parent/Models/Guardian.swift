@@ -82,6 +82,7 @@ public class Guardian: NSObject {
         reasonNotToAllow = dictionary["reasonNotToAllow"] as? String ?? ""
         emailId = dictionary["emailId"] as? String ?? ""
         imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         securityKey = dictionary["securityKey"] as? Int ?? 0
         mobile = dictionary["mobile"] as? Int ?? 0
         failedLoginAttemptCount = dictionary["failedLoginAttemptCount"] as? Int ?? 0

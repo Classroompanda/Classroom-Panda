@@ -13,7 +13,9 @@ class DailySheetService: APIService {
     //MARK:---- Daily Sheet List API -----
     func getDailySheetList(with target:BaseViewController?, agencyID:Int,classID: Int,askedDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : askedDate] as [String : Any]
+        // send asked Date in UTC and askeDateString in local timezone
+        let UTCDate = TimeUtils.localToUTC(date: askedDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : askedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetMobile, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

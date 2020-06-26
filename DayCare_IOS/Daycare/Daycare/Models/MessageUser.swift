@@ -25,8 +25,9 @@ public class MessageUser {
 		listUserId = dictionary["listUserId"] as? Int ?? 0
 		listUserName = dictionary["listUserName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     // Shiwani
-    unreadMessageCount = dictionary["count"] as? Int ?? 0
+       unreadMessageCount = dictionary["count"] as? Int ?? 0
 	}
 
 

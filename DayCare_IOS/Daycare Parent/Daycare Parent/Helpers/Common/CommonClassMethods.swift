@@ -458,6 +458,18 @@ class CommonClassMethods: NSObject {
         
     }
     
+    class func localToUTC(date:String, format : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.calendar = NSCalendar.current
+        dateFormatter.timeZone = TimeZone.current
+        let dt = dateFormatter.date(from: date)
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: dt ?? Date())
+    }
+    
+    
     class func convertdateYYMMDDformate(date:String) -> String {
         if date == "" {
             return ""

@@ -25,6 +25,7 @@ public class MessageUser {
         unreadMessageCount = dictionary["count"] as? Int ?? 0
 		listUserName = dictionary["listUserName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 	}
 
 

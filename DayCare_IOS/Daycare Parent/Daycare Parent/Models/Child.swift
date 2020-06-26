@@ -97,6 +97,7 @@ public class Child:NSObject {
 		genderID = dictionary["genderID"] as? Int ?? 0
 		genderName = dictionary["genderName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		address = dictionary["address"] as? String ?? ""
 		countryId = dictionary["countryId"] as? Int ?? 0
 		countryName = dictionary["countryName"] as? String ?? ""

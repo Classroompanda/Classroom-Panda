@@ -61,6 +61,7 @@ public class PostActivity: NSObject {
 		commentCount = dictionary["commentCount"] as? Int ?? 0
 		id = dictionary["id"] as? Int ?? 0
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		teacherID = dictionary["teacherID"] as? Int ?? 0
 		sender = dictionary["sender"] as? String ?? ""
 		postTitle = dictionary["postTitle"] as? String ?? ""

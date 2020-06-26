@@ -59,6 +59,7 @@ public class PostActivity: NSObject {
         if (dictionary["postActivityVideos"] != nil) { postActivityVideos = PostActivityVideos.modelsFromDictionaryArray(array: dictionary["postActivityVideos"] as? Array<Dictionary<String,Any>> ?? []) }
 		id = dictionary["id"] as? Int ?? 0
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		teacherID = dictionary["teacherID"] as? Int ?? 0
 		sender = dictionary["sender"] as? String ?? ""
 		postTitle = dictionary["postTitle"] as? String ?? ""

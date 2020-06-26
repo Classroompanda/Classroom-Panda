@@ -54,6 +54,7 @@ public class DailySheet: NSObject {
 
 		studentName = dictionary["studentName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
 		activityTypeName = dictionary["activityTypeName"] as? String ?? ""
 		className = dictionary["className"] as? String ?? ""
 		totalActivityCount = dictionary["totalActivityCount"] as? Int ?? 0

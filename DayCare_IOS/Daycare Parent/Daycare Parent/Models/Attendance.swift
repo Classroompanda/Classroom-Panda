@@ -63,6 +63,8 @@ public class Attendance {
 		studentID = dictionary["studentID"] as? Int ?? 0
 		studentName = dictionary["studentName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
+        imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
 		classesID = dictionary["classesID"] as? Int ?? 0
 		className = dictionary["className"] as? String ?? ""
 		checkin = dictionary["checkin"] as? String ?? ""

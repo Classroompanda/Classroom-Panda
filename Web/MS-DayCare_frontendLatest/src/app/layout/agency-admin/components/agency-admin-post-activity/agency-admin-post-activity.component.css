@@ -1,0 +1,31 @@
+
+input[type="radio"]:checked + span {
+    color: #fff;
+    background-color: #58A7FE;
+    border-radius: 5px;
+    height: 28px;
+    padding: 0 20px;
+    line-height: 28px;
+    width: 100%;
+  }
+  
+  input[type="radio"] + span{
+    color: #333;
+  font-size: 14px;
+  font-weight: 400;
+    border-radius: 5px;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .ongo{    font-size: 14px;
+    font-weight: 400;
+    margin: 20px 0;}
+
+    .info-icon{
+      margin-left: 300px;
+      font-size: 20px; 
+      color: #383333;
+  }

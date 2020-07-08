@@ -1,0 +1,25 @@
+.closepos{  position: absolute;  right: 170px;}
+
+.btn-send {
+    background: #58A7FE;
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 15px !important;
+    border-radius: 30px;
+    
+}
+
+@media (max-width:767px){
+    .closepos {
+        position: absolute;
+        right: 40px;
+    }
+}
+
+.info-icon{
+    margin-left: 250px;
+    font-size: 20px; 
+    color: #383333;
+}
+
+

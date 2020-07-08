@@ -1,0 +1,113 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ Text Message Plan </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="clearTextPlanForm()" data-toggle="modal"
+          data-target=".addtextplan">Add Text Plan</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Coupon List</h3>
+      </div>
+    </div>
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Messages</th>
+                  <th scope="col" class="text-center">Change Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let plan of txtPlanList">
+                  <td>{{plan.amount}}</td>
+                  <td>{{plan.messages}}</td>
+                  <td class="text-center">
+                    <button class="form-control" *ngIf="!plan.isDeleted" class="btn btn-warning"
+                      (click)="deactivatePlan(plan)">Deactivate</button>
+                    <button class="form-control" *ngIf="plan.isDeleted" class="btn btn-success"
+                      (click)="activatePlan(plan)">Activate</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(txtPlanList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addtextplan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Text Plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="txtPlanForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Amount*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="amount"
+                  (keypress)="commonService.allowOnlyNumber($event)" placeholder="Plan Amount">
+                <div *ngIf="t.amount.invalid && (t.amount.dirty || t.amount.touched)" class="text-left errormsg">
+                  <span *ngIf="t.amount.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter plan amount</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Messages*</label>
+                <input type="text " (keypress)="commonService.allowOnlyNumber($event)" class="form-control" id=""
+                  (keypress)="commonService.allowOnlyNumber($event)" aria-describedby="" formControlName="messages"
+                  placeholder="Number of messages">
+                <div *ngIf="t.messages.invalid && (t.messages.dirty || t.messages.touched)" class="text-left errormsg">
+                  <span *ngIf="t.messages.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter number of messages</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="savePlan()">Add Plan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

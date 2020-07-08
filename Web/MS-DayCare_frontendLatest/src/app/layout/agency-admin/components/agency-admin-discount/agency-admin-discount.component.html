@@ -1,0 +1,115 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="pagetitle">
+      <div>
+        <h2>Payment
+          <span>/ Discount </span>
+        </h2>
+      </div>
+      <div>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between ">
+      <div>
+        <h3>Add Discount</h3>
+      </div>
+    </div>
+
+    <div class="card cardfilter">
+
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">From Date : </div>
+            <input type="text" (bsValueChange)="getFromDate($event)" placeholder="From Date" showWeekNumbers="false"
+              class="form-control" [bsConfig]="dpConfig" [(ngModel)]="fromDate" bsDatepicker>          
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">To Date : </div>
+            <input type="text" (bsValueChange)="getTODate($event)" placeholder="To Date" [(ngModel)]="toDate"
+              class="form-control" [bsConfig]="dpConfig" bsDatepicker>            
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">Amount </div>
+            <input type="text" placeholder="Add Amount" (keypress)="commonService.allowOnlyNumberWithDecimal($event)" [(ngModel)]="DiscountAmount" class="form-control">
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text"> </div>
+              <button type="submit" class="btn btn-red btn_current" title="Add Discount" (click)="checkIsStudentSelected()"> 
+                  <i class="fa fa-percent" aria-hidden="true"></i> 
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+      <div class="innertable">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th class="text-center">
+                  <label class="checkboxcustom" title="Mark/Unmark all ">
+                    <input type="checkbox" [(ngModel)]="markAllStudents"
+                      (click)="getAllMarkedStudents($event,studentList)">
+                    <span class="checkmark"></span>
+                  </label>
+                </th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Class Name</th>
+                <th scope="col">Parent Name</th>
+                <th scope="col" class="text-center">Discount Amount($)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of studentList">
+                <td>
+                  <label class="checkboxcustom">
+                    <input type="checkbox" [checked]="student.isMarked == true"
+                      (click)="getSingleMarkedStudent(student,$event)">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td>{{student.studentName}}</td>
+                <td>{{student.className}}</td>
+                <td>{{student.parentName}}</td>
+                <td class="text-center">${{student.discountAmount}}</td>
+            </tbody>
+          </table>
+        </div>
+        <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for adding Discount Amount -->
+<div class="modal fade extracharge" data-backdrop="static" style="z-index: 1100;" id="discount" tabindex="-1"
+  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Discount</h5>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Add Discount Amount</label>
+          <input type="text" class="form-control" [(ngModel)]="DiscountAmount" placeholder="Discount Amount">
+
+        </div>
+        <div class="form-group">
+          <label>Add Description*</label>
+          <input type="text" class="form-control" [(ngModel)]=" DiscountDescription" placeholder="Discount Description">
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="SaveFeesDiscountAmount()"
+          data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

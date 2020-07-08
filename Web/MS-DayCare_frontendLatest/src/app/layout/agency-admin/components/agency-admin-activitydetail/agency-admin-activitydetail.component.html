@@ -1,0 +1,85 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Post Activity
+          <span>/ Activity Detail </span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Activity Detail</h3>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+    <div class="mt-20"></div>
+    <div class="card">
+      <div class="messaging">
+        <div class="mesgs">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <h4>Recent Post Gallery</h4>
+            </div>
+          </div>
+          <div class="brdr"></div>
+          <div class="msg_history">
+            <div class="chat_people">
+              <div class="chat_img">
+                <img src="{{postdetails.imagePath}}" alt="" onError="this.src='assets/img/user.png'"
+                  class="img-circle detailschildimg">
+              </div>
+              <div class="chat_ib">
+                <p class="kidname">{{postdetails.studentName}}</p>
+                <p class="status">{{postdetails.postedDate | date}}</p>
+              </div>
+            </div>
+            <div class="techNotes">
+              <h3>{{postdetails.postTitle }}</h3>
+              <p>{{postdetails.postDescription}}</p>
+              <p><i class="fa fa-gittip">{{postdetails.totalLikes}}</i>Like</p>
+            </div>
+            <div class="brdr"></div>
+
+            <div class="postimges">
+              <div class="row" *ngIf="postdetails.postActivityImages">
+
+                <div class="col-lg-3" *ngFor="let img of postdetails.postActivityImages">
+                  <div class="postimg">
+                    <div class="cont"> <img src="{{img.imageServerPath}}" onError="this.src='assets/img/user.png'"
+                        alt="" class="img-fluiud"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="postdetails.postActivityVideos">
+
+
+
+                <div *ngIf="postdetails.postActivityVideos">
+                  <div class="col-lg-3" *ngFor="let img of postdetails.postActivityVideos">
+                    <div class="">
+                      <div class="cont">
+                        <video controls width="420" height="350">
+                          <source src="{{img.vedioServerPath}}" type="video/mp4" />
+                          <source src="{{img.vedioServerPath}}" type="video/ogg">
+                          <source src="{{img.vedioServerPath}}" type="video/webm">
+                          Browser not supported
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

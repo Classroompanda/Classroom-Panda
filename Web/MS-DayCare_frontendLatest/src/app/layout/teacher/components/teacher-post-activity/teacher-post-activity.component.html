@@ -1,0 +1,219 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Post Activity
+          <!-- <span>/ Post Activity </span> -->
+        </h2>
+      </div>
+      <div>
+
+      </div>
+    </div>
+
+    <!-- <h3>Ongoing Activity</h3>
+    <div class="row">
+
+      <div class="col-lg-3">
+        <div class="card currentact">
+          <h5 class="redcolor">Singing & Dancing</h5>
+          <h5 class="bluecolor">James Adam</h5>
+          <p class="dt">11:45AM - 12:45PM</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card currentact">
+          <h5 class="redcolor">Puppets</h5>
+          <h5 class="bluecolor">Gwen Tennyson</h5>
+          <p class="dt">11:45AM - 12:45PM</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card currentact">
+          <h5 class="redcolor">Play with bubbles</h5>
+          <h5 class="bluecolor">Dean Winchester</h5>
+          <p class="dt">11:45AM - 12:45PM</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card currentact">
+          <h5 class="redcolor">Feed to Duck </h5>
+          <h5 class="bluecolor">Sam Adam</h5>
+          <p class="dt">11:45AM - 12:45PM</p>
+        </div>
+      </div>
+
+    </div> -->
+
+
+    <!--   
+    <div class="row">
+      <div class="col">
+        <div class="card cardfilter">
+          <ul class="leftfilter">
+            <li class="count">Activity (200)</li>
+            <li>Add Filter</li>
+          </ul>
+          <ul class="lastfilter">
+            <li>
+              <input type="text" placeholder="Serach by Activity">
+            </li>
+            <li>
+              <input type="text" placeholder="Serach by ID">
+            </li>
+            <li>
+              <div>
+                <input type="date" id="start" name="trip" value="2018-07-22" min="2018-01-01" max="2018-12-31" />
+              </div>
+            </li>
+            <li>
+              <img src="assets/img/pdf.svg" alt="">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    <div class="card cardfilter">
+      <div class="row algcenter">
+
+        <div class="leftfilter">
+          <!-- <div class="count">Student (200)</div> -->
+          <!-- <div>Search Class:</div>
+            <div  class="pr15">
+              <div class="form-group">
+                <input type="text" placeholder="Serch by Date" [(ngModel)]="searchByDate" showWeekNumbers="false" [maxDate]="today"
+          class="form-control mr15" [bsConfig]="dpConfig" (bsValueChange)="getSerchDate($event)" bsDatepicker>
+              </div>
+            </div> -->
+          <div class="search-date">
+            <div class=" label-text">Search Date:</div>
+            <div class="pr15">
+              <div class="form-group">
+                <input type="text" placeholder="Serch by Date" [(ngModel)]="searchByDate" showWeekNumbers="false"
+                  [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig"
+                  (bsValueChange)="getSerchDate($event)" bsDatepicker>
+              </div>
+            </div>
+          </div>
+          <div class="search-class">
+            <div class=" label-text">Search Class:</div>
+            <div class="pr15">
+              <div class="form-group">
+                <select class="form-control" placeholder="Serch" [(ngModel)]="serchByClass"
+                  id="exampleFormControlSelect1">
+                  <option value="">Select class</option>
+                  <option *ngFor="let classes of classList" [value]="classes.value">{{classes.label}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- <div> <button type="submit" class="btn btn-send" (click)="getPostActivityList()">Search</button></div> -->
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="onClickSearch($event)">Search</button>
+          </div>
+        </div>
+        <!-- <div class="col-lg-1">
+          <img src="assets/img/pdf.svg" alt="">
+        </div> -->
+      </div>
+    </div>
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <!-- <th>
+                <label class="checkboxcustom">
+                  <input type="checkbox" checked="checked">
+                  <span class="checkmark"></span>
+                </label>
+              </th> -->
+              <!-- <th></th>-->
+              <th scope="col">Post Title</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Sender</th>
+              <th scope="col">Date</th>
+              <th scope="col" class="text-center">Gallery</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post of postActivityList">
+              <!-- <td>
+                <label class="checkboxcustom">
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+              </td> -->
+              <!-- <td>
+                <img src="assets/img/child1.png" alt="" class="img-circle childimg">
+              </td>-->
+              <td>{{post.postTitle}}</td>
+              <td>{{post.studentName}}</td>
+              <td>{{post.sender}}</td>
+              <td>{{post.postedDate| date}}</td>
+              <td class="text-center">
+                <div *ngIf="post.postActivityImages">
+                  <img *ngFor="let img of post.postActivityImages  | slice:0:3" src="{{img.imageServerPath}}"
+                    onError="this.src='assets/img/user.png'" alt="" class="galrythumb">
+                </div>
+                <div *ngIf="post.postActivityVideos">
+                  <img *ngFor="let img of post.postActivityVideos" src="assets/img/video.jpg" alt="" class="galrythumb">
+                </div>
+                <!-- <img src="assets/img/child1.png" alt="" class="galrythumb">
+                   <img src="assets/img/child1.png" alt="" class="galrythumb"> -->
+                <a *ngIf="post.postActivityImages.length > 3" class="defltthumb" style="color:#FF6C6C">3+</a>
+              </td>
+              <td>
+                <!-- <a [routerLink]="['../activitydetails',post.id,post.classesID]">
+                  <img src="assets/img/view.png" class="action-items" aria-hidden="true">
+                </a>
+                <a (click)="deletePost(post)">
+                  <img src="assets/img/delete.png" class="action-items" aria-hidden="true">
+                </a> -->
+                <a [routerLink]="['../activitydetails',post.id,post.classesID]">
+                  <i class="fa fa-eye"></i>
+                </a>
+                <a (click)="deletePost(post)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+
+          <span *ngIf="postActivityList.length == 0 && !loader" class="text-center">No result found</span>
+        </div>
+      </div>
+      <!-- <div class="mainpagination">
+
+        <ul class="pagination" style="margin: 0;float: right;">
+          <li class="bar_pag">Showing 1 to 10 of 23 entries </li>
+          <li class="paginate_button previous disabled" id="example_previous">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </li>
+          <li class="paginate_button active">
+            <a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a>
+          </li>
+          <li class="paginate_button ">
+            <a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">2</a>
+          </li>
+          <li class="paginate_button next" id="example_next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div> -->
+      <p-paginator #postpage [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+        (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+
+  </div>
+
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

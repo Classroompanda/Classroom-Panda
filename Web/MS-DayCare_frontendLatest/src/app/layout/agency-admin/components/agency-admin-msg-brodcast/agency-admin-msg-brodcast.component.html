@@ -1,0 +1,253 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2><a [routerLink]="['../message']">Message</a>
+          <span>/ Broadcast Message </span>
+        </h2>
+        <h3 style="color: #707070; margin-top:4px; font-weight: 400;">Remaining Text Message:
+          <span> {{remainingMessage}}</span>
+        </h3>
+      </div>
+      <div>
+        <!-- (click)="sendTextMessage()" -->
+        <button class="btn btn-red" title="Click to send message" (click)="checkReceiver()" style="font-size: 14px;"><i
+            class="fa fa-paper-plane minusIcon" aria-hidden="true" style="font-size: 16px;"></i>&nbsp; Send
+          Message</button>
+
+        <button class="btn btn-red" title="Click to send text message" (click)="checkTextReceiver()"
+          style="font-size: 14px;"><i class="fa fa-paper-plane minusIcon" aria-hidden="true"
+            style="font-size: 16px;"></i>&nbsp; Send Text Message</button>
+
+        <button class="btn btn-red" title="Click to send email" (click)="checkEmailReceiver()"
+          style="font-size: 14px;"><i class="fa fa-paper-plane minusIcon" aria-hidden="true"
+            style="font-size: 16px;"></i>&nbsp; Send Email</button>
+
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Users</h3>
+      </div>
+      <div style="cursor:pointer">
+        <button type="submit" class="btn btn-red" data-toggle="modal" (click)="buyMessage()"
+          style="font-size: 12px;">Buy Texts</button>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="row algcenter">
+
+        <div class="leftfilter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search name" [(ngModel)]="nameSearch" class="form-control mr15" id="">
+          </div>
+          <div class="search-date">
+            <div class="label-text">Search By User</div>
+            <div class="pr15">
+              <div class="form-group">
+                <select name="" id="" [(ngModel)]="userType">
+                  <option value="0">All</option>
+                  <option value="3">Teacher</option>
+                  <option value="4">Parent</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="search-date">
+            <div class="label-text">Search By Class</div>
+            <div class="pr15">
+              <div class="form-group">
+                <select class="form-control" placeholder="Serch" [(ngModel)]="serchByClass"
+                  id="exampleFormControlSelect1">
+                  <option value="0">Select class</option>
+                  <option *ngFor="let classes of classList" [value]="classes.classesID">{{classes.className}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="getUserList()">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="innertable ">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center">
+                <label class="checkboxcustom" title="Mark/Unmark all ">
+                  <input type="checkbox" [(ngModel)]="markAllStudents" (click)="getAllMarkedStudent($event)">
+                  <span class="checkmark"></span>
+                </label>
+              </th>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList ">
+              <td>
+                <label class="checkboxcustom">
+                  <input type="checkbox" [checked]="user.isMarked" (click)="getSingleMarkedStudent(user,$event)">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td>
+                <img src="{{user.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+                  class="img-circle childimg">
+              </td>
+              <td>
+                {{user.listUserName}}
+              </td>
+              <td>
+                {{user.userRole}}
+        </table>
+        <div class="text-center">
+
+          <span *ngIf="userList.length == 0 && !loader" class="text-center">No result found</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Add new Extra Fees Master item modal -->
+    <div class="modal fade mybrodmsg" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <textarea type="text" [(ngModel)]="message" class="form-control" name="" id="" cols="10" rows="10"
+                placeholder="Type a message here"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="clearMessageForm()"
+              data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="sendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade mybrodemail" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Send Email</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <textarea type="text" [(ngModel)]="subject" class="form-control" name="" id="" cols="10" rows="1"
+                placeholder="Type a subject here"></textarea>
+              <br>
+              <textarea type="text" [(ngModel)]="emailmessage" class="form-control" name="" id="" cols="10" rows="10"
+                placeholder="Type a message here"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="clearEmailForm()"
+              data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="sendEmail()">Send Email</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade mybrodtxtmsg" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Send Text Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <textarea type="text" [(ngModel)]="txtmessage" class="form-control" name="" id="" cols="10" rows="10"
+                placeholder="Type a message here"></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="clearTextForm()"
+              data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="sendTextMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade buymessages" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Buy Text Message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="buyTextForm">
+              <div class="form-group">
+                <div class="row mb-20">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Buy Text Messages</label>
+                      <select class="form-control" placeholder="Text Message Pack" formControlName="txtplan"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select Message Pack</option>
+                        <option *ngFor="let plan of txtPlanList" [value]="plan.amount">${{plan.amount}} / {{plan.messages}} Messages</option>
+                        <!-- <option value="10">$10 / 50 Messages</option>
+                        <option value="20">$20 / 100 Messages</option>
+                        <option value="30">$30 / 150 Messages</option>
+                        <option value="40">$40 / 200 Messages</option>
+                        <option value="50">$50 / 250 Messages</option> -->
+                      </select>
+                      <div *ngIf="f.txtplan.invalid && (f.txtplan.dirty || f.txtplan.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.txtplan.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select text message pack </span>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="openCheckout()">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

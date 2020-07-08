@@ -1,0 +1,78 @@
+<div class="wrapper">
+    <div class="container-fluid">
+  
+      <div class="pagetitle">
+        <div>
+          <h2>Report
+            <span>/ Medication Report </span>
+          </h2>
+        </div>
+      </div>
+      <div class="subhead d-flex justify-content-between mt-20">
+        <div>
+          <h3>Student Medication Report</h3>
+        </div>
+        <div style="cursor:pointer" title="Download report" (click)="pdfReportForMedication()"><i class="fa fa-download" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="card cardfilter">       
+           <div class="leftfilter">
+          <div class="row algcenter">
+            <div class="search-date">
+              <div class="pr15 label-text">Search Name : </div>
+              <input type="text" placeholder="Search student name" [(ngModel)]="searchByStudentName" class="form-control mr15" id="">
+            </div>
+            <div class="filter-buttons">
+              <button type="submit" class="btn btn-send"  (click)="search()">Search</button>             
+            </div>
+        </div> 
+      </div>
+  
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+  
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Medication Name</th>
+                      <th scope="col">Units</th>
+                      <th scope="col">Strength</th>
+                      <th scope="col">How To Take</th>
+                      <th scope="col">Start Date</th>
+                      <th scope="col">End Date</th>
+                      <th scope="col">Other Medication</th>
+                      <th scope="col">Dose Repeat type</th>
+                    </tr>
+                  </thead>
+                  <tbody >
+                 <tr *ngFor="let report of reportList">
+                  <td>{{report.studentName}}</td>
+                  <td>{{report.medicationName}}</td>
+                  <td>{{report.units}}</td>
+                  <td>{{report.strength}}</td>
+                  <td>{{report.howToTake}}</td>
+                  <td>{{report.medStartDate| date}}</td>
+                  <td>{{report.medEndDate| date}}</td>
+                  <td>{{report.otherMedication}}</td>
+                  <td>{{report.doseRepeat}}</td>
+                 </tr>
+                  </tbody>                 
+                </table>
+                <div class="text-center">
+                    <span  *ngIf="reportList.length == 0 && !loader" class="text-center">No result found</span>
+                  </div> 
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+  

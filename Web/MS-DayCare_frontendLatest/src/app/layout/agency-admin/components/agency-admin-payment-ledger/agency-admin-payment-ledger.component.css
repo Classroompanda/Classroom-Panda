@@ -1,0 +1,48 @@
+.btndownload{
+    background: #57a6d4;
+    color: #Fff;
+    font-size: 12px;
+    border-radius: 30px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px 20px;
+    /* margin-left: 925px; */
+    cursor:pointer;
+}
+.btninvoice{
+    background: #57a6d4;
+    color: #Fff;
+    font-size: 12px;
+    border-radius: 30px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px 20px;
+    /* margin-left: 925px; */
+    cursor:pointer;
+}
+
+.btninline{
+    display:inline-block;
+    margin-left:828px;
+}
+
+/* Added by Aniket 02 April 2019 */
+.parenttype li {
+    float: left;
+    }
+    .closepos{  position: absolute;  right: 170px;}
+    
+    .btn-send {
+        background: #58A7FE;
+        padding: 5px 20px;
+        color: #fff;
+        font-size: 15px !important;
+        border-radius: 30px;
+    }
+    
+    @media (max-width:767px){
+        .closepos {
+            position: absolute;
+            right: 40px;
+        }
+    }

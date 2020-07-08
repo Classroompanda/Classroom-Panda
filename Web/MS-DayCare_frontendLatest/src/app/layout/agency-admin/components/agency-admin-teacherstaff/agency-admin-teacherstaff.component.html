@@ -1,0 +1,493 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="pagetitle">
+      <div>
+        <h2>TeacherList
+        </h2>
+      </div>
+      <div *ngIf="isSubscriptionActive" class="closepos">
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".addstaff"
+          (click)="cleareTeacherForm()">Add Teacher</button>
+      </div>
+      <div *ngIf="isSubscriptionActive" class="upload-btn-wrapper">
+        <button class="btn btn-send">Upload CSV</button>
+        <input type="file" #input (change)="processCSVFile($event)">
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Teacher List</h3>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+
+
+
+    <div class="card cardfilter">
+      <div class="row algcenter">
+
+        <div class="leftfilter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search teacher name" (keydown)="keyDownFunction($event)"
+              [(ngModel)]="nameSearch" class="form-control mr15" id="">
+          </div>
+          <div class="search-date">
+            <div class="label-text">Search By Activation</div>
+            <div class="pr15">
+              <div class="form-group">
+                <select name="" id="" [(ngModel)]="activationType">
+                  <option value="">All</option>
+                  <option value="Activated">Active</option>
+                  <option value="Deactivated">Deactive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="getAllTeachers()">Search</button>
+          </div>
+
+        </div>
+
+       
+
+      </div>
+    </div>
+
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Teacher Name</th>
+              <th scope="col">Email</th>
+              <th scope="col" class="text-center">Actions</th>
+              <th scope="col" class="text-center">Activation</th>
+              <th scope="col" class="text-center">Active ClockIn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teacher of teacherList">
+              <td>
+                <img src="{{teacher.imagePath}}" alt="" onError="this.src='assets/img/user.png'"
+                  class="img-circle childimg">
+              </td>
+              <td>{{teacher.teacherName}}</td>
+              <td>{{teacher.email}}</td>
+              <td class="text-center">
+                <a title="view/edit details">
+                  <i class="fa fa-eye" data-target=".addstaff" *ngIf="!teacher.isDeleted" data-toggle="modal"
+                    (click)="getTeacherDetails(teacher)" aria-hidden="true"></i>
+                  <i class="fa fa-eye" *ngIf="teacher.isDeleted" aria-hidden="true" style="cursor:not-allowed"></i>
+                  <i class="fa fa-envelope" style="cursor: pointer; color: #FF6C6C;" title="update email"
+                    aria-hidden="true" data-target=".mailupdate"
+                    (click)="getteacherIdForEmailUpdate(teacher);clearEmailForm();" data-toggle="modal"></i>
+                </a>
+              </td>
+              <td class="text-center">
+                <button class="form-control" *ngIf="!teacher.isDeleted && isSubscriptionActive" class="btn btn-warning"
+                  (click)="deleteTeacher(teacher)">Deactivate</button>
+                <button class="form-control" *ngIf="teacher.isDeleted" class="btn btn-success"
+                  (click)="activateTeacher(teacher)">Activate</button>
+              </td>
+
+              <td class="text-center">
+                <button class="form-control" *ngIf="teacher.clockOut && isSubscriptionActive" class="btn btn-success"
+                  title="This teacher is clocked out for today" (click)="activateClockInTeacher(teacher)">Enable
+                  Login</button>
+                <p *ngIf="!teacher.clockOut || !isSubscriptionActive"> ---</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <span *ngIf="teacherList.length == 0 && !loader" class="text-center">No result found</span>
+      </div>
+      <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+      </p-paginator>
+    </div>
+
+
+
+    <div class="modal fade addstaff" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{addMode == true ? 'Add Teacher' : 'Teacher Details'}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="profileForm">
+              <div class="upload-profile">
+                <div *ngIf="image == ''"> <img src="assets/img/user.png" alt="" class="img-fluid img-circle"> </div>
+                <div *ngIf="image !=''"> <img src="{{image}}" alt="image" class="img-fluid img-circle"
+                    onError="this.src='assets/img/user.png'"> </div>
+
+                <div class="upload-btn-wrapper">
+                  <button class="btn btn-send">Upload a photo</button>
+                  <input type="file" #input (change)="processFile($event)">
+                </div>
+              </div>
+              <div class="form-fields">
+                <div class="row mb-10 ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">First name*</label>
+                      <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" maxlength="35"
+                        class="form-control" formControlName="firstname" id="" aria-describedby=""
+                        placeholder="Enter First Name">
+                      <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.firstname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter first name</span>
+                        </span>
+                        <span *ngIf="f.firstname.errors.minlength">
+                          <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Minimum 3 characters
+                            required</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Last name*</label>
+                      <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" maxlength="35"
+                        class="form-control" id="" formControlName="lastname" aria-describedby=""
+                        placeholder="Enter Last Name">
+                      <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.lastname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                        </span>
+                        <span *ngIf="f.lastname.errors.minlength">
+                          <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Minimum 3 characters
+                            required</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Email Address*</label>
+                      <input type="email " [readOnly]="disableEmail" class="form-control" formControlName="email" id=""
+                        aria-describedby="" placeholder="Email address">
+                      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                        <span *ngIf="f.email.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                        </span>
+                        <span *ngIf="f.email.errors.pattern">
+                          <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                            email address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Mobile*</label>
+                      <input type="text " maxlength="10" class="form-control" formControlName="mobile" id=""
+                        aria-describedby="" (keypress)="allowOnlyNumber($event)" placeholder="Mobile">
+                      <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="f.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Address*</label>
+                      <input type="text " maxlength="255" class="form-control" formControlName="address" id=""
+                        aria-describedby="" placeholder="Address">
+                      <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.address.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Country*</label>
+                      <select class="form-control" placeholder="Country" formControlName="country"
+                        id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                        <option value="">Select Country</option>
+                        <option *ngFor="let countries of countryList" [value]="countries.id">{{countries.countryName}}
+                        </option>
+                      </select>
+                      <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.country.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">State*</label>
+                      <select class="form-control" placeholder="State" formControlName="state"
+                        id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                        <option value="">Select State</option>
+                        <option *ngFor="let states of stateList" [value]="states.id">{{states.stateName}}</option>
+                      </select>
+                      <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                        <span *ngIf="f.state.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">City*</label>
+                      <select class="form-control" placeholder="City" formControlName="city"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select City</option>
+                        <option *ngFor="let cities of cityList" [value]="cities.id">{{cities.cityName}}</option>
+                      </select>
+                      <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                        <span *ngIf="f.city.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Zip Code*</label>
+                      <input type="number " maxlength="6" (keypress)="commonService.allowOnlyNumber($event)"
+                        class="form-control" formControlName="zipcode" id="" aria-describedby="" placeholder="Zip code">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Date of Birth*</label>
+                      <input type="text" placeholder="Select date" formControlName="birthdate" showWeekNumbers="false"
+                        [maxDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="f.birthdate.invalid && (f.birthdate.dirty || f.birthdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.birthdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birth date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-10">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Date of Hiring*</label>
+                      <input type="text" placeholder="Select date" container="" formControlName="hiringdate"
+                        showWeekNumbers="false" [maxDate]="today" class="form-control" [bsConfig]="dpConfig"
+                        bsDatepicker>
+                      <div *ngIf="f.hiringdate.invalid && (f.hiringdate.dirty || f.hiringdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.hiringdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select hiring date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Gross Pay($)</label>
+                      <input type="text" class="form-control" maxlength="5"
+                        (keypress)="commonService.allowOnlyNumber($event)" formControlName="grospay" id=""
+                        aria-describedby="" placeholder="Gross pay($)">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Certification*</label>
+                      <input type="text" class="form-control" maxlength="200" formControlName="certification" id=""
+                        aria-describedby="" placeholder="Certification">
+                      <div *ngIf="f.certification.invalid && (f.certification.dirty || f.certification.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.certification.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter certification</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Home phone</label>
+                      <input type="text" maxlength="10" class="form-control" formControlName="homephone" id=""
+                        (keypress)="allowOnlyNumber($event)" aria-describedby="" placeholder="home phone">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" *ngIf="isSubscriptionActive"
+              (click)="SaveTeacherDetails()">{{addMode == true ? 'Add Teacher' : 'Save Changes'}}</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- Rejected User List -->
+    <div class="modal fade rejectedUsr" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Rejected Teacher List</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="innertable">
+              <div class="table-responsive">
+
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Teacher First Name</th>
+                      <th scope="col">Teacher Last Name</th>
+                      <th scope="col">Teacher Email Address</th>
+                      <th scope="col">Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor="let teacher of rejectedUserList">
+                      <td>{{teacher.firstName}}</td>
+                      <td>{{teacher.lastName}}</td>
+                      <td>{{teacher.email}}</td>
+                      <td>{{teacher.msg}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <!-- For Information Video -->
+   <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+          <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="cont video_section_pop" *ngIf="videoPath">
+            <video controls id="pausevideo">
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+              Browser not supported
+            </video>
+          </div>
+
+          <div class="cont video_section_pop" *ngIf="!videoPath">
+              Video Not Found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Form For Update Teacher Email-->
+
+    <div class="modal fade mailupdate" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Email</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="newEmailForm">
+              <div class="form-group">
+                <label>New Email</label>
+                <input type="text" class="form-control" placeholder="New Email" formControlName="newemail">
+                <div
+                  *ngIf="newEmailForm.controls.newemail.invalid && (newEmailForm.controls.newemail.dirty || newEmailForm.controls.newemail.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="newEmailForm.controls.newemail.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                  </span>
+                  <span *ngIf="newEmailForm.controls.newemail.errors.pattern">
+                    <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                      email address</span>
+                  </span>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <!-- data-dismiss="modal" -->
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="upateEmail()">Update Email</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- last  -->
+  </div>
+</div>
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

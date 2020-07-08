@@ -1,0 +1,276 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Settings
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send btn_current" (click)="getAllParentList()">
+          Download Parents CSV</button>
+        <button type="submit" class="btn btn-send btn_current" (click)="getAllStudentList()">
+          Download Students CSV</button>
+        <button type="submit" class="btn btn-send btn_current" (click)="getAllTeacherList()">
+          Download Teacher CSV</button>
+      </div>
+    </div>
+
+    <!-- Digital Directior Section -->
+    <div class=" subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Digital Director Settings</h3>
+      </div>
+
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal" aria-hidden="true"
+          title="Information Video"></i>
+      </div>
+
+    </div>
+
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table ">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Activity Name</th>
+              <th scope="col">Set Time Interval</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> <b>Toileting </b> </td>
+              <td>
+                <select name="" style="width:300px" [(ngModel)]="toiletingTimeIntervalId"
+                  (change)="saveToiletNotyInterval()" class="form-control" id="">
+                  <option value="">Select</option>
+                  <option value="20">20 Minutes</option>
+                  <option value="1">1 Hour</option>
+                  <option value="2">2 Hour</option>
+                  <option value="3">3 Hour</option>
+                  <option value="4">4 Hour</option>
+                  <option value="5">5 Hour</option>
+                  <option value="6">6 Hour</option>
+                  <option value="7">7 Hour</option>
+                  <option value="8">8 Hour</option>
+                  <option value="9">9 Hour</option>
+                  <option value="10">10 Hour</option>
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td> <b>Nap </b> </td>
+              <td>
+                <select name="" style="width:300px" [(ngModel)]="NapminIntervalId" (change)="saveNapNotyInterval()"
+                  class="form-control" id="">
+                  <option value="0">Select</option>
+                  <option value="5">5 Minutes</option>
+                  <option value="10">10 Minutes</option>
+                  <option value="15">15 Minutes</option>
+                  <option value="20">20 Minutes</option>
+                  <option value="25">25 Minutes</option>
+                  <option value="30">30 Minutes</option>
+                  <option value="35">35 Minutes</option>
+                  <option value="40">40 Minutes</option>
+                  <option value="45">45 Minutes</option>
+                  <option value="50">50 Minutes</option>
+                  <option value="55">55 Minutes</option>
+                </select>
+              </td>
+
+              <td>
+                <select name="" style="width:300px" [(ngModel)]="NapIntervalId" (change)="saveNapNotyInterval()"
+                  class="form-control" id="">
+                  <option value="0">Select</option>
+                  <option value="1">1 Hour</option>
+                  <option value="2">2 Hour</option>
+                  <option value="3">3 Hour</option>
+                  <option value="4">4 Hour</option>
+                  <option value="5">5 Hour</option>
+                  <option value="6">6 Hour</option>
+                  <option value="7">7 Hour</option>
+                  <option value="8">8 Hour</option>
+                  <option value="9">9 Hour</option>
+                  <option value="10">10 Hour</option>
+                </select>
+              </td>
+
+            </tr>
+
+            <tr>
+              <td> <b>Meal </b> </td>
+              <td>
+                <select name="" style="width:300px" [(ngModel)]="mealIntervalId" (change)="saveMealNotyInterval()"
+                  class="form-control" id="">
+                  <option value="">Select</option>
+                  <option value="1">1 Hour</option>
+                  <option value="2">2 Hour</option>
+                  <option value="3">3 Hour</option>
+                  <option value="4">4 Hour</option>
+                  <option value="5">5 Hour</option>
+                  <option value="6">6 Hour</option>
+                  <option value="7">7 Hour</option>
+                  <option value="8">8 Hour</option>
+                  <option value="9">9 Hour</option>
+                  <option value="10">10 Hour</option>
+                </select>
+              </td>
+            </tr>
+
+
+          </tbody>
+
+
+        </table>
+      </div>
+
+    </div>
+
+    <!-- For Information Video -->
+    <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+            <button type="button" *ngIf="videoPath" class="close" (click)="PauseInfoVideo()" data-dismiss="modal"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont video_section_pop" *ngIf="videoPath">
+              <video controls id="pausevideo">
+                <source *ngIf="videoPath" [src]="videoPath" type="video/mp4" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/ogg" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/webm" />
+                Browser not supported
+              </video>
+            </div>
+
+            <div class="cont video_section_pop" *ngIf="!videoPath">
+              Video Not Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Subsidy Section -->
+    <!-- <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Subsidy List</h3>
+      </div>
+      <div>
+        <button type="submit" *ngIf="isSubscriptionActive" class="btn btn-red btn_current" data-toggle="modal"
+          data-target=".addsub" (click)="clearAddSubForm()">
+          Add Subsidy</button>
+        <button type="submit" class="btn btn-red btn_current" [routerLink]="['../subsidy']">
+          Apply Subsidy</button>
+      </div>
+    </div>
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Subsidy Name</th>
+              <th scope="col" class="text-center">Amount($)</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sub of subsidyList">
+              <td>
+                {{sub.subsidyName}}
+              </td>
+              <td class="text-center">
+                ${{sub.subsidyAmount}}
+              </td>
+              <td>
+                <a data-toggle="modal" data-target=".addsub" class="attedit" title="Edit/details (Subsidy)"
+                  (click)="getSubsidyDetails(sub)"><i class="fa fa-pencil attend1"></i></a>
+                <a>
+                  <i class="fa fa-trash" aria-hidden="true" (click)="deleteSubsidy(sub)"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> -->
+
+    <!-- <div class="modal fade addsub" id="checkout" tabindex="-1" role="dialog" aria-labelledby="checkOutLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Add Subsidy</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="addSubsidyForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Subsidy Name*</label>
+                    <input type="text" maxlength="50" formControlName="name" class="form-control">
+                    <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched)" class="text-left errormsg">
+                      <span *ngIf="f.name.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter subsidy name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Amount($)* </label>
+                    <input type="text" maxlength="5" formControlName="amount"
+                      (keypress)="commonService.allowOnlyNumberWithDecimal($event)" class="form-control" id=""
+                      aria-describedby="">
+                    <div *ngIf="f.amount.invalid && (f.amount.dirty || f.amount.touched)" class="text-left errormsg">
+                      <span *ngIf="f.amount.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter amount</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea class="form-control" maxlength="200" formControlName="description" cols="30"
+                      rows="10"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" (click)="addNewSubsidy()">Save
+              changes</button>
+
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

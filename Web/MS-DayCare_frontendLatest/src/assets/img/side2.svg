@@ -1,0 +1,29 @@
+<svg id="calendar_1_" data-name="calendar(1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22.197 22.197">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Group_3" data-name="Group 3" transform="translate(0)">
+    <path id="Path_6" data-name="Path 6" class="cls-1" d="M22.2,3.808a2.092,2.092,0,0,0-2.081-2.1h-2.2V.7a.694.694,0,1,0-1.387,0V1.71H5.639V.7A.694.694,0,1,0,4.251.7V1.71H2.081A2.092,2.092,0,0,0,0,3.808V7a.633.633,0,0,0,.022.108A.633.633,0,0,0,0,7.217s0,0,0,0,0,0,0,0V20.1a2.092,2.092,0,0,0,2.081,2.1H20.116A2.092,2.092,0,0,0,22.2,20.1V7.226s0,0,0,0,0,0,0,0a.643.643,0,0,0-.022-.108A.632.632,0,0,0,22.2,7V3.808ZM20.81,20.1a.7.7,0,0,1-.694.7H2.081a.7.7,0,0,1-.694-.7V7.916H20.81Zm0-13.582H1.387V3.807a.7.7,0,0,1,.694-.7h2.17v1.01a.694.694,0,1,0,1.387,0V3.108H16.528v1.01a.694.694,0,1,0,1.387,0V3.108h2.2a.7.7,0,0,1,.694.7Z" transform="translate(0)"/>
+    <ellipse id="Ellipse_2" data-name="Ellipse 2" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(6.653 11.033)"/>
+    <ellipse id="Ellipse_3" data-name="Ellipse 3" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(10.007 11.033)"/>
+    <ellipse id="Ellipse_4" data-name="Ellipse 4" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(13.756 11.033)"/>
+    <ellipse id="Ellipse_5" data-name="Ellipse 5" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(17.583 11.033)"/>
+    <ellipse id="Ellipse_6" data-name="Ellipse 6" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(3.227 13.454)"/>
+    <ellipse id="Ellipse_7" data-name="Ellipse 7" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(6.653 13.454)"/>
+    <ellipse id="Ellipse_8" data-name="Ellipse 8" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(10.007 13.454)"/>
+    <ellipse id="Ellipse_9" data-name="Ellipse 9" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(13.756 13.454)"/>
+    <ellipse id="Ellipse_10" data-name="Ellipse 10" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(17.583 13.454)"/>
+    <ellipse id="Ellipse_11" data-name="Ellipse 11" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(3.227 15.864)"/>
+    <ellipse id="Ellipse_12" data-name="Ellipse 12" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(6.653 15.864)"/>
+    <ellipse id="Ellipse_13" data-name="Ellipse 13" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(10.007 15.864)"/>
+    <ellipse id="Ellipse_14" data-name="Ellipse 14" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(13.756 15.864)"/>
+    <ellipse id="Ellipse_15" data-name="Ellipse 15" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(17.583 15.864)"/>
+    <ellipse id="Ellipse_16" data-name="Ellipse 16" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(3.227 18.284)"/>
+    <ellipse id="Ellipse_17" data-name="Ellipse 17" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(6.653 18.284)"/>
+    <ellipse id="Ellipse_18" data-name="Ellipse 18" class="cls-1" cx="0.694" cy="0.699" rx="0.694" ry="0.699" transform="translate(10.007 18.284)"/>
+  </g>
+</svg>

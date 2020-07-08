@@ -1,0 +1,143 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Message
+          <!-- <span>/ Message </span> -->
+        </h2>
+      </div>
+      <!-- <div>
+          <button type="submit" class="btn btn-red">Compose New Message</button>
+        </div> -->
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Messages</h3>
+      </div>
+    </div>
+
+    <div class="row mt-20 parent_section">
+      <div class="col-lg-3 col-md-4  pr-0">
+        <div class="inbox_people mesg">
+          <div class="headind_srch">
+            <div class="">
+              <!-- <h4>{{UserName}}</h4> -->
+              <input type="text" class="form-control" [(ngModel)]="nameSearch" placeholder="Search Name">
+            </div>
+          </div>
+          <!-- [ngClass]="{active: child.isActive}" (click)="addActivClassTeacherList(child)" -->
+          <div class="inbox_chat">
+            <div class="chat_list " [ngClass]="{active_chat: parent.isActive}" (click)="addActivClassParentList(parent)"
+              *ngFor="let parent of parentList | searchfilter: nameSearch">
+              <div class="chat_people ">
+                <div class="chat_img">
+                  <img src="{{parent.imagePath}}" onError="this.src='assets/img/user.png'" alt="img"
+                    class="img-fluid img-circle"> </div>
+                <div class="chat_ib">
+                  <!-- <h5>ID : C123456
+              </h5> -->
+                  <p class="kidname">{{parent.listUserName}}</p>
+                  <p class="status" *ngIf="parent.isAgencyAdminAdmin">(Agency Admin)</p>
+                  <p class="count" *ngIf="parent.count != 0">{{parent.count}} New</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-9 col-md-8 pl-0">
+        <div class="card viewchat">
+          <div class="chat_people">
+            <div class="chat_img">
+              <img src="{{receiverPic}}" onError="this.src='assets/img/user.png'" alt="img"
+                class="img-fluid img-circle"> </div>
+            <div class="chat_ib">
+              <p class="kidname">{{receiverName}}</p>
+              <!-- <p class="status">Enjoying the dance</p> -->
+            </div>
+          </div>
+          <div class="brdr"></div>
+          <div class="inbox_chat1" #scrollMessageBox>
+            <div class="chatmsg" *ngFor="let msg of previousChatList">
+              <div class="incoming_msg" *ngIf="loggedInUserId != msg.senderUserID">
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{msg.message}}
+                    </p>
+                    <div class="d-flex justify-content-around">
+                      <div>
+                        <span class="time_date"> {{msg.createdDateTime| date: 'hh:mm a' }} |
+                          {{msg.createdDateTime| date: 'MMM d, y' }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="outgoing_msg" *ngIf="loggedInUserId == msg.senderUserID">
+                <div class="sent_msg">
+                  <p>{{msg.message}}</p>
+                  <div class="d-flex justify-content-around">
+                    <div>
+                      <span class="time_date"> {{msg.createdDateTime| date: 'hh:mm a' }} |
+                        {{msg.createdDateTime| date: 'MMM d, y' }} </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- <div class="overscroll">
+            <div class="chatmsg" *ngFor="let msg of previousChatList">
+                <div class="incoming_msg" *ngIf="loggedInUserID != msg.senderUserID">
+                  <div class="received_msg">
+                    <div class="received_withd_msg">
+                      <p>{{msg.message}} 
+                      </p>
+                      <div class="d-flex justify-content-around">
+                          <div>
+                              <span class="time_date"> {{msg.createdDateTime| date: 'hh:mm a' }} | {{msg.createdDateTime| date: 'MMM d, y' }}</span>
+                              </div>
+                          </div>
+                    </div>
+                  </div>
+                </div>
+        
+                <div class="outgoing_msg" *ngIf="loggedInUserID == msg.senderUserID">
+                  <div class="sent_msg">
+                    <p>{{msg.message}}</p>
+                    <div class="d-flex justify-content-around">
+                      <div>
+                          <span class="time_date"> {{msg.createdDateTime| date: 'hh:mm a' }} | {{msg.createdDateTime| date: 'MMM d, y' }} </span>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+        </div> -->
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <textarea type="text" class="write_msg" placeholder="Type a message" [(ngModel)]="message"></textarea>
+              <div class="sndbtn text-right">
+                <!-- <a href=""> <i class="fa fa-video-camera" aria-hidden="true"></i>   </a>
+                <a href=""><i class="fa fa-camera" aria-hidden="true"></i></a> -->
+                <button class="btn btn-send" type="button" (click)="sendMessage()">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

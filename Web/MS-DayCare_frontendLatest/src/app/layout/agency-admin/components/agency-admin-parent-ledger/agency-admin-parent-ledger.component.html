@@ -1,0 +1,125 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Dashboard
+          <span>/ Payment </span>
+        </h2>
+      </div>
+      <div>
+        <a href="https://connect.stripe.com/express/oauth/authorize?client_id={{stripClintID}}&state={STATE_VALUE}"
+          *ngIf="showBtnCreateAcc" target="_blank">
+          <button type="submit" class="btn btn-red">Create Stripe Account</button></a>
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Payment</h3>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+
+    <div class="Paymetlist">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" (click)="onTabPaymentLedger($event);">
+          <a class="nav-link active" id="allStudent" data-toggle="pill" href="#pills-allstudent" role="tab"
+            aria-controls="pills-allstudent" aria-selected="false">Payments Ledger</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="pills-tabContent">
+        <!-- Payment Ledger Tab -->
+        <div class="tab-pane fade active show" id="pills-allstudent" role="tabpanel" aria-labelledby="allstudent">
+          <div class="leftfilter searchwitoutcard">
+            <div class="row algcenter">
+              <div class="search-date">
+                <div class="pr15 label-text">Search Name : </div>
+                <input type="text" placeholder="Search parent name" [(ngModel)]="searchByParentName"
+                  class="form-control mr15" id="" (keydown)="keyDownFunction($event,1)">
+              </div>
+              <div class="filter-buttons">
+                <button type="submit" class="btn btn-send" (click)="getLedgerReport()">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Family Account</th>
+                    <th scope="col">Children</th>
+                    <th scope="col">Parent/Sponsor</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col" class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let report of reportList">
+                    <td>{{report.parentLastName}}</td>
+                    <td>{{report.studentNames}}</td>
+                    <td>{{report.parentName}}</td>
+                    <td>${{report.balanceAmount}}</td>
+                    <td class="text-center">
+                      <a [routerLink]="['../paymentledger', report.parentID]">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="reportList.length === 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <!-- <p-paginator  #pagiHistory [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,1)"></p-paginator> -->
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- For Information Video -->
+    <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+            <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont video_section_pop" *ngIf="videoPath">
+              <video controls id="pausevideo">
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+                Browser not supported
+              </video>
+            </div>
+
+            <div class="cont video_section_pop" *ngIf="!videoPath">
+                Video Not Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

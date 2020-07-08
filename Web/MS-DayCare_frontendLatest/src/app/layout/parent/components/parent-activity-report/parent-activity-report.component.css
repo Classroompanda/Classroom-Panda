@@ -1,0 +1,11 @@
+.activitytimeline .tab-content{padding: 0}
+
+.timeline-badge-circle{background: #FF6C6C;width: 50px;height: 50px;border-radius: 50%;text-align: center;line-height: 50px;float: left}
+.timeline-badge-circle img {width: 20px;}
+.activity-body {margin-left: 60px;}
+.an-single-component{border-radius: 2px;padding: 20px;position: relative;box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);background: #fff;}
+.activity-signle{    border-bottom: 1px solid #ededed; padding: 12px 0;}
+.an-component-header{border-bottom: 1px solid #ededed;margin-bottom: 20px}
+.an-component-header h6{font-size: 16px;}
+
+#editactivity .nav-link img,#editmeal .nav-link img, #edithealth .nav-link img,#editpost .nav-link img { height:  30px}

@@ -1,0 +1,278 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2> Post Activity
+        </h2>
+      </div>
+
+      <div>
+        <button class="btn btn-red" title="Click to apply approval" (click)="checkReceiver()">Approval Type</button>
+      </div>
+
+    </div>
+
+
+
+    <div class="subhead d-flex justify-content-between ">
+      <div>
+        <h3>Post Activity</h3>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal" aria-hidden="true"
+          title="Information Video"></i>
+      </div>
+    </div>
+
+    <ul class="nav nav-pills mt-20" style="margin-bottom: 5px;" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="approveimages" data-toggle="pill" href="#pills-approveimages" role="tab"
+          (click)="this.GetUnApprovedImages();" aria-controls="pills-approveimages" aria-selected="false">Posted
+          Images</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="postactivity" data-toggle="pill" href="#pills-postactivity"
+          (click)="this.getAllClassess();" role="tab" aria-controls="pills-postactivity" aria-selected="true">Post
+          Activities</a>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-approveimages" role="tabpanel" aria-labelledby="approveimages">
+        <div class="innertable studentListSearch">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Post Title</th>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Sender</th>
+                  <th scope="col">Date</th>
+                  <th scope="col" class="text-center">Gallery</th>
+                  <th scope="col">Action</th>
+                  <th scope="col">Approve</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let image of unApprovedImagesList">
+                  <td>{{image.postTitle}}</td>
+                  <td>{{image.studentName}}</td>
+                  <td>{{image.sender}}</td>
+                  <td>{{image.postedDate| date}}</td>
+                  <td class="text-center">
+                    <img *ngIf="image.imageServerPath != ''" src="{{image.imageServerPath}}" alt="" class="galrythumb">
+                  </td>
+                  <td>
+                    <a (click)="OpenImage(image)">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a (click)="DeleteImage(image)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                  <td><button class="form-control" class="btn btn-success" (click)="ApprovalImage(image)">Approve
+                      Image</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span *ngIf="unApprovedImagesList.length == 0 && !loader" class="text-center">No result found</span>
+            </div>
+          </div>
+          <!-- <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+            (onPageChange)="paginate($event)"></p-paginator> -->
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="pills-postactivity" role="tabpanel" aria-labelledby="postactivity">
+        <div class="leftfilter searchwitoutcard">
+          <div class="row algcenter">
+            <div class="search-date">
+              <div class=" label-text">Search Date:</div>
+              <div class="pr15">
+                <div class="form-group">
+                  <input type="text" placeholder="Serch by Date" [(ngModel)]="searchByDate" showWeekNumbers="false"
+                    [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig"
+                    (bsValueChange)="getSerchDate($event)" bsDatepicker>
+                </div>
+              </div>
+            </div>
+            <div class="search-class">
+              <div class=" label-text">Search Class:</div>
+              <div class="pr15">
+                <div class="form-group">
+                  <select class="form-control" placeholder="Serch" (change)="getPostActivityList()"
+                    [(ngModel)]="serchByClass" id="exampleFormControlSelect1">
+                    <option value="">Select class</option>
+                    <option *ngFor="let classes of classList" [value]="classes.classesID">{{classes.className}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-buttons">
+              <button type="submit" class="btn btn-send" (click)="getPostActivityList()">Search</button>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="innertable studentListSearch">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Post Title</th>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Sender</th>
+                  <th scope="col">Date</th>
+                  <th scope="col" class="text-center">Gallery</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let post of postActivityList">
+                  <td>{{post.postTitle}}</td>
+                  <td>{{post.studentName}}</td>
+                  <td>{{post.sender}}</td>
+                  <td>{{post.postedDate| date}}</td>
+                  <td class="text-center">
+                    <div *ngIf="post.postActivityImages">
+                      <img *ngFor="let img of post.postActivityImages  | slice:0:3" src="{{img.imageServerPath}}"
+                        onError="this.src='assets/img/user.png'" alt="" class="galrythumb">
+                    </div>
+                    <div *ngIf="post.postActivityVideos">
+                      <img *ngFor="let img of post.postActivityVideos" src="assets/img/video.jpg" alt=""
+                        class="galrythumb">
+                    </div>
+                    <a *ngIf="post.postActivityImages.length > 3" class="defltthumb" style="color:#FF6C6C">3+</a>
+                  </td>
+                  <td>
+                    <a [routerLink]="['../activitydetails',post.id,post.classesID]">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
+                    </a>
+                    <a (click)="deletePost(post)">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span *ngIf="postActivityList.length == 0 && !loader" class="text-center">No result found</span>
+            </div>
+          </div>
+          <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+            (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- For Auto Image Approval  -->
+
+    <div class="modal fade imageapproval" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add/Update Image Approval Type</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="ImageApprovalForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Image Approval Type*</label>
+                    <select class="form-control" placeholder="Approval Type" formControlName="approvaltype"
+                      id="exampleFormControlSelect1">
+                      <option value="">Select Approval Type</option>
+                      <option value="Manual">Manual</option>
+                      <option value="Auto">Auto</option>
+                    </select>
+                    <div *ngIf="f.approvaltype.invalid && (f.approvaltype.dirty || f.approvaltype.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.approvaltype.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select approval type</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="saveImageApprovalType()">Add </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- For Posted Image -->
+    <div class="modal fade" id="unapproveimage" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Posted Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont" *ngIf="imagePath">
+              <img *ngIf="imagePath" [src]="imagePath" alt="" class="img-fluiud" style="height: 300px; width: 480px;">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- For Information Video -->
+    <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+            <button type="button" *ngIf="videoPath" class="close" (click)="PauseInfoVideo()" data-dismiss="modal"
+              aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont video_section_pop" *ngIf="videoPath">
+              <video controls id="pausevideo">
+                <source *ngIf="videoPath" [src]="videoPath" type="video/mp4" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/ogg" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/webm" />
+                Browser not supported
+              </video>
+            </div>
+
+            <div class="cont video_section_pop" *ngIf="!videoPath">
+              Video Not Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

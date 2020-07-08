@@ -1,0 +1,105 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Report
+          <span>/ Deactivated Students Report </span>
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Deactivated Students List</h3>
+      </div>
+      <div style="cursor:pointer" title="Download report" (click)="pdfReportForDeactivatedStudent()"><i class="fa fa-download"
+          aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <!-- <div class="col-lg-10"> -->
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">From Date : </div>
+            <input type="text" placeholder="Search by Date" [(ngModel)]="fromDate" showWeekNumbers="false"
+              [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig"
+              bsDatepicker>
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">To Date : </div>
+            <input type="text" placeholder="Search by Date" [(ngModel)]="toDate" showWeekNumbers="false"
+              [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig"
+              bsDatepicker>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">From Date</th>
+                      <th scope="col">Deactivated Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let report of reportList">
+                      <td>{{report.studentName}}</td>
+                      <td>{{report.deletedDate | date}}</td>
+                      <td>{{report.deletedReason}}</td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Non-Payment: {{nonPaymentCount}}</b></td>
+                      <td><b>Relocation: {{relocationCount}}</b></td>
+                      <td><b>State Certificate Expried: {{certificateCount}}</b></td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Health: {{healthCount}}</b></td>
+                      <td><b>Graduated: {{graduatedCount}}</b></td>
+                      <td><b>Change in Living Situation: {{livingCount}}</b></td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Service Issue: {{serviceCount}}</b></td>  
+                      <td><b>Seasonal care: {{seasonalCount}}</b></td>     
+                      <td><b>Parent Lost Job: {{lostJobCount}}</b></td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Child/Parent Behavior: {{behaviorCount}}</b></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Total Withdrawn This Term:</b></td>
+                      <td><b>{{totalRecord}}</b></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                  <!-- </tbody> -->
+                </table>
+                <div class="text-center">
+                  <span *ngIf="reportList.length == 0 && !loader" class="text-center">No result found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event)"></p-paginator>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

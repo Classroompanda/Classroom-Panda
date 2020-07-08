@@ -1,0 +1,103 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Reports
+        </h2>
+      </div>
+    </div>
+
+    <!-- Digital Directior Section -->
+    <div class=" subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Reports</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="whitebox1 white_box_table">
+
+          <div class="row mainrow">
+            <div class="col-lg-5" style="margin-left: 80px;">
+              <p class="headingg">Student Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../birthreport']">Birthday</a></li>
+                <li><a class="" [routerLink]="['../medicationreport']">Medication</a></li>
+                <li><a class="" [routerLink]="['../givenmedicationreport']">Given Medication</a></li>
+                <li><a class="" [routerLink]="['../allergyreport']">Allergy</a></li>
+              </ul>
+            </div>
+            <div class="col-lg-5">
+              <p class="headingg">Accounting Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../paymentreport']"> Due Payment</a></li>
+                <li><a class="" [routerLink]="['../ledgerreport']">Payment</a></li>
+                <li><a class="" [routerLink]="['../accountledger']">Ledger</a></li>
+                <li><a class="" [routerLink]="['../bankdepositreport']">Bank Deposit Report</a></li>
+                <li><a class="" [routerLink]="['../taxstatement']">Tax Statement Report</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mainrow">
+            <div class="col-lg-5" style="margin-left: 80px;">
+              <p class="headingg">Family Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../familyreport']">Family Details</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-5">
+              <p class="headingg">Staff Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../teacherattendancereport']">Teacher Attendance</a></li>
+                <li><a class="" [routerLink]="['../teacherhours']">Teachers Total Hours</a></li>
+                <li><a class="" [routerLink]="['../staffbirthreport']">Teachers Birthday</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mainrow">
+            <div class="col-lg-5" style="margin-left: 80px;">
+              <p class="headingg">Attendance Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../attendancereport']">Attendance</a></li>
+                <li><a class="" [routerLink]="['../kioskidreport']">Kiosk ID Details</a></li>
+                <li><a class="" [routerLink]="['../kioskereport']">Update Kiosk Details</a></li>
+
+              </ul>
+            </div>
+
+            <div class="col-lg-5">
+              <p class="headingg">Center Report</p>
+              <ul>
+                <li><a class="" [routerLink]="['../enrollmentreport']">Enrollment</a></li>
+                <li><a class="" [routerLink]="['../classtransferreport']">Class Transfer Report</a></li>
+                <li>
+                  <a class="" [routerLink]="['../mealservereport']">Meal Serve Report</a>
+                </li>
+                <li>
+                  <a class="" [routerLink]="['../deactivatestudentreport']">Deactivated Student Report</a>
+                </li>
+                <li>
+                  <a class="" [routerLink]="['../busreport']">Student Bus Report</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

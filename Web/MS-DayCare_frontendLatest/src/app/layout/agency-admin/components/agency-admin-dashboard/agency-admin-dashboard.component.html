@@ -1,0 +1,293 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="an-pagetitle mb-20">
+      <h2>Dashboard</h2>
+
+    </div>
+    <div class="pagebadges">
+      <div class="row">
+        <div class="col-lg-4 col-md-4">
+          <div class="badgebox">
+            <div>
+              <img src="assets/img/enrolled.png" alt="">
+            </div>
+            <div class="agency_box">
+              <h3>{{enrollStudents}}</h3>
+              <p>Student Enrolled </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="badgebox">
+            <div>
+              <img src="assets/img/present.png" alt="">
+            </div>
+            <div class="agency_box">
+              <h3>{{presentStudents}}</h3>
+              <p>Present Students</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="badgebox">
+            <div>
+              <img src="assets/img/group.png" alt="">
+            </div>
+            <div class="agency_box">
+              <h3>{{requestedStudent}}</h3>
+              <p>Enrollment Request</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Present Teachers Today</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">First Name</th>
+                  <th scope="col">Last Name</th>
+                  <th scope="col">Time In</th>
+                  <th scope="col">Time Out</th>
+                  <!-- <th scope="col">Email</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let teacher of teacherPresentList">
+                  <td>{{teacher.firstName}}</td>
+                  <td>{{teacher.lastName}}</td>
+                  <td>{{teacher.timeIn | date:'mediumTime'}}</td>
+                  <td *ngIf="teacher.timeOut == '0001-01-01T00:00:00'">-</td>
+                  <td *ngIf="teacher.timeOut != '0001-01-01T00:00:00'">{{teacher.timeOut | date:'mediumTime'}}</td>
+                  <!-- <td>{{teacher.email}}</td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Today's All Classes </div>
+          <div class="brdr"></div>
+
+          <div class="tchschdule1">
+            <p-carousel [value]="classLogList" [numVisible]="1" (onPage)=getPageDetailsForClass($event)>
+              <ng-template let-item pTemplate="item">
+                <div class="currntcls">
+                  <div class="title">
+                    <div>
+                      <span class="month">{{today|date: 'MMMM y'}}</span>
+                      <span class="date">{{today|date: 'dd'}}</span>
+                      <span class="day">{{today|date: 'EEEE'}}</span>
+                    </div>
+                  </div>
+                  <div class="" style="width:100%;">
+                    <div class="row algcenter">
+                      <div class="col-lg-12">
+                        <h3 class="clsname">{{classDetails.className}}</h3>
+                      </div>
+                    </div>
+                    <div class="row algcenter">
+                      <div class="col-lg-6 col-6 text-center">
+                        <div class="form-group">
+                          <label for="">Time From</label>
+                          <p>{{classDetails.startTime | date:' hh:mm a'}}</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-6 text-center">
+                        <div class="form-group">
+                          <label for="">Untill</label>
+                          <p>{{classDetails.endTime | date:' hh:mm a'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Student Medication (Class : {{classNameForMedication}})</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Medicine Name</th>
+                  <th scope="col">Units</th>
+                  <th scope="col">Dosage</th>
+                  <th scope="col">How To Take</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor=" let med of medicationList">
+                  <td>{{med.studentName}}</td>
+                  <td>{{med.medicationName}}</td>
+                  <td>{{med.units}}</td>
+                  <td>{{med.doseRepeatName}}</td>
+                  <td>{{med.howTaken}}</td>
+                  <td>
+                    <a *ngIf="med.isMedicationDone == false" style="cursor:pointer" data-toggle="modal"
+                      data-target="#edithealth" (click)="getStudentDetailsOfMedication(med)">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a><i *ngIf="med.isMedicationDone == true" class="fa fa-check fa-lg" style="color:#0afe0a;"
+                        aria-hidden="true"></i></a>
+                </tr>
+                <tr *ngIf="medicationList && medicationList.length == 0 && !loader">
+                  <td colspan="6" class="align_Class">
+                    No Records Found!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head"> Due Payments
+            <a style="float:right;" [routerLink]="['../payment']">View All</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Class</th>
+                  <th scope="col">Parent Name</th>
+                  <th scope="col">Amount($)</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of paymentDueList">
+                  <td>{{payment.studentName}}</td>
+                  <td>{{payment.className}}</td>
+                  <td>{{payment.parentName}}</td>
+                  <td>${{payment.totalAmount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Student Allergy (Class : {{classNameForAllergy}})</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Allergy Name</th>
+                  <th scope="col">Allergy Type</th>
+                  <th scope="col">Symptoms</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor=" let allergy of allergyList">
+                  <td>{{allergy.studentName}}</td>
+                  <td>{{allergy.allergyName}}</td>
+                  <td>{{allergy.allergyTypeName}}</td>
+                  <td>{{allergy.allergyReactionTypeName}}</td>
+                  <td>{{allergy.treatment}}</td>
+                </tr>
+                <tr *ngIf="allergyList && allergyList.length == 0 && !loader">
+                  <td colspan="6" class="align_Class">
+                    No Records Found!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Add Health modal -->
+    <div class="modal fade editshadow" id="edithealth" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Today's Medication</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="health-tab" data-toggle="tab" href="#health" role="tab"
+                  aria-controls="health" aria-selected="false">
+                  <img src="assets/img/stethoscope.svg" alt="">
+                  <p>Medications</p>
+                </a>
+              </li>
+            </ul>
+
+            <form [formGroup]="healthForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Add Temperature (°F)</label>
+                    <input aria-describedby="" type="text" formControlName="temperature" class="form-control" id=""
+                      placeholder="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 botm10">
+                  <div class="form-group">
+                    <label>Health Note*</label>
+                    <textarea aria-describedby="" formControlName="tempcmnt" row="10" class="form-control" id=""
+                      placeholder="Health Note"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-20">
+                <div class="col-lg-6 ">
+                  <div class="">
+                    <label class="checkboxcustom">
+                      <input type="checkbox" id="checkbox-in" class="abc" formControlName="teacherack">
+                      <span class="checkmark abc"></span> <label style="margin-left: 15px;"> Acknowledge</label>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="medicationDone()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

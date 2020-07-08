@@ -1,0 +1,284 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Payment
+          <span>/ Payment Ledger </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-red" (click)="cleareAllForm()" data-toggle="modal"
+          data-target=".postLedger">Post Ledger Item </button>
+      </div>
+    </div>
+    <div class="pagetitle">
+      <div>
+        <h4>Family Account: {{lastName}}</h4>
+        <h4>Sponsor : {{parentName}}</h4>
+
+      </div>
+      <div class="closepos" style="margin-right: 10px;">
+        <button type="submit" class="btn btn-send " title="Download Ledger Report"
+          (click)="pdfReportForPaymentLedger()">Download</button>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send " title="Send Invoice" (click)="SendInvoiceMail()">Send
+          Invoice</button>
+      </div>
+
+      <!-- <input type="button" class="btninvoice" title="Send Invoice" value="Send Invoice">
+      <input type="button"  class="btndownload" title="Download Payment Ledger"  value="Download">
+      <button class="btndownload" title="Download report">Download</button> -->
+
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Payment</h3>
+      </div>
+    </div>
+    <div class="card cardfilter">
+
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th class="text-center" scope="col">Ledger</th>
+                      <th class="text-center" scope="col">Posting Date</th>
+                      <th class="text-center" scope="col">Check #</th>
+                      <th class="text-center" scope="col">Description - Comment</th>
+                      <th class="text-center" scope="col">Billing Period</th>
+                      <th class="text-center" scope="col">Child Name</th>
+                      <th class="text-center" scope="col">Charges</th>
+                      <th class="text-center" scope="col">Credit</th>
+                      <th class="text-center" scope="col">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ledger of studentReportList">
+                      <td class="text-center">Sponsor</td>
+                      <td class="text-center" *ngIf="ledger.invoicesDate != null">{{ledger.invoicesDate| date}}</td>
+                      <td class="text-center" *ngIf="ledger.invoicesDate == null">{{ledger.paymentsDate| date}}</td>
+
+                      <td class="text-center" *ngIf="ledger.cardNo != 0">{{ledger.cardNo}}</td>
+                      <td class="text-center" *ngIf="ledger.chequeNo != 0">{{ledger.chequeNo}}</td>
+                      <td class="text-center" *ngIf="ledger.chequeNo == 0 && ledger.cardNo == 0">-</td>
+
+                      <!-- <td class="text-center">{{ledger.description}} <br> {{ledger.coment}}</td> -->
+
+                      <td class="text-center" *ngIf="ledger.description == null && ledger.coment == null">-</td>
+                      <td class="text-center" *ngIf="ledger.description != null && ledger.coment == null">
+                        {{ledger.description}}</td>
+                      <td class="text-center" *ngIf="ledger.description == null && ledger.coment != null">
+                        {{ledger.coment}}</td>
+                      <td class="text-center" *ngIf="ledger.description != null && ledger.coment != null">
+                        {{ledger.description}}
+                        <br> {{ledger.coment}}
+                      </td>
+
+                      <td class="text-center" *ngIf="ledger.invoicesFromDate != null">{{ledger.invoicesFromDate| date}}
+                        <br> {{ledger.invoicesToDate| date}}</td>
+                      <td class="text-center" *ngIf="ledger.invoicesFromDate == null">-</td>
+                      <td class="text-center">{{ledger.studentName}}</td>
+                      <td class="text-center" *ngIf="ledger.creditAmount != '0'">$ {{ledger.creditAmount}}</td>
+                      <td class="text-center" *ngIf="ledger.creditAmount == '0'">-</td>
+                      <td class="text-center" *ngIf="ledger.debitAmount != '0'">$ {{ledger.debitAmount}}</td>
+                      <td class="text-center" *ngIf="ledger.debitAmount == '0'">-</td>
+                      <td class="text-center">$ {{ledger.balanceAmount}}</td>
+                    </tr>
+                    <tr *ngIf="(pageNo+1) == totalPage">
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-center"><b>Today's Bal.</b></td>
+                      <td class="text-center"><b>$ {{this.totalBalance}}</b></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span *ngIf="studentReportList.length == 0 && !loader" class="text-center">No result found</span>
+                </div>
+              </div>
+              <!-- <p-paginator [alwaysShow]="false" [rows]="limit" [first] = "totalRecord" [totalRecords]="totalRecord" [page]="totalPage"
+                (onPageChange)="paginate($event,1)"></p-paginator> -->
+
+              <!-- <jw-pagination [items]="totalRecord" [initialPage]="totalPage" (changePage)="onChangePage($event)"></jw-pagination> -->
+              <!-- <nz-pagination  [(nzPageIndex)]="totalPage" [nzPageSize]="limit" (nzPageIndexChange)="paginate($event,1)" 
+      [nzTotal]="totalRecord" ></nz-pagination> -->
+              <!-- <ngb-pagination [collectionSize]="totalRecord" [pageSize]="limit" [(page)]="page"  (pageChange)="loadPage($event)"></ngb-pagination> -->
+              <!-- <pagination-controls (pageChange)="paginate($event,1)"></pagination-controls> -->
+
+              <p-paginator [alwaysShow]="false" [rows]="limit" [first]="totalRecord" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event)">
+              </p-paginator>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade postLedger" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Post Ledger Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="ledgerItemForm">
+              <div class="row ">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Ledger</label>
+                    <input type="text " disabled="true" formControlName="ledger" class="form-control" id=""
+                      aria-describedby="" placeholder="Enter Ledger">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Posting Date*</label>
+                    <input type="text" container="" placeholder="Select posting date" formControlName="postingdate"
+                      showWeekNumbers="false" [minDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="l.postingdate.invalid && (l.postingdate.dirty || l.postingdate.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="l.postingdate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class="">Please select posting date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Child*</label>
+                    <select class="form-control" placeholder="Child" formControlName="child"
+                      id="exampleFormControlSelect1" (change)="getClass($event.target.value);">
+                      <option value="">Select Child</option>
+                      <option *ngFor="let parentChild of parentChildList" [value]="parentChild.value">
+                        {{parentChild.label}}
+                    </select>
+                    <div *ngIf="l.child.invalid && (l.child.dirty || l.child.touched)" class="text-left errormsg">
+                      <span *ngIf="l.child.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select child</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Transaction Type*</label>
+                    <select class="form-control" placeholder="Transaction type" formControlName="transactiontype"
+                      id="exampleFormControlSelect1"
+                      (change)="getDescriptionList($event.target.value); enableCheckTab($event.target.value);">
+                      <option value="">Select Transaction Type</option>
+                      <option value="1">Tuition Charge</option>
+                      <option value="2">Other Charge</option>
+                      <option value="3">Credit</option>
+                      <option value="4">Payment</option>
+                    </select>
+                    <div *ngIf="l.transactiontype.invalid && (l.transactiontype.dirty || l.transactiontype.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="l.transactiontype.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select transaction type</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Description*</label>
+                    <select class="form-control" placeholder="Description" formControlName="description"
+                      id="exampleFormControlSelect1"
+                      (change)="getAmount($event.target.value); enableNoteTab($event.target.value);">
+                      <option value="">Select Description</option>
+                      <option *ngFor="let description of descriptionList" [value]="description.value">
+                        {{description.name}}
+                    </select>
+                    <div *ngIf="l.description.invalid && (l.description.dirty || l.description.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="l.description.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select description</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Check # <small>(Max 15 Chars)</small></label>
+                    <input type="text " class="form-control" formControlName="check" id="" aria-describedby=""
+                      placeholder="Enter Check Number">
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Note <small>(Max 50 Chars)</small></label>
+                    <input type="text " class="form-control" formControlName="notes" id="" aria-describedby=""
+                      placeholder="Enter Notes">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Amount*</label>
+                    <input type="text " (keypress)="commonService.allowOnlyNumber($event)" class="form-control"
+                      formControlName="amount" id="" aria-describedby="" placeholder="Enter amount">
+                    <div *ngIf="l.amount.invalid && (l.amount.dirty || l.amount.touched)" class="text-left errormsg">
+                      <span *ngIf="l.amount.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter amount</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Comments <small>(Max 100 Chars)</small></label>
+                    <input type="text " class="form-control" formControlName="comments" id="" aria-describedby=""
+                      placeholder="Enter comments">
+                  </div>
+                </div>
+
+              </div>
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary"
+              (click)="verifyledgerItemForm()">Save
+              Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

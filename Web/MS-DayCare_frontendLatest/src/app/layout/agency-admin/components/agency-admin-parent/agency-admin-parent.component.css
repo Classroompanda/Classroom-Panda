@@ -1,0 +1,26 @@
+/* Added by Aniket 02 April 2019 */
+.parenttype li {
+float: left;
+}
+.closepos{  position: absolute;  right: 170px;}
+
+.btn-send {
+    background: #58A7FE;
+    padding: 5px 20px;
+    color: #fff;
+    font-size: 15px !important;
+    border-radius: 30px;
+}
+
+@media (max-width:767px){
+    .closepos {
+        position: absolute;
+        right: 40px;
+    }
+}
+
+.info-icon{
+    margin-left: 243px;
+    font-size: 20px; 
+    color: #383333;
+}

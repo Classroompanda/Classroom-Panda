@@ -1,0 +1,374 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    
+    <div class="pagetitle">
+      <div>
+        <h2>Incident Report         
+        </h2>
+      </div>
+      <div>       
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20"><div><h3>Incident Report</h3></div> 
+  </div>
+
+  <div class="card cardfilter">    
+    <div class="row algcenter">
+        <div class="leftfilter">
+            <div class="leftfilter_inner">
+            <div class="pr15 serach_text">Search Date : </div>
+            <input type="text" placeholder="Search by date" [(ngModel)]="searchDate"  
+              showWeekNumbers="false" [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+              </div>
+              <div class="leftfilter_inner">
+              <div class="pr15 serach_text"> Search Child : </div>
+            <div class="pr15">
+              <div class="form-group">
+                  <select class="form-control" placeholder="Serch" [(ngModel)]="serchByChild" 
+                    id="exampleFormControlSelect1" >
+                    <option value="">Select child</option>
+                    <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}}</option>
+                  </select>
+              </div>
+            </div>
+            </div>
+            <div><button type="submit" class="btn btn-send btn_send_details" (click)="serachIncident()">Search</button>
+              <button type="submit" *ngIf="showClearBtn" class="btn btn-secondary btn_send_details" (click)="clearSearch()">Clear</button>
+            </div>
+          </div>
+    </div>    
+  </div>
+
+    <div class="innertable mt-20">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Incident Date</th>
+              <th scope="col">Student</th>
+              <th scope="col">Incident Location</th>
+              <th scope="col">Incident</th>
+              <th scope="col">Report Date</th>
+              <th scope="col">Reporter</th>
+              <th scope="col">Action Taken</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="incidentsList.length != 0">
+            <tr *ngFor="let incidents of incidentsList">
+              <td>{{incidents.incidentDate | date}}</td>
+              <td>{{incidents.studentName}}</td>
+              <td>{{incidents.placeOfIncident}} </td>
+              <td>{{incidents.description}}</td>
+              <td>{{incidents.createdDate | date}}</td>
+              <td>{{incidents.teacherName}}</td>
+              <td>{{incidents.actionTaken}}</td>
+              <td>
+                <a data-toggle="modal" data-target=".addincident" title="Edit/View incident" (click)="getIncidentsDetails(incidents)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>  
+              </td>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="incidentsList.length == 0 && !loader">No result found</span>
+        </div>
+      </div>
+      <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+    </div>
+
+    
+    <div class="modal fade addincident" id="#addincident" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Incident</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="incidentForm">
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Class*</label>
+                    <select class="form-control" placeholder="Serch" formControlName="class" id="exampleFormControlSelect1"
+                      (change)="getStudentsList()" disabled>
+                      <option value="">Select class</option>
+                      <option *ngFor="let classes of classList" [value]="classes.classesID">{{classes.className}}</option>
+                    </select>
+                    <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                      <span *ngIf="f.class.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Student Name*</label>
+                    <select class="form-control" placeholder="Serch" formControlName="studentname" id="exampleFormControlSelect2"
+                      (change)="getAllParticipants()" disabled>
+                      <option value="">Select student name </option>
+                      <option *ngFor="let students of studentList" [value]="students.studentId">{{students.studentName}}</option>
+                    </select>
+                   
+                    <div *ngIf="f.studentname.invalid && (f.studentname.dirty || f.studentname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.studentname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select student</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Reported by*</label>
+                   
+
+                    <select class="form-control" placeholder="Serch" formControlName="reporter" id="exampleFormControlSelect1"
+                      (change)="getStudentsList()" disabled>
+                      <option value="">Select reported by</option>
+                      <option *ngFor="let teachers of teacherList" [value]="teachers.id">{{teachers.teacherName}}</option>
+                    </select>
+                    <div *ngIf="f.reporter.invalid && (f.reporter.dirty || f.reporter.touched)" class="text-left errormsg">
+                      <span *ngIf="f.reporter.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select reported by</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Place of Incident*</label>
+                    <input type="text " class="form-control" formControlName="location" id="" aria-describedby=""
+                      placeholder="Enter Place Of Incident" disabled>
+                    <div *ngIf="f.location.invalid && (f.location.dirty || f.location.touched)" class="text-left errormsg">
+                      <span *ngIf="f.location.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter place of incident</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Nature of Injury*</label>                   
+                    <select class="form-control" placeholder="Nature of Injury" formControlName="nature" id="exampleFormControlSelect1" disabled>
+                      <option value="">Select option</option>
+                      <option *ngFor="let injuries of injurriesList" [value]="injuries.id">{{injuries.natureOfInjuryName}}</option>
+                    </select>
+
+                    <div *ngIf="f.nature.invalid && (f.nature.dirty || f.nature.touched)" class="text-left errormsg">
+                      <span *ngIf="f.nature.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter nature of injury</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Involved Participant(s)</label>
+                    <p-multiSelect [options]="participantsList" formControlName="participants" [readonly]="true" [panelStyle]="{minWidth:'200px'}"
+                      [maxSelectedLabels]="20" ></p-multiSelect>
+                  </div>
+                </div>
+              </div>
+
+              
+
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1"> First Aid Administered By*</label>
+                   
+                    <select class="form-control" placeholder="First Aid Administered by" formControlName="firstaidadmin" id="exampleFormControlSelect1"
+                      (change)="getStudentsList()" disabled>
+                      <option value="">Select Reporter</option>
+                      <option *ngFor="let teachers of teacherList" [value]="teachers.id">{{teachers.teacherName}}</option>
+                    </select>
+                    <div *ngIf="f.firstaidadmin.invalid && (f.firstaidadmin.dirty || f.firstaidadmin.touched)" class="text-left errormsg">
+                      <span *ngIf="f.firstaidadmin.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select first aid Administered by</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1"> Doctor Required?*</label>
+                    <select class="form-control" formControlName="doctorrequired" id="exampleFormControlSelect1" disabled>
+                      <option value="">Select option</option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                    <div *ngIf="f.doctorrequired.invalid && (f.doctorrequired.dirty || f.doctorrequired.touched)" class="text-left errormsg">
+                      <span *ngIf="f.doctorrequired.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date of Incident*</label>
+                    <!-- <input type="date " class="form-control" formControlName="dateofincident" id="" aria-describedby="" placeholder="Select Incident Date"> -->
+                    <input type="text" placeholder="Select date of incident" formControlName="dateofincident" showWeekNumbers="false"
+                      [maxDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker disabled>
+
+                    <div *ngIf="f.dateofincident.invalid && (f.dateofincident.dirty || f.dateofincident.touched)" class="text-left errormsg">
+                      <span *ngIf="f.dateofincident.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date of incident</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Time of Incident</label>
+                    <p-calendar class="custom-inputbox-incedent" [disabled]="true"  styleClass="form-control"  formControlName="timeofincident" [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true" placeholder="Time of Incident" ></p-calendar>
+                   
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Was Parent Informed?*</label>
+                    <select class="form-control" formControlName="parentinformed" id="exampleFormControlSelect1" disabled>
+                      <option value="">Select option</option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                    <div *ngIf="f.parentinformed.invalid && (f.parentinformed.dirty || f.parentinformed.touched)" class="text-left errormsg">
+                      <span *ngIf="f.parentinformed.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">If Yes, Then How?</label>
+                    <input type="text" class="form-control" formControlName="wayofinform" id="" aria-describedby=""
+                      placeholder="Enter How We Inform To Parent" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Description of the Injury</label>
+                    <textarea type="text" formControlName="description" class="form-control" id="" aria-describedby=""
+                      placeholder="Enter Description" disabled> </textarea>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Action Taken</label>
+                    <textarea type="text" formControlName="action" class="form-control" id="" aria-describedby=""
+                      placeholder="Enter Action Taken" disabled> </textarea>
+                  </div>
+                </div>                
+
+              </div>
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  
+                    <div class="form-group">
+                      <label for="">Incident Priority</label>
+                      <!-- <textarea type="text" formControlName="description" class="form-control" id="" aria-describedby="" placeholder="Enter Description"> </textarea> -->
+                      <select class="form-control" formControlName="priority" id="exampleFormControlSelect1" disabled>
+                        <option value="">Select priority</option>
+                        <option *ngFor="let obj of incidentPrioritiesList" [value]="obj.value">{{obj.label}}</option>
+                      </select>
+                    
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Part of Body</label>
+                    <input type="text" class="form-control" disabled formControlName="partofbody" id="" aria-describedby=""
+                      placeholder="Injured body part">
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Context Environment</label>
+                    <input type="text" class="form-control" disabled formControlName="contextenviroment" id="" aria-describedby=""
+                    placeholder="Context Environment">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Context Child</label>
+                    <input type="text" disabled class="form-control" formControlName="contextchild" id="" aria-describedby=""
+                      placeholder="Context Child">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row mb-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Comment (MaxLength 500 Char)</label>
+                    <textarea type="text" rows="5" maxlength="500" formControlName="parentcomment" class="form-control" id="" aria-describedby="" placeholder="Enter comment"> </textarea>
+                    </div>
+                </div>
+                </div>
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="">
+                      <label class="checkboxcustom">
+                        <input type="checkbox" *ngIf="incidentVm.isAcknowledge" disabled id="checkbox-in" class="form-control abc"  formControlName="acknowledge">
+                        <input type="checkbox" *ngIf="!incidentVm.isAcknowledge" id="checkbox-in" class="form-control abc"  formControlName="acknowledge">
+                        <span class="checkmark abc"></span><label style="margin-left: 15px;"> Acknowledge</label>
+                      </label>
+                    </div>
+              </div>
+
+               
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="incidentId == 0" class="btn btn-primary" (click)="saveIncident()"> Add
+              Incident Report </button>
+            <button type="button" *ngIf="incidentId != 0" class="btn btn-primary" (click)="saveIncident()"> Update
+              Incident Report </button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

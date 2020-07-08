@@ -1,0 +1,126 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2> <a [routerLink]="['../setting']">Settings</a>
+          <span>/ Subsidy</span>
+        </h2>
+      </div>
+      <div class="search-date">
+        <div class="pr15 label-text"> </div>
+        <button type="submit" class="btn btn-red " data-target=".addsubsidy" data-toggle="modal" (click)="clearSubsidyForm()">Apply Subsidy</button>
+      </div>
+    </div>
+   
+      <div class="innertable">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Student Name</th>
+                <th scope="col">Class Name</th>
+                <th scope="col">Parent Name</th>
+                <th scope="col" class="text-center">Subsidy Name</th>
+                <th scope="col" class="text-center">Subsidy Amount</th>
+                <th scope="col" class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of studentList">
+                <td>{{student.studentName}}</td>
+                <td>{{student.className}}</td>
+                <td>{{student.parentName}}</td>
+                <td class="text-center">{{student.subsidyName}}</td>
+                <td class="text-center">${{student.subsidyAmount}}</td>
+                <td> <button class="form-control" *ngIf="student.subsidyName" class="btn btn-warning" (click)="deleteSubsidy(student)">Remove</button></td>
+            </tbody>
+          </table>
+          <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+        
+      </div>
+  <!-- -------------Model to apply subsidy----------------- -->
+<div class="modal fade addsubsidy " id="addsubsidy" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Subsidy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="subsidyForm">
+          <div class="form-fields">
+            <div class="row mb-10 ">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Select Subsidy *</label>
+                  <select class="form-control" formControlName="subsidyName">
+                    <option value="">Select subsidy</option>
+                    <option *ngFor="let sub of subsidyList" [value]="sub.value">{{sub.label}}</option>
+                  </select>
+                  <div *ngIf="f.subsidyName.invalid && (f.subsidyName.dirty || f.subsidyName.touched)" class="text-left errormsg">
+                    <span *ngIf="f.subsidyName.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please select subsidy</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Student Name*</label>
+                  <p-multiSelect [options]="studentDropdownList" formControlName="studentName" [panelStyle]="{minWidth:'200px'}"
+                    [maxSelectedLabels]="15"></p-multiSelect>
+                    <div *ngIf="f.studentName.invalid && (f.studentName.dirty || f.studentName.touched)" class="text-left errormsg">
+                      <span *ngIf="f.studentName.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select student</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-10">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Start Date</label>
+                  <input type="text" placeholder="Select Start date" (keypress)="commonService.allowOnlyNumber($event)"
+                    showWeekNumbers="false" formControlName="startDate" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="f.startDate.invalid && (f.startDate.dirty || f.startDate.touched)" class="text-left errormsg">
+                      <span *ngIf="f.startDate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">End Date</label>
+                  <input type="text" formControlName="endDate" placeholder="Select End date" (keypress)="commonService.allowOnlyNumber($event)"
+                    showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="f.endDate.invalid && (f.endDate.dirty || f.endDate.touched)" class="text-left errormsg">
+                      <span *ngIf="f.endDate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="verifySubsidybeforApply()">Save
+          Changes</button>
+      </div>
+      </div>
+      </div>
+      </div>
+      <!--end of modal  -->
+      </div>
+    </div>
+      
+  <app-confirm-box></app-confirm-box>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

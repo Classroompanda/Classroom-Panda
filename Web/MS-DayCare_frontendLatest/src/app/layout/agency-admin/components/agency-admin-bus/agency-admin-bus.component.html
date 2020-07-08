@@ -1,0 +1,94 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Bus List
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".addallergytype"
+          (click)="clearBusForm()">Add Bus</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Bus List</h3>
+      </div>
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Bus Name</th>
+                  <th class="text-center" scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bus of busList">
+                  <td>{{bus.busName}}</td>
+                  <td class="text-center">
+                    <a>
+                      <i class="fa fa-trash" aria-hidden="true" (click)="deleteBus(bus)"></i>
+                    </a>
+                  </td>
+                </tr>   
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(busList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addallergytype " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Bus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="busForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Bus Name*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="busname"
+                  placeholder="Bus Name">
+                <div *ngIf="t.busname.invalid && (t.busname.dirty || t.busname.touched)" class="text-left errormsg">
+                  <span *ngIf="t.busname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter bus name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveBusName()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

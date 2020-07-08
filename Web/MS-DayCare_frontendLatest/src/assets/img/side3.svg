@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.19 21.19">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="diagram_1_" data-name="diagram (1)" transform="translate(-0.003 0)">
+    <g id="Group_68" data-name="Group 68" transform="translate(1.769 2.119)">
+      <g id="Group_67" data-name="Group 67">
+        <rect id="Rectangle_230" data-name="Rectangle 230" class="cls-1" width="4.591" height="0.706"/>
+      </g>
+    </g>
+    <g id="Group_70" data-name="Group 70" transform="translate(1.769 3.531)">
+      <g id="Group_69" data-name="Group 69">
+        <rect id="Rectangle_231" data-name="Rectangle 231" class="cls-1" width="4.591" height="0.706"/>
+      </g>
+    </g>
+    <g id="Group_72" data-name="Group 72" transform="translate(1.769 4.944)">
+      <g id="Group_71" data-name="Group 71">
+        <rect id="Rectangle_232" data-name="Rectangle 232" class="cls-1" width="3.179" height="0.706"/>
+      </g>
+    </g>
+    <g id="Group_74" data-name="Group 74" transform="translate(1.769 6.357)">
+      <g id="Group_73" data-name="Group 73">
+        <rect id="Rectangle_233" data-name="Rectangle 233" class="cls-1" width="3.179" height="0.706"/>
+      </g>
+    </g>
+    <g id="Group_76" data-name="Group 76" transform="translate(0.003 20.484)">
+      <g id="Group_75" data-name="Group 75" transform="translate(0)">
+        <rect id="Rectangle_234" data-name="Rectangle 234" class="cls-1" width="21.19" height="0.706"/>
+      </g>
+    </g>
+    <g id="Group_78" data-name="Group 78" transform="translate(1.386 -0.001)">
+      <g id="Group_77" data-name="Group 77" transform="translate(0 0)">
+        <path id="Path_51" data-name="Path 51" class="cls-1" d="M50.387,3.02,48.975.2A.353.353,0,0,0,48.5.037h0L45.675,1.45a.353.353,0,1,0,.316.632l2.046-1.022-.558,1.594A18.847,18.847,0,0,1,31.323,15.186l.06.706A19.554,19.554,0,0,0,48.146,2.887l.57-1.629,1.039,2.078a.353.353,0,1,0,.632-.316Z" transform="translate(-31.323 0.001)"/>
+      </g>
+    </g>
+    <g id="Group_80" data-name="Group 80" transform="translate(1.416 16.952)">
+      <g id="Group_79" data-name="Group 79">
+        <path id="Path_52" data-name="Path 52" class="cls-1" d="M34.828,384.006H32.356a.353.353,0,0,0-.353.353v2.119a.353.353,0,0,0,.353.353h2.472a.353.353,0,0,0,.353-.353v-2.119A.353.353,0,0,0,34.828,384.006Zm-.353,2.119H32.709v-1.413h1.766Z" transform="translate(-32.003 -384.006)"/>
+      </g>
+    </g>
+    <g id="Group_82" data-name="Group 82" transform="translate(5.301 15.892)">
+      <g id="Group_81" data-name="Group 81">
+        <path id="Path_53" data-name="Path 53" class="cls-1" d="M122.828,360.006h-2.472a.353.353,0,0,0-.353.353v3.179a.353.353,0,0,0,.353.353h2.472a.353.353,0,0,0,.353-.353v-3.179A.353.353,0,0,0,122.828,360.006Zm-.353,3.179h-1.766v-2.472h1.766Z" transform="translate(-120.003 -360.006)"/>
+      </g>
+    </g>
+    <g id="Group_84" data-name="Group 84" transform="translate(9.185 14.127)">
+      <g id="Group_83" data-name="Group 83">
+        <path id="Path_54" data-name="Path 54" class="cls-1" d="M210.828,320.006h-2.472a.353.353,0,0,0-.353.353V325.3a.353.353,0,0,0,.353.353h2.472a.353.353,0,0,0,.353-.353v-4.944A.353.353,0,0,0,210.828,320.006Zm-.353,4.944h-1.766v-4.238h1.766Z" transform="translate(-208.003 -320.006)"/>
+      </g>
+    </g>
+    <g id="Group_86" data-name="Group 86" transform="translate(13.07 11.654)">
+      <g id="Group_85" data-name="Group 85">
+        <path id="Path_55" data-name="Path 55" class="cls-1" d="M298.828,264.006h-2.472a.353.353,0,0,0-.353.353v7.417a.353.353,0,0,0,.353.353h2.472a.353.353,0,0,0,.353-.353v-7.417A.353.353,0,0,0,298.828,264.006Zm-.353,7.417h-1.766v-6.71h1.766Z" transform="translate(-296.003 -264.006)"/>
+      </g>
+    </g>
+    <g id="Group_88" data-name="Group 88" transform="translate(16.955 6.71)">
+      <g id="Group_87" data-name="Group 87">
+        <path id="Path_56" data-name="Path 56" class="cls-1" d="M386.828,152.006h-2.472a.353.353,0,0,0-.353.353V164.72a.353.353,0,0,0,.353.353h2.472a.353.353,0,0,0,.353-.353V152.359A.353.353,0,0,0,386.828,152.006Zm-.353,12.361h-1.766V152.712h1.766Z" transform="translate(-384.003 -152.006)"/>
+      </g>
+    </g>
+  </g>
+</svg>

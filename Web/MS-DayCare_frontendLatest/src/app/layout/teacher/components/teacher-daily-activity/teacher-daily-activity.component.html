@@ -1,0 +1,1724 @@
+ <div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Daily Sheets
+          <!-- <span>/ Daily Sheets </span> -->
+        </h2>
+      </div>
+      <div *ngIf="showNeweEntryButton">
+        <button type="submit" class="btn btn-red btn_current" (click)="clearAllForm();checkIsStudentSelected()">New
+          Entry</button>
+        <!-- <button type="submit" class="btn btn-red currentclass">Approve All</button> -->
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between ">
+      <div>
+        <h3>Daily Activity</h3>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="row algcenter">
+
+        <div class="leftfilter">
+          <div class="search-date">
+            <div class="label-text">Search Date:</div>
+            <div class="pr15">
+              <div class="form-group">
+                <input type="text" placeholder="Search by Date" [(ngModel)]="searchByDate" showWeekNumbers="false" [maxDate]="today" class="form-control mr15"
+                  [bsConfig]="dpConfig" (bsValueChange)="getSerchDate($event)" bsDatepicker>
+              </div>
+            </div>
+          </div>
+         <div class="search-class">
+          <div class="label-text">Search class:</div>
+          <div class="pr15">
+            <div class="form-group">
+              <select class="form-control" placeholder="Search" [(ngModel)]="serchByClass" id="exampleFormControlSelect1">
+                <option value="">Select class</option>
+                <option *ngFor="let classes of classList" [value]="classes.value">{{classes.label}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+          <!-- <div> <button type="submit" class="btn btn-send" (click)="getDailySheet()">Search</button> </div> -->
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="getDailySheet()">Search</button>
+          </div>
+        
+        </div>
+
+      </div>
+    </div>
+
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center">
+                <label class="checkboxcustom" title="Mark/Unmark all ">
+                  <input type="checkbox" [(ngModel)]="markAllStudents" (click)="getAllMarkedStudent($event)">
+                  <span class="checkmark"></span>
+                </label>
+              </th>
+              <th class="text-center">Photo</th>
+              <!-- <th scope="col">#ID</th> -->
+              <th scope="col" class="text-center">Student Name</th>
+              <!-- <th scope="col">Last Name</th> -->
+              <!-- <th scope="col">Class</th> -->
+              <th scope="col" >Activity</th>
+              <!-- <th scope="col" class="text-center">Review</th> -->
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dailysheet of listOfStudents ">
+              <td>
+                <label class="checkboxcustom">
+                  <input type="checkbox" [checked]="dailysheet.isMarked" (click)="getSingleMarkedStudent(dailysheet,$event)">
+                  <span class="checkmark"></span>
+                </label>
+              </td>
+              <td  class="text-center" >
+                <img src="{{dailysheet.imagePath}}" onError="this.src='assets/img/user.png'" alt="" class="img-circle childimg">
+              </td>
+              <td class="text-center">{{dailysheet.studentName}}</td>
+              <td class="text-center">
+                <ul class="activityhis">
+                  <li *ngFor="let actobj of dailysheet.myActivity | slice:0:6">
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 1" (click)="getActivityDetails(actobj,'health', dailysheet.studentID)"
+                      data-toggle="modal" data-target="#edithealth" data-placement="bottom" data-content="Vivamussagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/stethoscope.svg" alt="">
+                    </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 2" (click)="getActivityDetails(actobj,'notes',dailysheet.studentID)"
+                      data-toggle="modal" data-target="#editpost" data-placement="bottom" data-content="Vivamussagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/post-it.svg" alt=""> </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 4" (click)="getActivityDetails(actobj,'mood',dailysheet.studentID)"
+                      data-toggle="modal" data-target="#editmood" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/satisfaction.svg" alt="">
+                    </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 5" (click)="getActivityDetails(actobj,'activity',dailysheet.studentID)"
+                      data-toggle="modal" data-target="#editactivity" data-placement="bottom" data-content="Vivamussagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/circular-clock.svg" alt=""> </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 3" (click)="getMealActivityByAPI(actobj,'meal',dailysheet.studentID)"
+                      data-toggle="modal" data-target="#editmeal" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/restaurant.svg" alt="">
+                    </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 6" (click)="getActivityDetails(actobj,'nap',dailysheet.studentID)"
+                      data-toggle="modal" data-target="#editnap" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                      <img src="assets/img/napsm.svg" alt="">
+                    </a>
+                    <a data-toggle="popover" *ngIf="actobj.activityTypeID == 7" (click)="getActivityDetails(actobj,'diper',dailysheet.studentID)"
+                    data-toggle="modal" data-target="#editdiper" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                    <img src="assets/img/toiletsm.svg" alt="" style="height:25px">
+                  </a>
+                  </li>
+                  <a *ngIf="dailysheet.myActivity.length > 6"  data-toggle="modal" data-target="#viewactivity" (click)="viewAllActivityList(dailysheet)" title="View All" style="cursor: pointer; margin-left: 10px">
+                    <i class="fa fa-chevron-circle-right plusIcon" aria-hidden="true"></i>
+                  </a>
+                </ul>
+                <!-- <ul class="activityhis">
+                        <li> <a data-toggle="popover" data-placement="bottom"
+                            data-content="Vivamus
+                          sagittis lacus vel augue laoreet rutrum faucibus."><img
+                              src="assets/img/stethoscope.svg" alt=""></a></li>
+      
+                        <li> <a data-toggle="popover" data-toggle="modal" data-target="#editpost" data-placement="bottom" data-content="Vivamus
+                          sagittis lacus vel augue laoreet rutrum faucibus."><img
+                              src="assets/img/post-it.svg" alt=""> </a></li>
+      
+                        <li> <a data-toggle="popover" data-toggle="modal" data-target="#editmood" data-placement="bottom" data-content="Vivamus
+                            sagittis lacus vel augue laoreet rutrum faucibus."><img
+                              src="assets/img/satisfaction.svg" alt=""></a></li>
+      
+                        <li> <a data-toggle="popover" data-toggle="modal" data-target="#editmeal" data-placement="bottom" data-content="Vivamus
+                            sagittis lacus vel augue laoreet rutrum faucibus."><img
+                              src="assets/img/restaurant.svg" alt=""></a></li>
+      
+                        <li> <a data-toggle="popover" data-toggle="modal" data-target="#editactivity" data-placement="bottom" data-content="Vivamus
+                              sagittis lacus vel augue laoreet rutrum faucibus."><img
+                              src="assets/img/circular-clock.svg" alt=""> </a> </li>
+                      </ul> -->
+              </td >
+              <!-- <td class="text-center" class="text-center">
+                <img src="assets/img/danger.svg" alt="" width="20px">
+              </td> -->
+              <td class="text-center">
+                <!-- <a href="" data-toggle="modal" data-target="#editactivity12">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </a> -->
+                <a data-toggle="modal" data-target="#viewactivity" title="View All" (click)="viewAllActivityList(dailysheet)">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <!-- <a href="" data-toggle="modal" data-target="#viewactivity">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a> -->
+              </td>
+          </tbody>
+        </table>
+        <div class="text-center">
+
+          <span *ngIf="listOfStudents.length == 0 && !loader" class="text-center">No result found</span>
+        </div>
+      </div>
+      <!-- Pagination -->
+      <!-- <div class="mainpagination">
+
+        <ul class="pagination" style="margin: 0;float: right;">
+          <li class="bar_pag">Showing 1 to 10 of 23 entries </li>
+          <li class="paginate_button previous disabled" id="example_previous">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </li>
+          <li class="paginate_button active">
+            <a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a>
+          </li>
+          <li class="paginate_button ">
+            <a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">2</a>
+          </li>
+          <li class="paginate_button next" id="example_next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div> -->
+      <!-- <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator> -->
+    </div>
+
+
+
+    <!-- Model for edit Other Activity -->
+    <div class="modal fade editshadow" id="editactivity" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                  aria-controls="activity" aria-selected="true">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/circular-clock.svg" alt="">
+                  <p>Activity</p>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                <form [formGroup]="activityForm">
+                  <div class="row mt-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Start Time </label>
+                        <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Select Start Time"> -->
+                        <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control" formControlName="starttime"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">End Time</label>
+                        <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Select End Time"> -->
+                        <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control" formControlName="endtime"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for=""></label>
+                        <textarea aria-describedby="" row="10" formControlName="activity" class="form-control" id=""
+                          placeholder="Enter student activity"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for="">Auto Key </label>
+                        <div class="scrolldiv">
+                          <div class="row">
+                            <div class="col-md-2" *ngFor="let sbact of subActivityList">
+                              <button type="button" class="btn othernotebtn" (click)="updateSuggestion(sbact)">{{sbact.subActivityLabel}}</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'activity')">Update changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Model for edit meal -->
+
+    <div class="modal fade editshadow" id="editmeal" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="meal-tab" data-toggle="tab" href="#meal" role="tab" aria-controls="meal"
+                  aria-selected="false">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/restaurant.svg" alt="">
+                  <p>Meal</p>
+                </a>
+              </li>
+
+            </ul>
+            <!-- <form>
+              <div class="row mb-20 mt-20">
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Meal </label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                      <option>Select Meal</option>
+                      <option>Cereal</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Comment</label>
+                    <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter Comment">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20 mt-20">
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Other than plan meal </label>
+                    <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter Other Meal">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Comment</label>
+                    <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter Comment">
+                  </div>
+                </div>
+              </div>
+            </form> -->
+            <form [formGroup]="mealForm">
+
+
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Meal Plan*</label>
+                    <!-- <select class="form-control" placeholder="Meal Plan" disabled formControlName="plantype" id="exampleFormControlSelect1"
+                      (change)="getSelectedMealPlan()">
+                      <option value="">Select </option>
+                      <option *ngFor="let obj of mealPlanList" [value]="obj.mealPlannerID">{{obj.mealPlanTitle}}</option>
+                    </select> -->
+                    <input type="text" class="form-control" placeholder="Meal plan" disabled formControlName="plantype">
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row mb-20 mt-20"> -->
+              <div class="table-responsive white_box_table" *ngIf="foodList.length != 0">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <!-- <th scope="col">#ID</th> -->
+                      <th scope="col">Food Item</th>
+                      <th scope="col">Amount</th>
+                      <!-- <th scope="col">Quantity</th> -->
+                      <th scope="col">Unit</th>
+                      <!-- <th>consumed Amount (For milk only)*</th> -->
+                      <!--    <th>consume Quantity*</th> -->
+                      <!-- <th>consumed Unit(For milk only)*</th> -->
+                      <th>consumed Amount*</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let food of foodList ; let item of mealForm.get('foodconsumption').controls; let i = index;"  formArrayName="foodconsumption">
+                      <!-- <div [formGroupName]="i">  -->
+                      <td>{{food.foodTypeName}}</td>
+                      <td>{{food.amount}}</td>
+                      <!-- <td>{{food.measureQuantityTypeName}}</td> -->
+                      <!-- <td>{{food.measureQuantityTypeName}}</td> -->
+                      <td>{{food.measureUnitTypeName}}</td>
+                      <!-- <td >
+                                    <input type="text " [attr.disabled]="((food.foodTypeName != 'Milk')? '' : null) " class="form-control" formControlName="amount" id="" (input)="getConsumedAmount(food)" aria-describedby=""
+                                    placeholder="Enter amount">
+                                </td> -->
+                      <!-- <td>
+                                    <select class="form-control"  formControlName="quantity" placeholder="Select" (change)="getConsumedAmount(food)" id="exampleFormControlSelect1">
+                                        <option  value="">Select</option>
+                                        <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                                      </select>
+                                </td> [attr.disabled]="((food.foodTypeName != 'Milk')? '' : null) "-->
+                      <td [formGroupName]="i">
+                        <!-- <select *ngIf="(food.foodTypeName == 'Milk' )" class="form-control" placeholder="Select" (change)="getConsumedAmount(food)" formControlName="unit"  id="exampleFormControlSelect1">
+                                        <option value="" >Select </option>
+                                        <option *ngFor="let obj of MealMeasureType" [value]="obj.value">{{obj.label}}</option>
+                                      </select> -->
+
+                        <input type="text " *ngIf="(food.measureUnitTypeID == 8 )" class="form-control" (blur)="getConsumedAmount(food)"
+                          formControlName="milkconsumptionquantity" id="" aria-describedby="" placeholder="consumed amount">
+
+                        <select class="form-control" *ngIf="food.measureUnitTypeID != 8 " placeholder="Select" (change)="getConsumedAmount(food)"
+                          formControlName="foodconsumtionid" id="exampleFormControlSelect1">
+                          <option value="">Select </option>
+                          <option *ngFor="let obj of foodConsumptionType" [value]="obj.id">{{obj.foodConsumtionName}}</option>
+                        </select>
+                      </td>
+                      <!-- <td >
+                                    <select class="form-control" *ngIf="food.foodTypeName == 'Milk' " placeholder="Select" (change)="getConsumedAmount(food)" formControlName="quantity"  id="exampleFormControlSelect1">
+                                        <option value="" >Select </option>
+                                        <option *ngFor="let obj of foodConsumptionType" [value]="obj.id">{{obj.foodConsumtionName}}</option>
+                                      </select>
+                                </td> -->
+                      <!-- </div> -->
+                    </tr>
+
+
+                  </tbody>
+                </table>
+
+              </div>
+
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Other than plan meal </label>
+                    <!-- <input type="text " class="form-control" formControlName="othermealplan" id="" aria-describedby=""
+                      placeholder="Enter Other Meal"> -->
+                      <textarea name="" id="" cols="30" rows="6" placeholder="Other than plan meal" class="form-control" formControlName="othermealplan"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20 mt-20">
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Other plan meal comment</label>
+                    <input type="text " class="form-control" formControlName="othermealcmnt" id="" aria-describedby=""
+                      placeholder="Enter Comment">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Comment</label>
+                      <input type="text " class="form-control" formControlName="mealcmnt" id="" aria-describedby=""
+                        placeholder="Enter Comment">
+                    </div>
+                  </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'meal')">Update changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model for edit Mood -->
+
+    <div class="modal fade editshadow" id="editmood" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="mood-tab" data-toggle="tab" href="#mood" role="tab" aria-controls="mood"
+                  aria-selected="false">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/satisfaction.svg" alt="">
+                  <p>Mood</p>
+                </a>
+              </li>
+
+            </ul>
+            <form [formGroup]="moodForm">
+              <div class="Moods">
+                <!-- 
+         <div class="forall">
+  
+           For All Day
+           <label class="switch">
+             <input class="switch-input" type="checkbox" />
+             <span class="switch-label1" data-on="On" data-off="Off"></span>
+             <span class="switch-handle"></span>
+           </label>
+  
+         </div> -->
+
+                <h3> My Mood was... </h3>
+                <div class="middle">
+                  <label>
+                    <input type="radio" name="radio" id="hp" [checked]="showHappy" (click)="getMarkedMood(1)" />
+                    <div class="front-end box">
+                      <span>
+                        <img src="assets/img/happymob.svg" alt="">
+                      </span>
+                      <p>Happy</p>
+                    </div>
+                  </label>
+                  <label>
+                    <input type="radio" name="radio" id="sd" [checked]="showSad" (click)="getMarkedMood(2)" />
+                    <div class="front-end box">
+                      <span>
+                        <img src="assets/img/cryingmob.svg" alt="">
+                      </span>
+                      <p>Sad</p>
+                    </div>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="radio" id="sl" [checked]="showSleepy" (click)="getMarkedMood(3)" />
+                    <div class="back-end box">
+                      <span>
+                        <img src="assets/img/playfull.png" alt="">
+                      </span>
+                      <p> Playful</p>
+                    </div>
+                  </label>
+                  <label>
+                    <input type="radio" name="radio" id="fs" [checked]="showFussy" (click)="getMarkedMood(4)" />
+                    <div class="back-end box">
+                      <span>
+                        <img src="assets/img/tired.png" alt="">
+                      </span>
+                      <p>Fussy </p>
+                    </div>
+                  </label>
+                  <label>
+                    <input type="radio" name="radio" id="gr" [checked]="showGrumpy" (click)="getMarkedMood(5)" />
+                    <div class="back-end box">
+                      <span>
+                        <img src="assets/img/Grumpy.png" alt="">
+                      </span>
+                      <p>Grumpy</p>
+                    </div>
+                  </label>
+
+                  <div class="form-group">
+                    <label for=""></label>
+                    <textarea aria-describedby="" formControlName="moodcomment" row="10" class="form-control" id=""
+                      placeholder="Enter Comment"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'mood')">Save changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model for edit Notes -->
+
+    <div class="modal fade editshadow" id="editpost" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes"
+                  aria-selected="false">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/post-it.svg" alt="">
+                  <p>Notes</p>
+                </a>
+              </li>
+
+            </ul>
+            <form [formGroup]="notesForm">
+              <div class="form-group">
+                <label for="">Notes if any *</label>
+                <textarea aria-describedby="" formControlName="notes" row="10" class="form-control" id="" placeholder="Notes if any"></textarea>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'notes')">Update changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model for edit Health -->
+
+    <div class="modal fade editshadow" id="edithealth" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="health-tab" data-toggle="tab" href="#health" role="tab" aria-controls="health"
+                  aria-selected="false">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/stethoscope.svg" alt="">
+                  <p>Health</p>
+                </a>
+              </li>
+            </ul>
+            <form [formGroup]="healthForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Add Temperature (°F)</label>
+                    <input aria-describedby="" formControlName="temperature" class="form-control" id="" placeholder=""
+                      type="text">
+                  </div>
+                </div>
+                <div class="col-lg-6"></div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label>Health Note*</label>
+                    <textarea aria-describedby="" formControlName="tempcmnt" row="10" class="form-control" id=""
+                      placeholder="Health Note"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="(this.HealthVM.studentMedicationID != 0 )">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Medicine Name</label>
+                      <input aria-describedby="" disabled formControlName="medicationName" class="form-control" id="" placeholder=""
+                        type="text">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">How to take</label>
+                        <input aria-describedby="" disabled formControlName="howtotake" class="form-control" id="" placeholder=""
+                          type="text ">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="(this.HealthVM.studentMedicationID != 0 )">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="">Dosage</label>
+                          <input aria-describedby="" disabled formControlName="repeatdose" class="form-control" id="" placeholder=""
+                            type="text ">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group">
+                            <label for="">Unit</label>
+                            <input aria-describedby="" disabled formControlName="unit" class="form-control" id="" placeholder=""
+                              type="text ">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-20" *ngIf="HealthVM.studentMedicationID">
+                        <div *ngIf="HealthVM.isTeacherAcknowledge" class="col-lg-6">
+                            <p>  Acknowledge by  - <b>{{HealthVM.acknowledgeTeacherName}}</b> </p>
+                      </div>
+                      <div *ngIf="HealthVM.isParentAcknowledge" class="col-lg-6" >
+                          <p>  Acknowledge by parent - <b>{{HealthVM.acknowledgeParentName}}</b> </p>
+                      </div>
+                      </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'health')">Update changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Nap -->
+    <div class="modal fade editshadow " id="editnap" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                  aria-controls="activity" aria-selected="true">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/napsm.svg" class="napimg" alt="">
+                  <p>Nap</p>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                <form [formGroup]="napForm">
+                  <div class="row mt-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Sleep-At Time*</label>
+                        <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napstart"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Woke-Up Time*</label>
+                        <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napend"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for="">Description</label>
+                        <textarea aria-describedby="" formControlName="napdiscription" row="10" class="form-control" id=""
+                          placeholder="Description"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'nap')">Update changes</button>
+            <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+     <!-- Edit Diper -->
+     <div class="modal fade editshadow " id="editdiper" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <ul class="nav nav-tabs" id="myTab" role="tablist">
+             <li class="nav-item">
+               <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                 aria-controls="activity" aria-selected="true">
+                 <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                 <img src="assets/img/toiletsm.svg" class="napimg" style="height:25px" alt="">
+                 <p>Toileting</p>
+               </a>
+             </li>
+           </ul>
+           <div class="tab-content" id="myTabContent">
+             <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+               <form [formGroup]="diperForm">
+                 <div class="row mt-20">
+                   <div class="col-lg-6">
+                     <div class="form-group">
+                       <label for="">Time*</label>
+                       <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="diperchangetime"
+                         [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                     </div>
+                   </div>
+                  
+                 </div>
+                 <div class="row">
+                   <div class="col-lg-12">
+                     <div class="form-group">
+                       <label for="">Description</label>
+                       <textarea aria-describedby="" formControlName="description" row="10" class="form-control" id=""
+                         placeholder="Description"></textarea>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Auto Key </label>
+                      <div class="scrolldiv">
+                        <div class="row">
+                           <div class="col-md-2">
+                            <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Toilet Training / Toilet Used ')">Toilet</button>
+                            </div>
+                            <div class="col-md-2">
+                            <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Wet ')">Wet</button>
+                            </div>
+                            <div class="col-md-2">
+                            <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('B/M')">B/M</button>
+                          </div>
+                          <div class="col-md-2">
+                            <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Diaper Change')">Diaper</button>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               </form>
+             </div>
+
+           </div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+           <button type="button" *ngIf="showNeweEntryButton" class="btn btn-primary" (click)="addNewEntry(2,'diper')">Update changes</button>
+           <button type="button" *ngIf="!showNeweEntryButton" class="btn btn-primary" disabled>Update changes</button>
+          </div>
+       </div>
+     </div>
+   </div>
+
+
+
+
+
+
+    <!-- (VIEW ACTIVITY) -->
+    <!-- Modal for update activity of individual as well as group -->
+    <div class="modal fade" id="viewactivity" tabindex="-1" role="dialog" aria-labelledby="viewactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="viewactivityLabel">Activity Summary</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+
+            <div class="kiddetail d-flex justify-content-between mb-20 align-items-center">
+              <div class="d-flex">
+                <!-- <div class="chatimg" *ngIf="studImage== ''">
+                  <img src="assets/img/user.png" alt="image" class="img-fluid studchatimg">
+                </div> -->
+                <div class="chatimg" >
+                  <img src="{{studImage}}" onError="this.src='assets/img/user.png'" alt="image" class="img-fluid studchatimg">
+                </div>
+                <div>
+
+                </div>
+                <div class="chatdet">
+                  <h5>{{studentName}}</h5>
+                  <p>{{className}}</p>
+
+                </div>
+              </div>
+
+              <div class="leftdetail">
+                <ul>
+                  <!-- <li>
+                    <label for="exampleInputEmail1">From</label>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="dd/mm/yy">
+                    </div>
+                  </li>
+                  <li>
+                    <label for="exampleInputEmail1">To</label>
+                  </li>
+                  <li>
+                    <div class="form-group">
+
+                      <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="dd/mm/yy">
+                    </div>
+                  </li> -->
+                  <!-- <li>
+                    <img src="assets/img/print.svg" alt="">
+                  </li> -->
+                  <!-- <li>
+                    <button type="submit" class="btn btn-red">Approve All</button>
+                  </li> -->
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="Health-tab" data-toggle="tab" href="#HealthList" role="tab"
+                      aria-controls="Health" aria-selected="true">Health</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Notes-tab" data-toggle="tab" href="#NotesList" role="tab" aria-controls="Notes"
+                      aria-selected="false">Notes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Meal-tab" data-toggle="tab" href="#MealList" role="tab" aria-controls="Meal"
+                      aria-selected="false">Meal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Mood-tab" data-toggle="tab" href="#MoodList" role="tab" aria-controls="Mood"
+                      aria-selected="false">Mood</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Activity-tab" data-toggle="tab" href="#ActivityList" role="tab"
+                      aria-controls="Activity" aria-selected="false">Activity</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Nap-tab" data-toggle="tab" href="#NapList" role="tab" aria-controls="Nap"
+                      aria-selected="false">Nap</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="Diper-tab" data-toggle="tab" href="#DiperList" role="tab" aria-controls="Diper"
+                      aria-selected="false">Toileting</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="HealthList" role="tabpanel" aria-labelledby="Health-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th scope="col">Temperature(°F)</th>
+                            <th scope="col">Health Note</th>
+                            <th scope="col">Action</th>
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <!-- <tr *ngFor="let class of classList">
+                              <td>{{class.className}}</td>
+                              
+                            </tr> -->
+                            <tr *ngIf="myact.activityTypeID == 1">
+                              <td>{{myact.recordedTemparture}}</td>
+                              <td>{{myact.studentHealthDescription}}</td>
+                              <td>
+                                <a  data-toggle="modal" data-target="#edithealth" (click)="getActivityDetails(myact,'health',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- <tr>
+                              <td>20:30</td>
+                              <td>21:30</td>
+                              <td>He is dancing.</td>
+                            </tr> -->
+
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="MealList" role="tabpanel" aria-labelledby="Meal-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th>Meal plan</th>
+                            <th>Comments</th>
+                            <th>Other Meal plan</th>
+                            <th>Other Comments</th>
+                            <th>Action</th>
+
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <tr *ngIf="myact.activityTypeID == 3">
+                              <td>{{myact.mealPlanTitle}}</td>
+                              <td>{{myact.otherThanPlanMeal}}</td>
+                              <td>{{myact.mealComment}}</td>
+                              <td>{{myact.otherThanPlanMealComment}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editmeal" (click)="getActivityDetails(myact,'meal',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="MoodList" role="tabpanel" aria-labelledby="Mood-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th>My Mood was</th>
+                            <th>Comments</th>
+                            <th>Action</th>
+
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <tr *ngIf="myact.activityTypeID == 4">
+                              <td>{{myact.moodTypeName}}</td>
+                              <td>{{myact.studentMoodDescription}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editmood" (click)="getActivityDetails(myact,'mood',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="ActivityList" role="tabpanel" aria-labelledby="Activity-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th scope="col">Start Time</th>
+                            <th scope="col">End Time</th>
+                            <th scope="col">Activity Note</th>
+                            <th scope="col">Action</th>
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <!-- <tr *ngFor="let class of classList">
+                              <td>{{class.className}}</td>
+                              
+                            </tr> -->
+                            <tr *ngIf="myact.activityTypeID == 5">
+                              <td>{{myact.startTime |date: 'h:mm a'}}</td>
+                              <td>{{myact.endTime| date: 'h:mm a'}}</td>
+                              <td>{{myact.otherActivityNote}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editactivity" (click)="getActivityDetails(myact,'activity',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- <tr>
+                              <td>20:30</td>
+                              <td>21:30</td>
+                              <td>He is dancing.</td>
+                            </tr> -->
+
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="NapList" role="tabpanel" aria-labelledby="Nap-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th scope="col">Sleep-At Time</th>
+                            <th scope="col">Woke-Up Time</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Action</th>
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <!-- <tr *ngFor="let class of classList">
+                              <td>{{class.className}}</td>
+                              
+                            </tr> -->
+                            <tr *ngIf="myact.activityTypeID == 6">
+                              <td>{{myact.sleptAtTime | date: 'h:mm a'}}</td>
+                              <td>{{myact.workUpTime| date: 'h:mm a'}}</td>
+                              <td>{{myact.napNote}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editnap" (click)="getActivityDetails(myact,'nap',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- <tr>
+                              <td>20:30</td>
+                              <td>21:30</td>
+                              <td>He is dancing.</td>
+                            </tr> -->
+
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="NotesList" role="tabpanel" aria-labelledby="Note-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            <th scope="col">Note If Any</th>
+                            <th scope="col">Action</th>
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            <!-- <tr *ngFor="let class of classList">
+                              <td>{{class.className}}</td>
+                              
+                            </tr> -->
+                            <tr *ngIf="myact.activityTypeID == 2">
+                              <td>{{myact.noteDescription}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editpost" (click)="getActivityDetails(myact,'notes',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- <tr>
+                              <td>20:30</td>
+                              <td>21:30</td>
+                              <td>He is dancing.</td>
+                            </tr> -->
+
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="tab-pane fade" id="DiperList" role="tabpanel" aria-labelledby="Diper-tab">
+                    <div class="innertable white_box_table">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead class="thead-light">
+                            <!-- <tr> -->
+                            
+                            <th scope="col">Time</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Action</th>
+                            <!-- </tr> -->
+                          </thead>
+                          <tbody *ngFor="let myact of myactivityList">
+                            
+                            <tr *ngIf="myact.activityTypeID == 7">
+                              <td>{{myact.diaperChangeTime |  date: 'h:mm a'}}</td>
+                              <td>{{myact.studentActivityDiaperNote}}</td>
+                              <td>
+                                <a href="" data-toggle="modal" data-target="#editdiper" (click)="getActivityDetails(myact,'diper',myact.studentID)">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="showNeweEntryButton" (click)="deleteActivity(myact)">
+                                  <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
+                              </td>
+                            </tr>
+                            <!-- <tr>
+                              <td>20:30</td>
+                              <td>21:30</td>
+                              <td>He is dancing.</td>
+                            </tr> -->
+
+                          </tbody>
+                          <div class="text-center">
+                            <span *ngIf="classList.length == 0">No record found</span>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal for update activity of individual as well as group  Group12-->
+<div class="modal fade" id="editactivity12" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editactivityLabel">Update Daily Activity</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <ul class="nav nav-pills p-act mb-3" id="pills-tab" role="tablist">
+                 <li class="nav-item">
+                   <a class="nav-link active" id="pills-activity-tab" data-toggle="pill" href="#pills-activity" role="tab" aria-controls="pills-activity"
+                     aria-selected="true">
+                     <img src="assets/img/pdf.svg" alt="">
+                     <p>Activity</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link" id="pills-meal-tab" data-toggle="pill" href="#pills-meal" role="tab" aria-controls="pills-meal" aria-selected="false">
+                     <img src="assets/img/pdf.svg" alt="">
+                     <p>Meal</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link" id="pills-health-tab" data-toggle="pill" href="#pills-health" role="tab" aria-controls="pills-health"
+                     aria-selected="false">
+                     <img src="assets/img/pdf.svg" alt="">
+                     <p>Health</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a class="nav-link" id="pills-mood-tab" data-toggle="pill" href="#pills-mood" role="tab" aria-controls="pills-mood" aria-selected="false">
+                     <img src="assets/img/pdf.svg" alt="">
+                     <p> Mood</p>
+                   </a>
+                 </li>
+             </ul>
+             <div class="tab-content p-cont" id="pills-tabContent">
+               <div class="tab-pane fade show active" id="pills-activity" role="tabpanel" aria-labelledby="pills-activity-tab">
+                 Activty
+               </div>
+               <div class="tab-pane fade" id="pills-meal" role="tabpanel" aria-labelledby="pills-meal-tab">Meal</div>
+               <div class="tab-pane fade" id="pills-health" role="tabpanel" aria-labelledby="pills-health-tab">Health</div>
+               <div class="tab-pane fade" id="pills-mood" role="tabpanel" aria-labelledby="pills-mood-tab">
+                 <div class="Moods">
+                   <h2>My Mood was...</h2>
+                   <div id="radios">
+                     <label for="m1" class="material-icons">
+                       <input type="radio" name="mode" id="m1" value="driving" checked/>
+                       <span>
+                         <img src="assets/img/sleeping.svg" alt="">
+                       </span>
+                       <p> Sleeping</p>
+                     </label>
+                     <label for="m2" class="material-icons">
+                       <input type="radio" name="mode" id="m2" value="cycling" />
+                       <span>
+                         <img src="assets/img/happy.svg" alt="">
+                       </span>
+                       <p>Happy</p>
+                     </label>
+                     <label for="m3" class="material-icons">
+                       <input type="radio" name="mode" id="m3" value="walking" />
+                       <span>
+                         <img src="assets/img/sad.svg" alt="">
+                       </span>
+                       <p>Sad</p>
+                     </label>
+                   </div>
+                 </div>
+               </div>
+             </div> -->
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" (click)="getFormType('activity')">
+            <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity1" role="tab" aria-controls="activity"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/circular-clock.svg" alt="">
+              <p>Activity</p>
+            </a>
+          </li>
+          <li class="nav-item" (click)="getFormType('meal')">
+            <a class="nav-link" id="meal-tab" data-toggle="tab" href="#meal" role="tab" aria-controls="meal"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/restaurant.svg" alt="">
+              <p>Meal</p>
+            </a>
+          </li>
+          <li class="nav-item" (click)="getFormType('health')">
+            <a class="nav-link" id="health-tab" data-toggle="tab" href="#health" role="tab" aria-controls="health"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/stethoscope.svg" alt="" width="25px">
+              <p>Health</p>
+            </a>
+          </li>
+          <li class="nav-item" (click)="getFormType('mood')">
+            <a class="nav-link" id="mood-tab" data-toggle="tab" href="#mood" role="tab" aria-controls="mood"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/satisfaction.svg" alt="">
+              <p>Mood</p>
+            </a>
+          </li>
+          <li class="nav-item" (click)="getFormType('notes')">
+            <a class="nav-link" id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/post-it.svg" alt="" width="25px">
+              <p>Notes</p>
+            </a>
+          </li>
+          <li class="nav-item" (click)="getFormType('nap')">
+            <a class="nav-link" id="nap-tab" data-toggle="tab" href="#nap1" role="tab" aria-controls="nap"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/napsm.svg" alt="" width="25px">
+              <p>Nap</p>
+            </a>
+          </li>
+
+          <li class="nav-item" (click)="getFormType('diper')">
+            <a class="nav-link" id="nap-tab" data-toggle="tab" href="#diper1" role="tab" aria-controls="diper"
+              aria-selected="false">
+              <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+              <img src="assets/img/toiletsm.svg" alt="" style="height:25px" width="25px">
+              <p>Toileting</p>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="activity1" role="tabpanel" aria-labelledby="activity-tab">
+
+            <form [formGroup]="activityForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Start Time* </label>
+                    <!-- <input type="text "  formControlName="starttime" class="form-control" id="" aria-describedby="" placeholder="Select Start Time"> -->
+                    <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="starttime"
+                      [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                    <!-- <div *ngIf="activity.starttime.invalid && (activity.starttime.dirty || activity.starttime.touched)" class="text-left errormsg">
+                      <span *ngIf="activity.starttime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">End Time*</label>
+                    <!-- <input type="text "  formControlName="endtime" class="form-control" id="" aria-describedby="" placeholder="Select End Time"> -->
+                    <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="endtime"
+                      [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                    <!-- <div *ngIf="activity.endtime.invalid && (activity.endtime.dirty || activity.endtime.touched)" class="text-left errormsg">
+                      <span *ngIf="activity.endtime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Activity Notes*</label>
+                    <textarea aria-describedby="" formControlName="activity" row="10" class="form-control" id=""
+                      placeholder="Activity Notes"></textarea>
+                    <!-- <div *ngIf="activity.activity.invalid && (activity.activity.dirty || activity.activity.touched)" class="text-left errormsg">
+                    <span *ngIf="activity.activity.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please eneter activity notes </span>
+                    </span>
+                  </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Auto Key </label>
+                      <div class="scrolldiv">
+                        <div class="row">
+                          <div class="col-md-12 col-lg-12">
+                            <ul class="list5Item">
+                              <li  *ngFor="let sbact of subActivityList">  <button type="button" class="btn othernotebtn" (click)="addSuggestion(sbact,subActivityList.length)">{{sbact.subActivityLabel}}</button></li>
+                            </ul>
+                          </div>                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </form>
+
+          </div>
+
+          <div class="tab-pane fade" id="meal" role="tabpanel" aria-labelledby="meal-tab">
+
+            <form [formGroup]="mealForm">
+
+
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Meal Plan*</label>
+                    <select class="form-control" placeholder="Meal Plan" formControlName="plantype" id="exampleFormControlSelect1"
+                      (change)="getSelectedMealPlan()">
+                      <option value="">Select </option>
+                      <option *ngFor="let obj of mealPlanList" [value]="obj.mealPlannerID">{{obj.mealPlanTitle}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row mb-20 mt-20"> -->
+              <div class="table-responsive" *ngIf="foodList.length != 0">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <!-- <th scope="col">#ID</th> -->
+                      <th scope="col">Food Item</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Unit</th>
+                      <th>consumed Amount*</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let food of foodList; let item of mealForm.get('foodconsumption').controls; let i = index;"  formArrayName="foodconsumption">
+                      <td>{{food.foodTypeName}}</td>
+                      <td>{{food.amount}}</td>
+                      <td>{{food.measureUnitTypeName}}</td>
+
+                      <td  [formGroupName]="i">
+                        <input type="text " *ngIf="(food.measureUnitTypeID == 8 )" class="form-control" (blur)="getConsumedAmount(food)"
+                          formControlName="milkconsumptionquantity" id="" aria-describedby="" placeholder="consumed amount">
+                        <select class="form-control" *ngIf="food.measureUnitTypeID != 8 " placeholder="Select" (change)="getConsumedAmount(food)"
+                          formControlName="foodconsumtionid" id="exampleFormControlSelect1">
+                          <option value="">Select </option>
+                          <option *ngFor="let obj of foodConsumptionType" [value]="obj.id">{{obj.foodConsumtionName}}</option>
+                        </select>
+                      </td>
+
+                    </tr>
+
+
+                  </tbody>
+                </table>
+
+              </div>
+
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Other than plan meal </label>
+                    <!-- <input type="text " class="form-control" formControlName="othermealplan" id="" aria-describedby=""
+                      placeholder="Enter Other Meal"> -->
+                      <textarea name="" id="" cols="30" rows="6" placeholder="Other than plan meal" class="form-control" formControlName="othermealplan"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20 mt-20">
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Other than plan meal comment</label>
+                        <input type="text " class="form-control" formControlName="othermealcmnt" id="" aria-describedby=""
+                          placeholder="Other than plan meal comment">
+                      </div>
+                    </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Comment</label>
+                    <input type="text " class="form-control" formControlName="mealcmnt" id="" aria-describedby=""
+                      placeholder="Enter Comment">
+                  </div>
+                </div> 
+              </div>
+            </form>
+
+          </div>
+          <div class="tab-pane fade" id="health" role="tabpanel" aria-labelledby="health-tab">
+            <form [formGroup]="healthForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Add Temperature(°F) </label>
+                    <input aria-describedby="" class="form-control" formControlName="temperature" id="" placeholder=""
+                      type="text ">
+                  </div>
+                </div>
+                <div class="col-lg-6"></div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Health Note*</label>
+                    <textarea aria-describedby="" row="10" formControlName="tempcmnt" class="form-control" id=""
+                      placeholder="Health note"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="mood" role="tabpanel" aria-labelledby="mood-tab">
+            <form [formGroup]="moodForm">
+              <!-- <div class="Moods"> -->
+
+              <!-- <div class="forall">
+
+                For All Day
+                <label class="switch1">
+                  <input class="switch-input" type="checkbox" />
+                  <span class="switch-label1" data-on="On" data-off="Off"></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </div> -->
+
+              <h3> My Mood was...*</h3>
+              <div class="middle">
+                <label>
+                  <input type="radio" name="radio" (click)="getMarkedMood(1)" />
+                  <div class="front-end box">
+                    <span>
+                      <img src="assets/img/happymob.svg" alt="">
+                    </span>
+                    <p>Happy</p>
+                  </div>
+                </label>
+                <label>
+                  <input type="radio" name="radio" (click)="getMarkedMood(2)" />
+                  <div class="front-end box">
+                    <span>
+                      <img src="assets/img/cryingmob.svg" alt="">
+                    </span>
+                    <p>Sad</p>
+                  </div>
+                </label>
+
+                <label>
+                  <input type="radio" name="radio" (click)="getMarkedMood(3)" />
+                  <div class="back-end box">
+                    <span>
+                      <img src="assets/img/playfull.png" alt="">
+                    </span>
+                    <p> Playful</p>
+                  </div>
+                </label>
+
+                <label>
+                  <input type="radio" name="radio" (click)="getMarkedMood(4)" />
+                  <div class="back-end box">
+                    <span>
+                      <img src="assets/img/tired.png" alt="">
+                    </span>
+                    <p>Fussy </p>
+                  </div>
+                </label>
+
+                <label>
+                  <input type="radio" name="radio" (click)="getMarkedMood(5)" />
+                  <div class="back-end box">
+                    <span>
+                      <img src="assets/img/Grumpy.png" alt="">
+                    </span>
+                    <p>Grumpy</p>
+                  </div>
+                </label>
+              </div>
+              <!-- </div> -->
+              <div class="form-group">
+                <label for="">Comments*</label>
+                <textarea aria-describedby="" row="10" class="form-control" formControlName="moodcomment" id=""
+                  placeholder="Enter Comment"></textarea>
+              </div>
+            </form>
+
+          </div>
+          <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+            <form [formGroup]="notesForm">
+              <div class="form-group">
+                <label for="">Notes if any *</label>
+                <textarea aria-describedby="" row="10" formControlName="notes" class="form-control" id="" placeholder="Notes if any"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane " id="nap1" role="tabpanel" aria-labelledby="nap-tab">
+
+            <form [formGroup]="napForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Sleep-At Time*</label>
+                    <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napstart"
+                      [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Woke-Up Time*</label>
+                    <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napend"
+                      [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea aria-describedby="" formControlName="napdiscription" row="10" class="form-control" id=""
+                      placeholder="Description"></textarea>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="tab-pane " id="diper1" role="tabpanel" aria-labelledby="nap-tab">
+
+            <form [formGroup]="diperForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Time*</label>
+                    <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="diperchangetime"
+                      [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea aria-describedby="" formControlName="description" row="10" class="form-control" id=""
+                      placeholder="Description"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Auto Key </label>
+                    <div class="scrolldiv">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Diaper Change')">Diaper</button>
+                         </div>
+                         <div class="col-md-2">
+                          <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Toilet Training / Toilet Used ')">Toilet</button>
+                          </div>
+                          <div class="col-md-2">
+                          <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Wet ')">Wet</button>
+                          </div>
+                          <div class="col-md-2">
+                          <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('B/M')">B/M</button>
+                        </div>
+                        <div class="col-md-2">
+                          <button type="button" class="btn othernotebtn" (click)="addDiaperSuggestion('Dry')">Dry</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="addNewEntry(1,'activity')">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

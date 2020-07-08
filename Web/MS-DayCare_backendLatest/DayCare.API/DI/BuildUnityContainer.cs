@@ -1,0 +1,191 @@
+﻿using DayCare.Repository;
+using DayCare.Repository.Base;
+using DayCare.Repository.Core;
+using DayCare.Repository.IRepository;
+using DayCare.Repository.Repository;
+using DayCare.Service.IService.Agency;
+using DayCare.Service.IService.Common;
+using DayCare.Service.IService.Login;
+using DayCare.Service.IService.Masters;
+using DayCare.Service.IService.Parents;
+using DayCare.Service.IService.Teacher;
+using DayCare.Service.IService.User;
+using DayCare.Service.Response;
+using DayCare.Service.Service.Agency;
+using DayCare.Service.Service.Common;
+using DayCare.Service.Service.Login;
+using DayCare.Service.Service.Masters;
+using DayCare.Service.Service.Parents;
+using DayCare.Service.Service.Teacher;
+using DayCare.Service.Service.User;
+using DayCare.Service.Token;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace DayCare.API.DI
+{
+    public static class BuildUnityContainer
+    {
+        public static IServiceCollection RegisterAddTransient(IServiceCollection services)
+        {
+            #region Core Repository
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+            services.AddTransient<IUserRoleRepository, UserRoleRepository>();
+
+            #endregion
+
+            #region Repository
+            services.AddTransient<IAgencyRepository, AgencyRepository>();
+            services.AddTransient<IAllergyNameRepository, AllergyNameRepository>();
+            services.AddTransient<IAllergyReactionTypeRepository, AllergyReactionTypeRepository>();
+            services.AddTransient<IAllergyTypeRepository, AllergyTypeRepository>();
+            services.AddTransient<IAttendenceStatusRepository, AttendenceStatusRepository>();
+            services.AddTransient<ICityRepository, CityRepository>();
+            services.AddTransient<IClassAttendenceRepository, ClassAttendenceRepository>();
+            services.AddTransient<IClassEnrollmentRepository, ClassEnrollmentRepository>();
+            services.AddTransient<IClassesRepository, ClassesRepository>();
+            services.AddTransient<IClassStatusRepository, ClassStatusRepository>();
+            services.AddTransient<ICountryRepository, CountryRepository>();
+            services.AddTransient<IFeePaymentTypeRepository, FeePaymentTypeRepository>();
+            services.AddTransient<IGenderRepository, GenderRepository>();
+            services.AddTransient<IGuardianRepository, GuardianRepository>();
+            services.AddTransient<IImmunizationRepository, ImmunizationRepository>();
+            services.AddTransient<IIncidentRepository, IncidentRepository>();
+            services.AddTransient<IIncidentInvolvmentRepository, IncidentInvolvmentRepository>();
+            services.AddTransient<ILeaveReasonTypeRepository, LeaveReasonTypeRepository>();
+            services.AddTransient<IMealItemMasterRepository, MealItemMasterRepository>();
+            services.AddTransient<IMealServeSizeRepository, MealServeSizeRepository>();
+            services.AddTransient<IMealTypeRepository, MealTypeRepository>();
+            services.AddTransient<IPositionTypeRepository, PositionTypeRepository>();
+            services.AddTransient<IScheduleRepeatTypeRepository, ScheduleRepeatTypeRepository>();
+            services.AddTransient<ISecurityQuestionRepository, SecurityQuestionRepository>();
+            services.AddTransient<IStateRepository, StateRepository>();
+            services.AddTransient<IStudentAgeCategoriesRepository, StudentAgeCategoriesRepository>();
+            services.AddTransient<IStudentAllergiesRepository, StudentAllergiesRepository>();
+            services.AddTransient<IStudentMedicationRepository, StudentMedicationRepository>();
+            services.AddTransient<IStudentImmunizationRepository, StudentImmunizationRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
+            services.AddTransient<ITeacherStatusRepository, TeacherStatusRepository>();
+            services.AddTransient<ITransportationTypeRepository, TransportationTypeRepository>();
+            services.AddTransient<IStudentDisabilitiesRepository, StudentDisabilitiesRepository>();
+            services.AddTransient<IRelationTypeRepository, RelationTypeRepository>();
+            services.AddTransient<IIncidentPriortyTypeRepository, IncidentPriortyTypeRepository>();
+            services.AddTransient<INatureOfInjuryRepository, NatureOfInjuryRepository>();
+            services.AddTransient<IParentRepository, ParentRepository>();
+            services.AddTransient<IParentLogRepository, ParentLogRepository>();
+            services.AddTransient<IEventPlannerRepository, EventPlannerRepository>();
+            services.AddTransient<IInvolvedEventClassesRepository, InvolvedEventClassesRepository>();
+            services.AddTransient<IPlannerRepeatTypeRepository, PlannerRepeatTypeRepository>();
+            services.AddTransient<IMeasureQuantityTypeRepository, MeasureQuantityTypeRepository>();
+            services.AddTransient<IMeasureUnitTypeRepository, MeasureUnitTypeRepository>();
+            services.AddTransient<IFoodTypeRepository, FoodTypeRepository>();
+            services.AddTransient<IMealPlannerRepository, MealPlannerRepository>();
+            services.AddTransient<IInvolvedMealClassesRepository, InvolvedMealClassesRepository>();
+            services.AddTransient<ITeacherInfoRepository, TeacherInfoRepository>();
+            services.AddTransient<IInvolvedMealFoodItemsRepository, InvolvedMealFoodItemsRepository>();
+            services.AddTransient<IStudentActivitiesRepository, StudentActivitiesRepository>();
+            services.AddTransient<IStudentActivityMedicationRepository, StudentActivityMedicationRepository>();
+            services.AddTransient<IStudentActivityMoodRepository, StudentActivityMoodRepository>();
+            services.AddTransient<IStudentActivityNoteRepository, StudentActivityNoteRepository>();
+            services.AddTransient<IStudentActivityMealRepository, StudentActivityMealRepository>();
+            services.AddTransient<IStudentOtherActivityRepository, StudentOtherActivityRepository>();
+            services.AddTransient<IMoodTypeRepository, MoodTypeRepository>();
+            services.AddTransient<ISubActivityTypeRepository, SubActivityTypeRepository>();
+            services.AddTransient<IActivityTypeRepository, ActivityTypeRepository>();
+            services.AddTransient<IStudentAcitivityNapRepository, StudentAcitivityNapRepository>();
+            services.AddTransient<IPostActivityImagesRepository , PostActivityImagesRepository >();
+            services.AddTransient<IPostActivityVideosRepository, PostActivityVideosRepository>();
+            services.AddTransient<IPostActivitiesRepository, PostActivitiesRepository>();
+            services.AddTransient<IStudentActivityMealFoodItemsRepository, StudentActivityMealFoodItemsRepository>();
+            services.AddTransient<ITeacherBreakLogRepository, TeacherBreakLogRepository>();
+            services.AddTransient<ITeacherClassAttendenceRepository, TeacherClassAttendenceRepository>();
+            services.AddTransient<IClassAssignmentLogRepository, ClassAssignmentLogRepository>();
+            services.AddTransient<ITeacherDailyAttendenceRepository, TeacherDailyAttendenceRepository>();
+            services.AddTransient<IFoodConsumtionRepository, FoodConsumtionRepository>();
+            services.AddTransient<IDosageQuantityRepository, DosageQuantityRepository>();
+            services.AddTransient<IDoseRepeatRepository, DoseRepeatRepository>();
+            services.AddTransient<IStudentBreakLogRepository, StudentBreakLogRepository>();
+            services.AddTransient<IBreakTypesRepository, BreakTypesRepository>();
+            services.AddTransient<ITeacherAvailabilityRepository, TeacherAvailabilityRepository>();
+            services.AddTransient<IStudentActivityDiaperRepository, StudentActivityDiaperRepository>();
+            services.AddTransient<IPostImageslikeDetailsRepository, PostImageslikeDetailsRepository>();
+            services.AddTransient<IPostVideolikeDetailsRepository, PostVideolikeDetailsRepository>();
+            services.AddTransient<IClassCategoryRepository, ClassCategoryRepository>();
+            services.AddTransient<IKioskeStudentSignInDetailsRepository, KioskeStudentSignInDetailsRepository>();
+            services.AddTransient<IParentStudentMappingRepository, ParentStudentMappingRepository>();
+            services.AddTransient<IStripeDetailsRepository, StripeDetailsRepository>();
+            services.AddTransient<IPayementDetailsRepository, PayementDetailsRepository>();
+            services.AddTransient<IInvoiceDetailsRepository, InvoiceDetailsRepository>();
+            services.AddTransient<IInvoiceItemDetailsRepository, InvoiceItemDetailsRepository>();
+            services.AddTransient<IPricingPlanRepository, PricingPlanRepository>();
+            services.AddTransient<ISubscriptionDetailsRepository, SubscriptionDetailsRepository>();
+            services.AddTransient<IChatPrivateMessageDetailsRepository, ChatPrivateMessageDetailsRepository>();
+            services.AddTransient<IActiveUsersForChatRepository, ActiveUsersForChatRepository>();
+            services.AddTransient<IUserLoginDeviceRepository, UserLoginDeviceRepository>();
+            services.AddTransient<IDDRepository, DDRepository>();
+            services.AddTransient<ITransactionMasterRepository, TransactionMasterRepository>();
+            services.AddTransient<ITransactionTypeRepository, TransactionTypeRepository>();
+            services.AddTransient<ITransactionDetailsRepository, TransactionDetailsRepository>();
+            services.AddTransient<IAccountLedgerRepository, AccountLedgerRepository>();
+            services.AddTransient<IExtraFeeChargeMasterRepository, ExtraFeeChargeMasterRepository>();
+            services.AddTransient<IExtraFeesDetailsRepository, ExtraFeesDetailsRepository>();
+            services.AddTransient<ICFRepository, CFRepository>();
+            services.AddTransient<IPerDayFeeCalculationRepository, PerDayFeeCalculationRepository>();
+            services.AddTransient<IEFDRepository, EFDRepository>();
+            services.AddTransient<IStudentFeesDiscountRepository, StudentFeesDiscountRepository>();
+            services.AddTransient<ICFDRepository, CFDRepository>();
+            services.AddTransient<IAdvanceFeePaymentDetailsRepository, AdvanceFeePaymentDetailsRepository>();
+            services.AddTransient<IAuthorizedPersonRepository, AuthorizedPersonRepository>();
+            services.AddTransient<IAuthorizedPersonLoginRepository, AuthorizedPersonLoginRepository>();
+            services.AddTransient<ISubsidyDetailsRepository, SubsidyDetailsRepository>();
+            services.AddTransient<IStudentSubsidyDetailsRepository, StudentSubsidyDetailsRepository>();
+            services.AddTransient<IParentSignatureDetailsRepository, ParentSignatureDetailsRepository>();
+            services.AddTransient<IClassTransferAttendenceRepository, ClassTransferAttendenceRepository>();
+            services.AddTransient<IDailySheetAndBalanceLogRepository, DailySheetAndBalanceLogRepository>();
+            services.AddTransient<IErrorlogRepository, ErrorlogRepository>();
+            services.AddTransient<IMealServeTimeDetailsRepository, MealServeTimeDetailsRepository>();
+            services.AddTransient<IAgencySettingRepository, AgencySettingRepository>();
+            services.AddTransient<IStudentFilesRepository, StudentFilesRepository>();
+            services.AddTransient<ISTDDDRepository, STDDDRepository>();
+            services.AddTransient<IRecurringBillingRepository, RecurringBillingRepository>();
+            services.AddTransient<IACHInformationRepository, ACHInformationRepository>();
+            services.AddTransient<IRecurringPaymentRepository, RecurringPaymentRepository>();
+            services.AddTransient<IBaseRepository, BaseRepository>();
+            services.AddTransient<IRestrictedPersonRepository, RestrictedPersonRepository>();
+            services.AddTransient<ISectionVideoRepository, SectionVideoRepository>();
+            services.AddTransient<ISectionRepository, SectionRepository>();
+            services.AddTransient<IImageApproveTypeRepository, ImageApproveTypeRepository>();
+            services.AddTransient<IUnApprovedImagesRepository, UnApprovedImagesRepository>();
+            services.AddTransient<INotificationSoundSettingRepository, NotificationSoundSettingRepository>();
+            services.AddTransient<ICouponRepository, CouponRepository>();
+            services.AddTransient<IDeactivateReasonRepository, DeactivateReasonRepository>();
+            services.AddTransient<ITextMessagePlanRepository, TextMessagePlanRepository>();
+            services.AddTransient<IBusRepository, BusRepository>();
+            #endregion
+
+            #region Service
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IResponseService, ResponseService>();
+            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<ITeacherAttendenceService, TeacherAttendenceService>();
+            services.AddTransient<IIncidentService, IncidentService>();
+            services.AddTransient<IClassService, ClassService>();
+            services.AddTransient<IMasterService, MasterService>();
+            services.AddTransient<ITeacherService, TeacherService>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IEventPlannerService, EventPlannerService>();
+            services.AddTransient<IMealPlannerService, MealPlannerService>();
+            services.AddTransient<IDailySheetService, DailySheetService>();  
+            services.AddTransient<IPostActivitiesService, PostActivitiesService>();
+            services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<IParentsService, ParentsService>();
+            services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IPushNotification, PushNotification>();
+            #endregion
+
+            return services;
+        }
+    }
+}

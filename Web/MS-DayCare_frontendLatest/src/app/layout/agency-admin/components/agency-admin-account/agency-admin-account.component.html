@@ -1,0 +1,437 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Dashboard
+          <span>/ Account </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-red " data-toggle="modal" data-target=".addtransactiontype"
+          (click)="clearTransMasterForm()">Add Account
+          Master</button>
+        <a href="https://connect.stripe.com/express/oauth/authorize?client_id=ca_EqyWiw8fq7VHqbfxp2vvUgpHLOZumCeS&state={STATE_VALUE}"
+          *ngIf="showBtnCreateAcc" target="_blank">
+          <button type="submit" class="btn btn-red">Create Stripe Account</button></a>
+
+      </div>
+
+      <!-- <div>
+          
+        </div> -->
+
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Account</h3>
+      </div>
+      <div><i class="fa fa-print" (click)="invoiceSchedular()"></i></div>
+    </div>
+    <!-- <div class="subhead d-flex justify-content-between mt-20 mb-20"><div><h3>Payment</h3></div></div>     -->
+    <div class="Paymetlist">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item " (click)="getTransactionMasterDetails();onTabChange()">
+          <a class="nav-link active" id="appTransaction" data-toggle="pill" href="#pills-appTransaction" role="tab"
+            aria-controls="pills-appTransaction" aria-selected="true">Account Master</a>
+        </li>
+        <!-- <li class="nav-item" (click)="getPaymentDetails();getPaymentHistory();onTabChange()">
+          <a class="nav-link " id="appStudent" data-toggle="pill" href="#pills-appstudent" role="tab"
+            aria-controls="pills-appstudent" aria-selected="false">Payments</a>
+        </li> -->
+        <!-- <li class="nav-item" (click)="getDuePaymentAccordingToAgency();onTabChange">
+          <a class="nav-link" id="penstudent" data-toggle="pill" href="#pills-penstudent" role="tab"
+            aria-controls="pills-penstudent" aria-selected="false">Due Payments</a>
+        </li> -->
+        <!-- <li>
+            <a class="nav-link " id="appStudent" data-toggle="pill" href="#pills-bankaccount" role="tab"
+            aria-controls="pills-appstudent" aria-selected="false">Bank Account</a>
+        </li> -->
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+
+        <div class="tab-pane fade show active" id="pills-appTransaction" role="tabpanel"
+          aria-labelledby="appTransaction">
+
+          <!-- <b style="float:right;" for="">Offline Payment <span style="color:yellow; border: 1 1 1 1"><i class="fa fa-square" aria-hidden="true"></i></span> </b> <br>  -->
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+
+                    <!-- <th scope="col">Invoid #ID</th> -->
+                    <!-- <th scope="col">Invoice Title</th> -->
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Account Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let transMast of transMasterList">
+                    <td>{{transMast.transactionTypeName}}</td>
+                    <td>{{transMast.description}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="transMasterList.length === 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,2)"></p-paginator>
+
+          </div>
+        </div>
+
+
+        <!-- Payment History -->
+        <div class="tab-pane fade" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Parent Name</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">From Date </th>
+                    <th scope="col">To Date</th>
+                    <th scope="col">Paid on</th>
+                    <th scope="col">Payment Mode</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of paymentHistoryList">
+                    <td>{{payment.studentName}}</td>
+                    <td>{{payment.className}}</td>
+                    <td>{{payment.parentName}}</td>
+                    <td>${{payment.totalAmount}}</td>
+                    <td>{{payment.paymentFromDate| date}} </td>
+                    <td>{{payment.paymentToDate| date}} </td>
+                    <td>{{payment.paymentDate| date}}</td>
+
+                    <td> {{payment.isOffline ? 'Offline' : 'Online' }}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="paymentHistoryList.length === 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,2)"></p-paginator>
+
+          </div>
+        </div>
+
+        <!-- Due Payment Tab -->
+
+        <div class="tab-pane fade" id="pills-penstudent" role="tabpanel" aria-labelledby="penstudent">
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Parent Name</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">From Date </th>
+                    <th scope="col">To Date</th>
+                    <th class="text-center" scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of paymentDueList ">
+                    <td>{{payment.studentName}}</td>
+                    <td>{{payment.className}}</td>
+                    <td>{{payment.parentName}}</td>
+                    <td>${{payment.totalAmount}}</td>
+                    <td>{{payment.invoiceFromDate| date}} </td>
+                    <td>{{payment.invoiceToDate| date}} </td>
+                    <td class="text-center">
+                      <a>
+                        <i class="fa fa-eye" data-toggle="modal"
+                          (click)="getStudentDetails(payment);clearTranHeadForm()" aria-hidden="true"
+                          style="cursor:pointer" data-target=".editpayment"></i>
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <!--  <button  type="submit" class="btn btn-send"
+                        (click)="payOffline(payment)">Pay</button>
+                         <button *ngIf="!payment.isTrasactionHeadAdded" disabled type="submit" class="btn btn-send"
+                        >Pay</button>
+                      </td> -->
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="paymentDueList.length === 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,2)"></p-paginator>
+          </div>
+        </div>
+
+        <!-- Bank Account Tab -->
+        <div class="tab-pane fade" id="pills-bankaccount" role="tabpanel" aria-labelledby="penstudent">
+            <div class="innertable">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Bank Name</th>
+                      <th scope="col">Account No</th>
+                      <th scope="col">IFSC</th>
+                      <th scope="col">Opening Balance</th>
+                      <th  scope="col">Default Account</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let payment of bankAccountList ">
+                      <td>{{payment.description}}</td>
+                      <td>{{payment.accountNumber}}</td>
+                      <td>{{payment.ifsc}}</td>
+                      <td>${{payment.openingBalance}}</td>
+
+                      <td>
+                            
+                        <label class="checkboxcustom">
+                          <input type="checkbox" id="checkbox-in" (click)="markAsDefaultAccount(payment)" class="form-control abc"
+                          [(ngModel)]="payment.isDefaultAccount" >
+                          <span class="checkmark abc"></span>
+                        </label>
+                      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span *ngIf="bankAccountList.length === 0 && !loader">No record found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event,2)"></p-paginator>
+            </div>
+          </div>
+
+      </div>
+    </div>
+
+
+
+
+    <!--Edit Payment Modal  -->
+
+    <div class="modal fade editpayment" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content  white_box_table">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div style="margin-bottom: 10px">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <B>Invoice Number:</B>&nbsp; {{invoiceNo}} </div>
+                <div class="col-md-6">
+                  <B>Generated fees:</B>&nbsp; $ {{generatedTutionFee}} </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="wid26">Transaction Type</th>
+                    <th scope="col" class="wid26">Description</th>
+                    <th scope="col" class="wid26">Amount</th>
+                    <th scope="col" class="wid10">Add</th>
+                    <th scope="col" class="wid10">Remove</th>
+                  </tr>
+                </thead>
+                <tbody [formGroup]="editTransForm">
+                  <tr
+                    *ngFor="let disp of displayTransList;let item of editTransForm.get('transArraycollection').controls; let i = index;"
+                    formArrayName="transArraycollection">
+                    <td [formGroupName]="i">
+                      <select class="form-control" formControlName="transactionTypeID" placeholder="Transcation Type"
+                        id="exampleFormControlSelect1" (change)="getTrasactionMasterList($event.target.value,i)">
+                        <option value="">Select Transcation Type</option>
+                        <option *ngFor="let transtype of trasactionTypeList" [value]="transtype.transactionTypeID">
+                          {{transtype.transactionTypeName}}</option>
+                      </select>
+                    </td>
+                    <td [formGroupName]="i">
+                      <select class="form-control" formControlName="description" placeholder="Transcation Description"
+                        id="exampleFormControlSelect1">
+                        <option *ngFor="let transMasObj of trasactionMasterList[i]" [value]="transMasObj.description">
+                          {{transMasObj.description}}</option>
+
+                      </select>
+                    </td>
+                    <td [formGroupName]="i">
+                      <input type="text " formControlName="amount" (input)="calculateTotleAmount()" class="form-control"
+                        id="" aria-describedby="" placeholder="Amount">
+
+                    </td>
+                    <td class="verAligMiddle">
+                      <a href="javascript:void(0);">
+                        <i class="fa fa-plus-circle plusIcon" (click)="addTrans()" aria-hidden="true"></i></a>
+
+                    </td>
+                    <td class="verAligMiddle">
+                      <a href="javascript:void(0);" *ngIf="displayTransList.length > 1">
+                        <i class="fa fa-minus-circle minusIcon" (click)="removeFood(disp)" aria-hidden="true"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <div style="margin-right:40px"><b>Total Amount:</b> ${{totalAmount}} </div>
+            <button type="submit" class="btn btn-primary" (click)="saveHeadTransaction()">Save</button> &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade addtransactiontype" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Account Master</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="transactionForm">
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Account Type*</label>
+                    <select class="form-control" placeholder="Transcation Type" formControlName="transcationtype"
+                      id="exampleFormControlSelect1" (change)="getTransactionType()">
+                      <option [value]="">Select Transcation Type</option>
+                      <option *ngFor="let transtype of trasactionTypeList" [value]="transtype.transactionTypeID">
+                        {{transtype.transactionTypeName}}</option>
+                    </select>
+                    <div *ngIf="f.transcationtype.invalid && (f.transcationtype.dirty || f.transcationtype.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.transcationtype.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select Type</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Name*</label>
+                    <input type="text " formControlName="transdescription" class="form-control" aria-describedby=""
+                      placeholder="Name">
+                    <div *ngIf="f.transdescription.invalid && (f.transdescription.dirty || f.transdescription.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.transdescription.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="showBankdetails">
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Account Number*</label>
+                    <input type="text " formControlName="accountno" (keypress)="commonService.allowOnlyNumber($event)"
+                      maxlength="20" class="form-control" aria-describedby="" placeholder="Account Number">
+                    <div *ngIf="f.accountno.invalid && (f.accountno.dirty || f.accountno.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.accountno.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter account no.</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">IFSC</label>
+                    <input type="text " formControlName="ifsc" 
+                      maxlength="20" class="form-control" aria-describedby="" placeholder="IFSC">
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Opening Balance($)</label>
+                    <input type="text " formControlName="openingbal" (keypress)="commonService.allowOnlyNumber($event)"
+                       class="form-control" aria-describedby="" placeholder="Name">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Account Holder Name*</label>
+                    <input type="text " formControlName="accholdername"  class="form-control"
+                      aria-describedby="" placeholder="Account Holder Name">
+                    <div *ngIf="f.accholdername.invalid && (f.accholdername.dirty || f.accholdername.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.accholdername.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mb-20">
+                <div class="col-3">
+                    <div class="">
+                        <label class="checkboxcustom">
+                          <input type="checkbox" id="checkbox-in" class="form-control abc"
+                             formControlName="isdefaultaccount">
+                          <span class="checkmark abc"></span><label style="margin-left: 18px;"> Set As Default Account</label>
+                        </label>
+                      </div>
+                </div>
+              </div> -->
+            </div>
+
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="saveTransMasterInformation()">Save</button> &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- last -->
+  </div>
+</div>
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

@@ -1,0 +1,447 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle meal_calender">
+      <div>
+        <h2>Calendar
+          <span> / View Meal </span>
+        </h2>
+      </div>
+      <div *ngIf="isSubscriptionActive">
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".addmeal" (click)="clearForm()">Add Meal Plan</button>
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".newfood" (click)="clearFoodFormForm()">Add Food</button>
+      </div>
+      
+    </div>
+    <div *ngIf="calendarOptions">
+      <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="gotoDate($event.detail)"
+        (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)"
+        (clickButton)="clickButton($event.detail)" id="calender_section"></ng-fullcalendar>
+    </div>
+
+<!-- Add Modal -->
+    <div class="modal fade addmeal modal_padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="calenderForm">
+
+              <div class="row mb-20">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">Begins*</label>
+                    <input type="text" formControlName="startdate" placeholder="Begin" showWeekNumbers="false" 
+                      class="form-control"  [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="f.startdate.invalid && (f.startdate.dirty || f.startdate.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.startdate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">End*</label>
+                    <input type="text" formControlName="enddate" placeholder="End" showWeekNumbers="false" class="form-control"
+                       [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="f.enddate.invalid && (f.enddate.dirty || f.enddate.touched)" class="text-left errormsg">
+                      <span *ngIf="f.enddate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+             
+             
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Start Time*</label>
+                    <p-calendar class="custom-textbox-checkedin" formControlName="starttime" styleClass="form-control"  hourFormat="12" [timeOnly]="true"
+                      icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                    <div *ngIf="f.starttime.invalid && (f.starttime.dirty || f.starttime.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="f.starttime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">End Time*</label>
+                    <p-calendar class="custom-textbox-checkedin" formControlName="endtime" styleClass="form-control"  hourFormat="12" [timeOnly]="true"
+                      icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                    <div *ngIf="f.endtime.invalid && (f.endtime.dirty || f.endtime.touched)" class="text-left errormsg">
+                      <span *ngIf="f.endtime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Class*</label>
+                    <p-multiSelect [options]="classList" formControlName="class" [panelStyle]="{minWidth:'200px'}" [maxSelectedLabels]="5">
+                    </p-multiSelect>
+                    <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                      <span *ngIf="f.class.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Title*</label>
+                      <input type="text"  formControlName="title" placeholder="Title" 
+                      class="form-control" >
+                      <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="text-left errormsg">
+                        <span *ngIf="f.title.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+              <div class="row mb-20">
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Category*</label>
+                        <select class="form-control" id="exampleFormControlSelect1" formControlName="category">
+                          <option>Select</option>
+                          <option *ngFor="let cat of mealTyptList" [value]="cat.value">{{cat.label}}</option>
+                        </select>
+                        <div *ngIf="f.category.invalid && (f.category.dirty || f.category.touched)" class="text-left errormsg">
+                            <span *ngIf="f.category.errors.required">
+                              <i class="fa fa-exclamation-circle"></i> <span class=""> Please select category </span>
+                            </span>
+                          </div>
+                      </div>
+                      
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="wid26">Food*</th>
+                            <th scope="col" class="wid26">Amount*</th>
+                            <th scope="col" class="wid26">Unit*</th>
+                            <th scope="col" class="wid10">Add</th>
+                            <th scope="col" class="wid10">Remove</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let disp of displayFoodList;let item of calenderForm.get('foodcollection').controls; let i = index;" formArrayName="foodcollection" >
+                            <td scope="row" [formGroupName]="i" >
+                                <select class="form-control"  formControlName="fooditem" id="exampleFormControlSelect1">
+                                    <option value="">Select</option>
+                                    <option *ngFor="let food of foodItemList" [value]="food.value">{{food.label}}</option>
+                                  </select>
+                            </td>
+                            <td [formGroupName]="i">
+                                <input type="text"  formControlName="amount" placeholder="Amount" maxlength="3"
+                                class="form-control" (keypress)="commonService.allowOnlyNumber($event)">
+                            </td>
+                            <td [formGroupName]="i">
+                                <select class="form-control" formControlName="unit" placeholder="Quantity"
+                                id="exampleFormControlSelect1">
+                                <option value="">Select</option>
+                                <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                              </select>
+                                  
+                            </td >
+                            <td class="verAligMiddle">
+                              <a href="javascript:void(0);"  *ngIf="( displayFoodList.length < foodItemList.length )" (click)="addFood()"><i class="fa fa-plus-circle plusIcon" aria-hidden="true"></i></a>                                
+
+                            </td>
+                            <td class="verAligMiddle">
+                                <a href="javascript:void(0);" *ngIf="displayFoodList.length > 1" (click)="removeFood(disp)"> 
+                                <i class="fa fa-minus-circle minusIcon" aria-hidden="true"></i></a>
+
+                            </td>
+                          </tr>                                           
+                         
+                        </tbody>
+                      </table>
+
+                </div>
+
+              
+              <div class="row mb-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Description(Max 100 char)</label>
+                    <textarea name="" maxlength="100" id="" cols="3" formControlName ="description" rows="3" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Repeat</label>
+                    <select class="form-control" (change)="getRepeatOptions()" formControlName ="repeat" placeholder="Repeat"
+                      id="exampleFormControlSelect1">
+                      <option *ngFor="let obj of repeatList" [value]="obj.value" >{{obj.label}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6" *ngIf="showEndsOn">
+                  
+                    <div class="form-group">
+                      <label for="">Ends on*</label>
+                      <input type="text" placeholder="Ends on" container=""  formControlName ="endson"  showWeekNumbers="false"
+                         class="form-control"  [bsConfig]="dpConfig" bsDatepicker>
+                        <div *ngIf="f.endson.invalid && (f.endson.dirty || f.endson.touched)" class="text-left errormsg">
+                          <span *ngIf="f.endson.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                          </span>
+                        </div>
+                      </div>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive " class="btn btn-primary" (click)="verifyMealPlan ()">Add Menu</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+<!-- Add new food item modal -->
+    <div class="modal fade newfood" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Food</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Food Name</label>
+             <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)" placeholder="Food Name" [(ngModel)]="mealItemMasterName">
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="saveMealItemInformation()">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Meal Details Model -->
+    <div class="modal fade mealdetails modal_padding" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Meal Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+       <form [formGroup]="calenderForm"> 
+
+      <div class="row mb-20">
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="">Begins*</label>
+            <input type="text" placeholder="Begin" formControlName="startdate"  showWeekNumbers="false" 
+              class="form-control"  [bsConfig]="dpConfig" bsDatepicker >
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="">End*</label>
+            <input type="text" placeholder="Begin"  formControlName="enddate" showWeekNumbers="false" 
+              class="form-control"  [bsConfig]="dpConfig" bsDatepicker >
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Start Time*</label>
+            <p-calendar class="custom-textbox-checkedin" formControlName="starttime" styleClass="form-control"  hourFormat="12" [timeOnly]="true"
+              icon="pi pi-clock" [showIcon]="true"></p-calendar>
+            <div *ngIf="f.starttime.invalid && (f.starttime.dirty || f.starttime.touched)"
+              class="text-left errormsg">
+              <span *ngIf="f.starttime.errors.required">
+                <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">End Time*</label>
+            <p-calendar class="custom-textbox-checkedin" formControlName="endtime" styleClass="form-control"  hourFormat="12" [timeOnly]="true"
+              icon="pi pi-clock" [showIcon]="true"></p-calendar>
+            <div *ngIf="f.endtime.invalid && (f.endtime.dirty || f.endtime.touched)" class="text-left errormsg">
+              <span *ngIf="f.endtime.errors.required">
+                <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-20">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Class</label>           
+              <p-multiSelect [options]="classList" formControlName="class" [panelStyle]="{minWidth:'200px'}" [maxSelectedLabels]="5">
+              </p-multiSelect>
+              <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                <span *ngIf="f.class.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                </span>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Title</label>
+            <input type="text" class="form-control" formControlName="title"  id="" aria-describedby=""
+              placeholder="Title" >
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-20">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Category</label>
+            <select class="form-control" placeholder="Category" formControlName="category"
+              id="exampleFormControlSelect1" >
+              <option *ngFor="let obj of mealTyptList" [value]="obj.value">{{obj.label}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-6">         
+        </div>
+      </div>
+      <div class=" mb-20 table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th >Food*</th>
+              <th >Amount*</th>
+              <th >Unit*</th>
+              <th >Add</th>
+              <th >Remove</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let disp of involvedFoodList;let item of calenderForm.get('foodcollection').controls; let i = index;"
+              formArrayName="foodcollection">             
+                <td [formGroupName]="i">
+                  <select class="form-control" formControlName="fooditem" id="exampleFormControlSelect1">
+                    <option value="">Select</option>
+                    <option *ngFor="let food of foodItemList" [value]="food.value">{{food.label}}</option>
+                  </select>
+                </td>
+                <td [formGroupName]="i">
+                  <input type="text"  formControlName="amount" placeholder="Amount" maxlength="3"
+                    class="form-control" (keypress)="commonService.allowOnlyNumber($event)">
+                </td>
+                <td [formGroupName]="i">
+                  <select class="form-control" formControlName="unit" placeholder="Quantity"
+                    id="exampleFormControlSelect1">
+                    <option value="">Select</option>
+                    <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                  </select>
+                </td>              
+
+             <td class="verAligMiddle">
+                <a href="javascript:void(0);"  *ngIf="( displayFoodList.length < foodItemList.length )" (click)="addFoodWhileUpdate()"><i class="fa fa-plus-circle plusIcon" aria-hidden="true"></i></a>                                
+
+              </td>
+              <td class="verAligMiddle">
+                  <a href="javascript:void(0);" *ngIf="displayFoodList.length > 1" (click)="removeFoodWhileUpdate(disp)"> 
+                  <i class="fa fa-minus-circle minusIcon" aria-hidden="true"></i></a>
+
+              </td>           
+            </tr>
+          </tbody>
+          </table>
+      </div>
+      <div class="row mb-20">
+        <div class="col-lg-12">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Description</label>           
+            <textarea name="" id="" class="form-control"  formControlName="description" cols="3" rows="3" 
+              class="form-control" placeholder="Description" ></textarea>
+
+          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="row mb-20">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Repeat</label>
+            <select class="form-control" formControlName="repeat" placeholder="First Aid Administered by"
+               id="exampleFormControlSelect1" >
+              <option *ngFor="let obj of repeatList" [value]="obj.value" disabled>{{obj.label}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-lg-6" *ngIf="disableEndDate">
+          <div class="form-group">
+            <label for="">Ends on</label>
+
+            <input type="text" placeholder="Begin" formControlName="endson" showWeekNumbers="false" 
+              class="form-control"  [bsConfig]="dpConfig" bsDatepicker disabled>
+          </div>
+        </div>
+      </div>
+
+       </form>      
+</div>
+<div class="modal-footer">    
+  <button type="button" class="btn dlt" (click)="deleteEvent()"> Delete</button>
+  <button type="button" *ngIf="isSubscriptionActive " class="btn btn-primary" (click)="verifyMealPlan()">Save changes</button>
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

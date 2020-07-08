@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="452.937" height="439.557" viewBox="0 0 452.937 439.557">
+  <g id="teacher-pointing-blackboard" transform="translate(0 -0.463)">
+    <g id="Group_273" data-name="Group 273" transform="translate(0 0.463)">
+      <rect id="Rectangle_109" data-name="Rectangle 109" width="73.079" height="27.166" transform="translate(342.755 213.898)" fill="#fff"/>
+      <path id="Path_96" data-name="Path 96" d="M2.931.463V43.179l18.646-5.757v-18.3H394.8V257.048H97.809l-.969,18.646H413.47V.463Z" transform="translate(39.467 -0.463)" fill="#fff"/>
+      <circle id="Ellipse_24" data-name="Ellipse 24" cx="55.272" cy="55.272" r="55.272" transform="translate(16.809 46.896)" fill="#fff"/>
+      <path id="Path_97" data-name="Path 97" d="M119.006,352.595V232.33h3.515l5.135-99.883,95.326-49.4L214.968,67.6l2.329,4.05L319.437,13.182l-4.614-8.1L212.828,63.463l-2.372-4.585L123.3,104.038H92.2L71.126,128.47l-20.4-24.432L5.945,112.355,3.081,211.7H22.074L23.1,232.33H25.98V352.595h-3.8L0,357.412v20.425H18.877l22.045-3.587.2,3.587H65.542V254.187h13.9V377.837h24.417l.2-3.587,22.045,3.587h18.877V357.412l-22.19-4.817Z" transform="translate(0 61.72)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

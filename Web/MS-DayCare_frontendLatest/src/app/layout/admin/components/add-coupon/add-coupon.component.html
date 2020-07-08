@@ -1,0 +1,114 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ CouponList </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="clearCouponForm()" data-toggle="modal"
+          data-target=".addcoupon">Add Coupon</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Coupon List</h3>
+      </div>
+    </div>
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Coupon Name</th>
+                  <th scope="col">Discount(%)</th>
+                  <th scope="col" class="text-center">Change Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let coupon of couponList">
+                  <td>{{coupon.couponName}}</td>
+                  <td>{{coupon.discount}}</td>
+                  <td class="text-center" >
+                    <button class="form-control" *ngIf="!coupon.isDeleted"   class="btn btn-warning"
+                      (click)="deactivateCoupon(coupon)">Deactivate</button>
+                    <button class="form-control" *ngIf="coupon.isDeleted" class="btn btn-success"
+                      (click)="activateCoupon(coupon)">Activate</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(couponList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addcoupon " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Coupon</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="couponForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Coupon Name*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="couponname"
+                  placeholder="Coupon Name">
+                <div *ngIf="t.couponname.invalid && (t.couponname.dirty || t.couponname.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="t.couponname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter coupon name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Discount(%)*</label>
+                <input type="text " (keypress)="commonService.allowOnlyNumber($event)" class="form-control" id=""
+                  aria-describedby="" formControlName="discount" placeholder="Discount">
+                <div *ngIf="t.discount.invalid && (t.discount.dirty || t.discount.touched)" class="text-left errormsg">
+                  <span *ngIf="t.discount.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter discount</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveCoupon()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

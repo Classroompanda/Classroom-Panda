@@ -1,0 +1,104 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Parent
+          <span>/ Kiosk Login </span>
+        </h2>
+        <h3 style="color: #707070; margin-top:4px;">{{today | date }}</h3>
+        <h3 style="color: #707070;">{{today | date:'shortTime' }} </h3>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead mb-20">
+      <div>
+        <h3>Kiosk Login</h3>
+      </div>
+      <!-- <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".addplan">Add Plan</button> -->
+      <div style="cursor:pointer" title="Download report">
+        <button type="submit" class="btn btn-red" data-toggle="modal" (click)="kiosklogOut()">Logout</button>
+        <button type="submit" *ngIf="isSign == true" class="btn btn-red" data-toggle="modal"
+          (click)="OpenInfoVideo()">Add Signature</button>
+        <!-- <i class="fa fa-upload" (click)="OpenInfoVideo()" data-toggle="modal" aria-hidden="true"></i> -->
+      </div>
+    </div>
+
+    <!-- Deepak start  -->
+
+    <div class="pricing card-deck card_section mt-20">
+      <!-- <div class="row"> -->
+      <div class="col-lg-3" *ngFor="let student of studentList">
+        <div class="card card-pricing text-center px-3 mb-4">
+          <span><img src="{{student.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+              class="img-circle childimg1"></span>
+          <div class="bg-transparent card-header pt-4 border-0">
+            <h1 class="h2 font-weight-normal text-primary text-center mb-0" data-pricing-value="1200"><span
+                class="price">{{student.studentName}}</span>
+              <!-- <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'month'">/ per month</span>
+              <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'year'">/ per year</span> -->
+            </h1>
+          </div>
+          <div class="card-body pt-0">
+            <ul class="list-unstyled mb-4">
+              <li class="listing1">{{student.className}}</li>
+            </ul>
+            <button type="button" *ngIf="student.currentStatus == 0 || student.currentStatus == 4"
+              (click)="checkIn(student)" class="btn btn-primary mb-3">CheckIn</button>
+            <button type="button"
+              *ngIf="student.currentStatus == 1 || student.currentStatus == 2 || student.currentStatus == 3"
+              [disabled]="student.currentBreakOutStatus" (click)="checkOut(student)"
+              class="btn btn-primary mb-3">CheckOut</button>
+            <button type="button" *ngIf="student.currentStatus == 1 || student.currentStatus == 3"
+              (click)="breakOut(student)" class="btn btn-primary mb-3">BreakOut</button>
+            <button type="button" *ngIf="student.currentStatus == 2" (click)="breakIn(student)"
+              class="btn btn-primary mb-3">BreakIn</button>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+
+
+
+    </div>
+
+    <div class="modal fade infovideo" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Parent Signature</h5>
+            <button type="button" class="close" (click)="drawClear()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body">
+              <div class="cont video_section_pop2">
+                <signature-pad [options]="signaturePadOptions"></signature-pad>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="drawClear()" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="drawComplete()">Save Signature</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- last  -->
+    </div>
+
+
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

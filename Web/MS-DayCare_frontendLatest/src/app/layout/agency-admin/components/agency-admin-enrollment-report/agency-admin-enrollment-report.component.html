@@ -1,0 +1,102 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Report
+          <span>/ Student Enrollment Report </span>
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Student Enrollment List</h3>
+      </div>
+      <div style="cursor:pointer" title="Download report" (click)="pdfReportForChildEnrollment()"><i class="fa fa-download" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <!-- <div class="col-lg-10"> -->
+         <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search By Name : </div>
+            <input type="text" placeholder="Search student name" [(ngModel)]="searchByStudentName" class="form-control mr15" id="">
+          </div>
+          <div class="search-date">
+              <div class="pr15 label-text">Search By Class : </div>
+              <!-- <input type="text" placeholder="Search Class" [(ngModel)]="searchByClass" class="form-control mr15" id=""> -->
+              <select  placeholder="Serch" [(ngModel)]="searchByClass"  id="exampleFormControlSelect1" class="form-control mr15">
+                  <option value="">Select class</option>
+                  <option value="">All</option>
+                  <option *ngFor="let classes of classList" [value]="classes.className">{{classes.className}}</option>
+                </select>
+            </div>
+           <div class="search-date">
+            <div class="pr15 label-text">Search By Status : </div>
+         <select [(ngModel)]="serchStatus" (change)="search()">
+           <option value="10">All</option>
+           <option value="1">Requested</option>
+           <option value="2">Enrolled</option>
+           <option value="3">Request Cancelled</option>
+           <option value="4">Denied by Agency</option>
+           <option value="5">Completed</option>
+         </select>
+              </div>
+              <div class="search-date">
+                <div class="pr15 label-text"> </div>
+                  </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+              <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+      </div> 
+    </div>
+
+    <div class="studentlist">
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+          <div class="innertable studentListSearch">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Parent Name</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody >
+               <tr *ngFor="let report of reportList">
+                <td>{{report.studentName}}</td>
+                <td>{{report.classesName}}</td>
+                <td>{{report.parentName}}</td>
+                <td *ngIf="report.enrollmentStatus == 0">Not Enrolled</td>
+                <td *ngIf="report.enrollmentStatus == 1">Requested</td>
+                <td *ngIf="report.enrollmentStatus == 2">Enrolled</td>
+                <td *ngIf="report.enrollmentStatus == 3">Request Cancelled</td>
+                <td *ngIf="report.enrollmentStatus == 4">Denied by Agency</td>
+                <td *ngIf="report.enrollmentStatus == 5">Completed</td>
+               
+
+               </tr>
+                </tbody>
+                <!-- </tbody> -->
+              </table>
+              <div class="text-center">
+                <span  *ngIf="reportList.length == 0 && !loader" class="text-center">No result found</span>
+              </div> 
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

@@ -1,0 +1,1354 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Childs Form
+          <!-- <span>/ Add Student </span> -->
+        </h2>
+      </div>
+      <div>
+        <!-- <button type="submit" class="btn btn-red">Add Kid</button> -->
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Child Form</h3>
+      </div>
+    </div>
+
+    <div class="activitytimeline mt-20">
+      <div class="row">
+
+        <div class="col-lg-3">
+
+          <div class="upload-profile" *ngIf="childList.length > 0">
+            <div>
+              <img src="{{childVM.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+                class="img-fluid img-circle"> </div>
+
+            <div class="upload-btn-wrapper" *ngIf="parentType != 'guardian'">
+              <button class="btn btn-send">Upload a photo</button>
+              <input type="file" name="myfile" #input (change)="processFile($event)" />
+            </div>
+          </div>
+
+
+
+          <div class="nav flex-column nav-pills mt-20" id="v-pills-tab" role="tablist" aria-orientation="vertical"
+            *ngFor="let child of childList; let i = index">
+            <a class="nav-link {{child.classActive}}" (click)="AddActivClassStudentList(child)" id="v-pills-kid1-tab"
+              data-toggle="pill" href="#v-pills-kid1" role="tab" aria-controls="v-pills-kid1" aria-selected="true">
+              <img alt="" class="img-circle childimg" src="{{child.imagePath}}"
+                onError="this.src='assets/img/user.png'">{{child.studentName}}</a>
+          </div>
+        </div>
+        <div class="col-lg-9">
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="basicinfo-tab" data-toggle="tab" href="#basicinfo" role="tab"
+                aria-controls="basicinfo" aria-selected="true">Basic Information</a>
+            </li>
+            <li class="nav-item" *ngIf="(childList.length > 0 && parentType == 'guardian')">
+              <a class="nav-link" id="Gurardianinfo-tab" data-toggle="tab" href="#Gurardianinfo" role="tab"
+                aria-controls="Gurardianinfo" aria-selected="false" (click)="getGuardianInfo()">Guardians
+                Information</a>
+            </li>
+            <li class="nav-item" *ngIf="childList.length > 0">
+              <a class="nav-link" id="Allergies-tab" data-toggle="tab" href="#Allergies" (click)="getStudentDetails()"
+                role="tab" aria-controls="Allergies" aria-selected="false">Allergies and Immunization</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="basicinfo" role="tabpanel" aria-labelledby="basicinfo-tab">
+              <!-- New HTML For Add Student  -->
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Basic Information</h3>
+                </div>
+                <div *ngIf="parentType != 'guardian'">
+                  <button type="submit" class="btn btn-send" (click)="clearAddChildForm()" data-toggle="modal"
+                    data-target=".addchild">Add Child</button>
+                </div>
+              </div>
+              <form [formGroup]="childForm" *ngIf="childList.length > 0">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">First name*</label>
+                      <input type="text" maxlength="100" (keypress)="commonService.allowAlphabetOnly($event)"
+                        formControlName="firstname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter First Name">
+                      <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.firstname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter first name</span>
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Last name*</label>
+                      <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" maxlength="100"
+                        formControlName="lastname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter Last Name">
+                      <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.lastname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="row ">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Student ID(auto generate)</label>
+                    <input type="text " class="form-control" id="" aria-describedby="" placeholder="ID">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">User Name</label>
+                    <input type="text " class="form-control" id="" aria-describedby="" placeholder="User Name">
+                  </div>
+                </div>
+              </div> -->
+
+
+
+                <!-- <div class="row ">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Email Address</label>
+                    <input type="email " class="form-control" id="" aria-describedby="" placeholder="Email address">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Mobile No</label>
+                    <input type="number " class="form-control" id="" aria-describedby="" placeholder="Mobile">
+                  </div>
+                </div>
+              </div> -->
+
+
+
+                <div class="row ">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Contact Number*</label>
+                      <input type="text" maxlength="10" class="form-control" id="" aria-describedby=""
+                        (keypress)="commonService.allowOnlyNumber($event)" formControlName="mobile" id=""
+                        aria-describedby="" placeholder="Contact Number">
+                      <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="f.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter contact number</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Gender*</label>
+                      <select class="form-control" formControlName="gender" id="exampleFormControlSelect1">
+                        <option value="">Select</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                      </select>
+                      <div *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)" class="text-left errormsg">
+                        <span *ngIf="f.gender.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select gender</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Date of Birth*</label>
+                      <input type="text" placeholder="Select date" formControlName="birthdate" showWeekNumbers="false"
+                        [maxDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="f.birthdate.invalid && (f.birthdate.dirty || f.birthdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.birthdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birthdate</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Address*</label>
+                      <input type="text " formControlName="address" class="form-control" id="" aria-describedby=""
+                        placeholder="Address">
+                      <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.address.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Country*</label>
+                      <select class="form-control" placeholder="Country" formControlName="country"
+                        id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                        <option value="">Select Country</option>
+                        <option *ngFor="let countries of countryList" [value]="countries.id">{{countries.countryName}}
+                        </option>
+                      </select>
+                      <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.country.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">State*</label>
+                      <select class="form-control" placeholder="State" formControlName="state"
+                        id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                        <option value="">Select State</option>
+                        <option *ngFor="let states of stateList" [value]="states.id">{{states.stateName}}</option>
+                      </select>
+                      <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                        <span *ngIf="f.state.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">City*</label>
+                      <select class="form-control" placeholder="City" formControlName="city"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select City</option>
+                        <option *ngFor="let cities of cityList" [value]="cities.id">{{cities.cityName}}</option>
+                      </select>
+                      <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                        <span *ngIf="f.city.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Child Start Date*</label>
+                      <input type="text" placeholder="Select Start date" formControlName="childStartDate"
+                        showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig"
+                        bsDatepicker>
+                      <div *ngIf="f.childStartDate.invalid && (f.childStartDate.dirty || f.childStartDate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.childStartDate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select child start date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Zip Code</label>
+                      <input type="text " maxlength="6" formControlName="zipcode"
+                        (keypress)="commonService.allowOnlyNumber($event)" class="form-control" id=""
+                        aria-describedby="" placeholder="Enter Zip Code">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Physician name</label>
+                      <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)"
+                        formControlName="physicianname" id="" aria-describedby="" placeholder="Physician name">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Physician Contact Number</label>
+                      <input type="text " maxlength="\*d" maxlength="10"
+                        (keypress)="commonService.allowOnlyNumber($event)" class="form-control"
+                        formControlName="physicianContactNumber" id="" aria-describedby=""
+                        placeholder="Physician Contact Number">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Physician Address</label>
+                      <input type="text" class="form-control" 
+                        formControlName="physicianAddress" id="" aria-describedby="" placeholder="Physician address">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Preferred hospital</label>
+                      <input type="text " class="form-control" formControlName="preferredhospital" id=""
+                        aria-describedby="" placeholder="Preferred hospital">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Child Notes</label>
+                      <textarea class="form-control" maxlength="200" formControlName="childNotes" aria-describedby=""
+                        placeholder="Enter Child Notes"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-send" *ngIf="parentType != 'guardian'"
+                    (click)="saveChildDetails('update')">Save Changes </button>
+                </div>
+
+              </form>
+              <div class="text-center mt-20" *ngIf="childList.length == 0 && !loader">
+                <span for="">No record found! </span>
+              </div>
+
+            </div>
+
+            <div class="tab-pane fade" id="Gurardianinfo" role="tabpanel" aria-labelledby="Gurardianinfo-tab">
+
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Guardian Information</h3>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-send" *ngIf="parentType != 'guardian'" data-toggle="modal"
+                    (click)="cleareGuardianForm()" data-target=".guardianinfo">Add Guardian</button>
+                </div>
+              </div>
+              <div class="innertable">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Relation</th>
+                        <th scope="col">Phone No</th>
+                        <th scope="col">Allow Pickup</th>
+                        <!-- <th scope="col">Actions</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let guardians of guardianList">
+                        <td>{{guardians.firstName}}</td>
+                        <td> {{guardians.lastName}}</td>
+                        <td>{{guardians.relationTypeName}}</td>
+                        <td>{{guardians.mobile}}</td>
+                        <td *ngIf="guardians.isAuthorizedToPickup == false">No</td>
+                        <td *ngIf="guardians.isAuthorizedToPickup == true">Yes</td>
+                        <!-- <td >
+                        <a data-toggle="modal" (click)="getPerticulerGuardianInfo(guardians)" data-target=".guardianinfo">
+                          <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a >
+                          <i class="fa fa-trash" (click)="deleteGuardian(guardians)" aria-hidden="true"></i>
+                        </a>
+                      </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <span *ngIf="guardianList.length == 0 && !loader">No record found</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="Allergies" role="tabpanel" aria-labelledby="Allergies-tab">
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Immunization</h3>
+                </div>
+                <div>
+                  <button type="submit" *ngIf="parentType != 'guardian'" class="btn btn-send"
+                    (click)="clearImmunization()" data-toggle="modal" data-target=".immunization">Add
+                    Immunization</button>
+                </div>
+              </div>
+              <div class="innertable">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Immunization</th>
+                        <th scope="col">Date Received</th>
+                        <th scope="col">Other Immunization</th>
+                        <th scope="col">Abbreviation</th>
+                        <th *ngIf="parentType != 'guardian'" scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let immun of immunizationList">
+                        <td>{{immun.immunizationName}}</td>
+                        <td>{{immun.dateReceived| date}}</td>
+                        <td>{{immun.otherImmunization}}</td>
+                        <td>{{immun.abbreviation}}</td>
+                        <td *ngIf="parentType != 'guardian'">
+                          <!-- <a>
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a> -->
+                          <a>
+                            <i class="fa fa-pencil" (click)="getPerticulerStudentimmunization(immun)"
+                              data-toggle="modal" data-target=".immunization" aria-hidden="true"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-trash" (click)="deleteimmunization(immun)" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <span *ngIf="immunizationList.length == 0 && !loader">No record found</span>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Allergies</h3>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-send" *ngIf="parentType != 'guardian'" data-toggle="modal"
+                    data-target=".allergies" (click)="clearallergy()">Add Allergies</button>
+                </div>
+              </div>
+
+              <div class="innertable">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Allergy</th>
+                        <th scope="col">Allergy Name</th>
+                        <th scope="col">Reaction</th>
+                        <th scope="col">Treatement</th>
+                        <th *ngIf="parentType != 'guardian'" scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let allergy of allergyList">
+                        <td>{{allergy.allergyTypeName}}</td>
+                        <td>{{allergy.allergyName}}</td>
+                        <td>{{allergy.allergyReactionTypeName}} </td>
+                        <td>{{allergy.treatment}}</td>
+                        <td *ngIf="parentType != 'guardian'">
+                          <!-- <a >
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a> -->
+                          <a>
+                            <i class="fa fa-pencil" (click)="getPerticulerAllergyDetaild(allergy)" aria-hidden="true"
+                              data-toggle="modal" data-target=".allergies"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-trash" (click)="deleteAllergy(allergy)" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <span *ngIf="allergyList.length == 0 && !loader">No record found</span>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Medication</h3>
+                </div>
+                <div>
+                  <button *ngIf="parentType != 'guardian'" type="submit" class="btn btn-send"
+                    (click)="clearMedicationForm()" data-toggle="modal" data-target=".medication">Add
+                    Medication</button>
+                </div>
+              </div>
+
+
+              <div class="innertable">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Medication</th>
+                        <th scope="col">Strength</th>
+                        <th scope="col">Units</th>
+                        <th scope="col">Dose</th>
+                        <th scope="col">How Taken?</th>
+                        <th scope="col">Other Medication</th>
+                        <th scope="col" *ngIf="parentType != 'guardian'">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let med of medicationList">
+                        <td>{{med.medicationName}}</td>
+                        <td>{{med.strength}}</td>
+                        <td>{{med.units}} </td>
+                        <td>{{med.doseRepeatName}}</td>
+                        <td>{{med.howTaken}}</td>
+                        <td>{{med.otherMedication}}</td>
+                        <td *ngIf="parentType != 'guardian'">
+                          <!-- <a [routerLink]="['/dashboard/actvitydetail']">
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a> -->
+                          <a>
+                            <i class="fa fa-pencil" aria-hidden="true" data-target=".medication" data-toggle="modal"
+                              (click)="getPerticulerMedication(med)"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-trash" (click)="deleteMedication(med)" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <span *ngIf="medicationList.length == 0 && !loader">No record found</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="d-flex justify-content-between mt-20 subhead">
+                <div>
+                  <h3>Disability</h3>
+                </div>
+                <div>
+                  <button type="submit" *ngIf="parentType != 'guardian'" class="btn btn-send" data-toggle="modal"
+                    data-target=".disability" (click)="clearDisability()">Add Disability</button>
+                </div>
+              </div>
+              <div class="innertable">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">Description</th>
+
+                        <th scope="col" *ngIf="parentType != 'guardian'" class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="disabilityList.length != 0">
+                      <tr *ngFor="let disabilty of disabilityList">
+                        <td>{{disabilty.description | slice:0:68}}</td>
+                        <td class="text-center" *ngIf="parentType != 'guardian'">
+                          <a data-toggle="modal" data-target=".disability" (click)="disabiltyDetials(disabilty)">
+                            <i class="fa fa-pencil text-center" aria-hidden="true" title="view details"></i>
+                          </a>
+                          <a>
+                            <i class="fa fa-trash" (click)="deleteDisability(disabilty )" aria-hidden="true"></i>
+                          </a>
+                        </td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div class="text-center">
+                    <span *ngIf="disabilityList.length == 0 && !loader">No record found</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- imminization -->
+      <div class="modal fade immunization" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Immunization</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="immunizationForm">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Immunization*</label>
+                      <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter First Name"> -->
+                      <select class="form-control" formControlName="immunization" id="exampleFormControlSelect1"
+                        (change)="CheckImmunizationType()">
+                        <option value="">Select</option>
+                        <option *ngFor="let imm of immunizationtypeListForDeopdown" [value]="imm.value">{{imm.label}}
+                        </option>
+                      </select>
+                      <div *ngIf="i.immunization.invalid && (i.immunization.dirty || i.immunization.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="i.immunization.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select immunization</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Date Received*</label>
+                      <!-- <input type="date " class="form-control" formControlName="date"  id="" aria-describedby="" placeholder="Select Date"> -->
+                      <input type="text" placeholder="Select date" formControlName="date" showWeekNumbers="false"
+                        class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="i.date.invalid && (i.date.dirty || i.date.touched)" class="text-left errormsg">
+                        <span *ngIf="i.date.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-20" *ngIf="showOthwerImmunization">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Other Immunization*</label>
+                      <input type="text " formControlName="other" class="form-control" id="" aria-describedby=""
+                        placeholder="Other Immunization">
+                    </div>
+                    <div *ngIf="i.other.invalid && (i.other.dirty || i.other.touched)" class="text-left errormsg">
+                      <span *ngIf="i.other.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter other immunization</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Abbreviation </label>
+                      <input type="text " formControlName="abbrivation" class="form-control" id="" aria-describedby=""
+                        placeholder="Abbreviation">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyImmunization()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- allergies -->
+
+      <div class="modal fade allergies" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Allergies</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="allergyForm">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Allergy*</label>
+                      <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter First Name"> -->
+                      <select class="form-control" id="exampleFormControlSelect1" formControlName="allergy">
+                        <option value="">Select</option>
+                        <option *ngFor="let all of allergyType" [value]="all.value">{{all.label}}</option>
+                      </select>
+                      <div *ngIf="al.allergy.invalid && (al.allergy.dirty || al.allergy.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="al.allergy.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Allergy Name*</label>
+                      <select class="form-control" id="exampleFormControlSelect1" formControlName="allergyname">
+                        <option value="">Select</option>
+                        <option *ngFor="let algname of allergyNameList" [value]="algname.value">{{algname.label}}
+                        </option>
+
+                      </select>
+                      <div *ngIf="al.allergyname.invalid && (al.allergyname.dirty || al.allergyname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="al.allergyname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Reaction*</label>
+                      <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter Reaction" > -->
+                      <select class="form-control" id="exampleFormControlSelect1" formControlName="reaction">
+                        <option value="">Select</option>
+                        <option *ngFor="let reaction of allergyReactionList" [value]="reaction.value">{{reaction.label}}
+                        </option>
+
+                      </select>
+                      <div *ngIf="al.reaction.invalid && (al.reaction.dirty || al.reaction.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="al.reaction.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Treatment*</label>
+                      <input type="text " class="form-control" id="" aria-describedby="" formControlName="treatment"
+                        placeholder="Enter Treatment">
+                      <div *ngIf="al.treatment.invalid && (al.treatment.dirty || al.treatment.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="al.treatment.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter treatment</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">First Observrd</label>
+                      <input type="text" [maxDate]="today" placeholder="Select date"
+                        formControlName="firstobserverddate" showWeekNumbers="false" class="form-control"
+                        [bsConfig]="dpConfig" bsDatepicker>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Last Observed</label>
+                      <input type="text" [maxDate]="today" placeholder="Select date" formControlName="lastobserveddate"
+                        showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Comments</label>
+                      <textarea name="" id="" formControlName="comments" class="form-control" cols="30"
+                        rows="10"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyAllergy()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MEdication -->
+      <div class="modal fade medication" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Medication</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="medicationForm">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Medicine*</label>
+                      <input type="text " formControlName="medication" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter medicine name">
+                      <div *ngIf="m.medication.invalid && (m.medication.dirty || m.medication.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="m.medication.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter medicine name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Strength*</label>
+                      <input type="text " class="form-control" formControlName="strength" id="" aria-describedby=""
+                        placeholder="Enter Strength">
+                      <div *ngIf="m.strength.invalid && (m.strength.dirty || m.strength.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="m.strength.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter strength</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Units*</label>
+                      <input type="text " (keypress)="commonService.allowOnlyNumber($event)" class="form-control"
+                        formControlName="units" id="" aria-describedby="" placeholder="Enter Unit">
+                      <div *ngIf="m.units.invalid && (m.units.dirty || m.units.touched)" class="text-left errormsg">
+                        <span *ngIf="m.units.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter units</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Dose*</label>
+                      <!-- <input type="text " class="form-control" formControlName="dose" id="" aria-describedby="" placeholder="Enter Dose" > -->
+                      <select class="form-control" placeholder="State" formControlName="dose"
+                        id="exampleFormControlSelect1" (change)="getCitiesListAddMode();clearCityAddMode()">
+                        <option value="">Select Dose</option>
+                        <option *ngFor="let dose of doseList" [value]="dose.value">{{dose.label}}</option>
+                      </select>
+                      <div *ngIf="m.dose.invalid && (m.dose.dirty || m.dose.touched)" class="text-left errormsg">
+                        <span *ngIf="m.dose.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select dose</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">How to Take?*</label>
+                      <input type="text " class="form-control" formControlName="howtotake" id="" aria-describedby=""
+                        placeholder="Enter How To Take?">
+                      <div *ngIf="m.howtotake.invalid && (m.howtotake.dirty || m.howtotake.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="m.howtotake.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter valid data</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Other Medication </label>
+                      <input type="text " class="form-control" formControlName="othermedication" id=""
+                        aria-describedby="" placeholder="Other Medication">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Start Date*</label>
+                      <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter How Taken?" > -->
+                      <input type="text" placeholder="Select date" formControlName="startdate" showWeekNumbers="false"
+                        class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="m.startdate.invalid && (m.startdate.dirty || m.startdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="m.startdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class="">Select date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">End Date* </label>
+                      <!-- <input type="text " class="form-control" id="" aria-describedby="" placeholder="Other Medication" disabled > -->
+                      <input type="text" placeholder="Select date" formControlName="enddate" showWeekNumbers="false"
+                        class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="m.enddate.invalid && (m.enddate.dirty || m.enddate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="m.enddate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class="">Select date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyMedication()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disability -->
+      <div class="modal fade disability" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Disability*</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row  mt-20">
+                <div class="col-lg-12">
+                  <!-- <div class="form-group">
+                <label for="">Description</label>
+               <input type="textarea" rows="4"  [(ngModel)]="disabilitydiscription" class="form-control" id="" aria-describedby="" placeholder="Description">
+              </div> -->
+
+                  <div class="form-group">
+                    <label for="">Description (Max Length 500 character)</label>
+                    <textarea name="" id="" maxlength="500" [(ngModel)]="disabilitydiscription" class="form-control"
+                      cols="30" rows="10"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyDisability()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- guardian modal -->
+      <div class="modal fade guardianinfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Guardian</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <form [formGroup]="guardianForm">
+                <div class="upload-profile">
+                  <div>
+                    <img src="{{addImagePreview}}" onError="this.src='assets/img/user.png'" alt=""
+                      class="img-fluid img-circle"> </div>
+
+                  <div class="upload-btn-wrapper">
+                    <button class="btn btn-send">Upload a photo</button>
+                    <input type="file" name="myfile" #input (change)="processFileGuardian($event)" />
+                  </div>
+                </div>
+                <div class="row mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">First Name</label>
+                      <input type="text " formControlName="firstname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter First Name">
+                      <div *ngIf="g.firstname.invalid && (g.firstname.dirty || g.firstname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="g.firstname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter first name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Last Name</label>
+                      <input type="text " formControlName="lastname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter Last Name">
+                      <div *ngIf="g.lastname.invalid && (g.lastname.dirty || g.lastname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="g.lastname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Relation</label>
+                      <select class="form-control" placeholder="Select relation" formControlName="relation"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select Relation</option>
+                        <option *ngFor="let relation of relationTypeList" [value]="relation.value">{{relation.label}}
+                        </option>
+                      </select>
+                      <div *ngIf="g.relation.invalid && (g.relation.dirty || g.relation.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="g.relation.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select Reltion</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Phone Number</label>
+                      <input type="text" maxlength="10" (keypress)="commonService.allowOnlyNumber($event)"
+                        formControlName="mobile" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter Phone number">
+                      <div *ngIf="g.mobile.invalid && (g.mobile.dirty || g.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="g.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter Phone number</span>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="">
+                  <label class="checkboxcustom">
+                    <input type="checkbox" id="checkbox-in" class="abc" (change)="markAsAllowToPickup()"
+                      formControlName="allowpickup">
+                    <span class="checkmark abc"></span><label> Authorized Pickup</label>
+                  </label>
+                </div>
+
+                <div class="row mt-20">
+                  <div class="col-lg-12">
+                    <div class="form-group" id="desc1" *ngIf="reasonNotToAllowbox">
+                      <label for="">Reason for not allowing pickup</label>
+                      <textarea class="form-control" formControlName="notallowedreason" aria-describedby=""
+                        placeholder="Reason for not allowing for pickup"></textarea>
+                      <div
+                        *ngIf="g.notallowedreason.invalid && (g.notallowedreason.dirty || g.notallowedreason.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="g.notallowedreason.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter reason</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyImageUploadForGuardian()">Save
+                Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="d-flex justify-content-between mt-20 subhead"><div><h3>Kids List</h3></div> </div> -->
+
+
+      <!-- Add new Child Modal -->
+
+      <div class="modal fade addchild" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Child</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class="upload-profile">
+                <div>
+                  <img src="{{addImagePreview}}" onError="this.src='assets/img/user.png'" alt=""
+                    class="img-fluid img-circle"> </div>
+
+                <div class="upload-btn-wrapper">
+                  <button class="btn btn-send">Upload a photo</button>
+                  <input type="file" name="myfile" #input (change)="processFileAddMode($event)" />
+                </div>
+              </div>
+              <form [formGroup]="addChildForm">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">First name*</label>
+                      <input type="text " formControlName="firstname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter First Name">
+                      <div *ngIf="a.firstname.invalid && (a.firstname.dirty || a.firstname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.firstname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter first name</span>
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Last name*</label>
+                      <input type="text " formControlName="lastname" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter Last Name">
+                      <div *ngIf="a.lastname.invalid && (a.lastname.dirty || a.lastname.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.lastname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Contact Number*</label>
+                      <input type="text" formControlName="mobile" maxlength="10"
+                        (keypress)="commonService.allowOnlyNumber($event)" class="form-control" id=""
+                        aria-describedby="" placeholder="Phone">
+                      <div *ngIf="a.mobile.invalid && (a.mobile.dirty || a.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="a.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter contact number</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Gender*</label>
+                      <select class="form-control" formControlName="gender" id="exampleFormControlSelect1">
+                        <option value="">Select</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                      </select>
+                      <div *ngIf="a.gender.invalid && (a.gender.dirty || a.gender.touched)" class="text-left errormsg">
+                        <span *ngIf="a.gender.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select gender</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Date of Birth*</label>
+                      <input type="text" placeholder="Select date" formControlName="birthdate" showWeekNumbers="false"
+                        [maxDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="a.birthdate.invalid && (a.birthdate.dirty || a.birthdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.birthdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birthdate</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Address*</label>
+                      <input type="text " formControlName="address" class="form-control" id="" aria-describedby=""
+                        placeholder="Address">
+                      <div *ngIf="a.address.invalid && (a.address.dirty || a.address.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.address.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Country*</label>
+                      <select class="form-control" placeholder="Country" formControlName="country"
+                        id="exampleFormControlSelect1" (change)="getStatesListAddMode();clearStateCityAddMode()">
+                        <option value="">Select Country</option>
+                        <option *ngFor="let countries of countryListAddMode" [value]="countries.id">
+                          {{countries.countryName}}</option>
+                      </select>
+                      <div *ngIf="a.country.invalid && (a.country.dirty || a.country.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.country.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">State*</label>
+                      <select class="form-control" placeholder="State" formControlName="state"
+                        id="exampleFormControlSelect1" (change)="getCitiesListAddMode();clearCityAddMode()">
+                        <option value="">Select State</option>
+                        <option *ngFor="let states of stateListAddMode" [value]="states.id">{{states.stateName}}
+                        </option>
+                      </select>
+                      <div *ngIf="a.state.invalid && (a.state.dirty || a.state.touched)" class="text-left errormsg">
+                        <span *ngIf="a.state.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">City*</label>
+                      <select class="form-control" placeholder="City" formControlName="city"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select City</option>
+                        <option *ngFor="let cities of cityListAddMode" [value]="cities.id">{{cities.cityName}}</option>
+                      </select>
+                      <div *ngIf="a.city.invalid && (a.city.dirty || a.city.touched)" class="text-left errormsg">
+                        <span *ngIf="a.city.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Child Start Date*</label>
+                      <input type="text" placeholder="Select Start date" formControlName="childStartDate"
+                        showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig"
+                        bsDatepicker>
+                      <div *ngIf="a.childStartDate.invalid && (a.childStartDate.dirty || a.childStartDate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="a.childStartDate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select child start date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Zip Code</label>
+                      <input type="text " maxlength="6" (keypress)="commonService.allowOnlyNumber($event)"
+                        formControlName="zipcode" class="form-control" id="" aria-describedby=""
+                        placeholder="Enter Zip Code">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Physician name</label>
+                      <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)"
+                        formControlName="physicianname" id="" aria-describedby="" placeholder="Physician name">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Physician Contact Number</label>
+                      <input type="text " maxlength="10" (keypress)="commonService.allowOnlyNumber($event)"
+                        class="form-control" formControlName="physicianContactNumber" id="" aria-describedby=""
+                        placeholder="Physician Contact Number">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Physician Address</label>
+                      <input type="text" class="form-control"
+                        formControlName="physicianAddress" id="" aria-describedby="" placeholder="Physician address">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Preferred hospital</label>
+                      <input type="text " class="form-control" formControlName="preferredhospital" id=""
+                        aria-describedby="" placeholder="Preferred hospital">
+                    </div>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="">Child Notes</label>
+                      <textarea class="form-control" maxlength="200" formControlName="childNotes" aria-describedby=""
+                        placeholder="Enter Child Notes"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="saveChildDetails('add')">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

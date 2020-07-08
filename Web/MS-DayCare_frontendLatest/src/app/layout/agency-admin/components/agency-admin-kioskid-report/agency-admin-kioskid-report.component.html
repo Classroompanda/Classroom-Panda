@@ -1,0 +1,62 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Reports
+        </h2>
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20 mb-20">
+      <div>
+        <h3>Kiosk ID Report</h3>
+      </div>
+      <div style="cursor:pointer" (click)="pdfReportForKioskID()" title="Download report"><i class="fa fa-download"
+          aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <input type="text" placeholder="Search Parent name" [(ngModel)]="searchName" class="form-control mr15" id="">
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="innertable">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Family Key</th>
+                <th scope="col">Parent Name</th>
+                <th scope="col">Quick Pin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let parent of parentList">
+                <td>{{parent.parentLastName}}</td>
+                <td>{{parent.parentName}}</td>
+                <td>{{parent.quickPin}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center" *ngIf="parentList.length == 0 && !loader">
+            <span>No record found!</span>
+          </div>
+        </div>
+        <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+        </p-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

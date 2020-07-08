@@ -1,0 +1,609 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="pagetitle">
+      <div>
+        <h2>Dashboard <span> </span></h2>
+      </div>
+      <div class="brdcrmbs">
+
+      </div>
+    </div>
+
+    <div class="pagebadges">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="badgebox">
+            <div><img src="assets/img/group.png" alt="" /></div>
+            <div class="text-center">
+              <h3>{{studentEnrolledCountForClass}}</h3>
+              <p>Class Students</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="badgebox">
+            <div><img src="assets/img/present.png" alt="" /></div>
+            <div class="text-center">
+              <h3>{{presentStudentCount}}</h3>
+              <p>Present Students</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="badgebox">
+            <div><img src="assets/img/event.png" alt="" /></div>
+            <div class="text-center">
+              <h3>{{eventCountForClass}}</h3>
+              <p>Events</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-5 col-lg-12">
+        <div class="whitebox">
+          <div class="head">Class Check-in/Check-out</div>
+          <div class="brdr"></div>
+
+          <div class="tchschdule1">
+            <p-carousel [value]="classLogList" [numVisible]="1" (onPage)=getPageDetailsForClass($event)>
+              <ng-template let-item pTemplate="item">
+                <div class="currntcls">
+                  <div class="title">
+                    <div>
+                      <span class="month">{{today|date: 'MMMM y'}}</span>
+                      <span class="date">{{today|date: 'dd'}}</span>
+                      <span class="day">{{today|date: 'EEEE'}}</span>
+                    </div>
+                  </div>
+                  <div class="edit-btn">
+                    <button type="submit" style="cursor: pointer"
+                      (click)="getTeacherCurrentClassLogStatus(classDetails, 1)" title="Check In">
+                      <img src="assets/img/checkin.png" alt="" />
+                    </button>
+                    <button type="submit" style="cursor: pointer"
+                      (click)="getTeacherCurrentClassLogStatus(classDetails, 2)" title="Check Out">
+                      <img src="assets/img/checkout.png" alt="" />
+                    </button>
+                    <button *ngIf="classDetails.checkStatus == 2" title="Edit checked-in and checked-out time"
+                      (click)="getCheckOutDetails(classDetails)" type="submit" data-toggle="modal"
+                      data-target="#edittime">
+                      <img src="assets/img/edit-ico.png" alt="img" />
+                    </button>
+                    <button *ngIf="classDetails.checkStatus == 1" title="Edit checked in time"
+                      (click)="getCheckInDetails(classDetails)" type="submit" data-toggle="modal"
+                      data-target="#checkinedittime">
+                      <img src="assets/img/edit-ico.png" alt="img" />
+                    </button>
+                  </div>
+                  <div class="" style="width:100%;">
+                    <div class="row algcenter">
+                      <div class="col-lg-12">
+                        <h3 class="clsname">{{classDetails.className}}</h3>
+                      </div>
+                    </div>
+                    <div class="row algcenter">
+                      <div class="col-lg-6 col-6 text-center">
+                        <div class="form-group">
+                          <label for="">Time From</label>
+                          <p>{{classDetails.classStartTime | date:' hh:mm a'}}</p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-6 text-center">
+                        <div class="form-group">
+                          <label for="">Untill</label>
+                          <p>{{classDetails.classEndTime | date:' hh:mm a'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+            </p-carousel>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-7 col-lg-12">
+        <div class="whitebox">
+          <div class="head">Create Post</div>
+          <div class="brdr"></div>
+          <div class="post">
+            <div class="row">
+              <div class="col-lg-1">
+                <div class="chatimg w-20">
+                  <img src="{{userImage}}" alt="img" class="img-fluid" onError="this.src='assets/img/user.png'" />
+                </div>
+              </div>
+              <div class="col-lg-11">
+                <div class="create-post">
+                  <img src="assets/img/camera.png" (click)="openImagePostModal();clearPost()" alt="">
+                  <img src="assets/img/video-post.png" (click)="openVideoPostModal();clearPost()" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Student Medication (Class : {{classNameForMedication}})</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student Name</th>
+                  <!-- <th scope="col">Class Name</th> -->
+                  <th scope="col">Medicine Name</th>
+                  <th scope="col">Units</th>
+                  <th scope="col">Dosage</th>
+                  <th scope="col">How To Take</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor=" let med of medicationList">
+                  <td>{{med.studentName}}</td>
+                  <td>{{med.medicationName}}</td>
+                  <td>{{med.units}}</td>
+                  <td>{{med.doseRepeatName}}</td>
+                  <td>{{med.howTaken}}</td>
+                  <td>
+                    <a *ngIf="med.isMedicationDone == false" style="cursor:pointer" data-toggle="modal"
+                      data-target="#edithealth" (click)="getStudentDetailsOfMedication(med)">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a><i *ngIf="med.isMedicationDone == true" class="fa fa-check fa-lg" style="color:#0afe0a;"
+                        aria-hidden="true"></i></a>
+
+                    <!-- <button class="btn btn-info" data-toggle="modal" data-target="#edithealth"  
+                      >Done</button>
+                    </td> -->
+                </tr>
+                <tr *ngIf="medicationList && medicationList.length == 0 && !loader">
+                  <td colspan="6" class="align_Class">
+                    No Records Found!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="whitebox white_box_table">
+          <div class="head">Student Allergy (Class : {{classNameForMedication}})</div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student Name</th>
+                  <th scope="col">Allergy Name</th>
+                  <th scope="col">Allergy Type</th>
+                  <th scope="col">Symptoms</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor=" let allergy of allergyList">
+                  <td>{{allergy.studentName}}</td>
+                  <td>{{allergy.allergyName}}</td>
+                  <td>{{allergy.allergyTypeName}}</td>
+                  <td>{{allergy.allergyReactionTypeName}}</td>
+                  <td>{{allergy.treatment}}</td>
+                </tr>
+                <tr *ngIf="allergyList && allergyList.length == 0 && !loader">
+                  <td colspan="6" class="align_Class">
+                    No Records Found!
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Edit Check in And Out  Time modal  -->
+    <div class="modal fade" id="edittime" tabindex="-1" role="dialog" aria-labelledby="checkinLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinLabel">Edit Checked-in & Checked-out Time</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Checked-in Time </label>
+                  <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control"
+                    [(ngModel)]="editedCheckedInTime" [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"
+                    [maxDate]="today"></p-calendar>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Checked-out Time </label>
+                  <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control"
+                    [(ngModel)]="editedCheckedOutTime" [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"
+                    [maxDate]="today"></p-calendar>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" (click)="editCheckedOutDetails()">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Check in  Time modal  -->
+    <div class="modal fade" id="checkinedittime" tabindex="-1" role="dialog" aria-labelledby="checkinLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinLabel">Edit Checked-in Time</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Checked-in Time </label>
+                  <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control"
+                    [(ngModel)]="editedCheckedInTime" [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"
+                    [maxDate]="today"></p-calendar>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" (click)="editCheckedInDetails()">
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade addimage" id="#addimage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">
+              <div class=" w-20">
+                <img src="{{userImage}}" alt="img" class="img-fluid" onError="this.src='assets/img/user.png'" />
+              </div> Create Post
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="ImageUploadForm">
+
+              <div class="row mb-15">
+                <div class="col-lg-6 mb-15">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Title*</label>
+                    <input type="text" class="form-control" placeholder="Title" formControlName="title"
+                      id="exampleFormControlSelect1">
+                    <div *ngIf="f.title.invalid &&
+                            (f.title.dirty || f.title.touched) " class="text-left errormsg">
+                      <span *ngIf="f.title.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please enter title</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-15 ">
+                  <div class="form-group pop-switch">
+                    <label class="first" for="exampleFormControlSelect1">Public*</label>
+                    <p-inputSwitch formControlName="public"></p-inputSwitch>
+                    <div *ngIf="f.public.invalid && (f.public.dirty || f.public.touched) " class="text-left errormsg">
+                      <span *ngIf="f.public.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select option</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-15">
+                <div class="col-lg-12">
+                  <div class="postmsg">
+                    <textarea name="" id="" rows="8" formControlName="text"
+                      placeholder="Write somethings to post"></textarea>
+                    <div *ngIf="f.text.invalid && (f.text.dirty || f.text.touched)" text="text-left errormsg">
+                      <span *ngIf="f.text.errors.required" class="errormsg">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span> Please Write somethings</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row mb-15">
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Class*</label>
+                    <select class="form-control" placeholder="Serch" (change)="getStudentsList()"
+                      formControlName="class" id="exampleFormControlSelect1">
+                      <option value="">Select class</option>
+                      <option *ngFor="let classes of classList" [value]="classes.value">{{ classes.label }}</option>
+                    </select>
+                    <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                      <span *ngIf="f.class.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select class</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6  ">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Student Name*</label>
+                    <p-multiSelect [options]="studentList" formControlName="studentname"
+                      [panelStyle]="{minWidth:'200px'}" formControlName="studentname" [maxSelectedLabels]="5">
+                    </p-multiSelect>
+                    <div *ngIf="  f.studentname.invalid &&
+                          (f.studentname.dirty || f.studentname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.studentname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select student</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-15 ">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <h4>Upload Image(Max limit 3)</h4>
+                    <p-fileUpload name="myfile[]" #pform uploadLabel="Post" maxFileSize="5000000"
+                      [accept]="allowedImageFileType" multiple="multiple" (onSelect)="limitOnImageFiles($event)"
+                      [showUploadButton]="showUploadBtn" customUpload="true" (uploadHandler)="myImageUploader($event)">
+                    </p-fileUpload>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade addvideo" id="#addvideo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle2">
+              <div class=" w-20">
+                <img src="{{userImage}}" alt="img" class="img-fluid" onError="this.src='assets/img/user.png'" />
+              </div> Create Post
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="ImageUploadForm">
+              <div class="row mb-15">
+                <div class="col-lg-6 mb-15">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Title*</label>
+                    <input type="text" class="form-control" placeholder="Title" formControlName="title"
+                      id="exampleFormControlSelect1">
+                    <!-- <select class="form-control" placeholder="Serch" formControlName="reporter" id="exampleFormControlSelect1">
+                          <option value="">Select reported by</option>
+                          <option *ngFor="let teachers of teacherList" [value]="teachers.id">{{ teachers.teacherName }}</option>
+                        </select> -->
+                    <div *ngIf="f.title.invalid &&
+                            (f.title.dirty || f.title.touched) " class="text-left errormsg">
+                      <span *ngIf="f.title.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please enter title</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-15 ">
+                  <div class="form-group pop-switch">
+                    <label class="first" for="exampleFormControlSelect1">Public*</label>
+                    <!-- <select class="form-control" formControlName="public" id="exampleFormControlSelect1">
+                          <option value="">Select option</option>
+                          <option value="true">Yes</option>
+                          <option value="false">No</option>
+                        </select> -->
+                    <p-inputSwitch formControlName="public"></p-inputSwitch>
+                    <div *ngIf="f.public.invalid && (f.public.dirty || f.public.touched) " class="text-left errormsg">
+                      <span *ngIf="f.public.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select option</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-15">
+                <!-- <div class="col-lg-1">
+                      <div class="chatimg w-20">
+                        <img src="https://ptetutorials.com/images/user-profile.png" alt="img" class="img-fluid" />
+                      </div>
+                    </div> -->
+
+                <div class="col-lg-12">
+                  <div class="postmsg">
+                    <textarea name="" id="" rows="8" formControlName="text"
+                      placeholder="Write somethings to post"></textarea>
+                    <div *ngIf="f.text.invalid && (f.text.dirty || f.text.touched)" text="text-left errormsg">
+                      <span *ngIf="f.text.errors.required" class="errormsg">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span> Please Write somethings</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row mb-15">
+                <div class="col-lg-6 ">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Class*</label>
+                    <select class="form-control" placeholder="Serch" (change)="getStudentsList()"
+                      formControlName="class" id="exampleFormControlSelect1">
+                      <option value="">Select class</option>
+                      <option *ngFor="let classes of classList" [value]="classes.value">{{ classes.label }}</option>
+                    </select>
+                    <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                      <span *ngIf="f.class.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select class</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6  ">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Student Name*</label>
+                    <p-multiSelect [options]="studentList" formControlName="studentname"
+                      [panelStyle]="{minWidth:'200px'}" formControlName="studentname" [maxSelectedLabels]="5">
+                    </p-multiSelect>
+                    <div *ngIf="  f.studentname.invalid &&
+                          (f.studentname.dirty || f.studentname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.studentname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class=""> Please select student</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-15 ">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <h4>Upload Video (.mp4 extention only)</h4>
+                    <p-fileUpload name="myfile[]" #pformvideo uploadLabel="Post" [accept]="allowedVideoFileType"
+                      maxFileSize="200000000" [showUploadButton]="showUploadBtn" customUpload="true"
+                      (uploadHandler)="myVideoUploader($event)"></p-fileUpload>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade editshadow" id="edithealth" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Today's Medication</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="health-tab" data-toggle="tab" href="#health" role="tab"
+                  aria-controls="health" aria-selected="false">
+                  <!-- <i class="fa fa-child" aria-hidden="true"></i> -->
+                  <img src="assets/img/stethoscope.svg" alt="">
+                  <p>Medications</p>
+                </a>
+              </li>
+            </ul>
+
+            <form [formGroup]="healthForm">
+              <div class="row mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Add Temperature (°F)</label>
+                    <input aria-describedby="" type="text" formControlName="temperature" class="form-control" id=""
+                      placeholder="">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 botm10">
+                  <div class="form-group">
+                    <label>Health Note*</label>
+                    <textarea aria-describedby="" formControlName="tempcmnt" row="10" class="form-control" id=""
+                      placeholder="Health Note"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-20">
+                <div class="col-lg-6 ">
+                  <div class="">
+                    <label class="checkboxcustom">
+                      <input type="checkbox" id="checkbox-in" class="abc" formControlName="teacherack">
+                      <span class="checkmark abc"></span> <label style="margin-left: 15px;"> Acknowledge</label>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="medicationDone()">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

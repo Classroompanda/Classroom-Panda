@@ -1,0 +1,107 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ Information Videos List </span>
+        </h2>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Information Video List</h3>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" data-toggle="modal" (click)="clearForm()" data-target=".addvideo">Add
+          Information Video</button>
+      </div>
+    </div>
+
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Section</th>
+              <th scope="col">Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let video of videoList">
+              <td>{{video.sectionName}}</td>
+              <td>{{video.title}}</td>            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addvideo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Information Video</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="VideoUploadForm">
+
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Section*</label>
+                <select class="form-control" placeholder="Section" formControlName="section"
+                  id="exampleFormControlSelect1">
+                  <option value="">Select Section</option>
+                <option *ngFor="let sections of sectionList" [value]="sections.id" >{{sections.sectionName}}</option>
+                </select>
+                <div *ngIf="f.section.invalid && (f.section.dirty || f.section.touched)" class="text-left errormsg">
+                  <span *ngIf="f.section.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select section</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Title*</label>
+                <input type="text" formControlName="title" maxlength="25" class="form-control" id=""
+                  aria-describedby="" placeholder="Enter title">
+                <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="f.title.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <h4>Upload Video (.mp4 extention only)</h4>
+                <p-fileUpload name="myfile[]" #pformvideo uploadLabel="Post" [accept]="allowedVideoFileType"
+                  maxFileSize="200000000" [showUploadButton]="showUploadBtn" customUpload="true"
+                  (uploadHandler)="myVideoUploader($event)"></p-fileUpload>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

@@ -1,0 +1,47 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+namespace DayCare.API.Migrations
+{
+    public partial class NewTableParentLog : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "ParentLog",
+                columns: table => new
+                {
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedBy = table.Column<long>(nullable: true),
+                    DeletedDate = table.Column<DateTime>(nullable: true),
+                    DeletedFromIP = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<long>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    CreatedFromIP = table.Column<string>(nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: true),
+                    UpdatedFromIP = table.Column<string>(nullable: true),
+                    UpdatedBy = table.Column<long>(nullable: true),
+                    ParentLogID = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    AgencyID = table.Column<long>(nullable: false),
+                    ParentID = table.Column<long>(nullable: false),
+                    ColumnName = table.Column<string>(maxLength: 100, nullable: false),
+                    OldValue = table.Column<string>(maxLength: 100, nullable: true),
+                    NewValue = table.Column<string>(maxLength: 100, nullable: true),
+                    ValueUpdateDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParentLog", x => x.ParentLogID);
+                });
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "ParentLog");
+        }
+    }
+}

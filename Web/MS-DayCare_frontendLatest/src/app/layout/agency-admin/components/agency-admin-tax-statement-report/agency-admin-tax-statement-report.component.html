@@ -1,0 +1,76 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Report
+          <span>/ Tax Statement Report </span>
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Tax Statement List</h3>
+      </div>
+      <div style="cursor:pointer" title="Download report" (click)="pdfReportForBankStatement()"><i class="fa fa-download"
+          aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <!-- <div class="col-lg-10"> -->
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Year : </div>
+            <input type="text" placeholder="Search by Date" [(ngModel)]="searchByDate" showWeekNumbers="false"
+              [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig" (bsValueChange)="getSerchDate($event)"
+              bsDatepicker (onShown)="onOpenCalendar($event)">
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn"
+              (click)="getTaxStatementReport()">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Family Name</th>
+                      <th scope="col">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let report of reportList">
+                      <td>{{report.parentLastName}}</td>
+                      <td>{{report.debitAmount}}</td>
+                    </tr>
+                    <tr *ngIf="reportList.length != 0 && !loader">
+                      <td><b>Total</b></td>
+                      <td><b>$ {{totalAmount}}</b></td>
+                    </tr>
+                  </tbody>
+                  <!-- </tbody> -->
+                </table>
+                <div class="text-center">
+                  <span *ngIf="reportList.length == 0 && !loader" class="text-center">No result found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event)"></p-paginator>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

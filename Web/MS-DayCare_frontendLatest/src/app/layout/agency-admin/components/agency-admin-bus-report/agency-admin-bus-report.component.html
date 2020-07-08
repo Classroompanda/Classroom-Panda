@@ -1,0 +1,71 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Reports
+        </h2>
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20 mb-20">
+      <div>
+        <h3>Student Bus Report</h3>
+      </div>
+      <div style="cursor:pointer" (click)="pdfReportForBus()" title="Download report"><i class="fa fa-download"
+          aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-class">
+            <div class="pr15">
+              <div class="form-group">
+                <select class="form-control" placeholder="Serch" [(ngModel)]="searchByBus"
+                  id="exampleFormControlSelect1">
+                  <option value="0">All Buses</option>
+                  <option *ngFor="let bus of busList" [value]="bus.id">{{bus.busName}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="innertable">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Student Name</th>
+                <th scope="col">Parent Name</th>
+                <th scope="col">Bus</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of studentList">
+                <td>{{student.studentName}}</td>
+                <td>{{student.parentName}}</td>
+                <td>{{student.busName}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center" *ngIf="studentList.length == 0 && !loader">
+            <span>No record found!</span>
+          </div>
+        </div>
+        <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+        </p-paginator>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

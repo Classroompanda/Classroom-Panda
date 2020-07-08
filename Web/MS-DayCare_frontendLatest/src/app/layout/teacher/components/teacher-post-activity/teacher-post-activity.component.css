@@ -1,0 +1,22 @@
+.currentact {padding: 0;}
+.currentact h5.redcolor {
+    padding: 10px;
+    text-align: center;
+    background: #FF6C6C;
+    color: #fff;
+}
+.currentact h5.bluecolor {
+    padding: 15px 10px 0px 10px;
+    text-align: center;
+}
+.currentact p {
+    text-align: center;
+    padding: 5px 10px 15px 10px;
+}
+.d-pdf {
+    position: absolute;
+    right: 15px;
+    font-size: 20px;
+    color: #eb547c;
+}
+.d-pdf a {color: #eb547c;}

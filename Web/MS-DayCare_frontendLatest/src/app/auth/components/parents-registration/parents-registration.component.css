@@ -1,0 +1,98 @@
+/* .bgblue{background: #58A7FE!important} */
+html, body{height: 100vh;}
+.pt-100{padding-top:30px }
+.bgblue h1{font-size: 30px;text-align: center;color: #FF6C6C;margin-bottom: 100px}
+.bgblue h1 span{color: #58A7FE;font-weight: 600}
+.bgblue {
+  background: #fffaf3;
+  height: auto;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  padding-top: 80px;
+}
+.btn-success{
+    width: 100%;
+    padding: 12px 0;
+    border: 0;
+    background: #FF6C6C;
+    font-size: 18px;
+    border-radius: 0 0 10px 10px;
+}
+.login {
+  background: #FF6C6C;
+  font-size: 18px;
+  padding: 13px 35px;
+  color: #fff;
+}
+
+.forgot{font-size: 14px; color: #58A7FE;font-weight: 400}
+.m-30{margin: 30px 0;}
+
+.btn-success:not(:disabled):not(.disabled):active{background: #337ab7;border-color:#337ab7 }
+.an-header{top:0;height: 50px;padding: 0}
+.an-logo-heading{font-size: 15px;padding-left:30px }
+.btnfooter{    background: #FFFFFF;
+  padding: 14px;box-shadow: 0 0 20px 2px rgba(153, 153, 153, 0.4)}
+  .btnfooter p{padding: 0;margin: 0}
+
+
+  .loginbox { position: relative;
+    margin-top: -10%;
+  }
+  .loginbox .checkboxcustom{padding-left:30px }
+  .loginbox .topkid{position: absolute;
+    top: -70px;
+    text-align: center;
+    right: 0;
+    }
+
+    .loginbox .bottomkid{position: absolute;
+      bottom: -40px;
+      text-align: center;
+      left: -70px;
+      }
+
+    .loginbox .bottomkid img{    height: 120px;
+      margin: 0 auto;}
+
+    .loginbox .topkid img{    height: 120px;
+      margin: 0 auto;}
+
+      .form-fieldset{
+        padding: 20px;
+      }
+
+/* .form-card{background: url('../../../../assets/img/back.png'); */
+
+/* } */
+.login-head {
+  background: #fffaf3;
+  text-align: center;
+}
+.login-head img {
+  width: 210px;
+}
+ 
+@media (max-width:992px) {
+  .div12 img {
+    display: none;
+  }
+} 
+@media (max-width: 640px)
+{
+.an-topbar-left-part {
+   background: #fff;
+   }
+.form-card{width: 90%}
+.an-header{flex-direction: row}
+.an-logo-heading{
+  padding: 0
+}
+}
+@media (max-width: 480px) {
+  .login-head img {
+    width: 80%;
+  }
+}

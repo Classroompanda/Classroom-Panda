@@ -1,0 +1,153 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ Pricing Plan </span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Pricing Plan</h3>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" data-toggle="modal" (click)="clearForm()" data-target=".addplan">Add Plan</button>
+      </div>
+    </div>
+
+
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <!-- <th scope="col">Plan #ID</th> -->
+              <th scope="col">Name</th>
+              <th scope="col">Price($)</th>
+              <th scope="col">Maximun Users</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plan of pricingPlanList">
+              <td>{{plan.planName}}</td>
+              <td>${{plan.planPrice}}</td>
+              <td>{{plan.numberofUsers}}</td>
+              <td>{{plan.isActive ? 'Active': 'In Active' }}</td>
+              <td class="text-center">
+                <a data-toggle="modal" data-target=".addplan" (click)="getPlanDetails(plan)">
+                  <i class="fa fa-eye" aria-hidden="true" ></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade addplan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{addMode? 'Add Pricing Plan' : 'Pricing Plan Details' }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="pricingForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Plan Name (Max length 25 char)</label>
+                <input type="text" formControlName="planname" maxlength="25" class="form-control" id="" aria-describedby="" placeholder="Enter plan name">
+                <div *ngIf="f.planname.invalid && (f.planname.dirty || f.planname.touched)" class="text-left errormsg">
+                    <span *ngIf="f.planname.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter plan name</span>
+                    </span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">No of User</label>
+                  <input type="number" formControlName="noofusers" class="form-control" id="" aria-describedby="" placeholder="Number of user">
+                  <div *ngIf="f.noofusers.invalid && (f.noofusers.dirty || f.noofusers.touched)" class="text-left errormsg">
+                      <span *ngIf="f.noofusers.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter no of user</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+
+          <div class="row mb-20">
+            
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Price($)</label>
+                <input type="number" formControlName="price" class="form-control" id="" aria-describedby="" placeholder="Price">
+                <div *ngIf="f.price.invalid && (f.price.dirty || f.price.touched)" class="text-left errormsg">
+                    <span *ngIf="f.price.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter price</span>
+                    </span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Time Period</label>
+                  <select formControlName="limit" class="form-control">
+                    <option value="">Select</option>
+                    <option value="month">One Month</option>
+                    <option value="year">One Year</option>
+                  </select>
+                  <div *ngIf="f.limit.invalid && (f.limit.dirty || f.limit.touched)" class="text-left errormsg">
+                      <span *ngIf="f.limit.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time period</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+          </div>
+          <div class="row mb-20">
+              <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Remark (Max length 100 char)</label>
+                    <textarea name="" maxlength="100" formControlName="remark" placeholder="Remark" class="form-control" id=""  rows="6"></textarea>
+                  </div>
+                </div>
+          </div>
+          <div class="row mb-20">
+              <div class="col-lg-12"> 
+                  <div class="">
+                      <label class="checkboxcustom">
+                        <input type="checkbox" id="checkbox-in" class="abc" formControlName="active" >
+                        <span class="checkmark abc"></span><label style="margin-left: 14px;"> IsActive</label>
+                      </label>
+                    </div>
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-primary" (click)="createNewPlan()">{{addMode? 'Add': 'Save Chnage'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

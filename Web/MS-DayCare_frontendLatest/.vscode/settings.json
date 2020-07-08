@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/e68ba324-1b48-4dcd-8d13-bd40e3a623aa/resourceGroups/schoolpandaapp/providers/Microsoft.Web/sites/schoolpandaui",
+    "appService.deploySubpath": "dist\\DayCareSolution"
+}

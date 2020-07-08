@@ -1,0 +1,73 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>
+          <a [routerLink]="['../../../parentattendancehistory']">Attendance</a>
+          
+          <span>/ Breaks</span>
+        </h2>
+      </div>    
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+            <td *ngIf="(imagePath !== '')">
+                <img src="{{imagePath}}" alt="" class="img-circle childimg">
+              </td>
+              <td *ngIf="(imagePath == '')">
+                <img src="assets/img/user.png" alt="" class="img-circle childimg">
+              </td>
+            <h3>{{studentName}} / {{attendanceaDate|date}}</h3>  
+      </div>
+    </div>
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center" scope="col">Break-Out Time</th>
+              <th class="text-center" scope="col">Break-In Time</th>
+              <th class="text-center" scope="col">Reason</th>
+               <th class="text-center" scope="col">Picked-up By </th>
+              <th scope="col" class="text-center">Drop-off By</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let brek of breakList">
+                <!-- {{brek.breakOutTime|date: 'h:mm a'}} -->
+              <td >
+                {{brek.breakOutTime|date: 'h:mm a'}}
+              </td>
+              <td class="text-center" *ngIf="brek.breakStatusId != 2">
+                 --
+              </td>
+              <td class="text-center" *ngIf="brek.breakStatusId == 2">
+                {{brek.breakInTime| date: 'h:mm a'}}
+              </td>
+
+              <td class="text-center">
+                {{brek.breakReason}}
+              </td>
+            
+              <td class="text-center" *ngIf="brek.pickupBy != ''"> {{brek.pickupBy}}</td>
+              <td class="text-center" *ngIf="brek.pickupBy == ''"> ---</td>
+              <td  class="text-center" class="text-center" *ngIf="brek.dropedBy != ''"> {{brek.dropedBy}}</td>
+              <td class="text-center" class="text-center"  *ngIf="brek.dropedBy == ''"> --</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="breakList.length == 0">No result found</span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>
+</div>

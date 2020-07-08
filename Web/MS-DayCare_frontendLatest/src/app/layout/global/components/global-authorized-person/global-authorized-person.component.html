@@ -1,0 +1,367 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Authorized Person
+        </h2>
+      </div>
+      <div>
+        <button type="submit" *ngIf="isSubscriptionActive" class="btn btn-red" data-toggle="modal" (click)="onClick()">Add Authorized Person
+          </button>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Authorized Person</h3>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+
+    <div class="card cardfilter">
+        <div class="row algcenter">
+  
+          <div class="leftfilter">
+            <div class="search-date">
+              <div class="pr15 label-text">Search Name : </div>
+              <input type="text" placeholder="Authorized person name" (keydown)="keyDownFunction($event)" [(ngModel)]="nameSearch"
+                class="form-control mr15" id="">
+            </div>
+            <div class="search-date">
+              <div class="label-text">Search By Emergency Contact</div>
+              <div class="pr15">
+                <div class="form-group">
+                  <select name="" id="" [(ngModel)]="showEmergency">
+                    <option value="false">All</option>
+                    <option value="true">Emergency</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="filter-buttons">
+              <button type="submit" class="btn btn-send" (click)="getAllAuthorizedPersonList()">Search</button>
+            </div>
+          </div>  
+        </div>
+      </div>
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Authorized Person</th>
+              <th scope="col">Parent Name</th>
+              <th scope="col">Mobile</th>
+              <th *ngIf="role == 2"  scope="col">Quick Pin</th>
+              <!-- <th scope="col">Email</th> -->
+              <th scope="col">Emergancy Contact</th>
+              <!-- <th scope="col">Associate Student</th> -->
+              <th scope="col" class="text-center">Details</th>
+              <th scope="col" class="text-center">Change Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor = "let authPerson of authorizedPersonList">
+              <td>
+                <img src="{{authPerson.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+                class="img-circle childimg">
+              </td>
+              <td>{{authPerson.authorizedPersonName}}</td>
+              <td>{{authPerson.parentName}}</td>
+              <td>{{authPerson.mobile}}</td>
+              <!-- <td>{{authPerson.studentName}}</td> -->
+              <td *ngIf="role == 2">{{authPerson.quickPin}}</td>
+              <!-- <td>{{authPerson.emailId}}</td> -->
+              <td>{{authPerson.isEmergencyContact? 'Yes': 'No'}}</td>
+              <td class="text-center">
+                <a (click)="getDetails(authPerson)" title="View Details/update"><i class="fa fa-eye"></i>  </a>
+              </td>
+              <td class="text-center" >
+                <button class="form-control" *ngIf="!authPerson.isDeleted && isSubscriptionActive"   class="btn btn-warning"
+                  (click)="deleteRow(authPerson)">Deactivate</button>
+                <button class="form-control" *ngIf="authPerson.isDeleted && isSubscriptionActive" class="btn btn-success"
+                  (click)="activatePerson(authPerson)">Activate</button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <label *ngIf="!authorizedPersonList && !loader">No record found!</label>
+        </div>
+        <p-paginator   [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event)"></p-paginator>
+      </div>
+      
+    </div>
+
+    <div class="modal fade " id="authpermodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Person</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="upload-profile">
+              <div>
+                <img src="{{image}}" onError="this.src='assets/img/user.png'" alt="" class="img-fluid img-circle">
+              </div>
+
+              <div class="upload-btn-wrapper">
+                <button class="btn btn-send">Upload a image</button>
+                <input type="file" name="myfile" #input (change)="processFile($event)" />
+              </div>
+            </div>
+            <form [formGroup]="profileForm">
+              <div class="form-fields">
+                <div class="row mb-10 ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Select Parent*</label>
+                      <select class="form-control" [attr.disabled]="!isAddMode ? '' : null" formControlName="parentName" (change)="getAllStudentsList()" id="authpermodal">
+                        <option value="">Select</option>
+                        <option *ngFor="let parent of parentList" [value]="parent.id">{{parent.parentName}} </option>
+                      </select>
+                      <div *ngIf="f.parentName.invalid && (f.parentName.dirty || f.parentName.touched)" class="text-left errormsg">
+                        <span *ngIf="f.parentName.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select Parent Name</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Student Name*</label>
+                      <p-multiSelect [options]="studentsList" formControlName="studentName" [panelStyle]="{minWidth:'200px'}"
+                        [maxSelectedLabels]="15"></p-multiSelect>
+                      <div *ngIf="f.studentName.invalid && (f.studentName.dirty || f.studentName.touched)" class="text-left errormsg">
+                        <span *ngIf="f.studentName.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select student </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Authorized Person Name*</label>
+                      <input type="text " maxlength="255" class="form-control" aria-describedby="" placeholder="Authorized Person Name"
+                        formControlName="authorizedPersonName" (keypress)="commonService.allowAlphabetOnly($event)">
+                      <div *ngIf="f.authorizedPersonName.invalid && (f.authorizedPersonName.dirty || f.authorizedPersonName.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.authorizedPersonName.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter Authorized Person
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Mobile</label>
+                      <input type="text " maxlength="10" class="form-control" aria-describedby="" placeholder="Mobile"
+                        formControlName="mobile" (keypress)="commonService.allowOnlyNumber($event)">
+                      <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="f.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter mobile number
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Email Address</label>
+                      <input type="email" [attr.disabled]="!isAddMode ? '' : null" class="form-control" aria-describedby=""
+                        placeholder="Email address" formControlName="email">
+                      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                        <span *ngIf="f.email.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                        </span>
+                        <span *ngIf="f.email.errors.pattern">
+                          <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                            email address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group" style="margin-top: 22px;">
+                    <div class="">
+                      <label class="checkboxcustom">
+                        <input type="checkbox" id="checkbox-in" formControlName="emergencypickup"> 
+                        <span class="checkmark abc"></span><label style="margin-left: 12px;"> Emergency Contact</label>
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>                
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="button" *ngIf="isSubscriptionActive  && !isDeactivated" class="btn btn-primary" (click)="saveDetails();" >Save
+              Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Parent Admin -->
+
+    <div class="modal fade " id="authparentmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Person</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="upload-profile">
+              <div>
+                <img src="{{image}}" onError="this.src='assets/img/user.png'" alt="" class="img-fluid img-circle">
+              </div>
+
+              <div class="upload-btn-wrapper">
+                <button class="btn btn-send">Upload a image</button>
+                <input type="file" name="myfile" #input (change)="processFile($event)" />
+              </div>
+            </div>
+            <form [formGroup]="profileForm">
+              <div class="form-fields">
+                <div class="row mb-10 ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Student Name*</label>
+                      <p-multiSelect [options]="studentsList" formControlName="studentName" [panelStyle]="{minWidth:'200px'}"
+                        [maxSelectedLabels]="15"></p-multiSelect>
+                      <div *ngIf="f.studentName.invalid && (f.studentName.dirty || f.studentName.touched)" class="text-left errormsg">
+                        <span *ngIf="f.studentName.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select student </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Authorized Person Name*</label>
+                      <input type="text " maxlength="255" class="form-control" aria-describedby="" placeholder="Authorized Person Name"
+                        formControlName="authorizedPersonName" (keypress)="commonService.allowAlphabetOnly($event)">
+                      <div *ngIf="f.authorizedPersonName.invalid && (f.authorizedPersonName.dirty || f.authorizedPersonName.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.authorizedPersonName.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter Authorized Person
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Email Address</label>
+                      <input type="email" [attr.disabled]="!isAddMode ? '' : null" class="form-control" aria-describedby=""
+                        placeholder="Email address" formControlName="email">
+                      <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                        <span *ngIf="f.email.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                        </span>
+                        <span *ngIf="f.email.errors.pattern">
+                          <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                            email address</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Mobile</label>
+                      <input type="text " maxlength="10" class="form-control" aria-describedby="" placeholder="Mobile"
+                        formControlName="mobile" (keypress)="commonService.allowOnlyNumber($event)">
+                      <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)" class="text-left errormsg">
+                        <span *ngIf="f.mobile.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter mobile number
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                    <div class="col-lg-6">
+                        <div class="form-group" style="margin-top: 22px;">
+                      <div class="">
+                        <label class="checkboxcustom">
+                          <input type="checkbox" id="checkbox-in" formControlName="emergencypickup"> 
+                          <span class="checkmark abc"></span><label style="margin-left: 12px;"> Emergency Contact</label>
+                        </label>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="button" class="btn btn-primary" *ngIf="isSubscriptionActive && !isDeactivated" (click)="saveDetails();" >Save
+              Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- For Information Video -->
+  <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+          <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="cont video_section_pop" *ngIf="videoPath">
+            <video controls id="pausevideo">
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+              <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+              Browser not supported
+            </video>
+          </div>
+
+          <div class="cont video_section_pop" *ngIf="!videoPath">
+              Video Not Found
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+
+<app-confirm-box></app-confirm-box>

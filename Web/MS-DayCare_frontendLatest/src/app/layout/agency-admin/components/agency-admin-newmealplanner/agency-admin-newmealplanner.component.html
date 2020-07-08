@@ -1,0 +1,529 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle meal_calender">
+      <div>
+        <h2>Calendar
+          <span> / View Meal </span>
+        </h2>
+      </div>
+      <div *ngIf="isSubscriptionActive">
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".addmeal" (click)="clearForm()">Add
+          Meal Plan</button>
+        <button type="submit" class="btn btn-red" data-toggle="modal" data-target=".newfood"
+          (click)="clearFoodFormForm()">Add Food</button>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+    <div *ngIf="calendarOptions">
+      <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="gotoDate($event.detail)"
+        (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)"
+        (clickButton)="clickButton($event.detail)" id="calender_section"></ng-fullcalendar>
+    </div>
+
+  <!-- Add Modal -->
+  <div class="modal fade addmeal modal_padding" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create Meal Plan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="calenderForm">
+
+          <div class="row mb-20">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="">Begins*</label>
+                <input type="text" formControlName="startdate" placeholder="Begin" showWeekNumbers="false"
+                  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.startdate.invalid && (f.startdate.dirty || f.startdate.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="f.startdate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="">End*</label>
+                <input type="text" formControlName="enddate" placeholder="End" showWeekNumbers="false"
+                  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.enddate.invalid && (f.enddate.dirty || f.enddate.touched)" class="text-left errormsg">
+                  <span *ngIf="f.enddate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Class*</label>
+                <p-multiSelect [options]="classList" formControlName="class" [panelStyle]="{minWidth:'200px'}"
+                  [maxSelectedLabels]="5">
+                </p-multiSelect>
+                <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                  <span *ngIf="f.class.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Title*</label>
+                <input type="text" formControlName="title" placeholder="Title" class="form-control">
+                <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="text-left errormsg">
+                  <span *ngIf="f.title.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Days*</label>
+                <ul class="unstyled centered">
+                    <li>
+                        <input class="styled-checkbox" formControlName="alldays" (change)="marUnmarkAllDays()" id="styled-checkbox-0" type="checkbox" value="value1">
+                        <label for="styled-checkbox-0">All</label>
+                      </li>
+                  <li>
+                    <input class="styled-checkbox" formControlName="mon" (click)="unmarkAllDaysCheck('mon')" id="styled-checkbox-1" type="checkbox" value="value1">
+                    <label for="styled-checkbox-1">Mon</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="tue" (click)="unmarkAllDaysCheck('tue')" id="styled-checkbox-2" type="checkbox" value="value1">
+                    <label for="styled-checkbox-2">Tue</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="wed" (click)="unmarkAllDaysCheck('wed')" id="styled-checkbox-3" type="checkbox" value="value1">
+                    <label for="styled-checkbox-3">Wed</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="thu" (click)="unmarkAllDaysCheck('thu')" id="styled-checkbox-4" type="checkbox" value="value1">
+                    <label for="styled-checkbox-4">Thu</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="fri" (click)="unmarkAllDaysCheck('fri')" id="styled-checkbox-5" type="checkbox" value="value1">
+                    <label for="styled-checkbox-5">Fri</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="sat" (click)="unmarkAllDaysCheck('sat')" id="styled-checkbox-6" type="checkbox" value="value1">
+                    <label for="styled-checkbox-6">Sat</label>
+                  </li>
+
+                  <li>
+                    <input class="styled-checkbox" formControlName="sun" (click)="unmarkAllDaysCheck('sun')" id="styled-checkbox-7" type="checkbox" value="value1">
+                    <label for="styled-checkbox-7">Sun</label>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-2">
+              <div class="form-group" style="margin-top: 22px;">
+                <div class="">
+                  <label class="checkboxcustom">
+                    <input type="checkbox" id="checkbox-in" formControlName="biweekly" (change)="isBiweeklyCheck()">
+                    <span class="checkmark abc"></span><label style="margin-left: 12px; color: black;">
+                      Bi-Weekly</label>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="form-group" style="margin-top: 22px;">
+              <button class="btn btn-info" data-toggle="modal" data-target=".firstfood" (click)="closeAddFoodModel(1)" style="margin-right: 10px;height: 30px;">{{addFoodLable}}</button>
+              <button class="btn btn-info" *ngIf="showNextWeekBtn" data-toggle="modal" data-target=".secondfood" (click)="closeAddFoodModel(2)" style="height: 30px;">Add Second Week Food</button>
+              </div>
+            </div>
+
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Description(Max 100 char)</label>
+                <textarea name="" maxlength="100" id="" cols="3" formControlName="description" rows="3"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" *ngIf="isSubscriptionActive " class="btn btn-primary" (click)="verifyMealPlan()">Add
+          Meal Plan</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+    <!-- First Week Food Menu modal -->
+    <div class="modal fade firstfood modal_padding editshadow" *ngIf="mealPlannerId == 0" data-backdrop="static" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="firstFoodForm">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="wid26">Food*</th>
+                      <th scope="col" class="wid26">Amount*</th>
+                      <th scope="col" class="wid26">Unit*</th>
+                      <th scope="col" class="wid10">Add</th>
+                      <th scope="col" class="wid10">Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let disp of displayFoodList;let item of firstFoodForm.get('foodcollection').controls; let i = index;"
+                      formArrayName="foodcollection">
+                      <!-- <div [formGroupName]="i">   -->
+                      <td scope="row" [formGroupName]="i">
+                        <select class="form-control" formControlName="fooditem" id="exampleFormControlSelect1">
+                          <option value="">Select</option>
+                          <option *ngFor="let food of foodItemList" [value]="food.value">{{food.label}}</option>
+                        </select>
+                      </td>
+                      <td [formGroupName]="i">
+                        <input type="text" formControlName="amount" placeholder="Amount" maxlength="3"
+                          class="form-control" (keypress)="commonService.allowOnlyNumber($event)">
+                      </td>
+                      <td [formGroupName]="i">
+                        <select class="form-control" formControlName="unit" placeholder="Quantity"
+                          id="exampleFormControlSelect1">
+                          <option value="">Select</option>
+                          <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                        </select>
+
+                      </td>
+                      <td class="verAligMiddle">
+                        <a href="javascript:void(0);" *ngIf="( displayFoodList.length < foodItemList.length )"
+                          (click)="addFood()"><i class="fa fa-plus-circle plusIcon" aria-hidden="true"></i></a>
+
+                      </td>
+                      <td class="verAligMiddle">
+                        <a href="javascript:void(0);" *ngIf="displayFoodList.length > 1" (click)="removeFood(disp)">
+                          <i class="fa fa-minus-circle minusIcon" aria-hidden="true"></i></a>
+
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Week Food Menu modal -->
+    <div class="modal fade secondfood modal_padding editshadow" data-backdrop="static" role="dialog"
+      aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Food Menu For next week</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="secondFoodForm">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="wid26">Food*</th>
+                      <th scope="col" class="wid26">Amount*</th>
+                      <th scope="col" class="wid26">Unit*</th>
+                      <th scope="col" class="wid10">Add</th>
+                      <th scope="col" class="wid10">Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let disp of displayFoodListSecond;let item of secondFoodForm.get('foodcollectionsecond').controls; let i = index;"
+                      formArrayName="foodcollectionsecond">
+                      <!-- <div [formGroupName]="i">   -->
+                      <td scope="row" [formGroupName]="i">
+                        <select class="form-control" formControlName="fooditem" id="exampleFormControlSelect1">
+                          <option value="">Select</option>
+                          <option *ngFor="let food of foodItemList" [value]="food.value">{{food.label}}</option>
+                        </select>
+                      </td>
+                      <td [formGroupName]="i">
+                        <input type="text" formControlName="amount" placeholder="Amount" maxlength="3"
+                          class="form-control" (keypress)="commonService.allowOnlyNumber($event)">
+                      </td>
+                      <td [formGroupName]="i">
+                        <select class="form-control" formControlName="unit" placeholder="Quantity"
+                          id="exampleFormControlSelect1">
+                          <option value="">Select</option>
+                          <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                        </select>
+
+                      </td>
+                      <td class="verAligMiddle">
+                        <a href="javascript:void(0);" *ngIf="( displayFoodListSecond.length < foodItemList.length )"
+                          (click)="addFoodSecond()"><i class="fa fa-plus-circle plusIcon" aria-hidden="true"></i></a>
+
+                      </td>
+                      <td class="verAligMiddle">
+                        <a href="javascript:void(0);" *ngIf="displayFoodListSecond.length > 1" (click)="removeFoodSecond(disp)">
+                          <i class="fa fa-minus-circle minusIcon" aria-hidden="true"></i></a>
+
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+     <!-- Update Modal -->
+  <div class="modal fade addmealup modal_padding" data-backdrop="static" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Meal Plan Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="calenderForm">
+
+          <div class="row mb-20">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="">Begins*</label>
+                <input type="text" formControlName="startdate" disabled placeholder="Begin" showWeekNumbers="false"
+                  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.startdate.invalid && (f.startdate.dirty || f.startdate.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="f.startdate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="">End*</label>
+                <input type="text" disabled formControlName="enddate" placeholder="End" showWeekNumbers="false"
+                  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.enddate.invalid && (f.enddate.dirty || f.enddate.touched)" class="text-left errormsg">
+                  <span *ngIf="f.enddate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Class*</label>
+                <p-multiSelect [options]="classList" [disabled]="true" formControlName="class" [panelStyle]="{minWidth:'200px'}"
+                  [maxSelectedLabels]="50">
+                </p-multiSelect>
+                <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                  <span *ngIf="f.class.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="exampleFormControlSelect1">Title*</label>
+                  <input type="text" formControlName="title" placeholder="Title" class="form-control">
+                  <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="text-left errormsg">
+                    <span *ngIf="f.title.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="wid26">Food*</th>
+                    <th scope="col" class="wid26">Amount*</th>
+                    <th scope="col" class="wid26">Unit*</th>
+                    <th scope="col" class="wid10">Add</th>
+                    <th scope="col" class="wid10">Remove</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let disp of involvedFoodList;let item of calenderForm.get('foodcollectionUp').controls; let i = index;" formArrayName="foodcollectionUp" >
+                       <!-- <div [formGroupName]="i">   -->
+                    <td scope="row" [formGroupName]="i" >
+                        <select class="form-control"  formControlName="fooditem" id="exampleFormControlSelect1">
+                            <option value="">Select</option>
+                            <option *ngFor="let food of foodItemList" [value]="food.value">{{food.label}}</option>
+                          </select>
+                    </td>
+                    <td [formGroupName]="i">
+                        <input type="text"  formControlName="amount" placeholder="Amount" maxlength="3"
+                        class="form-control" (keypress)="commonService.allowOnlyNumber($event)">
+                    </td>
+                    <td [formGroupName]="i">
+                        <select class="form-control" formControlName="unit" placeholder="Quantity"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select</option>
+                        <option *ngFor="let obj of mealQuantityType" [value]="obj.value">{{obj.label}}</option>
+                      </select>
+                          
+                    </td >
+                    <td class="verAligMiddle">
+                      <a href="javascript:void(0);"  *ngIf="( displayFoodList.length < foodItemList.length )" (click)="addFoodWhileUpdate()"><i class="fa fa-plus-circle plusIcon" aria-hidden="true"></i></a>                                
+
+                    </td>
+                    <td class="verAligMiddle">
+                        <a href="javascript:void(0);" *ngIf="displayFoodList.length > 1" (click)="removeFoodWhileUpdate(disp)"> 
+                        <i class="fa fa-minus-circle minusIcon" aria-hidden="true"></i></a>
+
+                    </td>
+                     <!-- </div>  -->
+                  </tr>                                            
+                 
+                </tbody>
+              </table>
+
+        </div>
+        
+          <div class="row mb-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Description(Max 100 char)</label>
+                <textarea name="" maxlength="100" id="" cols="3" formControlName="description" rows="3"
+                  class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-send" (click)="deleteEvent()">Delete</button> 
+        <button type="button" *ngIf="isSubscriptionActive " class="btn btn-primary" (click)="verifyMealPlanWhileUpdate()">Update
+          Meal Plan</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<!-- Add new food item modal -->
+<div class="modal fade newfood" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Food</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Food Name</label>
+         <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)" placeholder="Food Name" [(ngModel)]="mealItemMasterName">
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveMealItemInformation()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- For Information Video -->
+<div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+        <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="cont video_section_pop" *ngIf="videoPath">
+          <video controls id="pausevideo">
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+            Browser not supported
+          </video>
+        </div>
+
+        <div class="cont video_section_pop" *ngIf="!videoPath">
+            Video Not Found
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

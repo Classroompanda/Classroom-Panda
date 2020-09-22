@@ -36,9 +36,13 @@ class AttendanceService: APIService {
     //MARK:---- get class Attendance -----
     func getClassAttendance(with target:BaseViewController?, agencyID:Int,classID:String,askedDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
+        //askedDate is local date
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
         let param   =   [
             Macros.ApiKeys.kagencyID  : agencyID,   Macros.ApiKeys.kclassID : classID,
-            Macros.ApiKeys.kaskedDate : askedDate] as [String : Any]
+            Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetClassAttendence, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -258,8 +262,11 @@ class AttendanceService: APIService {
     
     func GetDailySheetActivityReportByEmail(with target:BaseViewController?, agencyID:Int, studentId: Int, classId: Int, askedDate: String, parentID: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let UTCDate = TimeUtils.localToUTC(date: askedDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
-        let param   =   [Macros.ApiKeys.kagencyID  : agencyID, Macros.ApiKeys.kstudentID : studentId, Macros.ApiKeys.kclassID : classId, Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kparentID : parentID, Macros.ApiKeys.kaskedDateString : askedDate] as [String : Any]
+        //askedDate is UTC
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+        let localDate = TimeUtils.UTCToLocal(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID  : agencyID, Macros.ApiKeys.kstudentID : studentId, Macros.ApiKeys.kclassID : classId, Macros.ApiKeys.kaskedDate : formattedDate, Macros.ApiKeys.kparentID : parentID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetActivityReportByEmail, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

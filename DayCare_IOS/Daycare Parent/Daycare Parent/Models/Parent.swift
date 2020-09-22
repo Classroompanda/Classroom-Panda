@@ -54,6 +54,7 @@ public class Parent : NSObject {
 	public var updatedFromIP : String?
     
     public var dateOfBirthh : Date?
+    public var isJoinClassroom = false
 
     required public override init() {
         super.init()
@@ -119,6 +120,7 @@ updatedFlag = dictionary["updatedFlag"] as? Int ?? 0
 		deletedFromIP = dictionary["deletedFromIP"] as? String ?? ""
 		createdFromIP = dictionary["createdFromIP"] as? String ?? ""
 		updatedFromIP = dictionary["updatedFromIP"] as? String ?? ""
+        isJoinClassroom = dictionary["isJoinClassroom"] as? Bool ?? false
 	}
 
 		
@@ -174,6 +176,7 @@ updatedFlag = dictionary["updatedFlag"] as? Int ?? 0
 		dictionary.setValue(self.deletedFromIP, forKey: "deletedFromIP")
 		dictionary.setValue(self.createdFromIP, forKey: "createdFromIP")
 		dictionary.setValue(self.updatedFromIP, forKey: "updatedFromIP")
+        dictionary.setValue(self.isJoinClassroom, forKey: "isJoinClassroom")
 
 		return dictionary as! Dictionary<String, Any>
 	}

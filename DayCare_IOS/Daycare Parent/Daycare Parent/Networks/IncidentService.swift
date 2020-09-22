@@ -13,7 +13,11 @@ class IncidentService: APIService {
     //MARK:---- Incident List API -----
     func getAllIncidents(with target:BaseViewController?, agencyID:Int, studentID: Int, incidentDate: String,complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kincidentDate: incidentDate] as [String : Any]
+        //incidentDate is local date
+        let formattedDate = CommonClassMethods.convertDateFormat(strDate: incidentDate, fromFormat: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+
+        let UTCDate = CommonClassMethods.localToUTC(date: formattedDate, format: DateFormat.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kincidentDate: UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetAllIncidentsByChildID, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

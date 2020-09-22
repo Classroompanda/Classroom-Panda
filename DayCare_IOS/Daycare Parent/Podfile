@@ -19,7 +19,7 @@ target 'Daycare Parent' do
   pod 'TKImageShowing'
   pod 'FSCalendar'
   pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
+  pod 'Firebase/Messaging', '~> 6.0.9'
   pod 'SwiftSignalRClient'
   target 'Daycare ParentTests' do
     inherit! :search_paths

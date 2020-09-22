@@ -84,6 +84,9 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
     let vc = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboards.Other, vcIdentifire: Macros.Identifiers.Controllers.ChatVC) as! ChatVC
     let arrForTeacherList = isSearchActive ? arrForSortedTeacher : self.arrForTeachers
     vc.teacherUser = arrForTeacherList?[indexPath.row]
+    if let badgeCount = (UIApplication.shared.applicationIconBadgeNumber - (vc.teacherUser?.unreadMessageCount ?? 0)) as? Int, badgeCount >= 0 {
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount
+    }
     self.navigationController?.pushViewController(vc, animated: true)
   }
   

@@ -31,7 +31,7 @@ class MessageVC: BaseViewController {
   }
   
   override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+    super.viewWillDisappear(animated)
     NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kMessageReceiveNotification), object: nil)
     NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
   }
@@ -81,6 +81,9 @@ extension MessageVC: UITableViewDelegate,UITableViewDataSource{
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let vc = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Other, vcIdentifire: Macros.Identifiers.Controller.ChatVC) as! ChatVC
     vc.parentUser = self.arrForParents?[indexPath.row]
+    if let badgeCount = (UIApplication.shared.applicationIconBadgeNumber - (vc.parentUser?.unreadMessageCount ?? 0)) as? Int, badgeCount >= 0 {
+        UIApplication.shared.applicationIconBadgeNumber = badgeCount
+    }
     self.navigationController?.pushViewController(vc, animated: true)
   }
   

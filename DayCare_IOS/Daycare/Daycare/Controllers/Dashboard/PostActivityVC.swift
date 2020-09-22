@@ -355,28 +355,34 @@ extension PostActivityVC: UITableViewDelegate,UITableViewDataSource{
                     case 0:
                         cell.btnForImage1.isHidden = false
                         cell.btnForImage1.sd_imageIndicator = SDWebImageActivityIndicator.gray
-
-//                        cell.btnForImage1.sd_setShowActivityIndicatorView(true)
-//                        cell.btnForImage1.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage1.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
+                    
+                        cell.btnForImage1.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage1.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
+  
                     case 1:
                         cell.btnForImage2.isHidden = false
                         cell.btnForImage2.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.btnForImage2.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage2.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
 
-//                        cell.btnForImage2.sd_setShowActivityIndicatorView(true)
-//                        cell.btnForImage2.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage2.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
                     case 2:
                         cell.btnForImage3.isHidden = false
                         cell.btnForImage3.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                        cell.btnForImage3.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage3.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
 
-//                        cell.btnForImage3.sd_setShowActivityIndicatorView(true)
-//                        cell.btnForImage3.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage3.sd_setImage(with: URL(string: self.arrForPostActivity[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
                     default:
                         print("Invalid Case")
-//                        cell.btnForImage3.isHidden = false
-//                        cell.btnForImage3.setTitle("+\((self.arrForPostActivity[indexPath.row].postActivityImages?.count ?? 0) - 2)", for: .normal)
+
                     }
                 }
             } else if self.arrForPostActivity[indexPath.row].postActivityVideos?.count ?? 0 > 0 {

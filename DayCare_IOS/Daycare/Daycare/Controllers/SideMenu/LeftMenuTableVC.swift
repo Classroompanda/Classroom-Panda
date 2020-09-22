@@ -80,6 +80,7 @@ class LeftMenuTableVC: UITableViewController {
            self.messageCount = 0
         }
       }
+       UIApplication.shared.applicationIconBadgeNumber = self.messageCount
       self.tableView.reloadRows(at: [IndexPath(row: 6, section: 0)], with: .automatic)
     }
   }

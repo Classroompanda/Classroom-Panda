@@ -19,6 +19,15 @@ class MessageService: APIService {
                 target?.hideLoader()
                 switch result {
                 case .Success(let response):
+                    // badge count
+                    if response != nil {
+                        var messageCount = 0
+                        if let receivedCount = (response as? Dictionary<String,Any>)?["count"] as? Int {
+                            messageCount = receivedCount
+                        }
+                        UIApplication.shared.applicationIconBadgeNumber = messageCount
+                    }
+                    
                     if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
                         let parents = MessageUser.modelsFromDictionaryArray(array: data)
                         complition(parents)

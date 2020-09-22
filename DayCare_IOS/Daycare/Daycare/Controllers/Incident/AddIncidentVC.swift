@@ -97,7 +97,7 @@ class AddIncidentVC: BaseViewController {
     @objc func actionForSwitch(_ sender: UISwitch){
         resignTextFieldResponder()
         if let cell = self.tblViewForAddIncident.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? AddIncidentSwitchTableViewCell {
-            cell.lblForSwitchStatus.text = sender.isOn ? "On" : "Off"
+            cell.lblForSwitchStatus.text = sender.isOn ? "Yes" : "No"
         }
         if sender.tag == 8{
             incident.wasParentInformed = sender.isOn
@@ -588,7 +588,7 @@ extension AddIncidentVC: UITableViewDelegate,UITableViewDataSource{
             cell.switchForField.tag = indexPath.row
             cell.lblForSwitchStatus.tag = indexPath.row
             indexPath.row == 6 ? (cell.switchForField.isOn = incident.isDoctorRequired ?? false) : (cell.switchForField.isOn = incident.wasParentInformed ?? false)
-            indexPath.row == 6 ? (cell.lblForSwitchStatus.text = incident.isDoctorRequired ?? false ? "On" : "Off") : (cell.lblForSwitchStatus.text = incident.wasParentInformed ?? false ? "On" : "Off")
+            indexPath.row == 6 ? (cell.lblForSwitchStatus.text = incident.isDoctorRequired ?? false ? "Yes" : "No") : (cell.lblForSwitchStatus.text = incident.wasParentInformed ?? false ? "Yes" : "No")
             cell.switchForField.addTarget(self, action: #selector(actionForSwitch(_:)), for: .valueChanged)
             return cell
         }

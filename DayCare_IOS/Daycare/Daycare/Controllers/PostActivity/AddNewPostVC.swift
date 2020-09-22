@@ -66,7 +66,7 @@ class AddNewPostVC: BaseViewController {
         resignTextFieldResponder()
         activity.isPublic = sender.isOn
         if let cell = self.tblViewForAddNewPost.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? PostActivitySwitchTableViewCell {
-            cell.lblForSwitchStatus.text = sender.isOn ? "On" : "Off"
+            cell.lblForSwitchStatus.text = sender.isOn ? "Yes" : "No"
         }
     }
     
@@ -400,7 +400,7 @@ extension AddNewPostVC: UITableViewDataSource,UITableViewDelegate{
         if let cell = tableView.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.PostActivitySwitchTableViewCell) as? PostActivitySwitchTableViewCell {
             cell.selectionStyle = .none
             cell.switchForPrivacy.tag = indexPath.row
-            cell.lblForSwitchStatus.text = (activity.isPublic ?? false) ? "On" : "Off"
+            cell.lblForSwitchStatus.text = (activity.isPublic ?? false) ? "Yes" : "No"
             cell.lblForFieldTitle.attributedText = getAttributedStringForMandatoryField(text: Macros.ConstantArray.arrForNewPostTitle[indexPath.row])
             cell.switchForPrivacy.addTarget(self, action: #selector(actionForPrivacySwitch(_:)), for: .valueChanged)
             return cell

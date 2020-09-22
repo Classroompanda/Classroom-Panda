@@ -131,16 +131,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
   
   func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
     Messaging.messaging().appDidReceiveMessage(userInfo)
-    application.applicationIconBadgeNumber = 0;
+//    application.applicationIconBadgeNumber = 0;
   }
   
-  //    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-  //        print("Firebase registration token: \(fcmToken)")
-  //        let dataDict:[String: String] = ["token": fcmToken]
-  //        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-  //        AppInstance.shared.token = fcmToken
-  //        AppInstance.shared.kUserDefault.setValue(fcmToken, forKey: Macros.DefaultKeys.kDeviceToken)
-  //    }
+      func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+          print("Firebase registration token: \(fcmToken)")
+          let dataDict:[String: String] = ["token": fcmToken]
+          NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+          AppInstance.shared.token = fcmToken
+          AppInstance.shared.kUserDefault.setValue(fcmToken, forKey: Macros.DefaultKeys.kDeviceToken)
+      }
   
 }
 

@@ -191,9 +191,9 @@ class CommonClassMethods: NSObject {
     }
     
     //date to server readable format
-    class func convertDateToServerReadableFormatGET(date:Date) -> String{
+    class func convertDateToServerReadableFormatGET(date:Date, toFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") -> String{
         let dateFormatter        = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = toFormat
 //        dateFormatter.timeZone   = TimeZone(abbreviation: "UTC")
         let dateString           = dateFormatter.string(from: date)
         return dateString

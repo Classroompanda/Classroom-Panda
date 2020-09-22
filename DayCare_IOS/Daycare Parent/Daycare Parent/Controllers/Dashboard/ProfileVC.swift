@@ -43,6 +43,13 @@ class ProfileVC: BaseViewController {
         }
     }
     
+    
+    @IBAction func actionForClassroomProgramButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        parentUser.isJoinClassroom = sender.isSelected
+    }
+    
+    
     @objc func actionForPhotoSelection(_ sender: UIButton){
         resignTextFieldResponder()
 //        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -841,6 +848,10 @@ extension ProfileVC: UITableViewDelegate,UITableViewDataSource{
             cell.selectionStyle = .none
             (child != nil && (self.isEdited ?? false) == false) ?  cell.btnForSubmit.setTitle(Macros.ControllerString.add, for: .normal) : cell.btnForSubmit.setTitle(Macros.ControllerString.update, for: .normal)
             cell.btnForSubmit.addTarget(self, action: #selector(actionForSave(_:)), for: .touchUpInside)
+            
+            cell.btnForLearningProgram.isHidden = false
+            cell.btnForLearningProgram.addTarget(self, action: #selector(actionForClassroomProgramButton(_:)), for: .touchUpInside)
+            cell.btnForLearningProgram.isSelected = parentUser.isJoinClassroom
             return cell
         }
         return UITableViewCell()

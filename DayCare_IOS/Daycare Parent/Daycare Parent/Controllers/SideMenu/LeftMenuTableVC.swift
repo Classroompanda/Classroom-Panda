@@ -90,8 +90,10 @@ class LeftMenuTableVC: UITableViewController {
         {
           self.messageCount = 0
         }
-      }
-      self.tableView.reloadRows(at: [IndexPath(row: 4, section: 0)], with: .automatic)
+        }
+        UIApplication.shared.applicationIconBadgeNumber = self.messageCount
+        
+        self.tableView.reloadRows(at: [IndexPath(row: 4, section: 0)], with: .automatic)
     }
   }
   @objc func signalRChatReconnect(_ notification: Notification)

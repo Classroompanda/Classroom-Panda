@@ -23,9 +23,11 @@ enum ApiVersion: String {
 
 
 struct DateFormat {
-  static let DatePickerFormat = "yyyy-MM-dd HH:mm:ss Z" // used while creating recurring payment
-  static let utcDateFormat = "yyyy-MM-ddHH:mm:ss.sssZ" // used while creating recurring payment
-  static let YYYY_MM_DD_T_HH_MM_SS_SSSZ   =   "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" // used while sending ask Date String
+    static let DatePickerFormat = "yyyy-MM-dd HH:mm:ss Z" // used while creating recurring payment
+    static let utcDateFormat = "yyyy-MM-ddHH:mm:ss.sssZ" // used while creating recurring payment
+    static let YYYY_MM_DD_T_HH_MM_SS_SSSZ   =   "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" // used while sending ask Date String
+    static let YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss"
+    
 }
 
 struct AppDateFormat {

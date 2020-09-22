@@ -150,9 +150,12 @@ class EditDailySheetPopupVC: BaseViewController {
             dictForSubParametere = diaper?.dictionaryRepresentation() ?? [:]
             dictForParameters[Macros.ApiKeys.kstudentAcitivityDiper] = dictForSubParametere
             dictForParameters[Macros.ApiKeys.kid] = diaper?.studentActivitiesID
-            dictForParameters[Macros.ApiKeys.kactivityRegisterDate] = diaper?.createdDate ?? CommonClassMethods.convertDateToServerReadableFormat(date: Date())
+            dictForParameters[Macros.ApiKeys.kactivityRegisterDate] = (diaper?.createdDate?.isEmpty ?? true) ?  CommonClassMethods.convertDateToServerReadableFormat(date: Date()) : diaper?.createdDate
         default:
             print("Invalid Choice")
+        }
+        if let activityRegDate = dictForParameters[Macros.ApiKeys.kactivityRegisterDate] as? String, activityRegDate.isEmpty {
+           dictForParameters[Macros.ApiKeys.kactivityRegisterDate] = CommonClassMethods.convertDateToServerReadableFormat(date: Date())
         }
         dictForParameters[Macros.ApiKeys.kagencyID] = AppInstance.shared.user?.agencyID ?? 0
         var arrForSelectedStudentId = [Int]()

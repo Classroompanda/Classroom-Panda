@@ -86,7 +86,13 @@ class DashboardService: APIService {
     //MARK:---- Attendance List API -----
     func getAllAttendanceList(with target:BaseViewController?, agencyID:Int, studentID: Int, parentID: Int,askedDate: String,complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID,Macros.ApiKeys.kparentID: parentID, Macros.ApiKeys.kaskedDate: askedDate] as [String : Any]
+        // send asked Date in UTC and askeDateString in local timezone
+        // askedDate is local
+        let formattedDate = CommonClassMethods.convertDateFormat(strDate: askedDate, fromFormat: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+
+        let UTCDate = CommonClassMethods.localToUTC(date: formattedDate, format: DateFormat.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+        
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID,Macros.ApiKeys.kparentID: parentID, Macros.ApiKeys.kaskedDate: UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetAttendanceListforparent, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

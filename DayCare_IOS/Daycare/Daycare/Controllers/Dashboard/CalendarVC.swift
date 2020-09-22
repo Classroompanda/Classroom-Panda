@@ -394,7 +394,8 @@ class EventDetailTableViewCell: UITableViewCell {
         }
         lblForEndDate.text = (CommonClassMethods.dateMonthFromDateString(date: meal.end ?? ""))
         lblForStartDate.text = (CommonClassMethods.dateMonthFromDateString(date: meal.start ?? ""))
-        lblForTime.text = (CommonClassMethods.timeFromDateString(date: meal.startTime ?? ""))+" - "+(CommonClassMethods.timeFromDateString(date: meal.endTime ?? ""))
+        lblForTime.text = ""
+//        lblForTime.text = (CommonClassMethods.timeFromDateString(date: meal.startTime ?? ""))+" - "+(CommonClassMethods.timeFromDateString(date: meal.endTime ?? ""))
         lblForSubtitle2.text = meal.description
         lblForSubTitle1.text = meal.title
     }

@@ -10,10 +10,12 @@ import UIKit
 
 class SubmitButtonTableViewCell: UITableViewCell {
     @IBOutlet weak var btnForSubmit: CustomButton!
-    
+    @IBOutlet weak var btnForLearningProgram: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .clear
+        btnForLearningProgram.isHidden = true
         // Initialization code
     }
 

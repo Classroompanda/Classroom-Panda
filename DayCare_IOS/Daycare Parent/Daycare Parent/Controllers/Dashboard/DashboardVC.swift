@@ -315,17 +315,33 @@ extension DashboardVC: UITableViewDelegate,UITableViewDataSource {
                         cell.btnForImage1.isHidden = false
                         cell.btnForImage1.sd_setShowActivityIndicatorView(true)
                         cell.btnForImage1.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage1.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
+                        cell.btnForImage1.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage1.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
+                        
+//                        cell.btnForImage1.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
                     case 1:
                         cell.btnForImage2.isHidden = false
                         cell.btnForImage2.sd_setShowActivityIndicatorView(true)
                         cell.btnForImage2.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage2.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
+                        cell.btnForImage2.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage2.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
+//                        cell.btnForImage2.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
                     case 2:
                         cell.btnForImage3.isHidden = false
                         cell.btnForImage3.sd_setShowActivityIndicatorView(true)
                         cell.btnForImage3.sd_setIndicatorStyle(.gray)
-                        cell.btnForImage3.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
+                        cell.btnForImage3.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal) { (image, error, type, url) in
+//                            if error != nil {
+//                                cell.btnForImage3.setImage(UIImage(named: "gallery"), for: .normal)
+//                            }
+                        }
+//                        cell.btnForImage3.sd_setImage(with: URL(string: self.arrForPublicPostActivities[indexPath.row].postActivityImages?[i].imageServerPath ?? ""), for: .normal, completed: nil)
                     default:
                         print("invalid case")
                     }

@@ -33,11 +33,11 @@ class IncidentDetailVC: BaseViewController {
     }
     
     @objc func actionForSubmit(_ sender: UIButton) {
-        if incident?.parentComment != nil && incident?.parentComment != "" {
+//        if incident?.parentComment != nil && incident?.parentComment != "" {
             self.showConfirmationAlert()
-        } else {
-            self.showAlert(with: Macros.alertMessages.comment)
-        }
+//        } else {
+//            self.showAlert(with: Macros.alertMessages.comment)
+//        }
     }
     
     func showConfirmationAlert(){
@@ -82,18 +82,19 @@ class IncidentDetailVC: BaseViewController {
 //MARK:----- UITableView Delegates and DataSource ------
 extension IncidentDetailVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch (indexPath.row) {
         case 0:
             return customIncidentDetailTableViewCell(tableView: tableView, indexPath: indexPath)
+//        case 1:
+//            return customDescriptionTableViewCell(tableView: tableView, indexPath: indexPath)
+            // David asked to remove comment as some parents are rude. So they might add inappropriate comment
         case 1:
-            return customDescriptionTableViewCell(tableView: tableView, indexPath: indexPath)
-        case 2:
             return customAcknowledgeTableViewCell(tableView: tableView, indexPath: indexPath)
-        case 3:
+        case 2:
             return customSubmitButtonCell(tableView: tableView, indexPath: indexPath)
         default :
             return UITableViewCell()
@@ -101,7 +102,7 @@ extension IncidentDetailVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2 {
+        if indexPath.row == 1 {
              if let cell = tableView.cellForRow(at: indexPath) as? IncidentAcknowledgeCheckTableViewCell {
                 if !isAlreadyAcknowledge {
                     cell.btnForAcknowledge.isSelected = !cell.btnForAcknowledge.isSelected

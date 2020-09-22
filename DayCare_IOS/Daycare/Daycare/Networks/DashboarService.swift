@@ -13,7 +13,12 @@ class DashboarService: APIService {
     //MARK:---- Teacher Class Log List API -----
     func getAllTeacherClassLog(with target:BaseViewController?, agencyID:Int, askingDate:String, teacherID: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : askingDate, Macros.ApiKeys.kteacherID : teacherID] as [String : Any]
+        //askingDate is UTC date
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+        let localDate = TimeUtils.UTCToLocal(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
+        
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherClassLog, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -88,7 +93,12 @@ class DashboarService: APIService {
     //MARK:---- Teacher Break Logs API -----
     func getTeacherBreakLogs(with target:BaseViewController?, agencyID:Int, teacherID:Int, askingDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskingDate : askingDate] as [String : Any]
+        //askingDate is local
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskingDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherBreakLog, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -159,7 +169,12 @@ class DashboarService: APIService {
     //MARK:---- Teacher Medication Log API -----
     func getTeacherMedicationLogs(with target:BaseViewController?, agencyID:Int, askingDate: String, teacherID: Int, classId: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   = [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : askingDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kclassID : classId] as [String : Any]
+        //askingDate is UTC
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+        let localDate = TimeUtils.UTCToLocal(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let param   = [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kclassID : classId, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
+
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherTodayMedicationTasks, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -183,7 +198,12 @@ class DashboarService: APIService {
 //    MARK:---- Teacher Current Operational Class API -----
     func getTeacherCurrentOperationalClass(with target:BaseViewController?, agencyID:Int, askingDate:String, teacherID: Int, teacherDailyAttendanceID: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : askingDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kteacherDailyAttendenceID : teacherDailyAttendanceID] as [String : Any]
+        //askingDate is UTC
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+        let localDate = TimeUtils.UTCToLocal(date: askingDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kteacherDailyAttendenceID : teacherDailyAttendanceID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherOperationalClasses, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

@@ -13,8 +13,11 @@ class ChildActivityService: APIService {
     func getAllChildActivities(with target:BaseViewController?, agencyID:Int, studentID: Int, parentID: Int, askedDate: String,complition:@escaping(Any?) -> Void){
         target?.showLoader()
         // send asked Date in UTC and askeDateString in local timezone
-        let UTCDate = CommonClassMethods.localToUTC(date: askedDate, format: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kaskedDate: UTCDate, Macros.ApiKeys.kparentID: parentID, Macros.ApiKeys.kaskedDateString : askedDate] as [String : Any]
+        // askedDate is local Date
+        let formattedDate = CommonClassMethods.convertDateFormat(strDate: askedDate, fromFormat: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+
+        let UTCDate = CommonClassMethods.localToUTC(date: formattedDate, format: DateFormat.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kstudentID: studentID, Macros.ApiKeys.kaskedDate: UTCDate, Macros.ApiKeys.kparentID: parentID, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetForParent, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -227,9 +230,14 @@ class ChildActivityService: APIService {
     
     
     //MARK:---- Get Todays Meals Plan API -----
+    //API NOT IN USE
     func getTodaysMealPlan(with target:BaseViewController?, agencyID:Int, classId:Int, askedDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID: classId, Macros.ApiKeys.kaskedDate: askedDate] as [String : Any]
+        let formattedDate = CommonClassMethods.convertDateFormat(strDate: askedDate, fromFormat: DateFormat.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+
+        let UTCDate = CommonClassMethods.localToUTC(date: formattedDate, format: DateFormat.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormat.YYYY_MM_DD_HH_MM_SS)
+        
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID: classId, Macros.ApiKeys.kaskedDate: UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetTodayMealPlan, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

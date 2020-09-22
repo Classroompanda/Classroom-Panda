@@ -458,7 +458,7 @@ class CommonClassMethods: NSObject {
         
     }
     
-    class func localToUTC(date:String, format : String) -> String {
+    class func localToUTC(date:String, format : String, outputFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.calendar = NSCalendar.current
@@ -468,6 +468,16 @@ class CommonClassMethods: NSObject {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: dt ?? Date())
     }
+    
+    class func convertDateFormat(strDate: String,fromFormat:String, toFormat:String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = fromFormat
+        let date = dateFormatter.date(from: strDate)
+        dateFormatter.dateFormat = toFormat
+          return  dateFormatter.string(from: date!)
+
+      }
     
     
     class func convertdateYYMMDDformate(date:String) -> String {

@@ -435,6 +435,8 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
                     cell.btnForEdit.isEnabled = true
                     cell.btnForAbsent.backgroundColor = colorCode.disableColor
                     cell.btnForAbsent.removeTarget(nil, action: nil, for: .allEvents)
+                    cell.btnForTransfer.isHidden = false
+
                 case AttendanceStatus.isCheckedOut:
                     cell.btnForCheckout.backgroundColor = colorCode.disableColor
                     cell.btnForCheckout.setTitle("Check Out", for: .normal)

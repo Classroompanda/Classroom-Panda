@@ -61,6 +61,16 @@ class TimeUtils: NSObject {
         return ""
     }
     
+    class func convertDateFormat(strDate: String,fromFormat:String, toFormat:String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = fromFormat
+        let date = dateFormatter.date(from: strDate)
+        dateFormatter.dateFormat = toFormat
+        return  dateFormatter.string(from: date!)
+
+    }
+    
     class func getMinimumDateOfMonth(date: Date) -> Date? {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month], from: date)
@@ -101,24 +111,24 @@ class TimeUtils: NSObject {
         return newDate ?? Date()
     }
     
-    class func localToUTC(date:String, format : String) -> String {
+    class func localToUTC(date:String, format : String, outputFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.calendar = NSCalendar.current
         dateFormatter.timeZone = TimeZone.current
         let dt = dateFormatter.date(from: date)
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = format
+        dateFormatter.dateFormat = outputFormat
         return dateFormatter.string(from: dt ?? Date())
     }
     
-    class func UTCToLocal(date:String, format : String) -> String {
+    class func UTCToLocal(date:String, format : String, outputFormat: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         let dt = dateFormatter.date(from: date)
         dateFormatter.timeZone = TimeZone.current
-        dateFormatter.dateFormat = format
+        dateFormatter.dateFormat = outputFormat
         return dateFormatter.string(from: dt ?? Date())
     }
     

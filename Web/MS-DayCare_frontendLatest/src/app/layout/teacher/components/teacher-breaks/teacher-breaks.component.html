@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <div class="container-fluid">
+  
+      <div class="pagetitle">
+        <div>
+          <h2>My Breaks
+            <!-- <span>/ My Breaks </span> -->
+          </h2>
+        </div>
+      </div>
+  
+      <!-- <div class="subhead d-flex justify-content-between mt-20">
+        <div>
+          <h3>{{className}}</h3>
+        </div>
+      </div> -->
+
+      <div class="card cardfilter">
+          <div class="row algcenter">
+              <div class="leftfilter">
+                  <div class="pr15">Search Date : </div>
+                  <input type="text" placeholder="Search by date" [(ngModel)]="searchDate" 
+                showWeekNumbers="false" [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                  <div><button type="submit" class="btn btn-send" (click)="getBreakLog()">Search</button> </div>
+                </div> 
+          </div>
+        </div> 
+
+        <div class="innertable studentListSearch">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Break-Out Time</th>
+                    <th scope="col">Break-In Time</th>
+                    <th scope="col">Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let brek of breakList">
+                      <!-- {{brek.breakOutTime|date: 'h:mm a'}} -->
+                    <td >
+                      {{brek.breakOut | formattedTime}}
+                    </td>
+                    <td *ngIf="brek.breakStatusID != 2">
+                       --
+                    </td>
+                    <td *ngIf="brek.breakStatusID == 2">
+                      {{brek.breakIn| formattedTime}}
+                    </td>
+                    <td>
+                      {{brek.breakReason}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="!breakList">No result found</span>
+              </div>
+            </div>
+          </div>
+    </div>
+      </div>
+
+      <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

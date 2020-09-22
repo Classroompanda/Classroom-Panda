@@ -1,0 +1,534 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Calendar
+          <span>/ Event Planner </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" *ngIf="isSubscriptionActive" class="btn btn-red" data-toggle="modal" data-target=".addevent" (click)="clearForm();cleareRepeateIDStatus()">Add
+          Event</button>
+          
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+    <div *ngIf="calendarOptions">
+      <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="gotoDate($event.detail)" (eventDrop)="updateEvent($event.detail)"
+        (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)" (eventRender)="eventRenderMethod($event.detail)"
+        (click)="click($event)"></ng-fullcalendar>
+    </div>
+
+
+    <div class="modal fade addevent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add Events</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="calenderForm">
+
+              <div class="row mb-20">
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">Begins*</label>
+                    <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+                    <input type="text" placeholder="Begin" formControlName="startdate" showWeekNumbers="false"
+                      [minDate]="today" class="form-control" [minDate]="today" [bsConfig]="dpConfig" bsDatepicker>
+                    <div *ngIf="f.startdate.invalid && (f.startdate.dirty || f.startdate.touched)" class="text-left errormsg">
+                      <span *ngIf="f.startdate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">End*</label>
+                    <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+                    <input type="text" placeholder="End" formControlName="enddate" showWeekNumbers="false" [minDate]="today"
+                      [minDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker [readOnly]="disableEndDate">
+                    <div *ngIf="f.enddate.invalid && (f.enddate.dirty || f.enddate.touched)" class="text-left errormsg">
+                      <span *ngIf="f.enddate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">Start time</label>
+                    <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+                    <p-calendar class="custom-textbox-addevent" styleClass="form-control" formControlName="starttime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                    <div *ngIf="f.starttime.invalid && (f.starttime.dirty || f.starttime.touched)" class="text-left errormsg">
+                      <span *ngIf="f.starttime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-group">
+                    <label for="">End time</label>
+                    <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+                    <p-calendar styleClass="form-control" class="custom-textbox-addevent" formControlName="endtime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                    <div *ngIf="f.endtime.invalid && (f.endtime.dirty || f.endtime.touched)" class="text-left errormsg">
+                      <span *ngIf="f.endtime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select time</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <!-- <div class="row mb-20">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="">Start time</label>
+                          
+                          <p-calendar  styleClass="form-control" [timeOnly]="true" [showIcon]="true"></p-calendar>
+                        </div>
+                       
+                      </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">End Time</label>
+                        
+                        <p-calendar [timeOnly]="true"></p-calendar>
+                      </div>
+                    </div>                     
+              </div> -->
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Class*</label>
+                    <p-multiSelect [options]="classList" [panelStyle]="{minWidth:'200px'}" formControlName="class"
+                      [maxSelectedLabels]="5"></p-multiSelect>
+                    <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                      <span *ngIf="f.class.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Title*</label>
+                    <!-- <select class="form-control" id="exampleFormControlSelect1">
+                                <option>Lunch</option>
+                                <option>Snacks</option>
+                                <option>Dinner</option>
+                              </select> -->
+                    <input type="text" class="form-control" formControlName="title" id="" aria-describedby=""
+                      placeholder="Enter Event Title">
+                    <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="text-left errormsg">
+                      <span *ngIf="f.title.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Description* (Max limit 500 characters)</label>
+                    <textarea name="" id="" cols="3" rows="3" class="form-control" formControlName="description"></textarea>
+                    <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)" class="text-left errormsg">
+                      <span *ngIf="f.description.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter description</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Repeat*</label>
+                    <select class="form-control" placeholder="First Aid Administered by" formControlName="repeat" id="exampleFormControlSelect1"
+                      (change)="getRepeatOptions()">
+                      <option *ngFor="let obj of repeatList" [value]="obj.value">{{obj.label}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-6" *ngIf="showEndsOn">
+                  <div class="form-group">
+                    <label for="">Ends on*</label>
+                    <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder=""> -->
+                    <input type="text" container="" placeholder="Ends on" formControlName="endson" showWeekNumbers="false" [minDate]="today"
+                      class="form-control" [bsConfig]="dpConfig" [minDate]="bsDatepicker" bsDatepicker>
+                    <div *ngIf="f.endson.invalid && (f.endson.dirty || f.endson.touched)" class="text-left errormsg">
+                      <span *ngIf="f.endson.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mb-20" *ngIf="showDays">
+                    <div class="col-lg-6">
+                      <div class="form-group"><label>Select days to show event</label> </div>  
+                    </div>
+                    </div>
+                  <div class="row mb-20" *ngIf="showDays">
+                    
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            
+                             
+                             <div class="checkbox">
+                               <label>
+                                 <input type="checkbox" value="">
+                                 Sunday
+                               </label>
+                             </div>
+                               
+                          </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="">
+                                  Monday
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="">
+                                  Tuesday
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="">
+                                  Wednesday
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="">
+                                  Thursday
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="">
+                                  Friday
+                                </label>
+                              </div>
+                          </div>
+                    </div>
+                  </div> -->
+              <!-- <div class="row mb-20" *ngIf="showEndsOn">
+                      <div class="col-lg-2">
+                          <div class="checkbox">
+                              <label>
+                                <input type="checkbox" value="">
+                                Saturday
+                              </label>
+                            </div>
+         </div> 
+         </div> -->
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" (click)="saveEvent()">Add Event</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <!-- Update model -->
+    <p-dialog class="update-event-popup" header="Update Event" [(visible)]="display" [width]="600">
+      <form [formGroup]="calenderForm" class="pl-10 pr-20">
+        <div class="row mb-20">
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="">Begins*</label>
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <input type="text" placeholder="Ends on" formControlName="startdate" showWeekNumbers="false" [minDate]="today"
+                class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+              <div *ngIf="f.startdate.invalid && (f.startdate.dirty || f.startdate.touched)" class="text-left errormsg">
+                <span *ngIf="f.startdate.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="">End*</label>
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <input type="text" placeholder="Ends on" formControlName="enddate" showWeekNumbers="false" [minDate]="today"
+                class="form-control" [bsConfig]="dpConfig" bsDatepicker [readOnly]="disableEndDate">
+              <div *ngIf="f.enddate.invalid && (f.enddate.dirty || f.enddate.touched)" class="text-left errormsg">
+                <span *ngIf="f.enddate.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="">Start time</label>
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <p-calendar class="custom-textbox-eventplan" styleClass="form-control" formControlName="starttime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                [showIcon]="true"></p-calendar>
+              <div *ngIf="f.starttime.invalid && (f.starttime.dirty || f.starttime.touched)" class="text-left errormsg">
+                <span *ngIf="f.starttime.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class="">select time</span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="">End time</label>
+              <!-- <input type="date" class="form-control" id="" aria-describedby="" placeholder="Select Start Date and Time"> -->
+              <p-calendar class="custom-textbox-eventplan" styleClass="form-control" formControlName="endtime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                [showIcon]="true"></p-calendar>
+              <div *ngIf="f.endtime.invalid && (f.endtime.dirty || f.endtime.touched)" class="text-left errormsg">
+                <span *ngIf="f.endtime.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class="">select time</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-20">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Class*</label>
+              <p-multiSelect [options]="classList" [panelStyle]="{minWidth:'200px'}" formControlName="class"
+                [maxSelectedLabels]="5"></p-multiSelect>
+              <div *ngIf="f.class.invalid && (f.class.dirty || f.class.touched)" class="text-left errormsg">
+                <span *ngIf="f.class.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select class</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Title*</label>
+              <!-- <select class="form-control" formControlName="category" id="exampleFormControlSelect1">
+                  <option>Lunch</option>
+                  <option>Snacks</option>
+                  <option>Dinner</option>
+                </select> -->
+              <input type="text" class="form-control" formControlName="title" id="" aria-describedby="" placeholder="Enter Event Title">
+              <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)" class="text-left errormsg">
+                <span *ngIf="f.title.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter title</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-20">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Description* (Max limit 500 characters)</label>
+              <textarea name="" formControlName="description" id="" cols="3" rows="3" class="form-control" maxlength="500"></textarea>
+              <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched)" class="text-left errormsg">
+                <span *ngIf="f.description.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter description</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mb-20">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Repeat*</label>
+              <select class="form-control" placeholder="First Aid Administered by" formControlName="repeat" id="exampleFormControlSelect1"
+                (change)="getRepeatOptions()" disabled>
+                <option *ngFor="let obj of repeatList" [value]="obj.value">{{obj.label}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6" *ngIf="showEndsOn">
+            <div class="form-group">
+              <label for="">Ends on*</label>
+              <!-- <input type="date" class="form-control"  formControlName="endson" id="" aria-describedby="" placeholder=""> -->
+              <input type="text" placeholder="Ends on" formControlName="endson" showWeekNumbers="false" [minDate]="today"
+                class="form-control" [bsConfig]="dpConfig" bsDatepicker disabled>
+              <div *ngIf="f.endson.invalid && (f.endson.dirty || f.endson.touched)" class="text-left errormsg">
+                <span *ngIf="f.endson.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row mb-20" *ngIf="showEndsOn">
+        <div class="col-lg-6">
+          <div class="form-group"><label>Select days to show event</label> </div>  
+        </div>
+        </div>
+      <div class="row mb-20" *ngIf="showEndsOn">
+        
+        <div class="col-lg-2">
+            <div class="form-group">
+                
+                 
+                 <div class="checkbox">
+                   <label>
+                     <input type="checkbox" value="">
+                     Sunday
+                   </label>
+                 </div>
+                   
+              </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      Monday
+                    </label>
+                  </div>
+              </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      Tuesday
+                    </label>
+                  </div>
+              </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      Wednesday
+                    </label>
+                  </div>
+              </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      Thursday
+                    </label>
+                  </div>
+              </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="">
+                      Friday
+                    </label>
+                  </div>
+              </div>
+        </div>
+      </div>
+      <div class="row mb-20" *ngIf="showEndsOn">
+          <div class="col-lg-2">
+              <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="">
+                    Saturday
+                  </label>
+                </div>
+</div> 
+</div> -->
+
+
+      </form>
+      <p-footer>
+        <button type="button" class="btn dlt" (click)="deleteEvent()"> Delete</button>
+        <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" (click)="saveEvent()">Update Event</button>
+      </p-footer>
+    </p-dialog>
+
+    <!-- For Information Video -->
+    <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+            <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont video_section_pop" *ngIf="videoPath">
+              <video controls id="pausevideo">
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+                <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+                Browser not supported
+              </video>
+            </div>
+
+            <div class="cont video_section_pop" *ngIf="!videoPath">
+                Video Not Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

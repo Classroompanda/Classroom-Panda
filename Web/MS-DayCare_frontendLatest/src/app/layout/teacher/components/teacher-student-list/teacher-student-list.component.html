@@ -1,0 +1,96 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Student
+          <!-- <span>/ Student </span> -->
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Enrolled Students List</h3>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <!-- <div class="col-lg-10"> -->
+         <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search student name" [(ngModel)]="searchByStudentName" class="form-control mr15" id="">
+          </div>
+          <div class="search-class">
+          <div class="pr15 label-text"> Search Class : </div>
+          <div class="pr15">
+            <div class="form-group">
+              <select class="form-control" placeholder="Serch" [(ngModel)]="searchByClass" (change)="getSerchClass($event)" id="exampleFormControlSelect1">
+                <option value="">All</option>
+                <option *ngFor="let classes of classList" [value]="classes.classesID">{{classes.className}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="getStudentsList()">Search</button>
+          </div>
+      </div> 
+    </div>
+
+    <div class="studentlist">
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+          <div class="innertable studentListSearch">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Photo</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Parent Name</th>
+                    <th scope="col">Class Name</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="studentList.length != 0">
+                  <tr *ngFor="let students of studentList">
+                    <td >
+                      <img src="{{students.imagePath}}" onError="this.src='assets/img/user.png'" alt="" class="img-circle childimg">
+                    </td>
+                 
+                    <!-- <td scope="row">SID: 343432</td> -->
+                    <td>{{students.studentName }}</td>
+                    <!-- <td>{{students.className}} </td> -->
+                    <td>{{students.parentName}}</td>
+                    <td>{{students.className}}</td>
+                    <td>
+                      <a [routerLink]="['../studentdetails', students.studentId,students.parentID]">
+                        <i class="fa fa-eye" aria-hidden="true" title="view details"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+                <!-- </tbody> -->
+              </table>
+              <div class="text-center">
+
+                <span *ngIf="studentList.length == 0 && !loader" class="text-center">No result found</span>
+              </div>
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"
+            ></p-paginator>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

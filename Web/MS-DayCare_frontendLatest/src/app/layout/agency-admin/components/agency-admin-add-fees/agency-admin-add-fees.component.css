@@ -1,0 +1,26 @@
+.wid26{ width: 26%;}
+.wid10{ width: 10%;}
+.verAligMiddle{  vertical-align: middle;}
+.plusIcon{ font-size: 28px; }
+.minusIcon{font-size: 28px; color: #FF6C6C;}
+
+.btn-default {
+    background: #58A7FE;
+    padding: 5px 15px;
+    color: #fff;
+    font-size: 13px;
+    border-radius: 30px;
+  }
+
+  .mb-20 {
+    margin-bottom: 20px;
+  }
+
+  .margt20 {
+margin-top: 20px;
+  }
+
+
+  .resizearea {
+    resize: vertical;
+  }

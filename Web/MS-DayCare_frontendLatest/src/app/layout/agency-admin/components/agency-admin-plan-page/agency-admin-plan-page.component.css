@@ -1,0 +1,22 @@
+.card-pricing {
+    z-index: 1;
+    border: 3px solid transparent;
+}
+.card-pricing .list-unstyled li {
+    padding: .5rem 0;
+    color: #6c757d;
+}
+
+
+.bg-primary{background:#58A7FE!important;font-size: 14px;}
+
+.card-pricing:hover {
+    z-index: 1;
+    border: 3px solid #58A7FE;
+    box-shadow:0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.active-plan {
+    color: black;
+    font-size: 14px;
+   font-weight: bold;
+}

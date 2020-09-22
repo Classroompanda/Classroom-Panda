@@ -1,0 +1,271 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ AllergyList </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="clearAllergyTypeForm()" data-toggle="modal"
+          data-target=".addallergytype">Add Allergy Type</button>
+        <button type="submit" class="btn btn-send" (click)="clearAllergyForm()" data-toggle="modal"
+          data-target=".addallergy">Add Allergy</button>
+        <button type="submit" class="btn btn-send" (click)="clearAllergyReactionForm()" data-toggle="modal"
+          data-target=".addallergyreaction">Add Allergy Reaction</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Allergy List</h3>
+      </div>
+    </div>
+
+    <ul class="nav nav-pills mt-20" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="allergyType" data-toggle="pill" href="#pills-allergyType"
+          (click)="this.getAllergyType();" role="tab" aria-controls="pills-allergyType" aria-selected="true">Allergy
+          Type</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="allergy" data-toggle="pill" href="#pills-allergy" role="tab"
+          (click)="this.getAllergyName();" aria-controls="pills-allergy" aria-selected="false">Allergy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="allergyReaction" data-toggle="pill" href="#pills-allergyReaction" role="tab"
+          (click)="this.getAllergyReactionType();" aria-controls="pills-allergyReaction" aria-selected="false">Allergy
+          Reaction
+          Type</a>
+      </li>
+    </ul>
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Allergy Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let allergyType of allergyTypeList">
+                  <td>{{allergyType.label}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(allergyTypeList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="pills-allergy" role="tabpanel" aria-labelledby="allergy">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Allergy Type</th>
+                  <th scope="col">Allergy Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let allergy of allergyList">
+                  <td> {{allergy.allergyType}}</td>
+                  <td>{{allergy.label}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(allergyList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade " id="pills-allergyReaction" role="tabpanel" aria-labelledby="allergyReaction">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Allergy Type</th>
+                  <th scope="col">Allergy Reaction Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let allergyReaction of allergyReactionList">
+                  <td> {{allergyReaction.allergyType}}</td>
+                  <td>{{allergyReaction.label}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(allergyReactionList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addallergytype " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Allergy Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="allergyTypeForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Allergy Type*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="allergytype"
+                  placeholder="Allergy Type">
+                <div *ngIf="t.allergytype.invalid && (t.allergytype.dirty || t.allergytype.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="t.allergytype.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter allergy type</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveAllergyType()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade addallergy" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Allergy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="allergyForm">
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Allergy Type*</label>
+                <select class="form-control" placeholder="Allergy type" formControlName="allergytype"
+                  id="exampleFormControlSelect1">
+                  <option value="">Select Allergy Type</option>
+                  <option *ngFor="let allergyType of allergyTypeList" [value]="allergyType.value">{{allergyType.label}}
+                  </option>
+                </select>
+                <div *ngIf="a.allergytype.invalid && (a.allergytype.dirty || a.allergytype.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="a.allergytype.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select allergy type</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Allergy Name*</label>
+                <input type="text" class="form-control" id="" formControlName="allergyname" aria-describedby=""
+                  placeholder="Enter Allergy Name">
+                <div *ngIf="a.allergyname.invalid && (a.allergyname.dirty || a.allergyname.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="a.allergyname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter allergy name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveAllergy()">Add </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade addallergyreaction" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Allergy Reaction</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="allergyReactionForm">
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Allergy Type*</label>
+                <select class="form-control" placeholder="Allergy type" formControlName="allergytype"
+                  id="exampleFormControlSelect1">
+                  <option value="">Select Allergy Type</option>
+                  <option *ngFor="let allergyType of allergyTypeList" [value]="allergyType.value">{{allergyType.label}}
+                  </option>
+                </select>
+                <div *ngIf="r.allergytype.invalid && (r.allergytype.dirty || r.allergytype.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="r.allergytype.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select allergy type</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Allergy Reaction Name*</label>
+                <input type="text" class="form-control" id="" formControlName="allergyreactionname" aria-describedby=""
+                  placeholder="Enter Allergy Reaction Name">
+                <div
+                  *ngIf="r.allergyreactionname.invalid && (r.allergyreactionname.dirty || r.allergyreactionname.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="r.allergyreactionname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter allergy reaction name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveAllergyReaction()">Add </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

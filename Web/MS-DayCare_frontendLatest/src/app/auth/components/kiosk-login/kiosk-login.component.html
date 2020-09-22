@@ -1,0 +1,33 @@
+<header style="background-color: #59a4ff;">
+  <img src="assets/img/logo.png" alt="" class="logo">
+</header>
+
+<div class="page-container" style="background-color: #59a4ff;">
+  <div class="otp-widget text-center">
+    <div class="wt-frame p-3 lockbox"><img src="assets/img/lock.svg" alt="" style="height: 60px; width: 51px;"></div>
+    <div class="wt-frame p-2 opt-code mb-2">
+      <p>Enter Your Pin</p>
+      <div class="d-flex justify-content-center otp-fields">
+        <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent" [config]="config">
+        </ng-otp-input>
+      </div>
+    </div>
+    <div class="agency-code mt-3" *ngIf="showAgencyField == false">
+      <label>Input Agency Code</label>
+      <input type="text" [(ngModel)]="code" placeholder="Type a Code" class="form-control mb-2">
+      <button type="submit" class="btn btn-gray mb-2" (click)="agencyLogin()">Save</button>
+    </div>
+    <div class="agency-code mt-5" *ngIf="showAgencyField == true">
+      <label>Agency Logged In</label>
+    </div>
+    <div class="back-login mt-5"
+      style="color:white;font-weight: bolder;font-size: 16px;">
+      <div class="forgot" style="cursor:pointer" [routerLink]="['/']"><i class="fa fa-long-arrow-left"
+          aria-hidden="true" style="margin-right: 5px;"></i> Back To Login Page</div>
+    </div>
+  </div>
+</div>
+
+
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

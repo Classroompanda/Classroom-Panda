@@ -1,0 +1,9 @@
+<div  class="confirmationInfo custom-modal-box">
+  <p-confirmDialog  [acceptIcon]="false" acceptLabel="{{buttonText}}" [responsive]="true" [rejectVisible]="rejectVisible" [rejectIcon]="false" header="Confirmation" [closable]="false" icon="pi pi-exclamation-triangle" width="425" #cd>
+      
+      <p-footer>
+        <button type="button" pButton  label="No" (click)="cd.reject()" ></button>
+        <button type="button" pButton style="background:#FF6C6C"   label="Yes"  (click)="cd.accept()"></button>
+    </p-footer>
+  </p-confirmDialog>
+  </div>

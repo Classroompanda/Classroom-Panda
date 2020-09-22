@@ -1,0 +1,35 @@
+
+  
+  .chat_people{ overflow:hidden; clear:both;}
+  .chat_list {
+    border-bottom: 1px solid #E2F0FF;
+    margin: 0;
+    padding: 15px;
+  }
+  .inbox_chat { height: 550px; overflow-y: auto;}
+  .inbox_people{background: #F6FBFF;}
+  .active_chat{ background:#FF6C6C;color: #fff!important;}
+  .active_chat .kidname,.active_chat .chat_ib h5,.active_chat .chat_ib .status{color: #fff}
+  .recent_heading h4 {
+    color: #fff;
+    font-size: 15px;
+    padding: 10px 10px;
+    font-weight: 400;
+}
+
+.inbox_chat1 
+{ 
+  height: 550px;
+  overflow-y: scroll;  
+}
+
+.recent_heading{margin-bottom:10px;}
+
+.count {
+  margin-left: 135px;
+  margin-bottom: -4px;
+  font-size: 15px;
+  color: #58a7fe;
+}
+
+

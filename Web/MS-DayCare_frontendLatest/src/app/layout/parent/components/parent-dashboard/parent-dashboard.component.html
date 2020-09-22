@@ -1,0 +1,169 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Dashboard
+          <!-- <span> </span> -->
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="innertable mt-20">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Child Name</th>
+                      <!-- <th class="text-center" scope="col">Payment</th>                            -->
+                      <!-- <th scope="col" class="text-center">Pay</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let child of childListWithPayment">
+                      <td>{{child.studentName}}</td>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <button *ngIf="childListWithPayment.length == 0 && !loader && parentType != 'guardian'" type="submit"
+                    [routerLink]="['../parentchildfillform']" class="btn btn-send " style="margin-top: 10px">Add
+                    child</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 gedf-main">
+        <div class="card gedf-card">
+          <div class="card-header">
+            <h3> Children Activity</h3>
+          </div>
+          <div class="card-body">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
+                  aria-controls="posts" aria-selected="true" (click)="getAllPublicAtivityList()">Public</a>
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="images-tab" data-toggle="tab" (click)="getAllChildrenList();onTabChange()"
+                  role="tab" aria-controls="images" aria-selected="false" href="#images">Private</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="pr15" *ngIf="shoChildFilter"> Select Child : </div>
+              <div class="pr15" *ngIf="shoChildFilter">
+                <div class="form-group">
+                  <select class="form-control" placeholder="Serch" [(ngModel)]="serchByChild"
+                    (change)="getAllPostAtivityList()" id="exampleFormControlSelect1">
+                    <option value="">Select child</option>
+                    <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab"
+                *ngFor="let activity of postAtivityList; let i = index">
+
+
+                <div class="card gedf-card">
+                  <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-2">
+                          <img class="rounded-circle" width="45" src="{{activity.imagePath}}" alt="">
+                        </div>
+                        <div class="ml-2">
+                          <div class="h5 m-0">{{activity.className}}</div>
+                          <div class="h5 m-0">{{activity.studentName}}</div>
+                          <div class="h7 text-muted">{{activity.postDescription}}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="card-body postimg">
+
+                    <div class="text-muted h7 mb-2" *ngIf="activity.isTodaysPost">
+                      <i class="fa fa-clock-o"></i>{{activity.postedDate | date: 'h:mm a'}}</div>
+                    <div class="text-muted h7 mb-2" *ngIf="!activity.isTodaysPost">
+                      <i class="fa fa-clock-o"></i>{{activity.postedDate | date: 'MMM d, y, h:mm a'}}</div>
+                    <a class="card-link" href="#">
+                      <h5 class="card-title"></h5>
+                    </a>
+                    <ul class="">
+                      <li *ngIf="activity.postActivityImages.length > 0">
+                        <div *ngFor="let img of activity.postActivityImages" style="float:left; margin-right: 10px;">
+                          <img src="{{img.imageServerPath}}" alt="">
+                        </div>
+
+                      </li>
+                      <li *ngIf="activity.postActivityVideos.length > 0">
+                        <!-- <img src="assets/img/child/child1.jpeg" alt=""> -->
+                        <div class="cont video_section">
+                          <!-- <img src="{{img.vedioServerPath}}" alt="" class="img-fluiud"> -->
+                          <video controls>
+                            <source src="{{activity.postActivityVideos[0].vedioServerPath}}" type="video/mp4" />
+                            <source src="{{activity.postActivityVideos[0].vedioServerPath}}" type="video/ogg">
+                            <source src="{{activity.postActivityVideos[0].vedioServerPath}}" type="video/webm">
+
+                            Browser not supported
+                          </video>
+                        </div>
+                      </li>
+                    </ul>
+
+                  </div>
+                  <div class="card-footer">
+                    <div class="row">
+                      <div class="col-lg-2" *ngIf="activity.postActivityImages.length > 0">
+                        <div class="dropdown">
+                          <a style="cursor: pointer; color: #58A7FE"
+                            (click)="saveParentDashboardImagedLikeInformation(activity.postActivityImages[0], 1,activity)"
+                            *ngIf="activity.isPostALreadyLiked">
+                            <i class="fa fa-gittip">{{activity.totalLikes}}</i>Like
+                          </a>
+                          <a style="cursor: pointer; color: gray"
+                            (click)="saveParentDashboardImagedLikeInformation(activity.postActivityImages[0],1,activity)"
+                            *ngIf="!activity.isPostALreadyLiked">
+                            <i class="fa fa-gittip">{{activity.totalLikes}}</i>Like
+                          </a>
+                        </div>
+                      </div>
+                      <div class="col-lg-2" *ngIf="activity.postActivityVideos.length > 0">
+                        <div class="dropdown">
+                          <a style="cursor: pointer; color: #58A7FE; cursor: pointer;"
+                            (click)="saveParentDashboardVideoLikeInformation(activity.postActivityVideos[0], 1,activity)"
+                            *ngIf="activity.isPostALreadyLiked">
+                            <i class="fa fa-gittip">{{activity.totalLikes}}</i>Like
+                          </a>
+                          <a style="cursor: pointer; color: gray; cursor: pointer;"
+                            (click)="saveParentDashboardVideoLikeInformation(activity.postActivityVideos[0], 1,activity)"
+                            *ngIf="!activity.isPostALreadyLiked">
+                            <i class="fa fa-gittip">{{activity.totalLikes}}</i>Like
+                          </a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event)"></p-paginator>
+              <div class="text-center" *ngIf="!loader && postAtivityList.length == 0">
+                <span>No post yet!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+  </div>
+</div>

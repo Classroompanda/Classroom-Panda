@@ -1,0 +1,79 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Report
+          <span>/ Student Class Transfer </span>
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Student Class Transfer Report</h3>
+      </div>
+      <div style="cursor:pointer" title="Download report" (click)="pdfStudentTransferAttendanceReport()"><i class="fa fa-download" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search student name" class="form-control mr15" [(ngModel)]="searchByStudentName" id="">
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">From Date : </div>
+            <input type="text" placeholder="Search by date" [(ngModel)]="fromDate" showWeekNumbers="false" class="form-control mr15"
+              [bsConfig]="dpConfig" bsDatepicker>
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">To Date : </div>
+            <input type="text" placeholder="Search by date" [(ngModel)]="toDate" showWeekNumbers="false" class="form-control mr15"
+              [bsConfig]="dpConfig" bsDatepicker>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Teacher Name</th>
+                      <th scope="col">Transfer Date</th>
+                      <th scope="col">From Class</th>
+                      <th scope="col">To Class</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let student of transferList" >
+                      <td>{{student.studentName}}</td>
+                      <td>{{student.teacherName}}</td>
+                      <td>{{student.transferDate | date}}</td>
+                      <td>{{student.fromClassName}}</td>
+                      <td>{{student.toClassName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span *ngIf="transferList.length == 0 && !loader" class="text-center">No result found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

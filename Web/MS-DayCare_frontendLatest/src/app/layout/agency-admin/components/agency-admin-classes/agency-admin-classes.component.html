@@ -1,0 +1,457 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Classes
+        </h2>
+      </div>
+      <div class="closepos">
+        <button type="submit" *ngIf="isSubscriptionActive" class="btn btn-red" data-toggle="modal"
+          data-target=".addclass" (click)="cleareForm()">Add Class</button>
+        <button type="submit" class="btn btn-red" [routerLink]="['../studentlist']">View Enrolled students</button>
+      </div>
+      <div *ngIf="isSubscriptionActive" class="upload-btn-wrapper">
+        <button class="btn btn-send">Upload CSV</button>
+        <input type="file" #input (change)="processCSVFile($event)">
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Classes</h3>
+      </div>
+
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal" aria-hidden="true"
+          title="Information Video"></i>
+      </div>
+    </div>
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Class Name</th>
+              <th scope="col">Age Category</th>
+              <th scope="col" class="text-center">Enrollment Capacity</th>
+              <th scope="col" class="text-center">Signed In</th>
+              <th scope="col">Fees($)</th>
+              <th scope="col">Enrollment</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let class of classList">
+              <td>{{class.className}}</td>
+              <td>{{class.categoryName}}</td>
+              <td class="text-center" [ngClass]="{'overcapacity': class.enrolledStudentCount >= class.enrollCapacity}"
+                [title]="class.enrolledStudentCount >= class.enrollCapacity? 'Class reached to enrollment capacity limit': ''">
+                {{class.enrolledStudentCount}} of {{class.enrollCapacity}}</td>
+
+              <td class="text-center">
+                {{class.enrolledStudentCount}}</td>
+
+              <td>${{class.fees}} ({{class.categoryId == 6 ? 'Hourly' : class.feeTypeName}})</td>
+              <td>
+                <button *ngIf="isSubscriptionActive"
+                  [title]="class.enrolledStudentCount >= class.enrollCapacity? 'Class reached to enrollment capacity limit': ''"
+                  class="btn btn-info" data-toggle="modal" data-target=".immunization"
+                  (click)="getClassId(class)">Enroll Strudent</button>
+              </td>
+
+              <td>
+                <a data-toggle="modal" data-target=".addclass" title="Edit/View Class Details"
+                  (click)="getClassDetails(class)">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <a *ngIf="isSubscriptionActive">
+                  <i class="fa fa-trash" aria-hidden="true" (click)="deleteClass(class)"></i>
+                </a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+      </p-paginator>
+    </div>
+
+    <div class="modal fade addclass" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{addMode ? 'Add Class' : 'Update Class details'}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="row">
+              <div class="col-lg-4">
+                <img src="assets/img/addclass.png" alt="" width="250px">
+              </div>
+              <div class="col-lg-8">
+                <form [formGroup]="classForm">
+                  <div class="row mb-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Class name</label>
+                        <input type="text " class="form-control" id="className" formControlName="className"
+                          aria-describedby="" placeholder="Class Name">
+                        <div *ngIf="f.className.invalid && (f.className.dirty || f.className.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.className.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please Enter Classname</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Age Category</label>
+                        <select class="form-control" [attr.disabled]="classVM.id? '': null" placeholder="State"
+                          formControlName="categoryId" id="exampleFormControlSelect1" (change)="checkCategory()">
+                          <option value="">Select Category</option>
+                          <option *ngFor="let category of classcategoryList" [value]="category.id">
+                            {{category.categoryName}}</option>
+                        </select>
+                        <div *ngIf="f.categoryId.invalid && (f.categoryId.dirty || f.categoryId.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.categoryId.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select category </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row mb-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Fees($)</label>
+                        <input type="text" maxlength="5" name=""
+                          (keypress)="commonService.allowOnlyNumberWithDecimal($event)" id="" class="form-control"
+                          formControlName="fees">
+                        <div *ngIf="f.fees.invalid && (f.fees.dirty || f.fees.touched)" class="text-left errormsg">
+                          <span *ngIf="f.fees.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please Enter Fees </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Per(Fees)</label>
+                        <select formControlName="paymenttype" class="form-control" placeholder="Payment Type">
+                          <option value="">Select</option>
+                          <option *ngFor="let payment of paymentTypeList" [value]="payment.value">{{payment.label}}
+                          </option>
+                        </select>
+                        <div *ngIf="f.paymenttype.invalid && (f.paymenttype.dirty || f.paymenttype.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.paymenttype.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select payment type </span>
+                          </span>
+                        </div>
+                        <p *ngIf="isDriopInSelected && !classVM.id"><b>Note:</b>For drop in care fees will be calculted
+                          by student daily hour</p>
+                        <p *ngIf="isDriopInSelected && classVM.id && classVM.categoryId == 6"><b>Note: </b>For drop in
+                          care fees will be calculted by student daily hour</p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row mb-20">
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Start Time</label>
+                        <p-calendar class="custom-textbox-checkedin" (keypress)="commonService.allowOnlyNumber($event)"
+                          styleClass="form-control" formControlName="starttime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                          [showIcon]="true"></p-calendar>
+                        <div *ngIf="f.starttime.invalid && (f.starttime.dirty || f.starttime.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.starttime.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select start time </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">End Time</label>
+                        <p-calendar class="custom-textbox-checkedin" (keypress)="commonService.allowOnlyNumber($event)"
+                          styleClass="form-control" formControlName="endtime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                          [showIcon]="true"></p-calendar>
+                        <div *ngIf="f.endtime.invalid && (f.endtime.dirty || f.endtime.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.endtime.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select end time </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Enrollment Capacity</label>
+                        <input type="text" name="enrollementCapacity" maxlength="5"
+                          (keypress)="commonService.allowOnlyNumber($event)" id="" class="form-control"
+                          formControlName="enrollementCapacity">
+                        <div
+                          *ngIf="f.enrollementCapacity.invalid && (f.enrollementCapacity.dirty || f.enrollementCapacity.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.enrollementCapacity.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter enrollement capacity
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Start Date</label>
+                        <input type="text" placeholder="Select date" (keypress)="commonService.allowOnlyNumber($event)"
+                          formControlName="sessionFrom" showWeekNumbers="false" class="form-control"
+                          [bsConfig]="dpConfig" bsDatepicker>
+                        <div *ngIf="f.sessionFrom.invalid && (f.sessionFrom.dirty || f.sessionFrom.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.sessionFrom.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select Start Date </span>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label for="">On Going</label>
+                        <input type="checkbox" id="checkbox-in" class="checkbox_date" (change)="onGoing()"
+                          formControlName="ongoing">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">End Date</label>
+                        <input *ngIf="!isDriopInSelectedandOngoing" type="text"
+                          (keypress)="commonService.allowOnlyNumber($event)" placeholder="Select date" container=""
+                          formControlName="sessionTo" showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig"
+                          bsDatepicker>
+                        <p *ngIf="isDriopInSelectedandOngoing" class="form-control">On Going</p>
+                        <div *ngIf="f.sessionTo.invalid && (f.sessionTo.dirty || f.sessionTo.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.sessionTo.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select End Date </span>
+                          </span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-20">
+
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Description</label>
+                        <textarea name="" id="description" cols="30" rows="3" class="form-control"
+                          formControlName="description"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary"
+              (click)="saveClassInfo()">{{addMode ? 'Add Class' : 'Save Changes'}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- For Information Video -->
+    <div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+            <button type="button" class="close" (click)="PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="cont video_section_pop" *ngIf="videoPath">
+              <video controls id="pausevideo">
+                <source *ngIf="videoPath" [src]="videoPath" type="video/mp4" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/ogg" />
+                <source *ngIf="videoPath" [src]="videoPath" type="video/webm" />
+                Browser not supported
+              </video>
+            </div>
+
+            <div class="cont video_section_pop" *ngIf="!videoPath">
+              Video Not Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enroll modal -->
+    <div class="modal fade immunization" id="enroll" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Enrol Student</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="enrolForm">
+              <div class="row  mt-20">
+                <!-- <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Select Parent*</label>
+                    <select class="form-control" formControlName="parentname" (change)="getAllChildrenList()"
+                      id="exampleFormControlSelect1">
+                      <option value="">Select</option>
+                      <option *ngFor="let parent of parentList" [value]="parent.id">{{parent.parentName}} </option>
+                    </select>
+                    <div *ngIf="i.parentname.invalid && (i.parentname.dirty || i.parentname.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="i.parentname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select parent</span>
+                      </span>
+                    </div>
+                  </div>
+                </div> -->
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">For Class*</label>
+                    <input type="text" class="form-control" placeholder="Class" formControlName="classname">
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Select Child*</label>
+                    <select class="form-control" formControlName="childname" id="exampleFormControlSelect1">
+                      <option value="">Select</option>
+                      <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}} </option>
+                    </select>
+                    <div *ngIf="i.childname.invalid && (i.childname.dirty || i.childname.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="i.childname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select child</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Start Date*</label>
+                    <input type="text" placeholder="Search by date" formControlName="startdate" showWeekNumbers="false"
+                      [minDate]="today" [maxDate]="maxEnrolEndtDate" class="form-control mr15" [bsConfig]="dpConfig"
+                      bsDatepicker>
+                    <div *ngIf="i.startdate.invalid && (i.startdate.dirty || i.startdate.touched)"
+                      class="text-left errormsg">
+                      <span *ngIf="i.startdate.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select start date</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">End Date </label>
+                    <input type="text" container="" placeholder="End Date" formControlName="enddate"
+                      showWeekNumbers="false" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mb-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">For Class*</label>
+                    <input type="text" class="form-control" placeholder="Class" formControlName="classname">
+                  </div>
+                </div>
+              </div> -->
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary"
+              (click)="verifyEnrollment()">Enroll Student</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rejected User List -->
+<div class="modal fade rejectedUsr" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Rejected Class List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="innertable">
+          <div class="table-responsive">
+
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Class Name</th>
+                  <th scope="col">Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let student of rejectedUserList">
+                  <td>{{student.className}}</td>
+                  <td>{{student.msg}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+
+<app-confirm-box></app-confirm-box>

@@ -1,0 +1,138 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ PlanPage </span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead mb-20">
+      <div>
+        <h3>Pricing Plan</h3>
+      </div>
+      <div>
+        <!-- <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".addplan">Add Plan</button> -->
+      </div>
+    </div>
+
+    <!-- <div class="pricing card-deck flex-column flex-md-row mb-3 card_section" >
+      <div *ngFor="let plan of pricingPlanList" class="card card-pricing text-center px-3 mb-4">
+        <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{plan.planName | slice: 0:20}}</span>
+        <div class="bg-transparent card-header pt-4 border-0">
+          <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="1200">$<span class="price">{{plan.planPrice}}</span>
+            <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'month'">/ per month</span>
+            <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'year'">/ per year</span>
+          </h1>
+        </div>
+        <div class="card-body pt-0">
+          <ul class="list-unstyled mb-4">
+            <li><b>{{plan.planName}}</b></li>
+            <li>Up to {{plan.numberofUsers}} users</li>
+            <li class="listing">{{plan.remark}}</li>
+          </ul>
+          <button type="button" data-target=".addplan" data-toggle="modal" (click)="getPlanDetails(plan)" class="btn btn-primary mb-3">Purchase Plan</button>
+        </div>
+      </div>
+    
+    </div> -->
+
+    <!-- <div class="row">
+        <div class="col col-md-4">
+            <div class="pricing card-deck flex-column flex-md-row mb-3 card_section">
+         
+     
+                <div *ngFor="let plan of pricingPlanList" class="card card-pricing text-center px-3 mb-4" >
+                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{plan.planName}}</span>
+                    <div class="bg-transparent card-header pt-4 border-0">
+                      <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="1200">$<span class="price">{{plan.planPrice}}</span>
+                        <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'month'">/ per month</span>
+                        <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'year'">/ per year</span>
+                      </h1>
+                    </div>
+                    <div class="card-body pt-0">
+                      <ul class="list-unstyled mb-4">
+                        <li>Up to {{plan.numberofUsers}} users</li>
+                        <li class="listing">{{plan.remark}}</li>
+                      </ul>
+                      <button type="button"  data-toggle="modal" data-target=".addplan" (click)="getPlanDetails(plan)" class="btn btn-primary mb-3">Purchse Plan</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      </div> -->
+
+ <!-- Deepak start  -->
+
+ <div class="pricing card-deck card_section mt-20" >
+    <div class="row">
+      <div class="col-lg-3" *ngFor="let plan of pricingPlanList">
+        <div   class="card card-pricing text-center px-3 mb-4" >
+          <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{plan.planName}}</span>
+          <div class="bg-transparent card-header pt-4 border-0">
+            <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="1200">$<span class="price">{{plan.planPrice}}</span>
+              <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'month'">/ per month</span>
+              <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'year'">/ per year</span>
+            </h1>
+          </div>
+          <div class="card-body pt-0">
+            <ul class="list-unstyled mb-4">
+              <li>Up to {{plan.numberofUsers}} users</li>
+              <li class="listing">{{plan.remark}}</li>
+              <!-- <li>Monthly updates</li>
+              <li>Free cancelation</li> -->
+            </ul>
+            <button type="button"  data-toggle="modal" data-target=".addplan" (click)="getPlanDetails(plan)" class="btn btn-primary mb-3">Purchase Plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+</div>
+
+  <!-- Deepak Stop -->
+    <!-- last -->
+  </div>
+
+  
+<div class="modal fade addplan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Purchase</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="planForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Agency</label>
+                <select formControlName="agencyid" class="form-control">
+                  <option value="">Select</option>
+                  <option *ngFor="let agency of agencyList" [value]="agency.id">{{agency.agencyName}}</option>
+                </select>
+                <div *ngIf="f.agencyid.invalid && (f.agencyid.dirty || f.agencyid.touched)" class="text-left errormsg">
+                    <span *ngIf="f.agencyid.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please select agency</span>
+                    </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-primary" (click)="subscribePlan()">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

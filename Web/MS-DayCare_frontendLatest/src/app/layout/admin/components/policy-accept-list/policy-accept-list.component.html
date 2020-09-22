@@ -1,0 +1,59 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ Agency List </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="generateAgencyCsvFile()" data-toggle="modal">Download CSV</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Agency List</h3>
+      </div>
+    </div>
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Agency Name</th>
+                  <th scope="col">Owner First Name</th>
+                  <th scope="col">Owner Last Name</th>
+                  <th scope="col">Registration Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let agency of agencyList">
+                  <td>{{agency.agencyName}}</td>
+                  <td>{{agency.ownerFirstName}}</td>
+                  <td>{{agency.ownerLastName}}</td>
+                  <td>{{agency.policyEULAAcceptDate | date:'medium'}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(agencyList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

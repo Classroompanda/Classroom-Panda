@@ -1,0 +1,91 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ DeactivateReasonList </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="clearDeactivateReasonForm()" data-toggle="modal"
+          data-target=".adddeactivatereason">Add Deactivate Reason</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Deactivate Reason List</h3>
+      </div>
+    </div>
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Deactivate Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let deactivateReason of deactivateReasonList">
+                  <td>{{deactivateReason.reason}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(deactivateReasonList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade adddeactivatereason" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Deactivate Reason</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="deactivateReasonForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Deactivate Reason*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="reason"
+                  placeholder="Deactivate Reason">
+                <div *ngIf="t.reason.invalid && (t.reason.dirty || t.reason.touched)" class="text-left errormsg">
+                  <span *ngIf="t.reason.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter deactivate reason</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveDeactivateReason()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

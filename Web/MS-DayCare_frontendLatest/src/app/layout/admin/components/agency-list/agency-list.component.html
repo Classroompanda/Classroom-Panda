@@ -1,0 +1,299 @@
+<div class="wrapper">
+    <div class="container-fluid">
+  
+      <div class="pagetitle">
+        <div>
+          <h2>Admin
+            <span>/ AgencyList </span>
+          </h2>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-send" (click)="clearForm()" data-toggle="modal" data-target=".addagency">Add Agency</button>
+          </div>
+      </div>
+  
+  
+      <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+        <div>
+          <h3>Agency List</h3>
+        </div>
+      </div>
+  
+      
+  
+          <div class="card cardfilter">
+            <div class="row algcenter">   
+               <div class="leftfilter">
+                <div class="search-date">
+                  <div class="pr15 label-text">Search Name : </div>
+                  <input type="text" placeholder="Search Agency Name" (keydown)="keyDownFunction($event)" [(ngModel)]="nameSearch"
+                    class="form-control mr15" id="">
+                </div>
+              </div>
+            </div>
+          </div>
+      
+
+  
+      <ul class="nav nav-pills mt-20" id="pills-tab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="appAgency" data-toggle="pill" href="#pills-appAgency" (click)="this.getUserStatus(1);" role="tab" aria-controls="pills-appAgency"
+              aria-selected="true">Approve Agency</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="penAgency" data-toggle="pill" href="#pills-penAgency" role="tab" (click)="this.getUserStatus(0);" aria-controls="pills-penAgency"
+              aria-selected="false">Unapprove Agency</a>
+          </li>
+        </ul>
+  
+  
+      <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appAgency" role="tabpanel" aria-labelledby="appAgency">
+    
+            <div class="innertable">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr >
+                                   
+                      <th scope="col">Agency</th>
+                      <th scope="col">Owner</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">City</th>
+                      <th scope="col">State</th>                     
+                      <th class="text-center" scope="col">Actions</th>
+                      <th scope="col" class="text-center">Change Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let agency of agencyList">                      
+                      <td>{{agency.agencyName}}</td>
+                      <td>{{agency.ownerName}}</td>
+                      <td>{{agency.emailId}}</td>
+                      <td>{{agency.cityName}} </td>
+                      <td>{{agency.stateName}}</td>                
+                      <td class="text-center">
+                        <a (click)="getAgencyDetials(agency)" title="View/update" data-toggle="modal" data-target=".addagency">
+                          <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>                       
+                      </td>
+
+                      <td class="text-center" >
+                        <button class="form-control" *ngIf="!agency.isDeleted"   class="btn btn-warning"
+                          (click)="deleteAgency(agency)">Deactivate</button>
+                        <button class="form-control" *ngIf="agency.isDeleted" class="btn btn-success"
+                          (click)="activateAgency(agency)">Activate</button>
+                      </td>
+                    </tr> 
+                  </tbody>
+                </table>
+                <div class="text-center">
+                    <span class="text-center" *ngIf="(agencyList.length == 0 && !loader)">No record found</span>
+                  </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+          </div>
+          <div class="tab-pane fade " id="pills-penAgency" role="tabpanel" aria-labelledby="penAgency">
+            <div class="innertable">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr >                  
+                      <th scope="col">Agency</th>
+                      <th scope="col">Owner</th>
+                      <th>Email</th>
+                      <th>City</th>
+                      <th>State</th>                    
+                      <th class="text-center" scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let agency of agencyList">                  
+                      <td> {{agency.agencyName}}</td>
+                      <td>{{agency.ownerName}}</td>
+                      <td>{{agency.emailId}}</td>
+                      <td>{{agency.cityName}} </td>
+                      <td>{{agency.stateName}}</td>                
+                      <td class="text-center">
+                        <div class="form-group">                         
+                          <button   class="form-control" class="btn btn-success"
+                          (click)="approvedDenyRequest($event,agency)">Approve</button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span class="text-center" *ngIf="(agencyList.length == 0 && !loader)">No record found</span>
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>       
+    </div>
+  </div>
+  
+  
+  <div class="modal fade addagency " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">{{addMode ? 'Add New Agency' : 'Agency Details'}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="agencyForm">
+            <div class="row mb-20 mt-20">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="">Agency Name*</label>
+                  <input type="text "   class="form-control" id="" aria-describedby="" formControlName="agencyname" placeholder="Agency Name">
+                  <div *ngIf="f.agencyname.invalid && (f.agencyname.dirty || f.agencyname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.agencyname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter agency name</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+  
+  
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Agency Email*</label>
+                  <input type="email " class="form-control" *ngIf="addMode" id="" aria-describedby="" formControlName="email" placeholder="Email Address">
+                  <input type="email " class="form-control" *ngIf="!addMode" id="" disabled aria-describedby="" formControlName="email" placeholder="Email Address">
+                  <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                      <span *ngIf="f.email.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                      </span>
+                      <span *ngIf="f.email.errors.pattern">
+                          <i class="fa fa-exclamation-circle errtext" ></i> <span class="errtext"> Please enter valid email address</span> 
+                      </span>
+                    </div>
+                
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Agency Phone*</label>
+                  <input type="text"  maxlength="10" (keypress)="commonService.allowOnlyNumber($event)"  class="form-control" id="" aria-describedby="" formControlName="phone" placeholder="phone">
+                  <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)" class="text-left errormsg">
+                      <span *ngIf="f.phone.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">First Name*</label>
+                  <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" class="form-control" id="" aria-describedby="" formControlName="firstname" placeholder="First Name">
+                  <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.firstname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter first name</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Last Name*</label>
+                  <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)" id="" aria-describedby="" formControlName="lastname" placeholder="Last Name">
+                  <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)" class="text-left errormsg">
+                      <span *ngIf="f.lastname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-20">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label for="">Address*</label>
+                  <input type="text " class="form-control" id="" aria-describedby="" formControlName="address" placeholder="Address">
+                  <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)" class="text-left errormsg">
+                      <span *ngIf="f.address.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                      </span>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-20">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Country*</label>                      
+                      <select class="form-control" placeholder="Country" formControlName="country"
+                      id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                      <option value="">Select Country</option>
+                      <option *ngFor="let countries of countryList" [value]="countries.id" >{{countries.countryName}}</option>
+                    </select>
+                    <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="text-left errormsg">
+                      <span *ngIf="f.country.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                      </span>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                          <label for="exampleFormControlSelect1">State*</label>
+                          <select class="form-control" placeholder="State" formControlName="state"
+                          id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                          <option value="">Select State</option>
+                          <option *ngFor="let states of stateList" [value]="states.id" >{{states.stateName}}</option>
+                        </select>
+                        <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                          <span *ngIf="f.state.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                          </span>
+                        </div>
+                        </div>
+                  </div>
+                  </div>
+                  <div class="row mb-20">
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">City*</label>                       
+                        <select class="form-control" placeholder="City" formControlName="city"
+                        id="exampleFormControlSelect1" >
+                        <option value="">Select City</option>
+                        <option *ngFor="let cities of cityList" [value]="cities.id" >{{cities.cityName}}</option>
+                      </select>
+                      <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                        <span *ngIf="f.city.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                        </span>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="">Zip Code</label>
+                          <input type="text " maxlength="6" class="form-control" id="" formControlName="zipcode" aria-describedby="" placeholder="Enter Zip Code">
+                        </div>
+                      </div>
+                    </div>
+            
+           
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="verifyAgency()">{{ addMode? 'Add' : 'Save Changes'}}</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <app-confirm-box></app-confirm-box>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

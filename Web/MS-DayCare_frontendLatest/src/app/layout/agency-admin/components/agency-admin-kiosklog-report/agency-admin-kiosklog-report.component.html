@@ -1,0 +1,127 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Report
+          <span>/ Kiosk Details </span>
+        </h2>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Kiosk Details Report</h3>
+      </div>
+      <div style="cursor:pointer" title="Download report" (click)="pdfReportForClassAttendence()"><i
+          class="fa fa-download" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <!-- <div class="col-lg-10"> -->
+      <div class="leftfilter">
+        <div class="row algcenter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search student name" [(ngModel)]="searchByStudentName"
+              class="form-control mr15" id="">
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">From Date : </div>
+            <input type="text" placeholder="Search by date" [(ngModel)]="fromDate" showWeekNumbers="false"
+              class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+          </div>
+          <div class="search-date">
+            <div class="pr15 label-text">To Date : </div>
+            <input type="text" placeholder="Search by date" [(ngModel)]="toDate" showWeekNumbers="false"
+              class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" *ngIf="!showClearBtn" (click)="search()">Search</button>
+            <button type="submit" class="btn btn-secondary" *ngIf="showClearBtn" (click)="clearSearch()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="studentlist">
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+            <div class="innertable studentListSearch">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Student Name</th>
+                      <th scope="col">Date</th>
+                      <th scope="col" class="text-center">Check-In Time</th>
+                      <th scope="col" class="text-center">Check-Out Time</th>
+                      <th scope="col" class="text-center">Update Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let report of reportList">
+                      <td>{{report.studentName}}</td>
+                      <td *ngIf="report.checkInTime != '0001-01-01T00:00:00'">{{report.checkInTime | date}}</td>
+                      <td *ngIf="report.checkOutTime != '0001-01-01T00:00:00'">{{report.checkOutTime | date}}</td>
+                      <td class="text-center">
+                        <p *ngIf="report.checkInTime != '0001-01-01T00:00:00'"> {{report.checkInTime| date:'hh:mm a'}}
+                        </p>
+                        <p *ngIf="report.checkInTime == '0001-01-01T00:00:00'"> --- </p>
+                      </td>
+                      <td class="text-center">
+                        <p *ngIf="report.checkOutTime == '0001-01-01T00:00:00'"> --- </p>
+                        <p *ngIf="report.checkOutTime != '0001-01-01T00:00:00'">
+                          {{report.checkOutTime| date: 'hh:mm a'}}</p>
+                      </td>
+                      <td class="text-center">
+                      <button class="btn btn-info" (click)="getDetailsToUpdateTime(report)" >Update Time</button>
+                     
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span *ngIf="reportList.length == 0 && !loader" class="text-center">No result found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+                (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+
+            <!-- Update time Modal -->
+            <div class="modal fade timeupdate" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+              role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{updateTimeTitle}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label>Time</label>
+                      <p-calendar class="custom-textbox-checkedin" id="clkout" styleClass="form-control"
+                        [(ngModel)]="timetoUpdate"  hourFormat="12" [timeOnly]="true" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                    </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="UpdateClockeOutTime()">Update</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+  <app-confirm-box></app-confirm-box>
+  

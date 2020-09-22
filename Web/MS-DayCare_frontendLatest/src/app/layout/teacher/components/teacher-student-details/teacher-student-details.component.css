@@ -1,0 +1,10 @@
+.guardianinfo .checkboxcustom {color: #333;}
+.guardianinfo .checkboxcustom input{width: 17px;height: 17px}
+
+
+.borderbtm {
+    border-bottom: 5px solid red;
+}
+.stud-details .nav-link {
+    border-radius: 10px 10px 0 0;
+}

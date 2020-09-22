@@ -1,0 +1,13 @@
+.an-nav-item img{width : 25px; margin-right: 8px }
+.nav-title{color:#fff}
+@media (min-width:768px) and (max-width:1024px) {
+    .an-sidebar-nav {padding: 20px 0 40px 0;}
+}
+
+.inbox_chat1 
+{ 
+  height: 550px;
+  overflow-y: scroll;  
+  color: red;
+}
+

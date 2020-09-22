@@ -1,0 +1,69 @@
+<div class="wrapper">
+    <div class="container-fluid">
+  
+      <div class="pagetitle">
+        <div>
+          <h2>Admin
+            <span>/ PlanPage </span>
+          </h2>
+        </div>
+      </div>
+  
+      <div class="d-flex justify-content-between align-items-center mt-20 subhead mb-20">
+        <div>
+          <h3>Pricing Plan</h3>
+        </div>
+        <div>         
+        </div>
+      </div>  
+            
+
+            <div class="pricing card-deck card_section mt-20" >
+              <div class="row">
+                <div class="col-lg-3" *ngFor="let plan of pricingPlanList">
+                  <div   class="card card-pricing text-center px-3 mb-4" >
+                    <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">{{plan.planName}}</span>
+                              
+                    <span class="active-plan" *ngIf="plan.isActive"> Plan Currently Active</span>
+                    
+                    <div class="bg-transparent card-header pt-4 border-0">
+                      <h1 class="h1 font-weight-normal text-primary text-center mb-0" data-pricing-value="1200">$<span class="price">{{plan.planPrice}}</span>
+                        <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'month'">/ per month</span>
+                        <span class="h6 text-muted ml-2" *ngIf="plan.frequency == 'year'">/ per year</span>
+                      </h1>
+                    </div>
+                    <div class="card-body pt-0">
+                      <ul class="list-unstyled mb-4">
+                        <li>Up to {{plan.numberofUsers}} users</li>
+                        <li class="listing">{{plan.remark}}</li>                       
+                      </ul>                                        
+                      
+                      <button type="button"  data-toggle="modal" (click)="openCheckout(plan)" class="btn btn-primary mb-3">Purchase Plan</button>
+                    </div>
+                  </div>
+                </div>
+              </div>   
+          </div>     
+    </div>
+  
+    
+  <div class="modal fade addplan"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Logout</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <b>Please logout and login again to activate your subscription!</b>
+        </div>
+        <div class="modal-footer">
+          <button type="button"  class="btn btn-primary" (click)="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+  </div>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

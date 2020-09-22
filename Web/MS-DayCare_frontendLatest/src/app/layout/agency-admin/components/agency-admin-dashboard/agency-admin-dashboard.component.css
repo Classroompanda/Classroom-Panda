@@ -1,0 +1,40 @@
+#editactivity .nav-link img,#editmeal .nav-link img, #edithealth .nav-link img,#editpost .nav-link img { height:  25px}
+.align_Class{
+  align-content: center;
+  text-align: center;
+}
+
+
+
+.currntcls {
+    padding: 18px;
+    box-shadow: 0 0 5px 0 #ccc;
+    background: #fdfdfd;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    margin-top: 20px;
+  }
+  .currntcls .title {
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .title span.month {
+    color: #969696;
+    display: block;
+  }
+  .title span.day {
+    font-size: 12px;
+  }
+  .title span.date {
+    display: block;
+    width: 100%;
+    color: #ff6c6c;
+    font-size: 60px;
+    padding: 0;
+    margin: 0;
+    line-height: 48px;
+  }

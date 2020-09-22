@@ -1,0 +1,698 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2> Attendance         
+        </h2>
+      </div>
+    </div>
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>{{className}}</h3>
+      </div>
+      <div class="info-icon">
+        <i class="fa fa-info-circle" (click)="OpenInfoVideo()" data-toggle="modal"
+           aria-hidden="true" title="Information Video"></i>
+      </div>
+    </div>
+
+
+
+    <div class="card cardfilter">    
+      <div class="row algcenter">
+          <div class="leftfilter">
+                <div class="search-date">
+                  <div class="pr15 label-text">Search Date : </div>
+                  <input type="text" placeholder="Search by date" [(ngModel)]="searchDate" (bsValueChange)="getSerchDate($event)" showWeekNumbers="false"
+                     class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                    </div>
+              <div class="search-class">
+                <div class="pr15 label-text"> Search Class : </div>
+                <div class="pr15">
+                  <div class="form-group">
+                    <select class="form-control" placeholder="Serch" (change)="getAttendenceList()" [(ngModel)]="serchByClass"  id="exampleFormControlSelect1">
+                      <option value="">Select class</option>
+                      <option *ngFor="let classes of classList" [value]="classes.classesID">{{classes.className}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="filter-buttons">
+                <button type="submit" class="btn btn-send" (click)="getAttendenceList()">Search</button>
+              </div>
+            </div>
+            
+      </div>
+    </div>
+
+
+
+
+
+    <div class="innertable studentListSearch">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>              
+              <th>Image</th>             
+              <th scope="col">Student Name</th>
+              <th scope="col">Status</th>
+              <th scope="col">Attendance</th>
+              <th class="text-ceneter">Edit Time</th>
+              <th>Absent Reason </th>
+              <th>Transfer</th>
+              <th class="text-center">Break Status</th>
+              <th>Break Log</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="studentList.length != 0">
+            <tr *ngFor="let students of studentList">
+              <td *ngIf="students.imagePath != ''">
+                <img src="{{students.imagePath}}" alt="" class="img-circle childimg">
+              </td>
+              <td *ngIf="students.imagePath == ''">
+                <img src="assets/img/user.png" alt="" class="img-circle childimg">
+              </td>             
+              <td style="cursor:pointer">{{students.studentName}}</td>
+              <td> <span *ngIf="students.attendenceStatusID == 2">Attendance Not Done Yet</span>
+                <span *ngIf="students.attendenceStatusID == 3">Checked In</span>
+                <span *ngIf="students.attendenceStatusID == 4">Checked Out</span>
+                <span *ngIf="students.attendenceStatusID == 5">Absent</span>
+              <td>
+                <div *ngIf="students.attendenceStatusID != 4">
+                  <input class="tgl tgl-flip" id="cb5" type="checkbox"/>                 
+                  <button class="btn btn-info" *ngIf="students.attendenceStatusID == 2" data-toggle="modal" data-target="#checkin"
+                    (click)="getStudentDetails(students)">Check In</button>
+                    <button class="btn btn-success attbtn" *ngIf="students.attendenceStatusID == 3 && students.breakStatusId != 1" data-toggle="modal"
+                    data-target="#checkout" (click)="getStudentDetails(students)">Check
+                    Out</button>
+
+                    <button class="btn btn-success attbtn" title="Student is on break" *ngIf="students.attendenceStatusID == 3 && students.breakStatusId == 1" disabled style="cursor: not-allowed"
+                     >Check
+                    Out</button>
+                </div>
+                <div *ngIf="(students.attendenceStatusID == 4 || students.attendenceStatusID == 5)">
+                  <button class="btn btn-warning" [disabled]="true" style="cursor:not-allowed">Submitted</button>
+                </div>
+              </td>
+              <td class="text-ceneter">
+                <div>
+                  <a data-toggle="modal" data-target="#edittimecheckout" class="attedit" title="Edit checked out time "
+                    *ngIf="students.attendenceStatusID == 4" (click)="getEditCheckOutDetails(students)"><i class="fa fa-pencil attend1"></i></a>
+                  <a data-toggle="modal" data-target="#edittimecheckin" class="attedit" title="Edit checked in time "
+                    *ngIf="students.attendenceStatusID == 3" (click)="getEditCheckinDetails(students)"><i class="fa fa-pencil attend1"></i></a>
+                </div>
+              </td>
+              <td>
+                <div class="button-wrap" *ngIf="students.attendenceStatusID == 2 || students.attendenceStatusID == 5">
+                 
+                  <button class="btn btn-success" data-toggle="modal" data-target="#excuse" (click)="getAbsentStudentDetails(students)">Absent
+                  </button>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="(students.attendenceStatusID == 2 || students.attendenceStatusID == 3)">
+                      <button class="btn btn-info attbtn" *ngIf="showTransferButton" (click)="getStudentDetailsForTranfer(students)"  >Transfer</button>
+                    <button class="btn btn-info attbtn" *ngIf="!showTransferButton" disabled >Transfer</button>
+                  </div>
+              </td>
+
+
+              <td class="text-center">
+                <label for="" *ngIf="students.breakStatusId == 1" style="color: #d61313; cursor: pointer" >On Break</label>
+              </td>
+              <td>
+                  <a  style="color: #58A7FE; cursor: pointer"   (click)="goToBreak(students)">View break </a> 
+                  
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="studentList.length == 0 && !loader">No result found</span>
+        </div>
+      </div>      
+
+      <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)"
+      ></p-paginator>
+    </div>
+
+
+    <!-- Absent Modal -->
+    <div class="modal fade" id="excuse" tabindex="-1" role="dialog" aria-labelledby="excuseLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="excuseLabel">Add Absent Reason</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="absentForm">             
+              <div class="d-flex">
+              </div>
+
+              <div class="row mb-20">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="">Absent Due To</label>                    
+                    <select class="form-control" formControlName="absentreason" (change)="getAbsentReasonId($event)" id="exampleFormControlSelect1">
+                      <option value="">Select Reason</option>
+                      <option *ngFor="let reason of absentReasonList" [value]="reason.leaveReasonTypeID">{{reason.leaveReasonTypeName}}</option>
+                    </select>
+                    <div *ngIf="absentreason.invalid && (absentreason.dirty || absentreason.touched)" class="text-left errormsg">
+                      <span *ngIf="absentreason.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select reason</span>
+                      </span>
+                    </div>
+                    <div class="form-group mt-20" *ngIf="showUndoAbsent">
+                      <label class="checkboxcustom "><input type="checkbox" (click)="UndoAbsent($event)">
+                        <span class="checkmark"></span> &nbsp;&nbsp;&nbsp; Undo Absent
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+              </div>
+
+              <div *ngIf="showOtherAbsentReason">
+                <textarea name="" formControlName="other" id="" cols="5" rows="10" placeholder="Absent due to"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" [disabled]="!absentForm.valid" (click)="saveAbsentData()">Save
+              changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CheckIn Model -->
+    <div class="modal fade" id="checkin" tabindex="-1" role="dialog" aria-labelledby="checkinLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinLabel">Update Attendance </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form [formGroup]="checkInForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="text" placeholder="Date" formControlName="indate" showWeekNumbers="false" 
+                      class="form-control" [bsConfig]="dpConfig" bsDatepicker [attr.disabled]="true">
+                    <div class="form-group">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Class </label>
+                    <input type="text " formControlName="inclass" class="form-control" id="" aria-describedby=""
+                      [readonly]="true">
+                    <div *ngIf="inclass.invalid && (inclass.dirty || inclass.touched)" class="text-left errormsg">
+                      <span *ngIf="inclass.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter class name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Drop-off By</label>                  
+                    <div class="form-group">
+                      <select class="form-control" formControlName="dropby" (change)="getDropOfDropDownValue($event.target.value)"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select option</option>
+                        <option *ngFor="let guardians of guardiansList" [value]="guardians.guardianId">{{guardians.guardianName}}</option>
+                      </select>
+                      <div *ngIf="dropby.invalid && (dropby.dirty || dropby.touched)" class="text-left errormsg">
+                        <span *ngIf="dropby.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option from list</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Checked-in time</label>                    
+                    <p-calendar class="custom-textbox-checkedin" styleClass="form-control" formControlName="intime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" [disabled]="!checkInForm.valid" (click)="saveCheckInDetails()">Save
+              changes</button>           
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CheckOut Model -->
+    <div class="modal fade" id="checkout" tabindex="-1" role="dialog" aria-labelledby="checkOutLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkoutLabel">Update Attendance </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form [formGroup]="checkOutForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date</label>
+
+                    <input type="text" placeholder="Date" formControlName="outdate" showWeekNumbers="false" 
+                      class="form-control" [bsConfig]="dpConfig" bsDatepicker [attr.disabled]="true">
+                    <div class="form-group">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Class </label>
+                    <input type="text " formControlName="outclass" class="form-control" id="" aria-describedby=""
+                      [readOnly]="true">
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Save checked out form  -->
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Picked Up By</label>
+                    <select class="form-control" formControlName="pickupby" (change)="getPickUpDropDownValue($event.target.value)"
+                      id="exampleFormControlSelect1">
+                      <option value="">Select option</option>
+                      <option *ngFor="let guardians of guardiansList" [value]="guardians.guardianId">{{guardians.guardianName}}</option>
+                    </select>
+                    <div *ngIf="pickupby.invalid && (pickupby.dirty || pickupby.touched)" class="text-left errormsg">
+                      <span *ngIf="pickupby.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option from list</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Checked-out time</label>                   
+                    <p-calendar styleClass="form-control" class="custom-textbox-checkedin" formControlName="outtime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" [disabled]="!checkOutForm.valid" (click)="saveCheckOutDetails()">Save
+              changes</button>          
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Time modal  -->
+    <div class="modal fade" id="edittime" tabindex="-1" role="dialog" aria-labelledby="checkinLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinLabel">Excuse</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form [formGroup]="excuseForm">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Student ID</label>
+                    <input type="text " class="form-control" formControlName="studentid" id="" aria-describedby=""
+                      placeholder="#123456" [attr.disabled]="true">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Student Name</label>
+                    <input type="text " class="form-control" formControlName="studentname" id="" aria-describedby=""
+                      placeholder="Student Name">
+                    <div *ngIf="studentname.invalid && (studentname.dirty || studentname.touched)" class="text-left errormsg">
+                      <span *ngIf="studentname.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter student name</span>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Start Time</label>                   
+                    <p-calendar [timeOnly]="true" hourFormat="12" class="custom-textbox-checkedin" styleClass="form-control" formControlName="starttime" placeholder="Select start time"></p-calendar>
+                    <div *ngIf="starttime.invalid && (starttime.dirty || starttime.touched)" class="text-left errormsg">
+                      <span *ngIf="starttime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter start time</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Until</label>                   
+                    <p-calendar [timeOnly]="true" hourFormat="12" class="custom-textbox-checkedin" styleClass="form-control" formControlName="endtime" placeholder="Select end time"></p-calendar>
+                    <div *ngIf="endtime.invalid && (endtime.dirty || endtime.touched)" class="text-left errormsg">
+                      <span *ngIf="endtime.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter end time</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" disabled="!excuseForm.valid" (click)="saveExuseData($event)">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Time Checked In -->
+    <div class="modal fade" id="edittimecheckin" tabindex="-1" role="dialog" aria-labelledby="checkinLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="checkinLabel">Update Attendance </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="checkInForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="text" placeholder="Date" formControlName="indate" showWeekNumbers="false" 
+                      class="form-control" [bsConfig]="dpConfig" bsDatepicker [attr.disabled]="true">
+                    <div class="form-group">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Class </label>
+                    <input type="text " formControlName="inclass" class="form-control" id="" aria-describedby=""
+                      [readonly]="true">
+                    <div *ngIf="inclass.invalid && (inclass.dirty || inclass.touched)" class="text-left errormsg">
+                      <span *ngIf="inclass.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter class name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Drop-off By</label>
+                    <div class="form-group">
+                      <select class="form-control" formControlName="dropby" (change)="getDropOfDropDownValue($event.target.value)"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select option</option>
+                        <option *ngFor="let guardians of guardiansList" [value]="guardians.guardianId">{{guardians.guardianName}}</option>
+                      </select>
+                      <div *ngIf="dropby.invalid && (dropby.dirty || dropby.touched)" class="text-left errormsg">
+                        <span *ngIf="dropby.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option from list</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Checked-in time </label>
+                    <p-calendar class="custom-textbox-checkedin" styleClass="form-control" hourFormat="12" formControlName="intime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" [disabled]="!checkInForm.valid" (click)="updateCheckInDetails()">Save
+              changes</button>
+          </div>
+        </div>
+      </div>
+    </div>  
+  
+<!-- last added model for in and out -->
+<div class="modal fade" id="edittimecheckout" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel  " aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutLabel">Update Attendance </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" >
+            <a class="nav-link active" id="checkout-tab" (click)="getCheckOutTabDetails('checkouttab')" data-toggle="tab" href="#chekoutedit" role="tab"
+              aria-controls="editcheckout1" aria-selected="false">
+             Checked out
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="checkin-tab"  (click)="getCheckInTabDetails('checkintab')"  data-toggle="tab" href="#chekinedit" role="tab" aria-controls="meal"
+              aria-selected="false">
+              Checked In
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="chekoutedit" role="tabpanel" aria-labelledby="checkout-tab">
+            <form [formGroup]="checkOutForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="text" placeholder="Date" formControlName="outdate" showWeekNumbers="false" 
+                      class="form-control" [bsConfig]="dpConfig" bsDatepicker [attr.disabled]="true">
+                    <div class="form-group">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Class </label>
+                    <input type="text " formControlName="outclass" class="form-control" id="" aria-describedby=""
+                      [readOnly]="true">
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- Checked out update -->
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Picked Up By</label>
+                    <select class="form-control" formControlName="pickupby" (change)="getPickUpDropDownValue($event.target.value)"
+                      id="exampleFormControlSelect1">
+                      <option value="">Select option</option>
+                      <option *ngFor="let guardians of guardiansList" [value]="guardians.guardianId">{{guardians.guardianName}}</option>
+                    </select>
+                    <div *ngIf="pickupby.invalid && (pickupby.dirty || pickupby.touched)" class="text-left errormsg">
+                      <span *ngIf="pickupby.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option from list</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Checked-out time</label>
+                    <p-calendar class="custom-textbox-checkedin" styleClass="form-control" formControlName="outtime" hourFormat="12" [timeOnly]="true" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane" id="chekinedit" role="tabpanel" aria-labelledby="checkin-tab">
+            <form [formGroup]="checkInForm">
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date</label>
+                    <input type="text" placeholder="Date" formControlName="indate" showWeekNumbers="false" 
+                      class="form-control" [bsConfig]="dpConfig" bsDatepicker [attr.disabled]="true">
+                    <div class="form-group">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Class </label>
+                    <input type="text " formControlName="inclass" class="form-control" id="" aria-describedby=""
+                      [readonly]="true">
+                    <div *ngIf="inclass.invalid && (inclass.dirty || inclass.touched)" class="text-left errormsg">
+                      <span *ngIf="inclass.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter class name</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-20 mt-20">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Drop-off By</label>
+                    <div class="form-group">
+                      <select class="form-control" formControlName="dropby" (change)="getDropOfDropDownValue($event.target.value)"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select option</option>
+                        <option *ngFor="let guardians of guardiansList" [value]="guardians.guardianId">{{guardians.guardianName}}</option>
+                      </select>
+                      <div *ngIf="dropby.invalid && (dropby.dirty || dropby.touched)" class="text-left errormsg">
+                        <span *ngIf="dropby.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select option from list</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Checked-in time </label>
+                    <p-calendar class="custom-textbox-checkedin" styleClass="form-control" formControlName="intime" [timeOnly]="true" hourFormat="12" icon="pi pi-clock"
+                      [showIcon]="true"></p-calendar>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" *ngIf="isSubscriptionActive" class="btn btn-primary" data-dismiss="modal" [disabled]="!checkOutForm.valid" (click)="updateCheckInAndOutModal()">Save
+          changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- For Information Video -->
+<div class="modal fade" id="infovideo" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutLabel">Information Video</h5>
+        <button type="button" *ngIf="videoPath" class="close" (click)= "PauseInfoVideo()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <button type="button" *ngIf="!videoPath" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="cont video_section_pop" *ngIf="videoPath">
+          <video controls id="pausevideo">
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/mp4" />
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/ogg" />
+            <source *ngIf="videoPath" [src] = "videoPath" type="video/webm" />
+            Browser not supported
+          </video>
+        </div>
+
+        <div class="cont video_section_pop" *ngIf="!videoPath">
+            Video Not Found
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+   <!-- Modal for class transfer of student -->
+   <div class="modal fade" id="transfer" tabindex="-1" role="dialog" aria-labelledby="checkoutLabel  "
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="checkoutLabel">Transfer Student</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">        
+           <div class="d-flex">
+           </div>
+           <div class="row mb-20">
+             <div class="col-lg-12">
+               <div>
+                 <label for="">Select Class*</label>
+                 <select class="form-control" placeholder="Search" [(ngModel)]="selectClass" id="exampleFormControlSelect1">
+                     <option value="">Select class</option>
+                     <option *ngFor="let classes of transferclasses" [value]="classes.classesID">{{classes.className}}</option>
+                   </select>
+               </div>
+             </div>
+           </div>
+           <div>
+           </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="button" class="btn btn-primary"  (click)="getStudentClassTransferReport()">Save
+           changes</button>
+       </div>
+     </div>
+   </div>
+ </div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+<app-confirm-box></app-confirm-box>

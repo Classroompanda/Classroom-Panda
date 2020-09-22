@@ -1,0 +1,392 @@
+<header class="an-header wow fadeInDown">
+  <div class="an-topbar-left-part">
+    <h3 class="an-logo-heading">
+      <a class="an-logo-link" href="index.html">
+        <img src="assets/img/logo-new.png" alt="">
+      </a>
+    </h3>
+    <button class="an-btn an-btn-icon toggle-button js-toggle-sidebar " id="toggleButtons" (click)="toggleSidebar();">
+      <i class="fa fa-bars"></i>
+    </button>
+  </div>
+  <!-- end .AN-TOPBAR-LEFT-PART -->
+
+  <div class="an-topbar-right-part">
+    <div class="an-notifications bell-notif">
+      <div class="btn-group an-notifications-dropown notifications">
+        <!-- <button type="button" class="an-btn an-btn-icon dropdown-toggle js-has-new-notification" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="fa fa-bell"></i>
+        </button> -->
+        <div class="dropdown-menu">
+          <p class="an-info-count">Notifications
+            <span>3</span>
+          </p>
+          <div class="an-info-content notifications-info notifications-content">
+            <div class="an-info-single unread">
+              <a href="#">
+                <span class="icon-container important">
+                  <i class="icon-setting"></i>
+                </span>
+                <div class="info-content">
+                  <h5 class="user-name">Settings updated</h5>
+                  <p class="content">
+                    <i class="icon-clock"></i> 30 min ago</p>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single unread">
+              <a href="#">
+                <!-- <span class="icon-container success">
+                  <i class="fa fa-bell-o"></i>
+                </span> -->
+                <div class="info-content">
+                  <h5 class="user-name">5 Orders placed</h5>
+                  <p class="content">
+                    <i class="icon-clock"></i> 1 hour ago</p>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="icon-container warning">
+                  <i class="icon-alerm"></i>
+                </span>
+                <div class="info-content">
+                  <h5 class="user-name">This is warning notification</h5>
+                  <p class="content">
+                    <i class="icon-clock"></i> 1 hour ago</p>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="icon-container danger">
+                  <i class="icon-danger"></i>
+                </span>
+                <div class="info-content">
+                  <h5 class="user-name">Server loaded by 98% please recover soon</h5>
+                  <p class="content">
+                    <i class="icon-clock"></i> 1 hour ago</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="an-info-show-all-btn">
+            <a class="an-btn an-btn-transparent fluid rounded uppercase small-font" href="#">Show all</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end .AN-NOTIFICATION -->
+
+    <!-- <div class="an-messages">
+      <div class="btn-group an-notifications-dropown messages">
+        <button type="button" class="an-btn an-btn-icon dropdown-toggle js-has-new-messages"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="ion-ios-email-outline"></i>
+        </button>
+        <div class="dropdown-menu">
+          <p class="an-info-count">Messages <span>3</span></p>
+          <div class="an-info-content notifications-info">
+            <div class="an-info-single unread">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user1.jpeg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Ana malik</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>15:28</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single unread">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user2.jpg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Jackson Fred</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>4:54</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user3.jpeg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Emma Watson</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>28 Sep</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user4.jpeg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Elina</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>28 Sep</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user5.jpeg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Jack Elison</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>20 Sep</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="an-info-single">
+              <a href="#">
+                <span class="user-img" style="background-image: url('./assets/img/users/user6.jpeg')"></span>
+                <div class="info-content">
+                  <h5 class="user-name">Lara Smith</h5>
+                  <p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+                  <span class="info-time"><i class="icon-clock"></i>10 Sep</span>
+                </div>
+              </a>
+            </div>
+          </div>
+           end .AN-INFO-CONTENT
+
+          <div class="an-info-show-all-btn">
+            <a class="an-btn an-btn-transparent fluid rounded uppercase small-font" href="#">Show all</a>
+          </div>
+        </div>
+      </div>
+    </div> 
+    end .AN-MESSAGE -->
+
+    <div class="an-profile-settings" *ngIf="kiosklogn != true">
+      <div class="btn-group an-notifications-dropown  profile">
+        <button type="button" class="an-btn an-btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="an-user-name">{{userName}}</span>
+          <!-- <span class="an-profile-img" style="background-image: url('./assets/img/users/user5.jpg');"></span> -->
+          <!-- <span class="an-profile-img" [ngStyle]="{ 'background-image': 'url(' + profileImage + ')'}" onError="this.src='assets/img/user.png'"></span> -->
+          <span>
+            <img src="{{profileImage}}" alt="" srcset="" class="an-profile-img"
+              onError="this.src='assets/img/user.png'">
+          </span>
+          <span class="an-arrow-nav">
+            <i class="icon-arrow-down"></i>
+          </span>
+        </button>
+        <div class="dropdown-menu">
+          <p class="an-info-count" *ngIf="kiosklogn != true">Profile Settings</p>
+          <p class="an-info-count" *ngIf="kiosklogn == true">Logout</p>
+          <ul class="an-profile-list">
+            <li>
+              <a *ngIf="(userType == 3 )" [routerLink]="['/home/teacherdashboard/profile/',userRelaventId]">
+                <!-- <img src="assets/img/calendar2.svg" alt="" width="15px"> Calendar</a> -->
+                <!-- <i class="fa fa-user" aria-hidden="true"></i>Profile -->
+                <img src="assets/img/profile.png">Profile
+              </a>
+              <a *ngIf="(userType == 4 && kiosklogn != true)"
+                [routerLink]="['/home/parentdashboard/parentprofile/',userRelaventId]">
+                <!-- <img src="assets/img/calendar2.svg" alt="" width="15px"> Calendar</a> -->
+                <!-- <i class="fa fa-user" aria-hidden="true"></i>Profile -->
+                <img src="assets/img/profile.png">Profile
+              </a>
+              <a *ngIf="(userType == 2 )" [routerLink]="['/home/agencydashboard/profile/',userRelaventId]">
+                <!-- <img src="assets/img/calendar2.svg" alt="" width="15px"> Calendar</a> -->
+                <!-- <i class="fa fa-user" aria-hidden="true"></i>Profile -->
+                <img src="assets/img/profile.png">Profile
+              </a>
+              <a [routerLink]="['/home/global']" *ngIf="kiosklogn != true">
+                <i class="fa fa-key" aria-hidden="true"></i>Reset Password
+              </a>
+            </li>
+            <!-- <li>
+                <a >
+                  <img src="assets/img/calendar-new.png">Calendar
+                </a>
+              </li> -->
+            <li *ngIf="userType != 1 && kiosklogn != true">
+              <a (click)="clearNotificationForm()" data-toggle="modal" data-toggle="modal"
+                data-target="#notificationsound">
+                <i class="fa fa-bell" aria-hidden="true"></i>Notifications Setting
+              </a>
+            </li>
+
+            <li *ngIf="(userType == 3 && (teacherBreakStatus == 0 || teacherBreakStatus == 2))">
+              <a (click)="clearBreakReason()" data-toggle="modal" data-toggle="modal" data-target="#breakout">
+                <!-- <img src="assets/img/calendar2.svg" alt="" width="15px"> Calendar</a> -->
+                <i class="fa fa-sign-out" aria-hidden="true"></i>Break Out
+              </a>
+            </li>
+
+            <!-- <li *ngIf="(userType == 3 && (teacherBreakStatus == 1))">
+                  <a  data-toggle="modal" data-toggle="modal" data-target="#breakin">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>Break In
+                  </a>
+                </li> -->
+
+            <li *ngIf="userType == 3">
+              <a (click)="teacherClockOut(2)">
+                <!-- <img src="assets/img/calendar2.svg" alt="" width="15px"> Calendar</a> -->
+                <i class="fa fa-sign-out" aria-hidden="true"></i>Clock Out
+              </a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li *ngIf="kiosklogn == false">
+              <a (click)="logOut()">
+                <!-- <i class="fa fa-lock" aria-hidden="true"></i>Logout -->
+                <img src="assets/img/logout.png">Logout
+              </a>
+            </li>
+            <li *ngIf="kiosklogn == true">
+              <a (click)="kiosklogOut()">
+                <!-- <i class="fa fa-lock" aria-hidden="true"></i>Logout -->
+                <img src="assets/img/logout.png">Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="an-profile-settings" *ngIf="kiosklogn == true">
+      <div class="btn-group an-notifications-dropown  profile">
+        <button type="button" class="an-btn an-btn-icon" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="an-user-name">{{userName}}</span>
+          <span>
+            <img src="{{profileImage}}" alt="" srcset="" class="an-profile-img"
+              onError="this.src='assets/img/user.png'">
+          </span>
+        </button>
+      </div>
+    </div>
+    <!-- end .AN-PROFILE-SETTINGS -->
+  </div>
+  <!-- end .AN-TOPBAR-RIGHT-PART -->
+
+  <!-- clock in modal -->
+
+
+</header>
+<div class="modal fade" data-backdrop="static" style="z-index: 1100;" id="exampleModal" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Clock In</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+      </div>
+      <div class="modal-body">
+
+        <button style="float:right" type="button" class="btn btn-primary" (click)="teacherClockIn(1)"> Clock In</button>
+      </div>
+      <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="teacherClockIn()">Submit</button>
+        </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Break Out</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Reason *</label>
+          <input type="text" class="form-control" placeholder="Reason" [(ngModel)]="breakReason">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="verifyBreakOut()">Break out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" data-backdrop="static" style="z-index: 1100;" id="breakin" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Break In</h5>
+        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> -->
+      </div>
+      <div class="modal-body">
+        <!-- <div class="form-group">
+              <label>Reason *</label>
+             <input type="text" class="form-control" placeholder="Reason" [(ngModel)]="breakReason">
+            </div> -->
+        <label>Please break in to access the system</label>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="button" class="btn btn-primary" (click)="verifyBreakIn()">Break In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Sound -->
+<div class="modal fade notificationsound" data-backdrop="static" style="z-index: 1100;" tabindex="-1" role="dialog"
+  id="notificationsound" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Message Sound</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="notificationForm">
+          <div class="form-group">
+            <label>Message Notification Sound*</label>
+            <select class="form-control" placeholder="Notification Sound" formControlName="sound">
+              <option value="">Select On/Off</option>
+              <option value="On">On</option>
+              <option value="Off">Off</option>
+            </select>
+            <div *ngIf="t.sound.invalid && (t.sound.dirty || t.sound.touched)" class="text-left errormsg">
+              <span *ngIf="t.sound.errors.required">
+                <i class="fa fa-exclamation-circle"></i> <span class=""> Please select Sound On/Off</span>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveImageApprovalType()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>

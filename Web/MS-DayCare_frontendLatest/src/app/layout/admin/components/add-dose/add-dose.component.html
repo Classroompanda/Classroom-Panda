@@ -1,0 +1,100 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ AllergyList </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" (click)="cleardoseTypeForm()" data-toggle="modal"
+          data-target=".addallergytype">Add Dose Type</button>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>Repeat Dose List</h3>
+      </div>
+    </div>
+
+    <!-- <ul class="nav nav-pills mt-20" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="allergyType" data-toggle="pill" href="#pills-allergyType"
+          (click)="this.getAllDoseRepeat();" role="tab" aria-controls="pills-allergyType" aria-selected="true">Dose
+          Type</a>
+      </li>
+    </ul> -->
+
+
+    <div class="tab-content" id="pills-tabContent">
+
+      <div class="tab-pane fade show active" id="pills-allergyType" role="tabpanel" aria-labelledby="allergyType">
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Dose Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let dose of doseList">
+                  <td>{{dose.label}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span class="text-center" *ngIf="(doseList.length == 0 && !loader)">No record found</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade addallergytype " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Dose Type</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="doseTypeForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Dose Type*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="dose"
+                  placeholder="Dose Type">
+                <div *ngIf="t.dose.invalid && (t.dose.dirty || t.dose.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="t.dose.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter dose type</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveDoseType()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

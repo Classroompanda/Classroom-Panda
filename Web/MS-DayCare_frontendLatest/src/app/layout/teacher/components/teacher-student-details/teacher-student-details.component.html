@@ -1,0 +1,762 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="pagetitle">
+      <div>
+        <h2> <a [routerLink]="['../../../studentlist']"> StudentList</a>
+          <span>/Student Details </span>
+        </h2>
+      </div>
+      <div>
+        <!-- <button type="submit" class="btn btn-red">Add Kid</button> -->
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between studentInfo">
+      <div>
+        <h3>{{StudentVm.studentName}}</h3>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row mb-20">
+          <div class="col-lg-2 col-sm-2">
+            <div class="upload-profile">
+              <div *ngIf="image != ''">
+                <img src="{{image}}" alt="" class="img-fluid img-circle">
+              </div>
+              <div *ngIf="image == ''">
+                <img src="assets/img/boy.svg" alt="" class="img-circle childimg">
+              </div>
+              <div class="upload-btn-wrapper">
+                <button class="btn btn-send">Upload a photo</button>
+                <input type="file" #input (change)="processFile($event)">
+                <!-- <input type="file" name="myfile" formControlName="photo" /> -->
+              </div>
+            </div>
+            <div class="row mb-20">
+              <div class="col-lg">
+                <div class="form-group">
+                  <div class="d-flex justify-content-between mt-20 subhead">
+                    <div>
+                      <h3>Enrolled Classes </h3>
+                    </div>
+                  </div>
+                  <div class="innertable">
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">Class Name</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="classList.length != 0">
+                          <tr *ngFor="let class of classList">
+                            <td>{{class.className}}</td>
+                          </tr>
+                        </tbody>
+                        <div class="text-center">
+                          <span *ngIf="classList.length == 0 && !loader">No record found</span>
+                        </div>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 col-sm-10">
+            <ul class="nav nav-tabs stud-details" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="basicinfo-tab" data-toggle="tab" href="#basicinfo" role="tab"
+                  aria-controls="basicinfo" aria-selected="true">Basic Information</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="Gurardianinfo-tab" data-toggle="tab" href="#Gurardianinfo" role="tab"
+                  aria-controls="Gurardianinfo" aria-selected="false">Guardian Information</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="Allergies-tab" data-toggle="tab" href="#Allergies" role="tab"
+                  aria-controls="Allergies" aria-selected="false">Health Information</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="basicinfo" role="tabpanel" aria-labelledby="basicinfo-tab">
+                <!-- <form> -->
+                <div class="row mb-20 mt-20">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">First name</label>
+                      <input type="text " class="form-control" id="" [(ngModel)]="StudentVm.firstName"
+                        aria-describedby="" placeholder="Enter First Name" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Last name</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.lastName" id=""
+                        aria-describedby="" placeholder="Enter Last Name" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Parent contact number</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.ParentContactNumber" id=""
+                        aria-describedby="" placeholder="Parent contact number" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Child contact number</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.ChildsContactNumber" id=""
+                        aria-describedby="" placeholder="Child contact number" disabled>
+                      <!-- <select class="form-control" id="exampleFormControlSelect1">
+  
+                        <option>Select Class</option>
+                        <option>Toddler </option>
+                        <option>Infant </option>
+                        <option>LKG </option>
+                        <option>UKG </option>
+                      </select> -->
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Gender</label>
+                      <!-- <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Boy</option>
+                        <option>Girl</option>
+                      </select> -->
+                      <input type="text " class="form-control" *ngIf="(!StudentVm.genderID)" id="" aria-describedby=""
+                        placeholder="Gender" disabled>
+                      <input type="text " class="form-control" *ngIf="(StudentVm.genderID == 2)" [(ngModel)]="girl"
+                        id="" aria-describedby="" placeholder="Gender" disabled>
+                      <input type="text " class="form-control" *ngIf="(StudentVm.genderID == 1)" [(ngModel)]="boy" id=""
+                        aria-describedby="" placeholder="Gender" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Date of Birth (mm/dd/yyyy)</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.dateOfBirth" aria-describedby=""
+                        placeholder="DOB" disabled>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-20">
+
+                </div>
+
+                <div class="row mb-20">
+                </div>
+
+
+                <div class="row mb-20">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Address</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.address" id="" aria-describedby=""
+                        placeholder="Address" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Apt/Suite</label>
+                      <input type="text " class="form-control" id="" aria-describedby="" placeholder="Apt/Suite"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">City</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.cityName" id=""
+                        aria-describedby="" placeholder=" City Name" disabled>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-20">
+
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">State</label>
+                      <!-- <select class="form-control" id="exampleFormControlSelect1">
+  
+                        <option>Select State</option>
+                        <option>Alaska </option>
+                        <option>Arizona </option>
+                        <option>Arkansas </option>
+                        <option>California </option>
+                      </select> -->
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.stateName" id=""
+                        aria-describedby="" placeholder="State Name" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Zip Code</label>
+                      <input type="text" class="form-control" [(ngModel)]="StudentVm.postalCode" id=""
+                        aria-describedby="" placeholder="Zip Code" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Country</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.countryName" id=""
+                        aria-describedby="" placeholder="Country" disabled>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row mb-20">
+
+
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Physician name</label>
+                      <input type="text" class="form-control" [(ngModel)]="StudentVm.PhysicianName" id=""
+                        aria-describedby="" placeholder="Physician name" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Physician address</label>
+                      <input type="text" class="form-control" [(ngModel)]="StudentVm.PhysicianAddress" id=""
+                        aria-describedby="" placeholder="Physician Address" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Preferred hospital</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.PreferredHospital" id=""
+                        aria-describedby="" placeholder="Preferred hospital" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">Child Start Date (mm/dd/yyyy)</label>
+                      <input type="text " class="form-control" [(ngModel)]="StudentVm.childStartDate" aria-describedby=""
+                        placeholder="Child start date" disabled>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-8">
+                    <div class="form-group">
+                      <label for="">Child Note</label>
+                      <input type="text" class="form-control" [(ngModel)]="StudentVm.ChildNotes" id=""
+                        aria-describedby="" placeholder="Child Note" disabled>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="modal-footer profileupdate">
+                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                  <button type="button" class="btn btn-primary" (click)="SaveStudentDetails()">Update Profile
+                    Picture</button>
+                </div>
+
+              </div>
+              <div class="tab-pane fade" id="Gurardianinfo" role="tabpanel" aria-labelledby="Gurardianinfo-tab">
+
+
+                <div class="d-flex justify-content-between mt-20 subhead">
+                  <div>
+                    <h3>Guardian Information</h3>
+                  </div>
+                  <!-- <div>
+                  <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".guardianinfo">Add Guardian</button>
+                </div> -->
+                </div>
+                <div class="innertable">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">First Name</th>
+                          <th scope="col">Last Name</th>
+                          <th scope="col">Relation</th>
+                          <th scope="col">Phone No</th>
+                          <th scope="col">Allow Pickup</th>
+                          <th scope="col">View Details</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="guardianList.length != 0">
+                        <tr *ngFor="let guardians of guardianList">
+                          <td>{{guardians.firstName}} </td>
+                          <td>{{guardians.lastName}}</td>
+                          <td>{{guardians.relationTypeName}}</td>
+                          <td> {{guardians.mobile}}</td>
+                          <td *ngIf="guardians.isAuthorizedToPickup == false">No</td>
+                          <td *ngIf="guardians.isAuthorizedToPickup == true">Yes</td>
+                          <td class="text-center">
+                            <a data-toggle="modal" data-target=".guardianinfo" (click)="getAllGuardianInfo(guardians)">
+                              <i class="fa fa-eye " aria-hidden="true" title="view details"></i>
+                            </a>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <span *ngIf="guardianList.length == 0 && !loader">No record found</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="Allergies" role="tabpanel" aria-labelledby="Allergies-tab">
+
+                <div class="d-flex justify-content-between mt-20 subhead">
+                  <div>
+                    <h3>Immunization</h3>
+                  </div>
+                  <!-- <div>
+                  <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".immunization">Add Immunization</button>
+                </div> -->
+                </div>
+                <div class="innertable">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Immunization</th>
+                          <th scope="col">Date Received</th>
+                          <th scope="col">Other Immunization</th>
+                          <th scope="col">Abbreviation</th>
+                          <!-- <th scope="col">Actions</th> -->
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="immunizationList.length != 0">
+                        <tr *ngFor="let immunizetion of immunizationList">
+                          <td>{{immunizetion.immunizationName}}</td>
+                          <td>{{immunizetion.dateReceived| date}}</td>
+                          <td>{{immunizetion.otherImmunization}}</td>
+                          <td>{{immunizetion.abbreviation}}</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <span *ngIf="immunizationList.length == 0 && !loader">No record found</span>
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="d-flex justify-content-between mt-20 subhead">
+                  <div>
+                    <h3>Allergies</h3>
+                  </div>
+                  <!-- <div>
+                  <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".allergies">Add Allergies</button>
+                </div> -->
+                </div>
+
+                <div class="innertable">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Allergy</th>
+                          <th scope="col">Allergy Name</th>
+                          <th scope="col">Reaction</th>
+                          <th scope="col">Treatement</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="allergyList.length != 0">
+                        <tr *ngFor="let allergies of allergyList">
+                          <td>{{allergies.allergyTypeName}}</td>
+                          <td>{{allergies.allergyName}}</td>
+                          <td>{{allergies.allergyReactionTypeName}} </td>
+                          <td> {{allergies.treatment}}</td>
+                          <td class="text-center">
+                            <a data-toggle="modal" data-target=".allergies" (click)="getAllergyDetails(allergies)">
+                              <i class="fa fa-eye" aria-hidden="true" title="view details"></i>
+                            </a>
+                            <!-- <a href="">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          </a>
+                          <a href="">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <span *ngIf="allergyList.length == 0 && !loader">No record found</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between mt-20 subhead">
+                  <div>
+                    <h3>Medication</h3>
+                  </div>
+                  <!-- <div>
+                  <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".medication">Add Medication</button>
+                </div> -->
+                </div>
+
+
+                <div class="innertable">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Medication</th>
+                          <th scope="col">Strength</th>
+                          <th scope="col">Units</th>
+                          <th scope="col">Dose</th>
+                          <th scope="col">How Taken?</th>
+                          <th scope="col">Other Medication</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="medicationList.length != 0">
+                        <tr *ngFor="let medication of medicationList">
+                          <td>{{medication.medicationName}}</td>
+                          <td class="text-center">{{medication.strength}}</td>
+                          <td class="text-center">{{medication.units}} </td>
+                          <td class="text-center">{{medication.doseRepeatName}}</td>
+                          <td class="text-center">{{medication.howTaken}}</td>
+                          <td class="text-center">{{medication.otherMedication}}</td>
+                          <td class="text-center">
+                            <a data-toggle="modal" data-target=".medication" (click)="getMedicationDetails(medication)">
+                              <i class="fa fa-eye text-center" aria-hidden="true" title="view details"></i>
+                            </a>
+                            <!-- <a href="">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          </a>
+                          <a href="">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          </a> -->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <div class="text-center">
+                      <span *ngIf="medicationList.length == 0 && !loader">No record found</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-20 subhead">
+                  <div>
+                    <h3>Disability</h3>
+                  </div>
+                  <!-- <div>
+                  <button type="submit" class="btn btn-send"  data-toggle="modal" data-target=".medication">Add Medication</button>
+                </div> -->
+                </div>
+                <div class="innertable">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="thead-light">
+                        <tr>
+                          <th scope="col">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="disabilityList.length != 0">
+                        <tr *ngFor="let disabilty of disabilityList">
+                          <td>{{disabilty.description}}</td>
+                          <!-- <a data-toggle="modal" data-target=".medication" (click)="getMedicationDetails(medication)">
+                            <i class="fa fa-eye text-center" aria-hidden="true" title="view details"></i>
+                          </a> -->
+                        </tr>
+
+                      </tbody>
+                      <div class="text-center">
+                        <span *ngIf="disabilityList.length == 0 && !loader">No record found</span>
+                      </div>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- imminization -->
+    <div class="modal fade immunization" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">View Immunization</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form> -->
+            <div class="row mb-20 mt-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Immunization</label>
+                  <input type="text " class="form-control" [(ngModel)]="immunizationName" immunizationNameid=""
+                    aria-describedby="" placeholder="Immunization" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Date Received</label>
+                  <input type="date " class="form-control" [(ngModel)]="immunizationDateRecived" id=""
+                    aria-describedby="" placeholder="Select Date" disabled>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Other Immunization</label>
+                  <input type="text " class="form-control" [(ngModel)]="otherImmunization" id="" aria-describedby=""
+                    placeholder="Other Immunization" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Abbreviation </label>
+                  <input type="text " class="form-control" [(ngModel)]="abbreviation" id="" aria-describedby=""
+                    placeholder="Abbreviation" disabled>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- allergies -->
+
+
+    <div class="modal fade allergies" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">View Allergies</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form> -->
+            <div class="row mb-20 mt-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Allergy</label>
+                  <input type="text " class="form-control" [(ngModel)]="allergyTypeName" id="" aria-describedby=""
+                    placeholder="Enter Reaction" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Allergy Name</label>
+                  <input type="text " class="form-control" [(ngModel)]="allergyName" id="" aria-describedby=""
+                    placeholder="Enter Reaction" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Reaction</label>
+                  <input type="text " class="form-control" [(ngModel)]="reaction" id="" aria-describedby=""
+                    placeholder="Enter Reaction" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Treatment </label>
+                  <input type="text " class="form-control" [(ngModel)]="treatment" id="" aria-describedby=""
+                    placeholder="Enter Treatment" disabled>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- MEdication -->
+    <div class="modal fade medication" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">View Medication</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <form> -->
+            <div class="row mb-20 mt-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Medication</label>
+                  <input type="text " class="form-control" [(ngModel)]="medicationName" id="" aria-describedby=""
+                    placeholder="Medication Name" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Strength</label>
+                  <input type="text " class="form-control" [(ngModel)]="strength" id="" aria-describedby=""
+                    placeholder="Enter Strength" disabled>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Units</label>
+                  <input type="text " class="form-control" [(ngModel)]="units" id="" aria-describedby=""
+                    placeholder="Enter Unit" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Dose </label>
+                  <input type="text " class="form-control" id="" [(ngModel)]="dose" aria-describedby=""
+                    placeholder="Enter Dose" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">How Taken?</label>
+                  <input type="text " class="form-control" [(ngModel)]="hoeToTake" id="" aria-describedby=""
+                    placeholder="Enter How Taken?" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Other Medication </label>
+                  <input type="text " class="form-control" [(ngModel)]="otherMedication" id="" aria-describedby=""
+                    placeholder="Other Medication" disabled>
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- guardian info -->
+    <div class="modal fade guardianinfo" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Guardian Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <!-- <form> -->
+            <div class="row mb-20 mt-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">First name</label>
+                  <input type="text " class="form-control" [(ngModel)]="this.guardianDetailsVm.firstName" id=""
+                    aria-describedby="" placeholder="Enter First Name" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Last name</label>
+                  <input type="text " class="form-control" id="" [(ngModel)]="this.guardianDetailsVm.lastName"
+                    aria-describedby="" placeholder="Enter Last Name" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-20">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Relation</label>
+                  <input type="text " class="form-control" id="" [(ngModel)]="relation" aria-describedby=""
+                    placeholder="Enter Relation" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Phone number</label>
+                  <input type="text " class="form-control" id="" [(ngModel)]="this.guardianDetailsVm.mobile"
+                    aria-describedby="" placeholder="Enter Phone number" disabled>
+                </div>
+              </div>
+              <div class="col-lg-6" *ngIf="!showResonFieldNotAllowed">
+                <div class="form-group">
+                  <label for="">Reason for irresponsibility for check in & check out </label>
+                  <textarea name="" class="form-control" id="" placeholder="Reason" cols="30" rows="10"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- <label class="checkboxcustom">
+              <input type="checkbox" checked="checked">
+              <span class="checkmark"></span>Make Responsible for Check-in & Check-out
+            </label> -->
+            <!-- </form> -->
+          </div>
+          <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Add</button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+    <!-- <div class="d-flex justify-content-between mt-20 subhead"><div><h3>Kids List</h3></div> </div> -->
+  </div>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+</div>

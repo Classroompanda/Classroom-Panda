@@ -1,0 +1,120 @@
+<div class="login-head">
+  <img src="assets/img/logo-big-new.png" alt="">
+</div>
+<div class="bgblue">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="div12">
+          <img src="assets/img/bg.png" alt="">
+        </div>
+      </div>
+
+      <div class="col-lg-4 " *ngIf="!showMessage">
+        <div class="loginbox">
+          <form class="form-card" [formGroup]="registrationForm">
+            <div class="title">
+              <h3>PARENTS REGISTRATION</h3>
+            </div>
+            <fieldset class="form-fieldset">
+
+              <div class="form-element form-input">
+                <input formControlName="firstname" class="form-element-field" placeholder="Enter First Name" type="text"
+                  (keypress)="commonService.allowAlphabetOnly($event)" autofocus />
+                <div class="form-element-bar"></div>
+                <label class="form-element-label" for="">First Name</label>
+              </div>
+              <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)" class="text-left errormsg">
+                <span *ngIf="f.firstname.errors.minlength">
+                  <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Minimum 3 characters
+                    required</span>
+                </span>
+                <span *ngIf="f.firstname.errors.required">
+                  <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter first name</span>
+                </span>
+              </div>
+
+              <div class="form-element form-input">
+                <input formControlName="lastname" class="form-element-field"
+                  (keypress)="commonService.allowAlphabetOnly($event)" placeholder="Enter confirm password."
+                  type="text" />
+                <div class="form-element-bar"></div>
+                <label class="form-element-label" for="">Last Name</label>
+              </div>
+              <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)" class="text-left errormsg">
+                <span *ngIf="f.lastname.errors.required">
+                  <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter last name</span>
+                </span>
+              </div>
+
+              <div class="form-element form-input">
+                <input formControlName="email" class="form-element-field" maxlength="100"
+                  placeholder="Enter Email address." type="email" />
+                <div class="form-element-bar"></div>
+                <label class="form-element-label" for="">Email Address</label>
+              </div>
+              <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                <span *ngIf="f.email.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                </span>
+                <span *ngIf="f.email.errors.pattern">
+                  <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid email
+                    address</span>
+                </span>
+              </div>
+
+              <div class="form-element form-input">
+                <select class="form-control" placeholder="Agency" formControlName="agencyList"
+                  (change)="selectAgency($event.target.value)">
+                  <option value="" class="form-element-label" for="">Select Agency</option>
+                  <option *ngFor="let agency of agencyList" class="form-element-field" [value]="agency.id">
+                    {{agency.agencyName}}</option>
+                </select>
+              </div>
+              <div *ngIf="f.agencyList.invalid && (f.agencyList.dirty || f.agencyList.touched)"
+                class="text-left errormsg">
+                <span *ngIf="f.agencyList.errors.required">
+                  <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please select agency</span>
+                </span>
+              </div>
+
+
+
+            </fieldset>
+            <button type="button" [disabled]="!registrationForm.valid" (click)="registerParentProfile()"
+              class="btn btn-success">Save</button>
+          </form>
+
+          <div class="topkid">
+            <img src="assets/img/top.png" alt="">
+          </div>
+
+          <div class="bottomkid">
+            <img src="assets/img/kids.png" alt="">
+          </div>
+          
+        </div>
+      </div>
+      <!-- Success Message -->
+      <div class="col-lg-4" *ngIf="showMessage">
+        <div class="loginbox">
+          <div class="form-card">
+            <div class="title">
+              <h3 style="color: #FF6C6C">Great!!</h3>
+            </div>
+            <fieldset class="form-fieldset">
+              <!-- <div class="form-element form-input"> -->
+              <p style="color:#58A7FE"> Please check your registerd email to create password!</p>
+              <!-- </div> -->
+              <!-- <a [routerLink]="['/']" style="cursor:pointer">Go To Login</a> -->
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-confirm-box></app-confirm-box>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

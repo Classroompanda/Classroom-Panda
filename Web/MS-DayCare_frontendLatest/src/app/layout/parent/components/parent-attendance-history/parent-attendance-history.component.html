@@ -1,0 +1,256 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Attendance         
+        </h2>
+      </div>
+      <div>      
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20"><div><h3>Attendance</h3></div> </div>
+    <nav>
+      <div class="nav nav-tabs mt-20" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-profile-tab" (click)="cleareData();onChangeTab()"  data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
+          aria-selected="true">Attendance History</a>
+        <a class="nav-item nav-link" id="nav-contact-tab" (click)="getStudentClassEnrollment();cleareData();onChangeTab()" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact"
+          aria-selected="false">Enrollment History</a>
+          <a class="nav-item nav-link" id="nav-home-tab" (click)="onChangeTab()" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+          aria-selected="false">Enroll child</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">        
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Class Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Fees($)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let class of classListDetails">
+                  <td>{{class.className}}</td>
+                  <td>{{class.categoryName}}</td>
+                  <td>{{class.classStartDate| date }} </td>
+                  <td>{{class.classEndDate| date}}</td>
+                  <td>{{class.startTime | date: 'hh:mm a'}}</td>
+                  <td>{{class.endTime | date: 'hh:mm a'}}</td>
+                  <td>${{class.fees}}({{class.feeTypeName}})</td>
+                  <td>
+                    <button class="btn btn-info"  data-toggle="modal" data-target=".immunization"
+                    (click)="getClassId(class)">Enroll child</button>                   
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+
+        </div>
+      </div>
+      <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="card cardfilter m-10">         
+          <div class="row algcenter">
+              <div class="leftfilter">
+                <div class="leftfilter_inner">
+                  <div class="pr15 serach_text">Search Date : </div>
+                  <input type="text" placeholder="Search by date" [(ngModel)]="searchDate"  
+                    showWeekNumbers="false" [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                 </div>
+                 <div class="leftfilter_inner">
+                    <div class="pr15 serach_text"> Search Child : </div>
+                  <div class="pr15">
+                    <div class="form-group">
+                        <select class="form-control" placeholder="Serch" (change)="getAttendenceList()" [(ngModel)]="serchByChild" 
+                          id="exampleFormControlSelect1" >
+                          <option value="">Select child</option>
+                          <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}}</option>
+                        </select>
+                    </div>
+                  </div>
+                  </div>                  
+                  <div><button type="submit" class="btn btn-send btn_send_details" (click)="getAttendenceList()">Search</button> </div>
+                </div>
+          </div>         
+        </div>
+
+      
+          <div class="innertable">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Student</th>
+                      <th scope="col">Class Name</th>                    
+                      <th cope="col" class="text-center">Check In Time</th>
+                      <th scope="col">Drop-off By</th>
+                      <th scope="col" class="text-center">Check Out Time</th>
+                      <th scope="col">Picked-up By</th>
+                       <th scope="col">Breaks</th>                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let attendance of attendanceList">
+                      <td>{{attendance.studentName}}</td>
+                      <td>{{attendance.className}}</td>                     
+                      <td class="text-center" *ngIf="attendance.checkInTime != '0001-01-01T00:00:00'">{{attendance.checkInTime| date: 'h:mm a'}}</td>
+                      <td class="text-center" class="text-center"  *ngIf="attendance.checkInTime == '0001-01-01T00:00:00'">---</td>
+                      <td>{{attendance.dropedByName}}</td>
+                      <td class="text-center"  *ngIf="attendance.checkOutTime != '0001-01-01T00:00:00'">{{attendance.checkOutTime| date: 'h:mm a'}}</td>
+                      <td class="text-center" *ngIf="attendance.checkOutTime == '0001-01-01T00:00:00'"> --- </td> 
+                      <td>{{attendance.pickupByName}}</td>                       
+                        <td>
+                          <a  style="color: #eb547c; cursor: pointer"   (click)="goToBreak(attendance)">View break </a>  
+                      </td>                      
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="text-center">
+                  <span *ngIf="attendanceList.length == 0 && !loader">No record found</span>
+                </div>
+              </div>
+              <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event,1)"></p-paginator>
+            </div>
+
+      </div>
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="card cardfilter m-10">         
+          <div class="row algcenter">
+              <div class="leftfilter">
+                  <div class="leftfilter_inner">
+                    <div class="pr15 serach_text"> Search Child : </div>
+                  <div class="pr15">
+                    <div class="form-group">
+                        <select class="form-control" placeholder="Serch" (change)="getStudentClassEnrollment()" [(ngModel)]="studentNameSerchForEnroll" 
+                          id="exampleFormControlSelect1" >
+                          <option value="">Select child</option>
+                          <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}}</option>
+                        </select>
+                    </div>
+                  </div>
+                </div>                  
+                  <div><button type="submit" class="btn btn-send btn_send_details" (click)="getStudentClassEnrollment()">Search</button> </div>
+                </div>
+          </div>         
+         
+        </div>
+        <div class="innertable">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Student</th>
+                  <th scope="col">Class Name</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let obj of enrollmentList">                
+                  <td>{{obj.studentName}}</td>
+                  <td>{{obj.className}}</td>
+                  <td>{{obj.classEnrollStartDate| date}}</td>
+                  <td>{{obj.classEnrollEndDate| date}}</td>
+                  <td *ngIf="obj.enrollmentStatus == 0">Not Enrolled</td>
+                  <td *ngIf="obj.enrollmentStatus == 1">Requested</td>
+                  <td *ngIf="obj.enrollmentStatus == 2">Enrolled</td>
+                  <td *ngIf="obj.enrollmentStatus == 3">Request Cancelled</td>
+                  <td *ngIf="obj.enrollmentStatus == 4"> Denied by Agency</td>
+                  <td *ngIf="obj.enrollmentStatus == 5">Completed</td>
+                  <td >
+                    <button class="btn btn-info" *ngIf="obj.enrollmentStatus == 1"
+                    (click)="cancelEnrollmentRequest(obj)">Cancel request</button>
+                    <button class="btn btn-info" *ngIf="obj.enrollmentStatus != 1"
+                    disabled >Cancel request</button>
+                  </td>
+                </tr>                
+              </tbody>
+            </table>
+            <div class="text-center">
+              <span *ngIf="enrollmentList.length == 0 && !loader">No record found</span>
+            </div>
+          </div>        
+        </div>
+      </div>
+    </div>
+
+<!-- Enroll modal -->
+    <div class="modal fade immunization" id="enroll" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Enroll Student</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="enrolForm">
+                <div class="row  mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Select Child*</label>
+                      <select class="form-control" formControlName="childname" id="exampleFormControlSelect1" placeholder="Select Child">
+                        <option value="">Select</option>
+                        <option *ngFor="let child of childList" [value]="child.studentId">{{child.studentName}} </option> 
+                      </select>
+                      <div *ngIf="i.childname.invalid && (i.childname.dirty || i.childname.touched)" class="text-left errormsg">
+                        <span *ngIf="i.childname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select child</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Start Date*</label>
+                      <input type="text" placeholder="Search by date" formControlName="startdate"  
+                    showWeekNumbers="false" [minDate]="today" [maxDate]="maxEnrolEndtDate" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="i.startdate.invalid && (i.startdate.dirty || i.startdate.touched)" class="text-left errormsg">
+                        <span *ngIf="i.startdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select start date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20" >
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">End Date </label>
+                      <input type="text"  placeholder="End Date" formControlName="enddate"  
+                    showWeekNumbers="false" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                     
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">For Class*</label>
+                      <input type="text" class="form-control" placeholder="Search by date" formControlName="classname" >
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="verifyEnrollment()">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+    <app-confirm-box></app-confirm-box>

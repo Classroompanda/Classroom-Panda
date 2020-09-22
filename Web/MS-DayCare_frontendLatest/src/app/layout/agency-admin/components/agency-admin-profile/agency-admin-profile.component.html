@@ -1,0 +1,187 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2> Profile         
+        </h2>
+      </div>     
+    
+    </div>  
+
+    <div class="modal-container">
+      <div class="modal-body profileupdate">
+          <div class="upload-profile">
+              <div *ngIf="image == ''"> <img src="assets/img/user.png"  alt="" class="img-fluid img-circle"> </div>
+              <div *ngIf="image !=''"> <img src="{{image}}" (click)="rotateImage();" alt="image" id="myimage" class="img-fluid img-circle" onError="this.src='assets/img/user.png'">
+              </div>
+        
+              <div class="upload-btn-wrapper">
+                <button class="btn btn-send">Upload a photo</button>
+                <input type="file" #input (change)="processFile($event)">
+              </div>
+            </div>
+        <form [formGroup]="agencyForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Agency Name*</label>
+                <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" class="form-control" id=""
+                  aria-describedby="" formControlName="agencyname" placeholder="Agency Name">
+                <div *ngIf="f.agencyname.invalid && (f.agencyname.dirty || f.agencyname.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="f.agencyname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter agency name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Agency Email*</label>
+                <input type="email " class="form-control" *ngIf="addMode" id="" aria-describedby=""
+                  formControlName="email" placeholder="Email Address">
+                <input type="email " class="form-control" *ngIf="!addMode" id="" disabled aria-describedby=""
+                  formControlName="email" placeholder="Email Address">
+                <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                  <span *ngIf="f.email.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                  </span>
+                  <span *ngIf="f.email.errors.pattern">
+                    <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid email
+                      address</span>
+                  </span>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Agency Phone*</label>
+                <input type="text" maxlength="10" (keypress)="commonService.allowOnlyNumber($event)"
+                  class="form-control" id="" aria-describedby="" formControlName="phone" placeholder="Agency Phone">
+                <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)" class="text-left errormsg">
+                  <span *ngIf="f.phone.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">First Name*</label>
+                <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" class="form-control" id=""
+                  aria-describedby="" formControlName="firstname" placeholder="First Name">
+                <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)"
+                  class="text-left errormsg">
+                  <span *ngIf="f.firstname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Last Name*</label>
+                <input type="text" class="form-control" (keypress)="commonService.allowAlphabetOnly($event)" id=""
+                  aria-describedby="" formControlName="lastname" placeholder="Last Name">
+                <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)" class="text-left errormsg">
+                  <span *ngIf="f.lastname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Address*</label>
+                <input type="text " class="form-control" id="" aria-describedby="" formControlName="address"
+                  placeholder="Address">
+                <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)" class="text-left errormsg">
+                  <span *ngIf="f.address.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Country*</label>               
+                <select class="form-control" placeholder="Country" formControlName="country"
+                  id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                  <option value="">Select Country</option>
+                  <option *ngFor="let countries of countryList" [value]="countries.id">{{countries.countryName}}
+                  </option>
+                </select>
+                <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="text-left errormsg">
+                  <span *ngIf="f.country.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">State*</label>
+                <select class="form-control" placeholder="State" formControlName="state" id="exampleFormControlSelect1"
+                  (change)="getCitiesList();clearCity()">
+                  <option value="">Select State</option>
+                  <option *ngFor="let states of stateList" [value]="states.id">{{states.stateName}}</option>
+                </select>
+                <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                  <span *ngIf="f.state.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">City*</label>               
+                <select class="form-control" placeholder="City" formControlName="city" id="exampleFormControlSelect1">
+                  <option value="">Select City</option>
+                  <option *ngFor="let cities of cityList" [value]="cities.id">{{cities.cityName}}</option>
+                </select>
+                <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                  <span *ngIf="f.city.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Zip Code</label>
+                <input type="text " (keypress)="commonService.allowOnlyNumber($event)" maxlength="6" class="form-control" id="" formControlName="zipcode"
+                  aria-describedby="" placeholder="Enter Zip Code">
+              </div>
+            </div>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer profileupdate">
+        <button type="button" class="btn btn-primary" (click)="SaveProfileDetails()">Update Profile</button>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

@@ -1,0 +1,1032 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Daily sheet         
+        </h2>
+      </div>
+      <div>
+
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Activity Report</h3>
+      </div>      
+    </div>
+    <div class="card cardfilter m-10">     
+      <div class="row algcenter">
+          <div class="leftfilter">
+              <div class="leftfilter_inner">
+              <div class="pr15 serach_text">Search Date : </div>
+              <input type="text" placeholder="Search by date" [(ngModel)]="searchDate"  
+                showWeekNumbers="false" [maxDate]="today" class="form-control mr15" [bsConfig]="dpConfig" bsDatepicker>
+                </div>
+              <div><button type="submit" class="btn btn-send btn_send_details" (click)="getDailyActivityOfPerticulerChild()">Search</button> </div>
+            </div>
+      </div>
+    </div>
+ 
+    <div class="activitytimeline mt-20">
+      <div class="row">        
+        <div class="col-lg-3">
+        <div class="nav flex-column nav-pills mt-20" id="v-pills-tab" role="tablist" aria-orientation="vertical" *ngFor="let child of childList; let i = index" >
+          <a class="nav-link" [ngClass]="{active: child.isActive}" (click)="addActivClassStudentList(child)"  id="v-pills-kid1-tab" data-toggle="pill" href="#v-pills-kid1" role="tab" aria-controls="v-pills-kid1"
+            aria-selected="true">
+            <img alt="" class="img-circle childimg" src="{{child.imagePath}}" onError="this.src='assets/img/user.png'">{{child.studentName}}</a>
+        </div>
+      </div>
+
+        <div class="col-lg-9">
+              <div class="tab-content mt-20" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-kid1" role="tabpanel" aria-labelledby="v-pills-kid1-tab">
+                  <div class="page-header">
+                    <h1 id="timeline" *ngIf="childName !== ''">
+                      <img alt="" class="img-circle childimg" src="{{chhildImagePath}}">{{childName}}'s Timeline</h1>
+                      <h1 id="timeline" *ngIf="childName == ''">
+                          Child's Timeline</h1>
+                    </div>
+              
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="an-single-component with-shadow" >
+                        <div class="an-component-header">
+                          <h6>Activity</h6>
+                        </div>
+                        <div class="an-component-body" *ngFor="let activity of activityList">
+                         <div class="row">
+                          <div class="col-lg-10">
+                              <div class="an-activity-content">
+                                  <div class="activity-signle with-image" >
+                                    <div class="timeline-badge-circle"  (click)="getParticularStudentActivityMedications(activity)"  *ngIf="activity.activityTypeID == 1">
+                                      <img src="assets/img/stethoscope.svg" alt="">
+                                    </div>
+                                    <div class="timeline-badge-circle" *ngIf="activity.activityTypeID == 2">
+                                      <img src="assets/img/post-it.svg" alt="" (click)="getParticularStudentActivityNotes(activity)">
+                                    </div>
+                                    <div class="timeline-badge-circle" *ngIf="activity.activityTypeID == 3" >
+                                      <img src="assets/img/restaurant.svg" alt="">
+                                    </div>
+                                    <div class="timeline-badge-circle" (click)="getParticularStudentActivityMoods(activity)" *ngIf="activity.activityTypeID == 4">
+                                      <img src="assets/img/satisfaction.svg" alt="">
+                                    </div>
+                                    <div class="timeline-badge-circle" *ngIf="activity.activityTypeID == 5" (click)="getParticularStudentOtherActivity(activity)">
+                                      <img src="assets/img/circular-clock.svg" alt="">
+                                    </div>
+                                    <div class="timeline-badge-circle" (click)="getParticularStudentActivityNap(activity)" *ngIf="activity.activityTypeID == 6">
+                                      <img src="assets/img/napsm.png" alt="">
+                                    </div>
+                                    <div class="timeline-badge-circle" (click)="getParticularStudentActivityDiaperChanges(activity)" *ngIf="activity.activityTypeID == 7">
+                                      <img src="assets/img/toiletsm.png" alt="">
+                                    </div>                                   
+                                  
+                                    <div class="activity-body">
+                                      <p>
+                                        <a *ngIf="activity.activityDescription != '' ">{{activity.activityDescription}}</a>
+                                        <a *ngIf="activity.activityDescription == '' ">----</a>
+                                      </p>
+                                      <span class="time">
+                                        <i class="icon-clock"></i> {{activity.createdDate| date: 'h:mm a'}}</span>
+                                    </div>                                    
+                                  </div>         
+                    
+                                </div>
+                          </div>
+                          <div class="col-lg-2">
+                              <div><button type="submit" class="btn btn-send" (click)="findActivity(activity)">View</button> </div>
+                            </div>
+                         </div>                  
+                        </div>                       
+                      </div>                     
+                    </div>
+                  </div>
+                </div>
+
+
+              <!-- tab2 start -->
+              <div class="tab-pane fade" id="v-pills-kid2" role="tabpanel" aria-labelledby="v-pills-kid2-tab">
+                <div class="page-header">
+                  <h1 id="timeline">
+                    <img alt="" class="img-circle childimg" src="assets/img/child1.png">Mark Williams Timeline</h1>
+                </div>
+               
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="an-single-component with-shadow">
+                        <div class="an-component-header">
+                          <h6>Activity</h6>
+                        </div>
+                        <div class="an-component-body">
+                          <div class="an-activity-content">
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/stethoscope.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Health Checkup</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/hap.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Moods was Happy</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/luv.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Feeling Love</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/angi.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Angry</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>              
+                          </div>                        
+                        </div>                      
+                      </div>                      
+                    </div>
+              
+                    <div class="col-lg-6">
+                      <ul class="timeline">
+                        <li>
+                          <div class="timeline-badge">              
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                              <p>
+                                <small class="text-muted">
+                                  <i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small>
+                              </p>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge danger">
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge info">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="v-pills-kid3" role="tabpanel" aria-labelledby="v-pills-kid3-tab">
+                <div class="page-header">
+                  <h1 id="timeline">
+                    <img alt="" class="img-circle childimg" src="assets/img/child1.png">Cris Williams Timeline</h1>
+                </div>
+              
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="an-single-component with-shadow">
+                        <div class="an-component-header">
+                          <h6>Activity</h6>
+                        </div>
+                        <div class="an-component-body">
+                          <div class="an-activity-content">
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/stethoscope.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Health Checkup</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/hap.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Moods was Happy</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/luv.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Feeling Love</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/angi.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Angry</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>              
+                          </div>                                 
+                        </div>                       
+                      </div>                     
+                    </div>
+              
+                    <div class="col-lg-6">
+                      <ul class="timeline">
+                        <li>
+                          <div class="timeline-badge">              
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                              <p>
+                                <small class="text-muted">
+                                  <i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small>
+                              </p>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge danger">
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge info">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+              <div class="tab-pane fade" id="v-pills-kid4" role="tabpanel" aria-labelledby="v-pills-kid4-tab">
+                <div class="page-header">
+                  <h1 id="timeline">
+                    <img alt="" class="img-circle childimg" src="assets/img/child1.png">Joe Williams Timeline</h1>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="an-single-component with-shadow">
+                        <div class="an-component-header">
+                          <h6>Activity</h6>
+                        </div>
+                        <div class="an-component-body">
+                          <div class="an-activity-content">
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/stethoscope.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Health Checkup</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/hap.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Moods was Happy</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/luv.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Feeling Love</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                            <div class="activity-signle with-image">
+                              <div class="timeline-badge-circle">
+                                <img src="assets/img/angi.svg" alt="">
+                              </div>
+                              <div class="activity-body">
+                                <p>
+                                  <a href="#">Angry</a>
+                                </p>
+                                <span class="time">
+                                  <i class="icon-clock"></i> 3 Min Ago</span>
+                              </div>
+                            </div>
+              
+                          </div>
+                          <!-- end .AN-ACTIVITY-CONTENT -->              
+                        </div>
+                        <!-- end .AN-COMPONENT-BODY -->
+                      </div>
+                      <!-- end .AN-SINGLE-COMPONENT -->
+                    </div>
+              
+                    <div class="col-lg-6">
+                      <ul class="timeline">
+                        <li>
+                          <div class="timeline-badge">              
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                              <p>
+                                <small class="text-muted">
+                                  <i class="glyphicon glyphicon-time"></i> 11 hours ago via Twitter</small>
+                              </p>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge danger">
+                            <i class="glyphicon glyphicon-credit-card"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-badge info">
+                            <i class="glyphicon glyphicon-floppy-disk"></i>
+                          </div>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="timeline-panel">
+                            <div class="timeline-heading">
+                              <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                            </div>
+                            <div class="timeline-body">
+                              <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
+                                paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio.</p>
+                              <div class="tmlineimg">
+                                <img src="http://www.achhilekh.com/wp-content/uploads/2018/05/baby-2423896_1920.jpg" alt="Graphic">
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <!-- Model for edit Health -->
+  <div class="modal fade editshadow" id="edithealth" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editactivityLabel"> Activity Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="health-tab" data-toggle="tab" href="#health" role="tab" aria-controls="health"
+              aria-selected="false">             
+              <img src="assets/img/stethoscope.svg" alt="">
+              <p>Health</p>
+            </a>
+          </li>
+        </ul>
+        <form [formGroup]="healthForm">
+          <div class="row mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Add Temperature (°F)</label>
+                <input aria-describedby="" disabled formControlName="temperature" class="form-control" id="" placeholder=""
+                  type="text">
+              </div>
+            </div>
+            <div class="col-lg-6"></div>
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Health Note*</label>
+                <textarea aria-describedby="" disabled formControlName="tempcmnt" row="10" class="form-control" id=""
+                  placeholder="Health Note"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="(this.HealthVM.studentMedicationID != 0 )">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Medicine Name</label>
+                  <input aria-describedby="" disabled formControlName="medicationName" class="form-control" id="" placeholder=""
+                    type="text">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">How to take</label>
+                    <input aria-describedby="" disabled formControlName="howtotake" class="form-control" id="" placeholder=""
+                      type="text ">
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="HealthVM.studentMedicationID">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Dosage</label>
+                      <input aria-describedby="" disabled formControlName="repeatdose" class="form-control" id="" placeholder=""
+                        type="text ">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Unit</label>
+                        <input aria-describedby="" disabled formControlName="unit" class="form-control" id="" placeholder=""
+                          type="text ">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-20" *ngIf="(HealthVM.studentMedicationID && parentType != 'guardian')">
+                      <div class="col-lg-6">
+                        <div class="">
+                            <label class="checkboxcustom">
+                              <input type="checkbox" *ngIf="!HealthVM.isParentAcknowledge"   id="checkbox-in" class="form-control abc"  formControlName="parentacknowledge">
+                              <input type="checkbox" *ngIf="HealthVM.isParentAcknowledge"   id="checkbox-in" class="form-control abc2" formControlName="parentacknowledge" disabled>
+                              <span class="checkmark abc"></span><label style="margin-left: 15px;"> Acknowledge</label>
+                            </label>
+                          </div>
+                    </div>
+                    <div class="col-lg-6" *ngIf="HealthVM.acknowledgeTeacherName">
+                        <p> <b> Acknowledge by -</b>  {{HealthVM.acknowledgeTeacherName}}</p>
+                    </div>
+                    </div>
+           </form>
+      </div>
+      <div class="modal-footer" *ngIf="(HealthVM.studentMedicationID && !HealthVM.isParentAcknowledge && parentType != 'guardian')">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveAcknowledgeforMedication()" >Save</button>
+        </div>
+    </div>
+  </div>
+</div>
+                              
+ <!-- Edit Nap -->
+ <div class="modal fade editshadow " id="editnap" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="editactivityLabel">Activity details </h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <ul class="nav nav-tabs" id="myTab" role="tablist">
+         <li class="nav-item">
+           <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+             aria-controls="activity" aria-selected="true">            
+             <img src="assets/img/napsm.png" class="napimg" alt="">
+             <p>Nap</p>
+           </a>
+         </li>
+       </ul>
+       <div class="tab-content" id="myTabContent">
+         <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+           <form [formGroup]="napForm">
+             <div class="row mt-20">
+               <div class="col-lg-6">
+                 <div class="form-group">
+                   <label for="">Sleep-At Time*</label>
+                   <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napstart"
+                     [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                 </div>
+               </div>
+               <div class="col-lg-6">
+                 <div class="form-group">
+                   <label for="">Woke-Up Time*</label>
+                   <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="napend"
+                     [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                 </div>
+               </div>
+             </div>
+             <div class="row">
+               <div class="col-lg-12">
+                 <div class="form-group">
+                   <label for="">Description</label>
+                   <textarea aria-describedby="" formControlName="napdiscription" row="10" class="form-control" id=""
+                     placeholder="Description"></textarea>
+                 </div>
+               </div>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+</div>
+   
+
+
+
+     <!-- Edit Diper -->
+     <div class="modal fade editshadow " id="editdiper" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="editactivityLabel">Activity details</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <ul class="nav nav-tabs" id="myTab" role="tablist">
+             <li class="nav-item">
+               <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                 aria-controls="activity" aria-selected="true">                
+                 <img src="assets/img/toiletsm.png" class="napimg" alt="">
+                 <p>Toileting</p>
+               </a>
+             </li>
+           </ul>
+           <div class="tab-content" id="myTabContent">
+             <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+               <form [formGroup]="diperForm">
+                 <div class="row mt-20">
+                   <div class="col-lg-6">
+                     <div class="form-group">
+                       <label for="">Time*</label>
+                       <p-calendar class="cutom-text-box-dailyactivity" styleClass="form-control" formControlName="diperchangetime"
+                         [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-lg-12">
+                     <div class="form-group">
+                       <label for="">Description</label>
+                       <textarea aria-describedby="" formControlName="description" row="10" class="form-control" id=""
+                         placeholder="Description"></textarea>
+                     </div>
+                   </div>
+                 </div> 
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+
+     <!-- Model for edit Notes -->
+     <div class="modal fade editshadow" id="editpost" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="editactivityLabel">Activity details</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <div class="modal-body">
+           <ul class="nav nav-tabs" id="myTab" role="tablist">
+             <li class="nav-item">
+               <a class="nav-link active" id="notes-tab" data-toggle="tab" href="#notes" role="tab" aria-controls="notes"
+                 aria-selected="false">                
+                 <img src="assets/img/post-it.svg" alt="">
+                 <p>Notes</p>
+               </a>
+             </li>
+           </ul>
+           <form [formGroup]="notesForm">
+             <div class="form-group">
+               <label for="">Notes if any *</label>
+               <textarea aria-describedby="" formControlName="notes" row="10" class="form-control" id="" placeholder="Notes if any"></textarea>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+
+    <!-- Model for edit Other Activity -->
+    <div class="modal fade editshadow" id="editactivity" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editactivityLabel">Activity details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="activity-tab" data-toggle="tab" href="#activity" role="tab"
+                  aria-controls="activity" aria-selected="true">                 
+                  <img src="assets/img/circular-clock.svg" alt="">
+                  <p>Activity</p>
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+                <form [formGroup]="activityForm">
+                  <div class="row mt-20">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Start Time </label>                       
+                        <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control" formControlName="starttime"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">End Time</label>                        
+                        <p-calendar class="cutom-text-box-dailyactivity-one" styleClass="form-control" formControlName="endtime"
+                          [timeOnly]="true" hourFormat="12" icon="pi pi-clock" [showIcon]="true"></p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for=""></label>
+                        <textarea aria-describedby="" row="10" formControlName="activity" class="form-control" id=""
+                          placeholder="Enter student activity"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <!-- Model for edit Mood -->
+ <div class="modal fade editshadow" id="editmood" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+ aria-hidden="true">
+ <div class="modal-dialog" role="document">
+   <div class="modal-content">
+     <div class="modal-header">
+       <h5 class="modal-title" id="editactivityLabel">Activity details</h5>
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <ul class="nav nav-tabs" id="myTab" role="tablist">
+         <li class="nav-item">
+           <a class="nav-link active" id="mood-tab" data-toggle="tab" href="#mood" role="tab" aria-controls="mood"
+             aria-selected="false">            
+             <img src="assets/img/satisfaction.svg" alt="">
+             <p>Mood</p>
+           </a>
+         </li>
+
+       </ul>
+       <form [formGroup]="moodForm">
+         <div class="Moods">
+           <h3> My Mood was... </h3>
+           <div class="middle">
+             <label *ngIf="showHappy">
+               <input type="radio" name="radio"   />
+               <div class="front-end box">
+                 <span>
+                   <img src="assets/img/happymob.svg" alt="">
+                 </span>
+                 <p>Happy</p>
+               </div>
+             </label>
+             <label *ngIf="showSad" >
+               <input type="radio" name="radio"  />
+               <div class="front-end box">
+                 <span>
+                   <img src="assets/img/cryingmob.svg" alt="">
+                 </span>
+                 <p style="margin-left: 10px;">Sad</p>
+               </div>
+             </label>
+
+             <label *ngIf="showSleepy">
+               <input type="radio" name="radio"   />
+               <div class="back-end box">
+                 <span>
+                   <img src="assets/img/napsm.svg" alt="">
+                 </span>
+                 <p> Sleeping</p>
+               </div>
+             </label>
+
+             <label *ngIf="showFussy">
+              <input type="radio" name="radio"   />
+              <div class="back-end box">
+                <span>
+                  <img src="assets/img/tired.png" alt="">
+                </span>
+                <p> Fussy</p>
+              </div>
+            </label>
+
+            <label *ngIf="showGrumpy">
+              <input type="radio" name="radio"   />
+              <div class="back-end box">
+                <span>
+                  <img src="assets/img/Grumpy.png" alt="">
+                </span>
+                <p> Sleeping</p>
+              </div>
+            </label>
+
+             <div class="form-group">
+               <label for=""></label>
+               <textarea aria-describedby="" formControlName="moodcomment" row="10" class="form-control" id=""
+                 placeholder="Enter Comment"></textarea>
+             </div>
+           </div>
+         </div>
+       </form>
+     </div>
+   </div>
+ </div>
+</div>
+
+
+  <!-- Model for edit meal -->
+  <div class="modal fade editshadow" id="editmeal" tabindex="-1" role="dialog" aria-labelledby="editactivityLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editactivityLabel">Activity details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="meal-tab" data-toggle="tab" href="#meal" role="tab" aria-controls="meal"
+              aria-selected="false">             
+              <img src="assets/img/restaurant.svg" alt="">
+              <p>Meal</p>
+            </a>
+          </li>
+
+        </ul>
+
+        <form [formGroup]="mealForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Meal Plan</label>               
+                <input type="text " class="form-control" formControlName="plantype" id="" aria-describedby=""
+                    placeholder="Meal type">
+              </div>
+            </div>
+          </div>
+         
+          <div class="table-responsive" *ngIf="foodList.length != 0">
+            <table class="table">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">Food Item</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Unit</th>
+                  <th>consumed Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let food of foodList ; let item of mealForm.get('foodconsumption').controls; let i = index;"  formArrayName="foodconsumption">
+                  <td>{{food.foodTypeName}}</td>
+                  <td>{{food.amount}}</td>
+                  <td>{{food.measureUnitTypeName}}</td> 
+                  <td [formGroupName]="i">
+                    <input type="text " *ngIf="(food.foodTypeName == 'Milk' )" class="form-control" (blur)="getConsumedAmount(food)"
+                      formControlName="milkconsumptionquantity" id="" aria-describedby="" placeholder="consumed amount">
+
+                    <select class="form-control" *ngIf="food.foodTypeName != 'Milk' " placeholder="Select" (change)="getConsumedAmount(food)"
+                      formControlName="foodconsumtionid" id="exampleFormControlSelect1">
+                      <option value="">Select </option>
+                      <option *ngFor="let obj of foodConsumptionType" [value]="obj.id">{{obj.foodConsumtionName}}</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label for="">Other than plan meal </label>
+                  <textarea name="" id="" cols="30" rows="6" placeholder="Other than plan meal" class="form-control" formControlName="othermealplan"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Other plan meal comment</label>
+                <input type="text " class="form-control" formControlName="othermealcmnt" id="" aria-describedby=""
+                  placeholder="Enter Comment">
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Comment</label>
+                  <input type="text " class="form-control" formControlName="mealcmnt" id="" aria-describedby=""
+                    placeholder="Enter Comment">
+                </div>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+  
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

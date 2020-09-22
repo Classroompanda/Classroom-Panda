@@ -1,0 +1,692 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>ParentList
+          <!-- <span>/ ParentList </span> -->
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-red " data-toggle="modal" (click)="cleareAllForm()"
+          data-target=".addparent">Add Parent</button>
+        <button type="submit" class="btn btn-red " *ngIf="isSecondary == true" [routerLink]="['../../global/authorizedperson']">Authorized
+          Person</button>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Parent List</h3>
+      </div>
+    </div>
+
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Parent Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Parent Type</th>
+              <th scope="col" class="text-center">Actions</th>
+              <th scope="col" class="text-center">Change Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let parent of parentList">
+              <td>
+                <img src="{{parent.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+                  class="img-circle childimg">
+              </td>
+              <td>{{parent.parentName}}</td>
+              <td>{{parent.email}} </td>
+              <td>{{parent.email}}</td>
+
+              <td>
+                <div *ngIf="parent.isGuardian">Guardian</div>
+                <div *ngIf="parent.isSecondParent"> Parent</div>
+              </td>
+              <td class="text-center">
+
+                <a>
+                  <i class="fa fa-eye" *ngIf="!parent.isDelete" data-target=".addparent" data-toggle="modal"
+                    aria-hidden="true" (click)="getParentDetails(parent)"></i>
+                  <i class="fa fa-eye" *ngIf="parent.isDelete" data-toggle="modal" (click)="getParentDetails(parent)"
+                    aria-hidden="true" data-target=".deactiveparent"></i>
+                </a>
+              </td>
+              <td class="text-center">
+                <button class="form-control" *ngIf="!parent.isDelete" class="btn btn-warning"
+                  (click)="deleteParent(parent)">Deactivate</button>
+                <button class="form-control" *ngIf="parent.isDelete" class="btn btn-success"
+                  (click)="activateParent(parent)">Activate</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="parentList.length == 0 && !loader">No record found!</span>
+        </div>
+      </div>
+      <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+      </p-paginator>
+    </div>
+    <!--Modal for Details of Active parents  -->
+    <div class="modal fade addparent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{addMode == true ? 'Add Parent' : 'Parent Details'}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body profileupdate">
+              <form [formGroup]="profileForm">
+                <div class="upload-profile">
+                  <div *ngIf="image == ''"> <img src="assets/img/user.png" alt="" class="img-fluid img-circle"> </div>
+                  <div *ngIf="image !=''"> <img src="{{image}}" alt="image" class="img-fluid img-circle"
+                      onError="this.src='assets/img/user.png'"> </div>
+
+                  <div class="upload-btn-wrapper">
+                    <button class="btn btn-send">Upload a picture</button>
+                    <input type="file" #input (change)="processFile($event)">
+
+                  </div>
+                </div>
+                <div class="form-fields">
+                  <div class="row mb-15 " style="margin-top: 10px" *ngIf="(id == 0 && !showBtnGuardian)">
+                    <div class="col-lg-12">
+                      <ul class="parenttype">
+                        <li>
+                          <div class="ui-g-12">
+                            <p-radioButton name="group2" formControlName="typeofparent"
+                              (onClick)="getTypeofparent('secondparent')" value="secondparent" label="Secondary Parent"
+                              inputId="preopt2"></p-radioButton>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="ui-g-12">
+                            <p-radioButton name="group2" formControlName="typeofparent"
+                              (onClick)="getTypeofparent('guardian')" value="guardian" label="Guardian"
+                              inputId="preopt3"></p-radioButton>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-10 ">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">First name</label>
+                        <input type="text " maxlength="35" class="form-control" formControlName="firstname" id=""
+                          aria-describedby="" placeholder="Enter First Name">
+                        <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.firstname.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Last name</label>
+                        <input type="text " maxlength="35" class="form-control" id="" formControlName="lastname"
+                          aria-describedby="" placeholder="Enter Last Name">
+                        <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.lastname.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Email Address</label>
+                        <input type="email" maxlength="100" [readOnly]="disableEmail" class="form-control"
+                          formControlName="email" id="" aria-describedby="" placeholder="Email address">
+                        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                          <span *ngIf="f.email.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                          </span>
+                          <span *ngIf="f.email.errors.pattern">
+                            <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                              email address</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Mobile</label>
+                        <input type="text" maxlength="10" class="form-control" formControlName="mobile" id=""
+                          aria-describedby="" (keypress)="allowOnlyNumber($event)" placeholder="Mobile">
+                        <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.mobile.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Associate Children</label>
+                        <p-multiSelect [options]="parentChildList" *ngIf="id == 0" formControlName="associatedchildid"
+                          [panelStyle]="{minWidth:'200px'}" [maxSelectedLabels]="15"></p-multiSelect>
+                        <p-multiSelect [options]="parentChildList" *ngIf="id != 0" readonly="true"
+                          formControlName="associatedchildid" [panelStyle]="{minWidth:'200px'}"
+                          [maxSelectedLabels]="15"></p-multiSelect>
+                        <div
+                          *ngIf="f.associatedchildid.invalid && (f.associatedchildid.dirty || f.associatedchildid.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.associatedchildid.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select children</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Address</label>
+                        <input type="text " maxlength="255" class="form-control" formControlName="address" id=""
+                          aria-describedby="" placeholder="Address">
+                        <!-- <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.address.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                          </span>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Country</label>
+                        <select class="form-control" placeholder="Country" formControlName="country"
+                          id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                          <option value="">Select Country</option>
+                          <option *ngFor="let countries of countryList" [value]="countries.id">{{countries.countryName}}
+                          </option>
+                        </select>
+                        <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.country.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">State</label>
+                        <select class="form-control" placeholder="State" formControlName="state"
+                          id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                          <option value="">Select State</option>
+                          <option *ngFor="let states of stateList" [value]="states.id">{{states.stateName}}</option>
+                        </select>
+                        <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                          <span *ngIf="f.state.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">City</label>
+                        <select class="form-control" placeholder="City" formControlName="city"
+                          id="exampleFormControlSelect1">
+                          <option value="">Select City</option>
+                          <option *ngFor="let cities of cityList" [value]="cities.id">{{cities.cityName}}</option>
+                        </select>
+                        <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                          <span *ngIf="f.city.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Zip Code</label>
+                        <input type="text" maxlength="6" (keypress)="allowOnlyNumber($event)" class="form-control"
+                          formControlName="zipcode" id="" aria-describedby="" placeholder="Zip code">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Date of Birth</label>
+                        <input type="text" placeholder="Select date" formControlName="birthdate" showWeekNumbers="false"
+                          [maxDate]="today" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                        <!-- <div *ngIf="f.birthdate.invalid && (f.birthdate.dirty || f.birthdate.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.birthdate.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birthdate</span>
+                          </span>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Gender</label>
+                        <select formControlName="gender" class="form-control" placeholder="Select gender">
+                          <option value="">Select</option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                        </select>
+                        <div *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.gender.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select gender</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10 ">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Employer Name</label>
+                        <input type="text " (keypress)="commonService.allowAlphabetOnly($event)" maxlength="35"
+                          class="form-control" formControlName="employername" id="" aria-describedby=""
+                          placeholder="Employer Name">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Employer Number</label>
+                        <input type="text " (keypress)="allowOnlyNumber($event)" maxlength="10" class="form-control"
+                          id="" formControlName="employernumber" aria-describedby="" placeholder="Employer Number">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Employer Address</label>
+                        <input type="text " maxlength="35" class="form-control" formControlName="employeraddress" id=""
+                          aria-describedby="" placeholder="Employer Address">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Profession</label>
+                        <input type="text" maxlength="200" class="form-control" formControlName="profession" id=""
+                          aria-describedby="" placeholder="Profession">
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <label for="">Relation With Student</label>
+                      <select class="form-control" placeholder="Relation" formControlName="relationid"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select Relation</option>
+                        <option *ngFor="let relation of relationTypeList" [value]="relation.value">{{relation.label}}
+                        </option>
+                      </select>
+                      <div *ngIf="f.relationid.invalid && (f.relationid.dirty || f.relationid.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.relationid.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select relation</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mt-20" *ngIf="isGuardian">
+                    <div class="col-lg-3">
+                      <div class="">
+                        <label class="checkboxcustom">
+                          <input type="checkbox" id="checkbox-in" class="form-control abc"
+                            (change)="markAsAllowToPickup()" formControlName="allowpickup">
+                          <span class="checkmark abc"></span><label style="margin-left: 20px"> Authorized pickup</label>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-9">
+                      <div class="form-group" id="desc1" *ngIf="reasonNotToAllowbox">
+                        <label for="">Reason for not allowing pickup</label>
+                        <textarea class="form-control" maxlength="100" formControlName="notallowedreason"
+                          aria-describedby="" placeholder="Reason for not allowing for pickup"></textarea>
+                        <div
+                          *ngIf="f.notallowedreason.invalid && (f.notallowedreason.dirty || f.notallowedreason.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.notallowedreason.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter reason</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary"
+                (click)="SaveParentDetails()">{{addMode == true ? 'Add Parent' : 'Save Changes'}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- last  -->
+    </div>
+    <!--Modal for Details of Deactive parents  -->
+    <div class="modal fade deactiveparent" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{addMode == true ? 'Add Parent' : 'Parent Details'}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-body profileupdate">
+              <form [formGroup]="profileForm">
+                <div class="upload-profile">
+                  <div *ngIf="image == ''"> <img src="assets/img/user.png" alt="" class="img-fluid img-circle"> </div>
+                  <div *ngIf="image !=''"> <img src="{{image}}" alt="image" class="img-fluid img-circle"
+                      onError="this.src='assets/img/user.png'"> </div>
+
+                </div>
+                <div class="form-fields">
+
+
+                  <div class="row mb-10 ">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">First name</label>
+                        <input type="text " maxlength="35" class="form-control" disabled formControlName="firstname"
+                          id="" aria-describedby="" placeholder="Enter First Name">
+                        <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.firstname.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Last name</label>
+                        <input type="text " disabled maxlength="35" class="form-control" id=""
+                          formControlName="lastname" aria-describedby="" placeholder="Enter Last Name">
+                        <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.lastname.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Email Address</label>
+                        <input type="email" disabled maxlength="100" [readOnly]="disableEmail" class="form-control"
+                          formControlName="email" id="" aria-describedby="" placeholder="Email address">
+                        <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                          <span *ngIf="f.email.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                          </span>
+                          <span *ngIf="f.email.errors.pattern">
+                            <i class="fa fa-exclamation-circle errtext"></i> <span class="errtext"> Please enter valid
+                              email address</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Mobile</label>
+                        <input type="text" disabled maxlength="10" class="form-control" formControlName="mobile" id=""
+                          aria-describedby="" (keypress)="allowOnlyNumber($event)" placeholder="Mobile">
+                        <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.mobile.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Associate Children</label>
+                        <p-multiSelect [options]="parentChildList" *ngIf="id == 0" formControlName="associatedchildid"
+                          [panelStyle]="{minWidth:'200px'}" [maxSelectedLabels]="15"></p-multiSelect>
+                        <p-multiSelect [options]="parentChildList" *ngIf="id != 0" readonly="true"
+                          formControlName="associatedchildid" [panelStyle]="{minWidth:'200px'}"
+                          [maxSelectedLabels]="15"></p-multiSelect>
+                        <div
+                          *ngIf="f.associatedchildid.invalid && (f.associatedchildid.dirty || f.associatedchildid.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.associatedchildid.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select children</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Address</label>
+                        <input type="text " disabled maxlength="255" class="form-control" formControlName="address"
+                          id="" aria-describedby="" placeholder="Address">
+                        <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.address.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Country</label>
+                        <select class="form-control" disabled placeholder="Country" formControlName="country"
+                          id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                          <option value="">Select Country</option>
+                          <option *ngFor="let countries of countryList" [value]="countries.id">{{countries.countryName}}
+                          </option>
+                        </select>
+                        <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.country.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">State</label>
+                        <select class="form-control" disabled placeholder="State" formControlName="state"
+                          id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                          <option value="">Select State</option>
+                          <option *ngFor="let states of stateList" [value]="states.id">{{states.stateName}}</option>
+                        </select>
+                        <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                          <span *ngIf="f.state.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">City</label>
+                        <select class="form-control" disabled placeholder="City" formControlName="city"
+                          id="exampleFormControlSelect1">
+                          <option value="">Select City</option>
+                          <option *ngFor="let cities of cityList" [value]="cities.id">{{cities.cityName}}</option>
+                        </select>
+                        <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                          <span *ngIf="f.city.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Zip Code</label>
+                        <input type="number" disabled maxlength="6" class="form-control" formControlName="zipcode" id=""
+                          aria-describedby="" placeholder="Zip code">
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Date of Birth</label>
+                        <input type="text" disabled placeholder="Select date" formControlName="birthdate"
+                          showWeekNumbers="false" [maxDate]="today" class="form-control" [bsConfig]="dpConfig"
+                          bsDatepicker>
+                        <div *ngIf="f.birthdate.invalid && (f.birthdate.dirty || f.birthdate.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.birthdate.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birthdate</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Gender</label>
+                        <select formControlName="gender" disabled class="form-control" placeholder="Select gender">
+                          <option value="">Select</option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                        </select>
+                        <div *ngIf="f.gender.invalid && (f.gender.dirty || f.gender.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.gender.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please select gender</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-10">
+                    <div class="col-lg-6">
+                      <label for="">Relation With Student</label>
+                      <select class="form-control" disabled placeholder="Relation" formControlName="relationid"
+                        id="exampleFormControlSelect1">
+                        <option value="">Select Relation</option>
+                        <option *ngFor="let relation of relationTypeList" [value]="relation.value">{{relation.label}}
+                        </option>
+                      </select>
+                      <div *ngIf="f.relationid.invalid && (f.relationid.dirty || f.relationid.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.relationid.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select relation</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label for="">Profession</label>
+                        <input type="text" disabled maxlength="200" class="form-control" formControlName="profession"
+                          id="" aria-describedby="" placeholder="Profession">
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="row mt-20" *ngIf="isGuardian">
+                    <div class="col-lg-3">
+                      <div class="checkin">
+                        <label class="checkboxcustom">
+                          <input type="checkbox" disabled id="checkbox-in" class="form-control abc"
+                            (change)="markAsAllowToPickup()" formControlName="allowpickup">
+                          <span class="checkmark abc"></span><label> Authorized pickup</label>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-9">
+                      <div class="form-group" id="desc1" *ngIf="reasonNotToAllowbox">
+                        <label for="">Reason for not allowing pickup</label>
+                        <textarea class="form-control" disabled maxlength="100" formControlName="notallowedreason"
+                          aria-describedby="" placeholder="Reason for not allowing for pickup"></textarea>
+                        <div
+                          *ngIf="f.notallowedreason.invalid && (f.notallowedreason.dirty || f.notallowedreason.touched)"
+                          class="text-left errormsg">
+                          <span *ngIf="f.notallowedreason.errors.required">
+                            <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter reason</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- last  -->
+    </div>
+  </div>
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+
+  <app-confirm-box></app-confirm-box>

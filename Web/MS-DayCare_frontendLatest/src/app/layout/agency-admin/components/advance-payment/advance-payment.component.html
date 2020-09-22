@@ -1,0 +1,173 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Advance Payment
+          <!-- <span>/ ParentList </span> -->
+        </h2>
+      </div>
+   
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Advance Payment List</h3>
+      </div>
+    </div>
+    <div class="card cardfilter">
+      <div class="row algcenter">
+
+        <div class="leftfilter">
+          <div class="search-date">
+            <div class="pr15 label-text">Search Name : </div>
+            <input type="text" placeholder="Search parent name" (keydown)="keyDownFunction($event)" [(ngModel)]="nameSearch" class="form-control mr15"
+              id="">
+          </div>
+          <div class="search-date">
+            <div class="label-text">Search By Activation</div>
+            <div class="pr15">
+              <div class="form-group">
+                <select name="" id="" [(ngModel)]="activationType">
+                  <option value="">All</option>
+                  <option value="Activated">Active</option>
+                  <option value="Deactivated">Deactive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="filter-buttons">
+            <button type="submit" class="btn btn-send" (click)="getAllParentList()">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Parent Name</th>
+              <th scope="col">Balance Amount</th>
+              <th scope="col">Email</th>
+              <th scope="col">User Status</th>
+              <th scope="col" class="text-center">Advance Payment</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let parent of parentList">
+              <!-- <td>
+                  <label class="checkboxcustom">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                  </label>
+                </td>
+                <td scope="row">PID: {{parent.id}}</td> -->
+              <td>
+                <img src="{{parent.imagePath}}" onError="this.src='assets/img/user.png'" alt=""
+                  class="img-circle childimg">
+              </td>
+              <td>{{parent.parentName}}</td>
+              <td>${{parent.advancePaymentBalanceAmount}} </td>
+              <td>{{parent.email}}</td>
+              <td>{{parent.isDelete ? 'Deactive' : 'Active'}}</td>
+              <td class="text-center">
+                  <button class="form-control" (click)="parentInfoForAdavance(parent)"  class="btn btn-info text-center"
+                   data-toggle="modal" data-target=".advancepay">Pay Advance</button>
+                </td>
+  
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="parentList.length == 0 && !loader">No record found</span>
+        </div>
+      </div>
+        <p-paginator   [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord" (onPageChange)="paginate($event)">
+        </p-paginator>
+     
+      
+    </div>
+
+  </div>
+
+  <!-- Rejected User List
+  <div class="modal fade rejectedUsr" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Rejected Parent List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="innertable">
+            <div class="table-responsive">
+
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Parent First Name</th>
+                    <th scope="col">Parent Last Name</th>
+                    <th scope="col">Parent Email Address</th>
+                    <th scope="col">Reason</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let student of rejectedUserList">
+
+                    <td>{{student.firstName}}</td>
+                    <td>{{student.lastName}}</td>
+                    <td>{{student.emailId}}</td>
+                    <td>{{student.msg}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+ 
+       <!-- Modal for Advance payment -->
+    <div class="modal fade advancepay" data-backdrop="static"  id="breakout" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Advance Amount</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Amount($)</label>
+            <input type="text" maxlength="5" class="form-control"  (keypress)="commonService.allowOnlyNumberWithDecimal($event)"
+              placeholder="Amount" [(ngModel)]="advanceAmount">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveAdvancePay()">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+
+<app-confirm-box></app-confirm-box>

@@ -1,0 +1,257 @@
+
+<div class="wrapper">
+  <div class="container-fluid">
+<div class="pagetitle">
+  <div>
+    <h2>My Profile
+      <!-- <span>/ My Profile </span> -->
+    </h2>
+  </div>
+</div>
+
+  <div class="modal-container">
+      <div class="modal-body profileupdate">
+        <form [formGroup]="profileForm">
+              <div class="upload-profile">
+                
+                <div *ngIf="image !=''"> <img src="{{image}}" alt="image" class="img-fluid img-circle" onError="this.src='assets/img/user.png'">   </div>
+                <div *ngIf="image ==''"> <img src="{{image}}" alt="image" class="img-fluid img-circle" onError="this.src='assets/img/user.png'">   </div>
+                <div class="upload-btn-wrapper">
+                  <button class="btn btn-send">Upload a photo</button>
+                  <input
+                  type="file"
+                  #input
+                  (change)="processFile($event)">
+                  <!-- <input type="file" name="myfile" formControlName="photo" /> -->
+                </div>
+              </div>
+              <div class="form-fields">
+          <div class="row mb-10 ">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">First name</label>
+                <input type="text "  maxlength="35" class="form-control" formControlName ="firstname" id="" aria-describedby="" placeholder="Enter First Name">
+                <div *ngIf="f.firstname.invalid && (f.firstname.dirty || f.firstname.touched)" class="text-left errormsg">
+                  <span *ngIf="f.firstname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter name</span>
+                  </span>
+                  <span *ngIf="f.firstname.errors.minlength">
+                    <i class="fa fa-exclamation-circle errtext" ></i> <span class="errtext"> Minimum 3 characters required</span> 
+                </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Last name</label>
+                <input type="text " maxlength="35" class="form-control" id="" formControlName ="lastname" aria-describedby="" placeholder="Enter Last Name">
+                <div *ngIf="f.lastname.invalid && (f.lastname.dirty || f.lastname.touched)" class="text-left errormsg">
+                  <span *ngIf="f.lastname.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter last name</span>
+                  </span>
+                  <span *ngIf="f.lastname.errors.minlength">
+                    <i class="fa fa-exclamation-circle errtext" ></i> <span class="errtext"> Minimum 3 characters required</span> 
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row mb-10">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Email Address</label>
+                  <input type="email " disabled class="form-control" formControlName ="email" id="" aria-describedby="" placeholder="Email address">
+                  <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="text-left errormsg">
+                    <span *ngIf="f.email.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter email</span>
+                    </span>
+                    <span *ngIf="f.email.errors.pattern">
+                      <i class="fa fa-exclamation-circle errtext" ></i> <span class="errtext"> Please enter valid email address</span>
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Mobile</label>
+                  <input type="text " maxlength="10" class="form-control" formControlName ="mobile" id="" aria-describedby="" (keypress)="allowOnlyNumber($event)" placeholder="Mobile">
+                  <div *ngIf="f.mobile.invalid && (f.mobile.dirty || f.mobile.touched)" class="text-left errormsg">
+                    <span *ngIf="f.mobile.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter phone number</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- <div class="row mb-10">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Password</label>
+                <input type="password " class="form-control" formControlName ="forstname" id="" aria-describedby="" placeholder="Pasword">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Confirm Password</label>
+                <input type="text " class="form-control" formControlName ="forstname" id="" aria-describedby="" placeholder="Confirm Password">
+              </div>
+            </div>
+          </div> -->
+
+
+          <div class="row mb-10">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">Address</label>
+                <input type="text " maxlength="255" class="form-control" formControlName ="address" id="" aria-describedby="" placeholder="Address">
+              </div>
+              <div *ngIf="f.address.invalid && (f.address.dirty || f.address.touched)" class="text-left errormsg">
+                <span *ngIf="f.address.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter address</span>
+                </span>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Country</label>
+                <!-- <input type="text " class="form-control" formControlName ="country" id="" aria-describedby="" placeholder="Country"> -->
+                <select class="form-control" placeholder="Country" formControlName="country"
+                id="exampleFormControlSelect1" (change)="getStatesList();clearStateCity()">
+                <option value="">Select Country</option>
+                <option *ngFor="let countries of countryList" [value]="countries.id" >{{countries.countryName}}</option>
+              </select>
+              <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="text-left errormsg">
+                <span *ngIf="f.country.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                </span>
+              </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row mb-10">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                      <label for="exampleFormControlSelect1">State</label>
+                      <select class="form-control" placeholder="State" formControlName="state"
+                      id="exampleFormControlSelect1" (change)="getCitiesList();clearCity()">
+                      <option value="">Select State</option>
+                      <option *ngFor="let states of stateList" [value]="states.id" >{{states.stateName}}</option>
+                    </select>
+                    <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                      <span *ngIf="f.state.errors.required">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                      </span>
+                    </div>
+                    </div>
+              </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="">City</label>
+                <!-- <input type="text " class="form-control" formControlName ="city" id="" aria-describedby="" placeholder="Enter First Name"> -->
+                <select class="form-control" placeholder="City" formControlName="city"
+                id="exampleFormControlSelect1" >
+                <option value="">Select City</option>
+                <option *ngFor="let cities of cityList" [value]="cities.id" >{{cities.cityName}}</option>
+              </select>
+              <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="text-left errormsg">
+                <span *ngIf="f.city.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select city</span>
+                </span>
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-10">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Zip Code</label>
+                    <input type="number " maxlength="6" class="form-control" formControlName ="zipcode" id="" aria-describedby="" placeholder="Zip code">
+                  </div>
+                </div>
+              <!-- <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Location</label>
+                  <input type="text" class="form-control" formControlName ="forstname" id="" aria-describedby="" placeholder="Location">
+                </div>
+              </div>  -->
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Date Of Birth</label>
+                    <!-- <input type="date" class="form-control" formControlName ="birthdate" id="" aria-describedby="" placeholder="DOB"> -->
+                    <input type="text" placeholder="Select date" formControlName="birthdate"
+                showWeekNumbers="false" [maxDate]="today"  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.birthdate.invalid && (f.birthdate.dirty || f.birthdate.touched)" class="text-left errormsg">
+                  <span *ngIf="f.birthdate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select birthdate</span>
+                  </span>
+                </div>
+              </div>
+                </div>
+            </div>
+
+
+            <div class="row mb-10">
+
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Date of Hiring</label>
+                    <!-- <input type="date " class="form-control" formControlName ="hiringdate" id="" aria-describedby="" placeholder="DOH"> -->
+                    <input type="text" placeholder="Select date" formControlName="hiringdate"
+                showWeekNumbers="false" [maxDate]="today"  class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                <div *ngIf="f.hiringdate.invalid && (f.hiringdate.dirty || f.hiringdate.touched)" class="text-left errormsg">
+                  <span *ngIf="f.hiringdate.errors.required">
+                    <i class="fa fa-exclamation-circle"></i> <span class=""> Please select hiring date</span>
+                  </span>
+                </div>
+              </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Gross Pay</label>
+                      <input type="number" class="form-control" formControlName ="grospay" id="" aria-describedby="" placeholder="Gross pay" [attr.disabled]="true">
+                    </div>
+                  </div>
+              </div>
+
+          <div class="row mb-10">
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Certification</label>
+                  <input type="text" class="form-control" maxlength="200" formControlName ="certification" id="" aria-describedby="" placeholder="Certification">
+                  <div *ngIf="f.certification.invalid && (f.certification.dirty || f.certification.touched)" class="text-left errormsg">
+                    <span *ngIf="f.certification.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter certification</span>
+                    </span>
+                    <span *ngIf="f.certification.errors.maxlength">
+                        <i class="fa fa-exclamation-circle"></i> <span class=""> Cannot enter more then 200 chracters</span>
+                      </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Home phone</label>
+                    <input type="text" maxlength="10" class="form-control" formControlName ="homephone" id="" (keypress)="allowOnlyNumber($event)"  aria-describedby="" placeholder="home phone">
+                  </div>
+                </div>
+            </div>
+            </div>
+      </form>
+    </div>
+    <div class="modal-footer profileupdate">
+      <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+      <button type="button" class="btn btn-primary" (click)="SaveTeacherDetails()">Update Profile</button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

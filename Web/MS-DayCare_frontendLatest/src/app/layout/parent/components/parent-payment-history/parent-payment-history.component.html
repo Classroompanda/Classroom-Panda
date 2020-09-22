@@ -1,0 +1,385 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Payment
+          <!-- <span>/ Payment </span> -->
+        </h2>
+      </div>
+    </div>
+
+
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>Payment</h3>
+      </div>
+    </div>
+
+    <div class="Paymetlist mt-20">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" (click)="getPaymentHistory();onChangeTab();">
+          <a class="nav-link active" id="appStudent" data-toggle="pill" href="#pills-appstudent" role="tab"
+            aria-controls="pills-appstudent" aria-selected="true">Payments</a>
+        </li>
+        <li class="nav-item" (click)="getDuePaymentAccordingToParent()">
+          <a class="nav-link" id="penstudent" data-toggle="pill" href="#pills-penstudent" role="tab"
+            aria-controls="pills-penstudent" aria-selected="false">Due Payments</a>
+        </li>
+
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-appstudent" role="tabpanel" aria-labelledby="appStudent">
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <h3>Payment List</h3>
+            </div>
+          </div>
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Children Name</th>
+                    <!-- <th scope="col">Class</th> -->
+                    <th scope="col">Payment Description</th>
+                    <th>Amount</th>
+                    <th scope="col"> From Date </th>
+                    <th scope="col"> To Date</th>
+                    <th>Paid on</th>
+                    <!-- <th>Amount Paid</th> -->
+                    <!-- <th>Due On</th> -->
+                    <!-- <th>Status</th> -->
+                    <!-- <th scope="col">Actions</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of paymentHistoryList">
+                    <!-- <td>{{payment.studentName}}</td> -->
+                    <td>{{Children}}</td>
+                    <!-- <td>{{payment.className}}</td> -->
+                    <td *ngIf="payment.paymentDescription == null && payment.paymentComment == null">-</td>
+                    <td *ngIf="payment.paymentDescription != null && payment.paymentComment == null">{{payment.paymentDescription}}</td>
+                    <td *ngIf="payment.paymentDescription == null && payment.paymentComment != null">{{payment.paymentComment}}</td>
+                    <td *ngIf="payment.paymentDescription != null && payment.paymentComment != null">{{payment.paymentDescription}}
+                      <br> {{payment.paymentComment}}
+                    </td>
+                    <!-- <td>Dance</td> -->
+                    <td>${{payment.totalAmount}}</td>
+                    <td>{{payment.paymentFromDate| date}} </td>
+                    <td>{{payment.paymentToDate| date}} </td>
+                    <td>{{payment.paymentDate| date}}</td>
+                    <!-- <td>$15 </td>
+                    <td>$120 </td>
+                    <td>12 Nov 2018 </td>
+                    <td>Paid</td> -->
+                    <!-- <td>
+                      <a [routerLink]="['/']">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </a>
+                      <a href="">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </a>
+                    </td> -->
+                  </tr>
+
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="paymentHistoryList.length == 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,1)"></p-paginator>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-penstudent" role="tabpanel" aria-labelledby="penstudent">
+
+          <div class="innertable">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Children Name</th>
+                    <!-- <th>Total Amount</th>
+                    <th>Discount</th>
+                    <th>Subsidy</th>
+                    <th>Amount To Pay</th>
+                    <th scope="col">From Date</th>
+                    <th scope="col">To Date</th>
+                    <th scope="col">Class</th>-->
+                    <th>Balance Amount</th>
+                    <th>Amount To Pay</th>
+                    <th>Pay</th>
+                    <!-- <th>Due On</th> -->
+                    <!-- <th>Status</th> -->
+                    <!-- <th scope="col">Actions</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let due of paymentDueList">
+                    <td>{{due.studentNames}}</td>
+                    <td *ngIf="due.amount > due.debitAmount">${{due.balanceAmount}}</td>
+                    <td *ngIf="due.amount <= due.debitAmount">0</td>
+                    <!-- <td>${{due.discountAmount}}</td>
+                    <td>${{due.subsidyAmount}}</td>
+                    <td><b>${{due.invoiceAmount}}</b></td>
+                    <td>{{due.invoiceFromDate| date}}</td>
+                    <td>{{due.invoiceToDate| date}} </td>
+                    <td>{{due.className}}</td> -->
+                    <td *ngIf="due.amount > due.debitAmount">
+                       <input type="text" class="no-outline" placeholder="Enter Amount" [(ngModel)]="balanceAmount">
+                    </td>
+                    <td *ngIf="due.amount <= due.debitAmount">0</td>
+                    
+                    <td *ngIf="due.amount > due.debitAmount">
+                      <button type="submit" (click)="openOnlineCheckout(due.balanceAmount, due)"
+                        class="btn btn-send paybtn">Pay</button>
+                    </td>
+                    <td *ngIf="due.amount <= due.debitAmount">
+                      <button type="submit" disabled="true"
+                        (click)="openOnlineCheckout(due.balanceAmount, due)"
+                        class="btn btn-send paybtn">Pay</button>
+                    </td>
+                    <td>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <span *ngIf="paymentDueList.length == 0 && !loader">No record found</span>
+              </div>
+            </div>
+            <!-- <p-paginator [alwaysShow]="false" [rows]="limit" [totalRecords]="totalRecord"
+              (onPageChange)="paginate($event,2)"></p-paginator> -->
+            <!-- <div class="mainpagination">
+
+              <ul class="pagination" style="margin: 0;float: right;">
+                <li class="bar_pag">Showing 1 to 10 of 23 entries </li>
+                <li class="paginate_button previous disabled" id="example_previous">
+                  <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </li>
+                <li class="paginate_button active">
+                  <a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a>
+                </li>
+                <li class="paginate_button ">
+                  <a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">2</a>
+                </li>
+                <li class="paginate_button next" id="example_next">
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </li>
+              </ul>
+            </div> -->
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="modal fade editpayment" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Edit Payment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Invoice ID</label>
+                      <input type="text " class="form-control" id="" aria-describedby="" placeholder="ID">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Invoice Title</label>
+                      <input type="text " class="form-control" id="" aria-describedby="" placeholder="Enter Last Name">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Date</label>
+                      <input type="date" class="form-control" id="" aria-describedby="" placeholder="Date">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Due Date</label>
+                      <input type="date " class="form-control" id="" aria-describedby="" placeholder="Due Date">
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Amount Paid</label>
+                      <input type="number" class="form-control" id="" aria-describedby="" placeholder="Gross pay">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Amount Balance</label>
+                      <input type="number" class="form-control" id="" aria-describedby="" placeholder="Cartification">
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Edit Invoice</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade paypayment" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Edit Payment</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Fee Type</label>
+                      <input type="text " class="form-control" id="" aria-describedby="" placeholder="ID" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Amount Due</label>
+                      <input type="number" class="form-control" id="" aria-describedby="" placeholder="" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Amount to be Paid</label>
+                      <input type="number" class="form-control" id="" aria-describedby="" placeholder="" disabled>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Discount Ammount</label>
+                      <input type="number" class="form-control" id="" aria-describedby="" placeholder="">
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="row ">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Payment Method</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Cash</option>
+                        <option>Check</option>
+                        <option>Bank Draft</option>
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Parent</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>John</option>
+                        <option>Mark</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Description</label>
+
+                      <input type="text" class="form-control" id="" aria-describedby="">
+                    </div>
+                  </div>
+                </div>
+
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Pay Now</button>
+            </div>
+          </div>
+        </div>
+
+
+
+        <!-- last -->
+      </div>
+
+      <div class="modal fade offlinepay" data-backdrop="static" style="z-index: 1100;" id="breakout" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Pay Amount</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label>Amount To Pay</label>
+                  <p style="background: #ededed" class="form-control">0</p>
+                </div>
+              </form>
+
+            </div>
+            <div class="modal-footer">
+              <!-- data-dismiss="modal" -->
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="payOfflineIfAmountZero()">Pay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>
+    </div>

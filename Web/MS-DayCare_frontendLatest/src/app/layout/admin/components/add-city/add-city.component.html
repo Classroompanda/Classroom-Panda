@@ -1,0 +1,114 @@
+<div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="pagetitle">
+      <div>
+        <h2>Admin
+          <span>/ City List </span>
+        </h2>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-20 subhead">
+      <div>
+        <h3>City List</h3>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-send" data-toggle="modal" (click)="clearForm()" data-target=".addplan">Add City</button>
+      </div>
+    </div>
+
+<!-- 
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>              
+              <th scope="col">State Name</th>            
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plan of stateList">
+              <td>{{plan.stateName}}</td>            
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade addplan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{addMode? 'Add City' : 'city Details' }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="pricingForm">
+          <div class="row mb-20 mt-20">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Country*</label>                      
+                <select class="form-control" placeholder="Country" formControlName="country"
+                id="exampleFormControlSelect1" (change)="getStatesList();">
+                <option value="">Select Country</option>
+                <option *ngFor="let countries of countryList" [value]="countries.id" >{{countries.countryName}}</option>
+              </select>
+              <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="text-left errormsg">
+                <span *ngIf="f.country.errors.required">
+                  <i class="fa fa-exclamation-circle"></i> <span class=""> Please select country</span>
+                </span>
+              </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">State*</label>
+                    <select class="form-control" placeholder="State" formControlName="state"
+                    id="exampleFormControlSelect1">
+                    <option value="">Select State</option>
+                    <option *ngFor="let states of stateList" [value]="states.id" >{{states.stateName}}</option>
+                  </select>
+                  <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="text-left errormsg">
+                    <span *ngIf="f.state.errors.required">
+                      <i class="fa fa-exclamation-circle"></i> <span class=""> Please select state</span>
+                    </span>
+                  </div>
+                  </div>
+              </div>
+          </div>     
+          
+          <div class="row mb-20">
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Enter City Name*</label>
+                    <input type="text" formControlName="cityname" maxlength="25" class="form-control" id="" aria-describedby="" placeholder="Enter city name">
+                    <div *ngIf="f.cityname.invalid && (f.cityname.dirty || f.cityname.touched)" class="text-left errormsg">
+                        <span *ngIf="f.cityname.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please enter city name</span>
+                        </span>
+                      </div>
+                  </div>
+                  </div>
+          </div>
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button"  class="btn btn-primary" (click)="createNewPlan()">{{addMode? 'Add': 'Save Chnage'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

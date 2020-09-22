@@ -1,0 +1,171 @@
+/* .p-act .nav-link img{width:30px }
+.p-act .nav-item{text-align: center}
+.p-act.nav-pills .nav-link{background: transparent}
+.p-act.nav-pills .nav-link.active, .p-act.nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #007bff;
+}
+
+.p-cont input[type="radio"] + span{
+    height: 50px;width: 50px;border-radius: 5px;line-height: 50px;
+}
+
+.p-cont #radios label{text-align: center} */
+
+
+#editactivity .nav-link {padding: 5px 20px;}
+#editactivity .modal-body{padding: 20px}
+#editactivity ul li{text-align: center}
+#editactivity .tab-content{min-height: 200px;padding: 15px 0}
+#editactivity .Moods{ margin: 0}
+#editactivity .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{box-shadow:  0px 4px 8px 0px #dedede;border: none; color: #fff;background-color: #FF6C6C;}
+#editactivity .nav-link p{margin: 0}
+#editactivity .nav-link img,#editmeal .nav-link img, #edithealth .nav-link img,#editpost .nav-link img { height:  30px}
+
+
+/* switchcss */
+.middle {
+  width: 100%;
+}
+.middle input[type="radio"] {
+  display: none;
+}
+.middle input[type="radio"]:checked + .box {
+  background-color: #A8D4FE;
+  border-radius: 5px;
+}
+.middle input[type="radio"]:checked + .box span {
+  color: white;
+  transform: translateY(70px);
+}
+.middle input[type="radio"]:checked + .box span:before {
+  transform: translateY(0px);
+  opacity: 1;
+}
+.middle .box {
+  width: 80px;
+  height: 70px;
+  background-color: #fff;
+  transition: all 250ms ease;
+  will-change: transition;
+  text-align: center;
+  cursor: pointer;
+  line-height: 35px;
+}
+.middle .box:active {
+  transform: translateY(10px);
+}
+.middle .box span {
+  transform: translate(0, 60px);
+  transition: all 300ms ease;
+  font-size: 12px;
+  user-select: none;
+  color: #007e90;
+}
+.middle .box span:before {
+  font-size: 12px;
+  font-family: FontAwesome;
+  display: block;
+  transform: translateY(-80px);
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+  font-weight: normal;
+  color: white;
+}
+
+.middle .box span img{width: 25px;}
+
+@media (max-width:1024px) and (min-width:768px) {
+   .margt15 {
+     margin-top:15px;
+   }
+   .btn-red {
+    padding: 8px 20px;
+    font-size: 12px;
+    margin-left: 0;
+    margin-right: 10px;
+}
+}
+
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 112%;
+  pointer-events: auto;
+  background-clip: padding-box;
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+
+.napimg {
+  width: 40px;
+}
+
+
+.scrolldiv {
+  /* height:80px;
+  overflow-y: scroll; */
+  height: auto;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.list5Item{ list-style-type: none; margin: 0; padding: 0;}
+.list5Item li{ display: inline-block; margin: 5px;}
+.othernotebtn {
+  background: #FF6C6C;padding: 5px 12px;color: #fff;font-size: 14px;border-radius: 30px;
+}
+
+.editshadow{
+  /* display: block; */
+  z-index: 1051;
+  /* padding-left: 17px; */
+  background: rgba(0,0,0,0.5);
+}
+
+.studchatimg {
+  width: 40px;
+  height: 40px;
+  border-radius: 19px;
+}
+ul.activityhis li a{
+  cursor: pointer;
+}
+@media(max-width: 991px){
+  .modal-content{
+    width: 100%;
+  }
+  .scrolldiv .btn.othernotebtn{
+    margin: 7px;
+  }
+}
+.scrolldiv{
+  padding: 10px 30px 10px 0px;
+}
+.cardfilter button.btn-send{
+  margin-top: 0px;
+}
+
+/**Comented By Aniket at 12 FEB 2018  */
+
+/* 
+body .ui-inputswitch.ui-inputswitch-checked .ui-inputswitch-slider:before {
+  -webkit-transform: translateX(37px);
+  transform: translateX(37px);
+}
+body .ui-inputswitch .ui-inputswitch-slider:before {
+  height: 37px;
+  width: 37px;
+}
+.ui-inputswitch {
+  width: 80px !important;
+  height: 45px !important;
+}
+.modal-body .first {
+  display: block !important;
+} */
+
+.plusIcon{ font-size: 18px;color: #FF6C6C; }

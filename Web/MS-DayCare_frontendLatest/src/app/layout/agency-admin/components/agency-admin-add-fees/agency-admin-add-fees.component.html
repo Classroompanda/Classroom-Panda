@@ -1,0 +1,288 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="pagetitle">
+      <div>
+        <h2>Payment
+          <span>/ Add Fees </span>
+        </h2>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-red" *ngIf="showNewEntry && activeSubscription" data-toggle="modal"
+          data-target=".feescalculation" (click)="clearAddFeesForm();getDetails()">Add Fees </button>
+        <button type="submit" class="btn btn-red" *ngIf="!showNewEntry || !activeSubscription"
+          title="Please generate invoice" data-toggle="modal" disabled>Add Fees </button>
+      </div>
+    </div>
+    <div class="subhead d-flex justify-content-between mt-20">
+      <div>
+        <h3>{{studentName}}</h3>
+      </div>
+    </div>
+
+    <div class="innertable">
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Student Name</th>
+              <th scope="col">Class</th>
+              <th scope="col">Parent Name</th>
+              <th scope="col">Calculated Amount</th>
+              <th scope="col">From Date</th>
+              <th scope="col">To Date</th>
+              <th scope="col" class="text-center">Details</th>
+              <th scope="col" class="text-center">Invoice</th>
+              <th scope="col" class="text-center">Action</th>
+
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of getAllCalcultedDetailsList">
+              <td>{{payment.studentName}}</td>
+              <td>{{payment.className}}</td>
+              <td>{{payment.parentName}}</td>
+              <td>${{payment.totalCalculatedAmount}}</td>
+              <td>{{payment.fromDate| date}}</td>
+              <td>{{payment.toDate| date}}</td>
+              <td class="text-center">
+                <a> <i class="fa fa-eye" (click)="getCalculationDetails(payment)"></i> </a>
+              </td>
+              <td class="text-center">
+                <a *ngIf="!payment.isInvoiceGenrated" (click)="confirmInvoice(payment)" title="Generate Invoice">
+                  <img class="flat_icon" src="../../../../../assets/invoice.png" alt="Generate Invoice">
+                </a>
+              </td>
+              <td class="text-center">
+                <a *ngIf="!payment.isInvoiceGenrated" (click)="deleteCalulation(payment)" title="Delete Calculation">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <span *ngIf="getAllCalcultedDetailsList.length === 0 && !loader">No record found</span>
+        </div>
+      </div>
+
+      <!-- Fees Calculation Form -->
+      <div class="modal fade feescalculation" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content  white_box_table">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Calculate Fees</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p-messages [(value)]="msgs"></p-messages>
+              <form [formGroup]="editTransForm">
+
+                <div class="row mb-20">
+                  <div class="col-lg-4">
+                    <div class="form-group ">
+                      <label for="">From Date </label>
+                      <input type="text" *ngIf="isAddMode" placeholder="From Date" (bsValueChange)="getFromDate($event)"
+                        formControlName="fromdate" showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig"
+                        bsDatepicker>
+                      <input type="text" *ngIf="!isAddMode" placeholder="From Date" disabled formControlName="fromdate"
+                        showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="f.fromdate.invalid && (f.fromdate.dirty || f.fromdate.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.fromdate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="">To Date</label>
+                      <!-- (bsValueChange)="getPerDayCalculatedFees($event)" -->
+                      <input type="text" [maxDate]="today" *ngIf="isAddMode" placeholder="To Date"
+                        (bsValueChange)="getTODate($event)" formControlName="todate" showWeekNumbers="false"
+                        class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <input type="text" *ngIf="!isAddMode" placeholder="To Date" disabled formControlName="todate"
+                        showWeekNumbers="false" class="form-control" [bsConfig]="dpConfig" bsDatepicker>
+                      <div *ngIf="f.todate.invalid && (f.todate.dirty || f.todate.touched)" class="text-left errormsg">
+                        <span *ngIf="f.todate.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class=""> Please select date</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group ">
+                      <label for="">Generated Fees ($)</label>
+                      <input type="text" disabled placeholder="Generated Fees" formControlName="generatedfees"
+                        class="form-control">
+                      <div *ngIf="f.generatedfees.invalid && (f.generatedfees.dirty || f.generatedfees.touched)"
+                        class="text-left errormsg">
+                        <span *ngIf="f.generatedfees.errors.required">
+                          <i class="fa fa-exclamation-circle"></i> <span class="">Fees Required</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Parent Name</label>
+                      <input type="text" class="form-control" disabled formControlName="parentname"
+                        placeholder="Parent Name">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Student Name</label>
+                      <input type="text" class="form-control" disabled formControlName="childname" disabled
+                        placeholder="Student Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20 ">
+                  <div class="col-lg-6">
+                    <button class="btn btn-info" *ngIf="!showWxtraFeesForm" (click)="shoHideExtrFees()">Add Extra
+                      Fees</button>
+                    <button class="btn btn-info" *ngIf="showWxtraFeesForm" (click)="shoHideExtrFees()">Remove Extra
+                      Fees</button>
+                  </div>
+                </div>
+                <div *ngIf="showWxtraFeesForm" class=" innertable mt-20">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="wid26">Fees type</th>
+                          <th scope="col" class="wid26">Amount</th>
+                          <th scope="col" class="wid26">Description</th>
+                          <th scope="col" class="wid10">Add</th>
+                          <th scope="col" class="wid10">Remove</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let disp of displayTransList;let item of editTransForm.get('transArraycollection').controls; let i = index;"
+                          formArrayName="transArraycollection">
+                          <td [formGroupName]="i">
+                            <select class="form-control" (change)="changeInAmount()" formControlName="transactionTypeID"
+                              placeholder="Fees Type" id="exampleFormControlSelect1">
+                              <option value="">Select Fees Type</option>
+                              <option *ngFor="let transtype of getExtraFeesChargeList" [value]="transtype.id">
+                                {{transtype.extraChargeName}}</option>
+                            </select>
+                          </td>
+                          <td [formGroupName]="i">
+                            <input type="text" maxlength="5"
+                              (keypress)="commonService.allowOnlyNumberWithDecimal($event)" formControlName="amount"
+                              (input)="calculateTotleAmount();changeInAmount()" class="form-control" id=""
+                              aria-describedby="" placeholder="Amount">
+                          </td>
+                          <td [formGroupName]="i">
+                            <textarea type="text" rows="1" (input)="changeInAmount();" cols="20" maxlength="100"
+                              formControlName="description" class="form-control resizearea" id="" aria-describedby=""
+                              placeholder="Description"> </textarea>
+                          </td>
+                          <td class="verAligMiddle">
+                            <a href="javascript:void(0);"
+                              *ngIf="( displayTransList.length < getExtraFeesChargeList.length )">
+                              <i class="fa fa-plus-circle plusIcon" (click)="addFees()" aria-hidden="true"></i></a>
+
+                          </td>
+                          <td class="verAligMiddle">
+                            <a href="javascript:void(0);" *ngIf="displayTransList.length > 1">
+                              <i class="fa fa-minus-circle minusIcon" (click)="removeExtraFees(disp)"
+                                aria-hidden="true"></i></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="row mb-20 mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Discount Amount ($)</label>
+                      <input type="text" maxlength="5" (keypress)="commonService.allowOnlyNumberWithDecimal($event)"
+                        class="form-control" (input)="changeInAmount();isDiscount()" formControlName="discountamount"
+                        placeholder="Discount Amount">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Description for Discount</label>
+                      <textarea name="" (input)="changeInAmount();" formControlName="discountdetails"
+                        class="form-control resizearea" cols="20" rows="1"></textarea>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-20 mt-20">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="">Total Amount ($)</label>
+                      <p class="form-control" style="background: #e9ecef">{{FinalCalculatedFees}}</p>
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" *ngIf="!isInvoiceGenrated"
+                  (click)="verifyExtraFeesForm()">Calculate Total Amount</button> &nbsp;
+                <div *ngIf="isAddMode">
+                  <button type="submit" class="btn btn-primary" *ngIf="showNextBtn && !duplicateDuration"
+                    (click)="confirmCalculation()">Next</button>
+                </div>
+                <div *ngIf="!isAddMode">
+                  <button type="submit" class="btn btn-primary" *ngIf="showNextBtn"
+                    (click)="confirmCalculation()">Next</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- Final Modal -->
+      <div class="modal fade finalmodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content  white_box_table">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Calculate Fees</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Total Amount: {{FinalCalculatedFees}}</label>
+                </div>
+
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                <button type="submit" class="btn-cal"> Calculate</button>
+                <button type="submit" class="btn btn-primary" (click)="verifyCalculateFees()">Save</button> &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-confirm-box></app-confirm-box>
+    <ngx-spinner type="ball-atom" size="medium" color="#58A7FE"></ngx-spinner>

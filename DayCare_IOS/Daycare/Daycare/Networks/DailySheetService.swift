@@ -38,7 +38,41 @@ class DailySheetService: APIService {
             }
         }
     }
-    
+    func getCompleteDailySheetList(with target:BaseViewController?, agencyID:Int ,askedDate:String, complition:@escaping(Any?) -> Void){
+           target?.showLoader()
+      /*
+       {"StudentName":"",
+       "agencyID":43,
+       "askedDate":"2020-09-09T05:30:00.000Z",
+       "askedDateString":"2020-09-09 11:00:00",
+       "studentActivitiesId":0,
+       "studentID":0}
+       */
+           // send asked Date in UTC and askeDateString in local timezone
+           //askedDate is in Local
+           let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+
+           let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+           let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kStudentName : "", Macros.ApiKeys.kstudentAcitivityId : "0", Macros.ApiKeys.kstudentID: "0", Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+           super.startService(with: .POST, path: Macros.ServiceName.GetCompleteDailySheetMobile, parameters: param, files: []) { (result) in
+               DispatchQueue.main.async {
+                   target?.hideLoader()
+                   switch result {
+                   case .Success(let response):
+                       if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
+                           let dailySheets = DailySheet.modelsFromDictionaryArray(array: data)
+                           complition(dailySheets)
+                       }else {
+                           complition(nil)
+                       }
+                   case .Error(let error):
+                       target?.hideLoader()
+                       target?.showAlert(with: error)
+                       complition(nil)
+                   }
+               }
+           }
+       }
     //MARK:---- SubActivity List API -----
     func getSubActivityList(with target:BaseViewController?, agencyID:Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()

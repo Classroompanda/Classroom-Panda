@@ -23,6 +23,7 @@ class DailySheetDetailVC: BaseViewController {
     var arrForActivity:[ActivityDetail] = []
     var arrForSubActivities: [SubActivity]?
     
+  var isCompleteDailySheet = false
     override func viewDidLoad() {
         super.viewDidLoad()
         arrForActivity = dailySheetStudent?.activityDetail ?? []
@@ -283,7 +284,7 @@ extension DailySheetDetailVC: UITableViewDelegate,UITableViewDataSource{
         return arrForActivity.count > 0 ? customCellForDailySheetDetail(tableView:tableView ,indexPath:indexPath) : customEmptyTableViewCell(tableView: tableView)
     }
     
-    func customCellForDailySheetDetail(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell{
+    func customCellForDailySheetDetail(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.DailySheetDetailTableViewCell) as? DailySheetDetailTableViewCell{
             let cellCount = arrForActivity.count
             let activity = arrForActivity[indexPath.row]
@@ -292,6 +293,10 @@ extension DailySheetDetailVC: UITableViewDelegate,UITableViewDataSource{
             cell.lblForTime.isHidden = false
             cell.btnForEdit.isHidden = false
             cell.btnForDelete.isHidden = false
+          if isCompleteDailySheet {
+            cell.btnForEdit.isHidden = true
+            cell.btnForDelete.isHidden = true
+          }
             cell.btnForDelete.tag = indexPath.row
             cell.btnForEdit.tag = indexPath.row
             cell.lblForLine.isHidden = indexPath.row == (cellCount - 1) ? true : false

@@ -31,12 +31,12 @@ struct Macros
   //MARK:----- URLs -----
   struct URLs{
     // Here we will fetch BASE SERVER URL from pList
-//    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
-            static let baseServer  : String = "https://schoolpandaapp.azurewebsites.net/api" // AZURE SERVER
+    //    static let baseServer  : String = "https://www.stagingwin.com:9943/api" // Live Server
+    static let baseServer  : String = "https://schoolpandaapp.azurewebsites.net/api" // AZURE SERVER
     
     
-//    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat"
-            static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" // AZURE SERVER
+    //    static let chattingUrl: String = "https://www.stagingwin.com:9943/chat"
+    static let chattingUrl: String = "https://schoolpandaapp.azurewebsites.net/chat" // AZURE SERVER
     
     
   }
@@ -73,6 +73,7 @@ struct Macros
     static let SaveTeacherDetails             =   "/Teacher/SaveTeacherDetails"
     static let GetDailySheet                  =   "/Classes/GetDailySheet"
     static let GetDailySheetMobile            =   "/Classes/GetDailySheetMobile"
+    static let GetCompleteDailySheetMobile            =   "/Classes/GetAllDailySheetMobile"
     static let GetAllSubActivityType          =   "/Masters/GetAllSubActivityType"
     static let SaveStudentActivity            =   "/Classes/SaveStudentActivity"
     static let GetAllPostActivities           =   "/Teacher/GetAllPostActivities"
@@ -492,6 +493,7 @@ struct Macros
   struct ApiKeys {
     static let kuserID                =   "userID"
     static let kagencyID              =   "agencyID"
+    static let kStudentName            = "StudentName"
     static let kisActive              =   "isActive"
     static let kisDeleted             =   "isDeleted"
     static let kdeletedBy             =   "deletedBy"

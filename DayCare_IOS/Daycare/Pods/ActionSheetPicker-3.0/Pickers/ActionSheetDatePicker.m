@@ -120,7 +120,9 @@
     self = [super initWithTarget:target successAction:action cancelAction:cancelAction origin:origin];
     if (self) {
         self.title = title;
+     
         self.datePickerMode = datePickerMode;
+      
         self.selectedDate = selectedDate;
     }
     return self;
@@ -157,7 +159,14 @@
 - (UIView *)configuredPickerView {
     CGRect datePickerFrame = CGRectMake(0, 40, self.viewSize.width, 216);
     UIDatePicker *datePicker = [[UIDatePicker alloc] initWithFrame:datePickerFrame];
+ 
+  if (@available(iOS 13.4, *))
+  {
+    datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+  }
+  
     datePicker.datePickerMode = self.datePickerMode;
+  
     datePicker.maximumDate = self.maximumDate;
     datePicker.minimumDate = self.minimumDate;
     datePicker.minuteInterval = self.minuteInterval;

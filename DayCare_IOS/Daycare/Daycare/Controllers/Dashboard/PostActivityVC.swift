@@ -39,7 +39,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
         initialSetup()
     }
     
-    func initialSetup(){
+    func initialSetup() {
         self.setNavigationBar(title: Macros.NavigationTitle.PostActivity)
         self.apiForGetAllClasses()
         refreshControl.attributedTitle = NSAttributedString(string: Macros.refresh)

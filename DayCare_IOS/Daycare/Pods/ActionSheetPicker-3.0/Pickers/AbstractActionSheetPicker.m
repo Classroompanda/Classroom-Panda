@@ -40,6 +40,7 @@ CG_INLINE BOOL isIPhone4() {
 
 #define IS_WIDESCREEN ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
 #define IS_IPAD UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+#define IS_IPHONE UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone
 #define DEVICE_ORIENTATION [UIDevice currentDevice].orientation
 
 // UIInterfaceOrientationMask vs. UIInterfaceOrientation
@@ -261,6 +262,7 @@ CG_INLINE BOOL isIPhone4() {
     }
 
     self.pickerView = [self configuredPickerView];
+ 
     NSAssert(_pickerView != NULL, @"Picker view failed to instantiate, perhaps you have invalid component data.");
     // toolbar hidden remove the toolbar frame and update pickerview frame
     if (self.toolbar.hidden) {
@@ -268,6 +270,7 @@ CG_INLINE BOOL isIPhone4() {
         masterView.frame = CGRectMake(0, 0, self.viewSize.width, 220);
         self.pickerView.frame = CGRectMake(0, halfWidth, self.viewSize.width, 220 - halfWidth);
     }
+  self.pickerView.center = masterView.center;
     [masterView addSubview:_pickerView];
 
     if ((![MyPopoverController canShowPopover] || self.popoverDisabled) && !self.pickerBackgroundColor && !self.toolbarBackgroundColor && [self.pickerBlurRadius intValue] > 0) {
@@ -643,7 +646,7 @@ CG_INLINE BOOL isIPhone4() {
         return [UIApplication sharedApplication].keyWindow.bounds.size;
     }
 
-#if defined(__IPHONE_8_0)
+#if defined(IS_IPHONE)
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
         //iOS 7.1 or earlier
         if ([self isViewPortrait])

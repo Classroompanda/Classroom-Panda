@@ -26,10 +26,14 @@ class DailySheetsVC: BaseViewController {
   @IBOutlet weak var btnCompleteSheet: UIButton!
   @IBOutlet weak var imgTabCurrent: UIImageView!
   @IBOutlet weak var imgTabComplete: UIImageView!
+  @IBOutlet weak var viewSearch: UIView!
+  @IBOutlet weak var viewSelect: UIView!
+  @IBOutlet weak var txtFieldSearch: UITextField!
   
     var refreshControl = UIRefreshControl()
     let dropDownForClasses  =   DropDown()
     var arrForDailySheet    =   [DailySheet]()
+  var arrForCompleteSheet    =   [DailySheet]()
     var arrForSelectedStudent : [DailySheet] = []
     var arrForClass         :   [Class]     = []
     var arrForOperationalClass : [Class]?
@@ -52,6 +56,7 @@ class DailySheetsVC: BaseViewController {
             self.btnForSelection.isHidden = false
         }
          self.btnForSelection.isHidden = self.isPreviousDate()
+      self.collectionViewForDailysheet.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -98,6 +103,8 @@ class DailySheetsVC: BaseViewController {
     }
     
     @IBAction func actionForAddDailySheet(_ sender: Any) {
+      txtFieldSearch.resignFirstResponder()
+      txtFieldSearch.text = ""
         let vc = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Other, vcIdentifire: Macros.Identifiers.Controller.AddDailySheetVC) as! AddDailySheetVC
         vc.arrForSelectedStudent = self.arrForSelectedStudent
         vc.selectedClass = self.selectedClass
@@ -106,6 +113,7 @@ class DailySheetsVC: BaseViewController {
     }
     
     @IBAction func actionForDateSelection(_ sender: UIButton) {
+      
         let datePicker = ActionSheetDatePicker(title: "", datePickerMode: .date, selectedDate: self.selectedDate ?? Date(), doneBlock: {
             picker, value, index in
             let dateTime    = value as! Date
@@ -115,7 +123,6 @@ class DailySheetsVC: BaseViewController {
             if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: dateTime){
                 self.selectedDate = dateTime
                 if !self.isPreviousDate() {
-                    
                     if (self.arrForOperationalClass?.count ?? 0) > 0 {
                         self.selectedClass = self.arrForOperationalClass?[0]
                         self.btnForSelection.isHidden = false
@@ -169,22 +176,28 @@ class DailySheetsVC: BaseViewController {
        }
   
   @IBAction func butonActionCompleteSheet(_ sender: Any) {
+    txtFieldSearch.resignFirstResponder()
+    txtFieldSearch.text = ""
     btnForSelection.isHidden = true
     btnForAdd.isHidden = true
     btnCompleteSheet.alpha = 1
     imgTabComplete.isHidden = false
     btnCurrentSheet.alpha = 0.5
     imgTabCurrent.isHidden = true
-    
-  apiForGetCompleteDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+    viewSelect.isHidden = true
+    viewSearch.isHidden = false
+    apiForGetCompleteDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
     refreshControl.removeTarget(self, action: #selector(actionForRefresh(sender:)), for: UIControl.Event.valueChanged)
     refreshControl.addTarget(self, action: #selector(actionForCompleteDailySheet(sender:)), for: UIControl.Event.valueChanged)
   }
+  
   @IBAction func butonActionCurrentSheet(_ sender: Any) {
     btnCompleteSheet.alpha = 0.5
     imgTabComplete.isHidden = true
     btnCurrentSheet.alpha = 1.0
     imgTabCurrent.isHidden = false
+    viewSelect.isHidden = false
+    viewSearch.isHidden = true
     
     apiForGetDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
     refreshControl.removeTarget(self, action: #selector(actionForCompleteDailySheet(sender:)), for: UIControl.Event.valueChanged)
@@ -245,10 +258,10 @@ class DailySheetsVC: BaseViewController {
     func apiForGetAllClasses(){
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
+          self.isFirstLoad = false
             if let arrForClasses = result as? [Class]{
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
-                    self.isFirstLoad = false
                     self.collectionViewForDailysheet.reloadData()
                     if !self.isPreviousDate() {
                         self.showAlert(with: Macros.alertMessages.pleaseCheckedInClass)
@@ -295,12 +308,15 @@ class DailySheetsVC: BaseViewController {
         }
     }
     
-    func apiForGetDailySheet(classId:Int,askedDate:String){
+    func apiForGetDailySheet(classId:Int,askedDate:String) {
+      txtFieldSearch.resignFirstResponder()
+      txtFieldSearch.text = ""
         self.setupClassesDropDown()
         self.btnForAdd.isHidden = true
         self.arrForSelectedStudent = []
         let service = DailySheetService()
         service.getDailySheetList(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classID: classId, askedDate: askedDate) { (result) in
+          self.isFirstLoad = false
             if result != nil {
                 self.refreshControl.endRefreshing()
                 self.isFirstLoad = false
@@ -314,29 +330,63 @@ class DailySheetsVC: BaseViewController {
         }
     }
   func apiForGetCompleteDailySheet(classId:Int,askedDate:String){
-      self.setupClassesDropDown()
-      self.btnForAdd.isHidden = true
-      self.arrForSelectedStudent = []
-      let service = DailySheetService()
-      service.getCompleteDailySheetList(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0,  askedDate: askedDate) { (result) in
-          if result != nil {
-              self.refreshControl.endRefreshing()
-              self.isFirstLoad = false
-              self.arrForDailySheet = result as? [DailySheet] ?? []
-              self.btnForToddler.setTitle(self.selectedClass?.className, for: .normal)
-              self.collectionViewForDailysheet.reloadData()
-          } else {
-              self.arrForDailySheet = []
-              self.collectionViewForDailysheet.reloadData()
-          }
+    txtFieldSearch.resignFirstResponder()
+    txtFieldSearch.text = ""
+    self.setupClassesDropDown()
+    self.btnForAdd.isHidden = true
+    self.arrForSelectedStudent = []
+    let service = DailySheetService()
+    service.getCompleteDailySheetList(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0,  askedDate: askedDate) { (result) in
+      if result != nil {
+        self.refreshControl.endRefreshing()
+        self.isFirstLoad = false
+        self.arrForDailySheet = result as? [DailySheet] ?? []
+        self.arrForCompleteSheet = result as? [DailySheet] ?? []
+        self.btnForToddler.setTitle(self.selectedClass?.className, for: .normal)
+        self.collectionViewForDailysheet.reloadData()
+      } else {
+        self.arrForDailySheet = []
+        self.arrForCompleteSheet = []
+        self.collectionViewForDailysheet.reloadData()
       }
+    }
   }
 }
 
+//MARK:----- DailySheet TExtfield Delegates
+extension DailySheetsVC: UITextFieldDelegate
+{
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    return true
+  }
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    if string == " " && range.location == 0
+    {
+      return false
+    }
+    if let text = textField.text,
+               let textRange = Range(range, in: text) {
+               let updatedText = text.replacingCharacters(in: textRange,
+                                                           with: string)
+      if updatedText.count>0
+      {
+       let sortedDta = arrForCompleteSheet.filter({ (object) -> Bool in
+        return (object.studentName?.lowercased().contains(updatedText.lowercased()) ?? false)
+      })
+      arrForDailySheet = sortedDta
+      }
+      else{
+        arrForDailySheet = arrForCompleteSheet
+      }
+      self.collectionViewForDailysheet.reloadData()
+  }
+    return true
+  }
+}
 //MARK:----- DailySheet CollectionView Datasource and Delegates -----
 extension DailySheetsVC: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return isFirstLoad ? 0 : (arrForDailySheet.count == 0) ? 1 : arrForDailySheet.count
+      return (self.isFirstLoad) ? 0 :(arrForDailySheet.count == 0) ? 1 : arrForDailySheet.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

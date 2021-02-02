@@ -142,7 +142,7 @@ class AttendanceVC: BaseViewController {
     }
     
     //Dropdown list
-    func setupClassesDropDown(sender:UIButton){
+    func setupClassesDropDown(sender:UIButton) {
         self.arrforClassesName = []
         var arrForClassDropDown:[Class] = []
         if CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
@@ -198,7 +198,7 @@ class AttendanceVC: BaseViewController {
                     if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
                         self.showAlert(with: Macros.alertMessages.pleaseCheckedInClass)
                     }
-                }else {
+                } else {
                     self.apiCallGetTeacherCurrentOperationalClass()
                 }
             }

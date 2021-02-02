@@ -110,7 +110,7 @@ class DailySheetsVC: BaseViewController {
         vc.selectedClass = self.selectedClass
         vc.selectedActivityDate = self.selectedDate
         self.navigationController?.pushViewController(vc, animated: true)
-    }
+    } 
     
     @IBAction func actionForDateSelection(_ sender: UIButton) {
       
@@ -530,3 +530,7 @@ class DailySheetNoRecordFound: UICollectionViewCell {
         // Initialization code
     }
 }
+
+
+
+

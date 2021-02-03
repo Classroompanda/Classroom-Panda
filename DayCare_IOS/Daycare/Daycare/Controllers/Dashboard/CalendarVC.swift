@@ -145,9 +145,22 @@ class CalendarVC: BaseViewController {
         if btnForEventPlanner.isSelected {
             arrForSelectedDateEvent = []
             for i in 0..<arrForEvents.count {
-                if selectedDate == CommonClassMethods.dateObjectWithoutTimeFromDateString(date: arrForEvents[i].start ?? ""){
-                    arrForSelectedDateEvent.append(arrForEvents[i])
-                }
+              // code before
+//                if selectedDate == CommonClassMethods.dateObjectWithoutTimeFromDateString(date: arrForEvents[i].start ?? "") {
+//                    arrForSelectedDateEvent.append(arrForEvents[i])
+//                }
+              // Shiwani, code now
+              if let date = selectedDate {
+              let dateNowString = CommonClassMethods.convertDateToServerReadableFormatS(date: date)
+              let dateNow = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: dateNowString)
+              
+              let starDate = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: arrForEvents[i].start ?? "")
+              let endDate = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: arrForEvents[i].end ?? "")
+              if dateNow == starDate || dateNow == endDate || (dateNow > starDate && dateNow < endDate)
+              {
+                arrForSelectedDateEvent.append(arrForEvents[i])
+              }
+            }
             }
         } else {
             arrForSelectedDateMealPlan = []
@@ -182,7 +195,7 @@ class CalendarVC: BaseViewController {
         }
     }
     
-    func apiForGetMealPlanByMonth(eventFromDate:String,eventToDate:String){
+    func apiForGetMealPlanByMonth(eventFromDate:String,eventToDate:String) {
         let service = CalendarService()
         service.getAllMealPlan(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, eventFromDate: eventFromDate, eventToDate: eventToDate) { (result) in
             if result != nil {
@@ -332,10 +345,15 @@ extension CalendarVC: FSCalendarDelegate,FSCalendarDataSource{
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         if btnForEventPlanner.isSelected {
+          let dateNowString = CommonClassMethods.convertDateToServerReadableFormatS(date: date)
+          let dateNow = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: dateNowString)
             for event in self.arrForEvents {
-                if (CommonClassMethods.dateObjectWithoutTimeFromDateString(date: event.start ?? "")) == CommonClassMethods.convertDateWithoutTime(date: date) {
-                    return 1
-                }
+                            let starDate = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: event.start ?? "")
+                            let endDate = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: event.end ?? "")
+              if dateNow == starDate || dateNow == endDate || (dateNow > starDate && dateNow < endDate)
+              {
+                return 1
+              }
             }
         } else {
             for meal in self.arrForMealPlan {
@@ -417,3 +435,4 @@ class NoEventFoundTableViewCell: UITableViewCell {
     }
     
 }
+

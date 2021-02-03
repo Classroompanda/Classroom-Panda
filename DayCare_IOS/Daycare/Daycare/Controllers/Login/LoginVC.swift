@@ -21,6 +21,9 @@ class LoginVC: BaseViewController {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
         self.setNeedsStatusBarAppearanceUpdate()
+      // shiwani, remove this code
+//      txtFieldForUsername.text = "finalteacher@yopmail.com"
+//      txtFieldForPassword.text = "1217Ds85."
     }
     
     override func viewWillAppear(_ animated: Bool) {

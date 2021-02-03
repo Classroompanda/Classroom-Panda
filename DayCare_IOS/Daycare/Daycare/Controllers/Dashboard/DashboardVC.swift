@@ -27,7 +27,7 @@ class DashboardVC: BaseViewController{
         tblViewForDashboard.tableFooterView = UIView()
     }
     
-    func initialSetup(){
+    func initialSetup() {
         if AppInstance.shared.teacherBreak?.breakStatusID == teacherBreakStatus.BreakOut {
             self.actionForTeacherBreakout(isBreakIn: true)
         }
@@ -39,7 +39,6 @@ class DashboardVC: BaseViewController{
     //MARK:---- @IBActions ---
     @IBAction func actionForCamera(_ sender: UIButton) {
     }
-    
   
     @objc @IBAction func actionForPushToController(_ sender: UIButton){
         switch sender.tag {

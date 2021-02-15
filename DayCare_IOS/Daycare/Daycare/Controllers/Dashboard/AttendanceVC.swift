@@ -19,9 +19,9 @@ class AttendanceVC: BaseViewController {
     let classesDropDown     = DropDown()
     var arrforClassesName   :   [String]    = []
     var arrForClass         :   [Class]     = []
-    var arrForOperationalClass : [Class]?
+    var arrForOperationalClass : [OperationalClass]?
     var arrForAttendance    :   [Attendance] = []
-    var selectedClass       :   Class?
+    var selectedClass       :   OperationalClass?
     var selectedAttendance  :   Attendance?
     var selectedDate        :   Date?
     var arrForLeaveReasons  :   [LeaveReason]   =   []
@@ -74,7 +74,7 @@ class AttendanceVC: BaseViewController {
     @objc func actionForTransferStudent(sender: CustomButton){
         let vc = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Popover, vcIdentifire: Macros.Identifiers.Controller.TransferStudentPopupVC) as? TransferStudentPopupVC
         vc?.show(target: self,attendance: self.arrForAttendance[sender.tag], selectedDate:  selectedDate,arrClass: self.arrForTransferClass,width: PlatformUtils.isPad ? 500 : 300, height: PlatformUtils.isPad ? 500 : 320, index: sender.tag, { (result) in
-            self.apiCallForTransferStudent(studentId: self.arrForAttendance[sender.tag].studentID ?? 0, fromClassID: self.selectedClass?.classesID ?? 0, toClassID: result)
+            self.apiCallForTransferStudent(studentId: self.arrForAttendance[sender.tag].studentID ?? 0, fromClassID: self.selectedClass?.value ?? 0, toClassID: result)
             print(result)
         })
     }
@@ -114,14 +114,16 @@ class AttendanceVC: BaseViewController {
                         self.selectedClass = nil
                     }
                 } else {
-                    if self.selectedClass == nil || self.selectedClass?.className == "" ||
-                        self.selectedClass?.className == nil {
-                        if self.arrForClass.count > 0 {
-                            self.selectedClass = self.arrForClass[0]
+                    if self.selectedClass == nil || self.selectedClass?.label == "" ||
+                        self.selectedClass?.label == nil {
+                      if self.arrForOperationalClass?.count ?? 0 > 0 {
+                          self.selectedClass = self.arrForOperationalClass?[0]
                         }
                     }
                 }
-                self.apiForGetClassAttendance()
+              // shiwani
+//                self.apiForGetClassAttendance()
+              self.apiCallGetTeacherCurrentOperationalClass()
             }
             return
         }, cancel: { ActionStringCancelBlock in return }, origin:sender)
@@ -144,20 +146,20 @@ class AttendanceVC: BaseViewController {
     //Dropdown list
     func setupClassesDropDown(sender:UIButton) {
         self.arrforClassesName = []
-        var arrForClassDropDown:[Class] = []
+        var arrForClassDropDown:[OperationalClass] = []
         if CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
-            self.arrforClassesName = arrForOperationalClass?.map{$0.className ?? ""} ?? []
+            self.arrforClassesName = arrForOperationalClass?.map{$0.label ?? ""} ?? []
             arrForClassDropDown = arrForOperationalClass ?? []
         } else {
-            self.arrforClassesName = arrForClass.map{$0.className ?? ""}
-            arrForClassDropDown = arrForClass
+            self.arrforClassesName = arrForOperationalClass?.map{$0.label ?? ""} ?? []
+          arrForClassDropDown = arrForOperationalClass ?? []
         }
         classesDropDown.anchorView = sender
         classesDropDown.bottomOffset = CGPoint(x: 0, y: sender.bounds.height)
         classesDropDown.dataSource = arrforClassesName
         classesDropDown.selectionAction = { [weak self] (index, item) in
             sender.setTitle(self?.classesDropDown.dataSource[index], for: .normal)
-            if self?.selectedClass?.className != arrForClassDropDown[index].className {
+            if self?.selectedClass?.label != arrForClassDropDown[index].label {
                 self?.selectedClass = arrForClassDropDown[index]
                 self?.apiForGetClassAttendance()
                 self?.apiCallForGetTransferClass()
@@ -187,7 +189,7 @@ class AttendanceVC: BaseViewController {
     
     //MARK:----- API Calling Functions -----
     
-    func apiForGetAllClasses(){
+    func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
             if let arrForClasses = result as? [Class]{
@@ -207,13 +209,15 @@ class AttendanceVC: BaseViewController {
     
     func apiCallGetTeacherCurrentOperationalClass(){
         let service = DashboarService()
-        service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
+      // shiwwani
+//        service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
+      service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: selectedDate ?? Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
             if result != nil {
                 self.arrForOperationalClass = []
                 let operationalClassArray:[OperationalClass] = result as? [OperationalClass] ?? []
-                
-                let arrClassesId = operationalClassArray.map{$0.value}
-                self.arrForOperationalClass = self.arrForClass.filter{arrClassesId.contains($0.classesID)}
+              self.arrForOperationalClass = operationalClassArray
+//                let arrClassesId = operationalClassArray.map{$0.value}
+//                self.arrForOperationalClass = self.arrForClass.filter{arrClassesId.contains($0.classesID)}
                 
 //                for classes in self.arrForClass {
 //                    for operationalClass in operationalClassArray {
@@ -223,22 +227,30 @@ class AttendanceVC: BaseViewController {
 //                    }
 //                }
                 
-                
-                
-                if self.selectedClass == nil {
+                // shiwani, as per discussion wioth abhishek
+              self.selectedClass = nil
+              if self.arrForOperationalClass?.count ?? 0 > 0
+              {
+                self.selectedClass = self.arrForOperationalClass?[0]
+                self.apiCallForGetTransferClass()
+              }
+             
+              self.apiForGetClassAttendance()
+                // shiwani, commented
+             /*   if self.selectedClass == nil {
                     if (self.arrForOperationalClass?.count ?? 0) > 0 {
                         self.selectedClass = self.arrForOperationalClass?[0]
                         self.apiCallForGetTransferClass()
                     }
                 }
-                self.apiForGetClassAttendance()
+                self.apiForGetClassAttendance()*/
             }
         }
     }
     
     func apiForGetClassAttendance(){
         let service = AttendanceService()
-        service.getClassAttendance(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classID: String(selectedClass?.classesID ?? 0),askedDate:  CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date())) { (result) in
+        service.getClassAttendance(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classID: String(selectedClass?.value ?? 0),askedDate:  CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date())) { (result) in
             self.isFirstLoad = false
             self.arrForAttendance = result as? [Attendance] ?? []
             self.tblViewForAttendanceList.reloadData()
@@ -247,7 +259,7 @@ class AttendanceVC: BaseViewController {
     
     func apiForGetGuardianList(sender: CustomButton){
         let service = AttendanceService()
-        service.getGuardiansList(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classID: String(selectedClass?.classesID ?? 0), studentId: String(selectedAttendance?.studentID ?? 0), studentName: selectedAttendance?.studentName ?? "", isAuthorized: true) { (result) in
+        service.getGuardiansList(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classID: String(selectedClass?.value ?? 0), studentId: String(selectedAttendance?.studentID ?? 0), studentName: selectedAttendance?.studentName ?? "", isAuthorized: true) { (result) in
            let arrForGuardians = result as? [Guardian] ?? []
             self.openCheckInPopup(sender: sender, arrForGuardians: arrForGuardians)
         }
@@ -266,8 +278,8 @@ class AttendanceVC: BaseViewController {
                 self.arrForAttendance[selectedRow].dropedById = dropedById
                 self.arrForAttendance[selectedRow].isEditModeOn = isEditModeOn
                 self.arrForAttendance[selectedRow].attendanceDate = attendanceDate
-                self.arrForAttendance[selectedRow].className = self.selectedClass?.className ?? ""
-                self.arrForAttendance[selectedRow].classesID = self.selectedClass?.classesID ?? 0
+                self.arrForAttendance[selectedRow].className = self.selectedClass?.label ?? ""
+                self.arrForAttendance[selectedRow].classesID = self.selectedClass?.value ?? 0
                 self.arrForAttendance[selectedRow].checkInTime = checkInTime
                 self.arrForAttendance[selectedRow].id   =   result as? Int ?? 0
                 print(result as Any)
@@ -282,8 +294,8 @@ class AttendanceVC: BaseViewController {
                 self.arrForAttendance[selectedRow].pickupById = pickupById
                 self.arrForAttendance[selectedRow].isEditModeOn = isEditModeOn
                 self.arrForAttendance[selectedRow].attendanceDate = attendanceDate
-                self.arrForAttendance[selectedRow].className = self.selectedClass?.className ?? ""
-                self.arrForAttendance[selectedRow].classesID = self.selectedClass?.classesID ?? 0
+                self.arrForAttendance[selectedRow].className = self.selectedClass?.label ?? ""
+                self.arrForAttendance[selectedRow].classesID = self.selectedClass?.value ?? 0
                 self.arrForAttendance[selectedRow].checkOutTime = checkOutTime
                 self.arrForAttendance[selectedRow].id   =   result as? Int ?? 0
                 self.checkOutAlertConfirmation(studentId: studentID, classId: classesID, askedDate: attendanceDate)
@@ -321,7 +333,7 @@ class AttendanceVC: BaseViewController {
     
     func apiCallForGetTransferClass(){
         let service = AttendanceService()
-        service.getAllClassesForTransferStudents(with: self, classID: selectedClass?.classesID ?? 0, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
+        service.getAllClassesForTransferStudents(with: self, classID: selectedClass?.value ?? 0, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
         self.arrForTransferClass = result as? [Class] ?? []
         }
     }
@@ -375,7 +387,7 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
             self.setupClassesDropDown(sender: cell.btnForToddler)
             if arrforClassesName.count > 0 {
                 if self.selectedClass != nil {
-                    cell.btnForToddler.setTitle(selectedClass?.className, for: .normal)
+                    cell.btnForToddler.setTitle(selectedClass?.label, for: .normal)
                 }
             }
             cell.lblForMonthYear.text = CommonClassMethods.monthNameFromDate(date: selectedDate ?? Date()) + " " + CommonClassMethods.yearFromDate(date: selectedDate ?? Date())
@@ -495,12 +507,12 @@ extension AttendanceVC : CheckInDelegate,AbsentDelegate {
     func submitCheckInButtonAction(attendanceDate:String,attendenceStatusID:Int,guardianId:Int,isEditModeOn:Bool,studentID:Int,id:Int,time:String,selectedRow:Int){
         if attendenceStatusID != 0 {
             if attendenceStatusID == AttendanceStatus.isCheckedIn {
-                self.apiForCheckInAttendanceStudent(agencyID: AppInstance.shared.user?.agencyID ?? 0, attendanceDate: attendanceDate, attendenceStatusID: attendenceStatusID, className: self.selectedClass?.className ?? "", classesID: self.selectedClass?.classesID ?? 0,  dropedById: guardianId, isEditModeOn: isEditModeOn, studentID: studentID, id: id,checkInTime:time, selectedRow: selectedRow)
+                self.apiForCheckInAttendanceStudent(agencyID: AppInstance.shared.user?.agencyID ?? 0, attendanceDate: attendanceDate, attendenceStatusID: attendenceStatusID, className: self.selectedClass?.label ?? "", classesID: self.selectedClass?.value ?? 0,  dropedById: guardianId, isEditModeOn: isEditModeOn, studentID: studentID, id: id,checkInTime:time, selectedRow: selectedRow)
                 self.arrForAttendance[selectedRow].attendenceStatusID = attendenceStatusID
                 let indexPath = IndexPath(item: selectedRow, section: 0)
                 self.tblViewForAttendanceList.reloadRows(at: [indexPath], with: .automatic)
             } else {
-                self.apiForCheckOutAttendanceStudent(agencyID:AppInstance.shared.user?.agencyID ?? 0,attendanceDate:attendanceDate,attendenceStatusID:attendenceStatusID,className:self.selectedClass?.className ?? "",classesID:self.selectedClass?.classesID ?? 0,pickupById:guardianId,isEditModeOn:true,studentID:studentID,id:id,checkOutTime:time, selectedRow: selectedRow)
+                self.apiForCheckOutAttendanceStudent(agencyID:AppInstance.shared.user?.agencyID ?? 0,attendanceDate:attendanceDate,attendenceStatusID:attendenceStatusID,className:self.selectedClass?.label ?? "",classesID:self.selectedClass?.value ?? 0,pickupById:guardianId,isEditModeOn:true,studentID:studentID,id:id,checkOutTime:time, selectedRow: selectedRow)
                 self.arrForAttendance[selectedRow].attendenceStatusID = attendenceStatusID
                 let indexPath = IndexPath(item: selectedRow, section: 0)
                 self.tblViewForAttendanceList.reloadRows(at: [indexPath], with: .none)
@@ -534,7 +546,7 @@ extension AttendanceVC : CheckInDelegate,AbsentDelegate {
     func submitAbsentButtonAction(attendanceDate:String,selectedRow:Int,id:Int,attendenceStatusID:Int,onLeave: Bool,onLeaveComment:String,reasonId:String,studentID:Int) {
         self.view.isUserInteractionEnabled = true
         if attendenceStatusID != 0 {
-            self.apiForAbsentAttendanceStudent(agencyID: AppInstance.shared.user?.agencyID ?? 0, attendanceDate: attendanceDate, attendanceStatusId: attendenceStatusID, className: self.selectedClass?.className ?? "", classesID: self.selectedClass?.classesID ?? 0, onLeave: onLeave, studentId: studentID, id: id, onLeaveComment: onLeaveComment, reasonId: reasonId, selectedRow: selectedRow)
+            self.apiForAbsentAttendanceStudent(agencyID: AppInstance.shared.user?.agencyID ?? 0, attendanceDate: attendanceDate, attendanceStatusId: attendenceStatusID, className: self.selectedClass?.label ?? "", classesID: self.selectedClass?.value ?? 0, onLeave: onLeave, studentId: studentID, id: id, onLeaveComment: onLeaveComment, reasonId: reasonId, selectedRow: selectedRow)
             self.arrForAttendance[selectedRow].attendenceStatusID = attendenceStatusID
             let indexPath = IndexPath(item: selectedRow, section: 0)
             self.tblViewForAttendanceList.reloadRows(at: [indexPath], with: .none)

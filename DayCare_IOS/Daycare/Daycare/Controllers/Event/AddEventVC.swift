@@ -23,7 +23,9 @@ class AddEventVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         (event.id ?? 0) > 0 ? self.setNavigationBarWithBackButton(title: Macros.NavigationTitle.EditEvent) : self.setNavigationBarWithBackButton(title: Macros.NavigationTitle.AddNewEvent)
-        self.event.start = (event.id ?? 0) > 0 ? self.event.start : CommonClassMethods.convertDateToServerReadableFormat(date: Date())
+//        self.event.start = (event.id ?? 0) > 0 ? self.event.start : CommonClassMethods.convertDateToServerReadableFormat(date: Date())
+      // shiwani
+      self.event.start =  (event.id ?? 0) > 0 ? self.event.start : CommonClassMethods.dateToStringDay(date: Date())
         apiForGetAllClasses()
         apiForGetAllRepeatTypeDropdown()
         setSelectedClasses()
@@ -84,9 +86,13 @@ class AddEventVC: BaseViewController {
             txtfieldForDate?.text = CommonClassMethods.dateFromDateFormat(date: dateTime)
             switch sender.tag {
             case 1001 :
-                self.event.start = CommonClassMethods.convertDateToServerReadableFormat(date: dateTime)
+              // shiwani
+//                self.event.start = CommonClassMethods.convertDateToServerReadableFormat(date: dateTime)
+              self.event.start =  CommonClassMethods.dateToStringDay(date: dateTime)
             case 2001 :
-                self.event.end = CommonClassMethods.convertDateToServerReadableFormat(date: dateTime)
+              // shiwani
+//                self.event.end = CommonClassMethods.convertDateToServerReadableFormat(date: dateTime)
+              self.event.end =  CommonClassMethods.dateToStringDay(date: dateTime)
             case 6 :
                 self.event.endsOn = CommonClassMethods.convertDateToServerReadableFormat(date: dateTime)
                 if let cell = self.tblViewForAddEvent.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? DropDownTextFieldTableViewCell {

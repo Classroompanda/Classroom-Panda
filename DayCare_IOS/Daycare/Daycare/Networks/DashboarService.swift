@@ -94,11 +94,15 @@ class DashboarService: APIService {
     func getTeacherBreakLogs(with target:BaseViewController?, agencyID:Int, teacherID:Int, askingDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
         //askingDate is local
-        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-
-        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-        
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskingDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+        let askngDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS)
+// shiwani
+//        let askngDateString = TimeUtils.localToUTC(date: askingDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_T_hh_MM_SS_SSSZ)
+      let askngDateString = TimeUtils.UTCToLocal(date: askingDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_hh_MM_SS)
+//            ,"askedDateString":"2021-02-08 23:03:00"
+        // shiwani
+//        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskingDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+      let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskingDate : askngDate, Macros.ApiKeys.kaskedDateString : askngDateString] as [String : Any]
+      
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherBreakLog, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -199,11 +203,17 @@ class DashboarService: APIService {
     func getTeacherCurrentOperationalClass(with target:BaseViewController?, agencyID:Int, askingDate:String, teacherID: Int, teacherDailyAttendanceID: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
         //askingDate is UTC
-        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-
-        let localDate = TimeUtils.UTCToLocal(date: askingDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+//        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+// shiwani, correct time format
+      let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+      
+        let localDate = TimeUtils.UTCToLocal(date: askingDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
         
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kteacherDailyAttendenceID : teacherDailyAttendanceID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
+      // shiwani
+//        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kteacherDailyAttendenceID : teacherDailyAttendanceID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
+      
+      let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
+      
         super.startService(with: .POST, path: Macros.ServiceName.GetTeacherOperationalClasses, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()
@@ -212,7 +222,7 @@ class DashboarService: APIService {
                     if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
                         let arrForOperationalClasses = OperationalClass.modelsFromDictionaryArray(array: data)
                         complition(arrForOperationalClasses)
-                    }else {
+                    } else {
                         complition(nil)
                     }
                 case .Error(let error):

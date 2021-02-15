@@ -17,6 +17,7 @@ public class OperationalClass {
 	public var createdFromIP : String?
 	public var updatedFromIP : String?
 
+  
 
     public class func modelsFromDictionaryArray(array:Array<Dictionary<String,Any>>) -> [OperationalClass]
     {

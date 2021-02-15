@@ -7,7 +7,6 @@ public class MessageUser {
 	public var listUserId : Int?
 	public var listUserName : String?
 	public var imagePath : String?
-  // Shiwani
 	public var unreadMessageCount : Int?
   
     public class func modelsFromDictionaryArray(array:Array<Dictionary<String,Any>>) -> [MessageUser]
@@ -26,7 +25,6 @@ public class MessageUser {
 		listUserName = dictionary["listUserName"] as? String ?? ""
 		imagePath = dictionary["imagePath"] as? String ?? ""
         imagePath = imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    // Shiwani
        unreadMessageCount = dictionary["count"] as? Int ?? 0
 	}
 

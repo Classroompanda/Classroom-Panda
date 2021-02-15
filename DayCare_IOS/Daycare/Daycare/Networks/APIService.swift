@@ -8,6 +8,14 @@
 
 import Foundation
 import UIKit
+/*
+ // shiwani
+ Agency Admin(U/P): testagency@yopmail.com / daycare@123
+ Teacher(U/P): toby@yopmail.com / daycare@123
+ Parent (U/P): parent1@yopmail.com / daycare@123
+ // Live Super Admin
+ david@classroompanda.com / daycare@123
+ */
 
 public enum HttpMethod: String {
     case POST
@@ -55,8 +63,8 @@ public class APIService: NSObject {
           
           guard let url =  URL(string:Macros.URLs.baseServer+path) else { return completion(.Error("Invalid URL, we can't proceed.")) }
           let request = self.buildRequest(with: method, url: url, parameters: parameters, files: files)
-          print(url)
-          print(parameters)
+          print("\n API URL: \n", url)
+          print("\n Request: \n", parameters)
           let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
               guard error == nil else {              
                  print("\n Error = \(error!.localizedDescription)")
@@ -73,7 +81,7 @@ public class APIService: NSObject {
     func internalJsonResponseHandler(data: Data, completion: @escaping (Result<Any?>) -> Void) {
          do {
              if let json = try JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String,AnyObject> {
-                 print(json)
+//                 print(json)
                  let status = json["statusCode"] as? Int ?? 0
                  switch status {
                  case 200:
@@ -243,7 +251,7 @@ extension APIService {
            req.addValue(token, forHTTPHeaderField: "Authorization")
         }
         req.httpMethod = method.rawValue
-         print(req)
+//         print(req)
         return req
     }
     

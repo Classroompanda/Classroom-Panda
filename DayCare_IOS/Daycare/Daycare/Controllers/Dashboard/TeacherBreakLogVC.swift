@@ -53,9 +53,11 @@ class TeacherBreakLogVC: BaseViewController {
     }
     
     //MARK:----- API Calling Functions-------
-    func apiForGetTeacherLog(){
+    func apiForGetTeacherLog() {
         let service = DashboarService()
-        service.getTeacherBreakLogs(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, teacherID: AppInstance.shared.teacher?.id ?? 0,  askingDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date())) { (result) in
+      // shiwani
+//        service.getTeacherBreakLogs(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, teacherID: AppInstance.shared.teacher?.id ?? 0,  askingDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date())) { (result) in
+      service.getTeacherBreakLogs(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, teacherID: AppInstance.shared.teacher?.id ?? 0,  askingDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date())) { (result) in
             if result != nil {
                 self.isFirstLoad = false
                 self.arrForTeacherBreakLogs = result as? [TeacherBreakLog] ?? []

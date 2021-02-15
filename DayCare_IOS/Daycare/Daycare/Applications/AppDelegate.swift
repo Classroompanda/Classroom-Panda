@@ -28,7 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Override point for customization after application launch.      
+      
         self.registerNotificationFunction(application: application)
         IQKeyboardManager.shared.enable = true
         Fabric.with([Crashlytics.self])
@@ -151,7 +152,6 @@ extension AppDelegate : MessagingDelegate {
     func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
         print(remoteMessage.appData)
     }
-    
 }
 
 //login teacher app - toby@yopmail.com/daycare@123

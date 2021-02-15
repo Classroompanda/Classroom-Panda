@@ -59,12 +59,15 @@ class AttendanceService: APIService {
     func getClassAttendance(with target:BaseViewController?, agencyID:Int,classID:String,askedDate:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
         //askedDate is local date
-        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-
+      // shiwani, changed date format
+//        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+      let askedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+      // shiwani, changed date to local
+//        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+      let askedDateString = TimeUtils.UTCToLocal(date: askedDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ , outputFormat:  DateFormats.YYYY_MM_DD_HH_MM_SS)
         let param   =   [
             Macros.ApiKeys.kagencyID  : agencyID,   Macros.ApiKeys.kclassID : classID,
-            Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+            Macros.ApiKeys.kaskedDate : askedDate, Macros.ApiKeys.kaskedDateString : askedDateString] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetClassAttendence, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

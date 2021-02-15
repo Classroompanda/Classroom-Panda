@@ -153,6 +153,5 @@ class MessageListTableViewCell: UITableViewCell{
   @IBOutlet weak var imgViewForTeacher: UIImageView!
   @IBOutlet weak var lblForTeacherName: UILabel!
   @IBOutlet weak var lblForDivider: UILabel!
-  // Shiwani
   @IBOutlet weak var lblMessageCount: UILabel!
 }

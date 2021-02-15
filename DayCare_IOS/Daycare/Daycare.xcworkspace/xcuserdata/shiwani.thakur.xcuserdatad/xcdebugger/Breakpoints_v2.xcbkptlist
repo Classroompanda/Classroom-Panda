@@ -165,34 +165,46 @@
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "5AB89185-66C5-472F-9FEC-6D28FBF0C9BD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "Yes"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "64DE2F07-FF3A-44AD-A7AA-B3806E5227E2"
+            uuid = "21B3CBFD-D1F8-47E0-AB26-651AB0EDFBCD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Daycare/Controllers/Dashboard/AttendanceVC.swift"
+            filePath = "Daycare/Controllers/Attendance/StudentBreakInOutVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "apiForGetAllClasses()"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "setupStudetData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "694D5051-71D0-4A78-AFCC-F8B410AF70B1"
+            uuid = "A591463E-89A6-4447-A719-09A3BE773F9E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Daycare/Controllers/Dashboard/AttendanceVC.swift"
+            filePath = "Daycare/Applications/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "apiForGetAllClasses()"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

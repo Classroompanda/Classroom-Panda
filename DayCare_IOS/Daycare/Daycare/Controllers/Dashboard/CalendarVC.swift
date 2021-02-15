@@ -98,7 +98,6 @@ class CalendarVC: BaseViewController {
     }
     
     private func moveCurrentPage(moveUp: Bool) {
-        
         let calendar = Calendar.current
         var dateComponents = DateComponents()
         dateComponents.month = moveUp ? 1 : -1
@@ -106,7 +105,7 @@ class CalendarVC: BaseViewController {
         self.viewForFSCalendar.setCurrentPage(viewForFSCalendar.currentPage, animated: true)
     }
     
-    func actionForDelete(indexPath : IndexPath){
+    func actionForDelete(indexPath : IndexPath) {
         let alertAction = AlertButton.init(style: .default, title: Macros.alertMessages.okString)
         let alertCancelAction = AlertButton.init(style: .cancel, title: Macros.alertMessages.cancelString)
         _ = AlertManager.showAlert(withTitle: Macros.ApplictionName , withMessage:Macros.alertMessages.Delete , buttons: [alertAction,alertCancelAction], onViewController: self, animatedly: true, presentationCompletionHandler:nil, returnBlock: { (index) in
@@ -149,7 +148,6 @@ class CalendarVC: BaseViewController {
 //                if selectedDate == CommonClassMethods.dateObjectWithoutTimeFromDateString(date: arrForEvents[i].start ?? "") {
 //                    arrForSelectedDateEvent.append(arrForEvents[i])
 //                }
-              // Shiwani, code now
               if let date = selectedDate {
               let dateNowString = CommonClassMethods.convertDateToServerReadableFormatS(date: date)
               let dateNow = CommonClassMethods.dateObjectWithoutTimeFromDateString(date: dateNowString)
@@ -183,7 +181,7 @@ class CalendarVC: BaseViewController {
     
     //MARK:----- API Calling Functions ------
     
-    func apiForGetEventsByMonth(eventFromDate:String,eventToDate:String){
+    func apiForGetEventsByMonth(eventFromDate:String,eventToDate:String) {
         let service = CalendarService()
         service.getAllEvent(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, eventFromDate: eventFromDate, eventToDate: eventToDate) { (result) in
             if result != nil {

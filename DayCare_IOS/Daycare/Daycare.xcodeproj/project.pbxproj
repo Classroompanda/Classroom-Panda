@@ -1316,9 +1316,9 @@
 				CODE_SIGN_ENTITLEMENTS = Daycare/Daycare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.0;
+				CURRENT_PROJECT_VERSION = 2.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3PAEN9JD8B;
+				DEVELOPMENT_TEAM = 924X3K6N4N;
 				INFOPLIST_FILE = Daycare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1326,9 +1326,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BuzzyTapDev.DayCare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareteacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = BuzzyTapAppDev;
+				PROVISIONING_PROFILE_SPECIFIER = DaycareTeacherDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare/Applications/Daycare-bridging-header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1343,8 +1343,8 @@
 				CODE_SIGN_ENTITLEMENTS = Daycare/Daycare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.0;
-				DEVELOPMENT_TEAM = 3PAEN9JD8B;
+				CURRENT_PROJECT_VERSION = 2.1;
+				DEVELOPMENT_TEAM = 924X3K6N4N;
 				INFOPLIST_FILE = Daycare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1352,9 +1352,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.BuzzyTapDev.DayCare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareteacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = BuzzyTapAppDev;
+				PROVISIONING_PROFILE_SPECIFIER = DaycareTeacherDevelopment;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare/Applications/Daycare-bridging-header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

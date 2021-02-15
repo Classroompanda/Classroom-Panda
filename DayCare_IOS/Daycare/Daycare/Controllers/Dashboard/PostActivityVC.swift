@@ -17,14 +17,14 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
 
     @IBOutlet weak var tblViewForPosts: UITableView!
     let dropDownForClass    = DropDown()
-    var selectedClass:Class?
+    var selectedClass:OperationalClass?
     var selectedDate:Date?
     var floaty = Floaty()
     var arrForClass         :   [Class]     = []
     var arrForPostActivity  :   [PostActivity]  = []
     var refreshControl = UIRefreshControl()
     var isFirstLoad:Bool = true
-    var arrForOperationalClass : [Class]?
+    var arrForOperationalClass : [OperationalClass]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +59,8 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
             tagDayLabel.text = CommonClassMethods.dayNameFromDate(date: dateTime)
             tagMonthYearLabel.text = CommonClassMethods.monthNameFromDate(date:dateTime) + " " + CommonClassMethods.yearFromDate(date: dateTime)
             tagDateLabel.text = CommonClassMethods.dateFromDate(date: dateTime)
-            if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: dateTime){
-                self.selectedDate = dateTime
+            if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: dateTime) {
+              self.selectedDate = CommonClassMethods.setCurrentTimeWithDate(dateTime)
                 if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
                     if ((self.arrForOperationalClass?.count ?? 0) > 0) {
                         self.selectedClass = self.arrForOperationalClass?[0]
@@ -69,14 +69,17 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
                         self.showAlert(with: Macros.alertMessages.pleaseCheckedInClass)
                     }
                 } else {
-                    if self.selectedClass == nil || self.selectedClass?.className == "" ||
-                        self.selectedClass?.className == nil {
-                        if self.arrForClass.count > 0 {
-                            self.selectedClass = self.arrForClass[0]
+                    if self.selectedClass == nil || self.selectedClass?.label == "" ||
+                        self.selectedClass?.label == nil {
+                      if self.arrForOperationalClass?.count ?? 0 > 0 {
+                        self.selectedClass = self.arrForOperationalClass?[0]
                         }
                     }
                 }
-                self.apiForGetPostActivityList()
+              // shiwani
+              self.apiCallGetTeacherCurrentOperationalClass()
+              // shiwani , calling this api before soc
+//                self.apiForGetPostActivityList()
             }
             return
         }, cancel: { ActionStringCancelBlock in return }, origin:sender)
@@ -166,16 +169,23 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     }
     
     //Dropdown list
-    func setupClassesDropDown(sender:UIButton){
-        var arrForClassDropDown:[Class] = []
-        if CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
+    func setupClassesDropDown(sender:UIButton) {
+        var arrForClassDropDown:[OperationalClass] = []
+      // Shiwani
+      let selecteddate = CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date())
+      let todayDate = CommonClassMethods.convertDateWithoutTime(date: Date())
+      // Shiwani, code before
+        if selecteddate == todayDate {
            arrForClassDropDown = arrForOperationalClass ?? []
         } else {
-            arrForClassDropDown = arrForClass
+            arrForClassDropDown = arrForOperationalClass ?? []
         }
+      // shiwani, changes in existing code
+//          arrForClassDropDown = arrForOperationalClass ?? []
+      
         dropDownForClass.anchorView = sender
         dropDownForClass.bottomOffset = CGPoint(x: 0, y: sender.bounds.height)
-        dropDownForClass.dataSource = arrForClassDropDown.map{$0.className ?? ""}
+        dropDownForClass.dataSource = arrForClassDropDown.map{$0.label ?? ""}
         dropDownForClass.selectionAction = { [weak self] (index, item) in
             sender.setTitle(self?.dropDownForClass.dataSource[index], for: .normal)
             sender.setImage(UIImage(named: "arrowDown"), for: .normal)
@@ -223,7 +233,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
 
     //MARK:----- API Calling Functions -----
     
-    func apiForGetAllClasses(){
+    func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
             if let arrForClasses = result as? [Class]{
@@ -234,7 +244,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
                     if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
                         self.showAlert(with: Macros.alertMessages.pleaseCheckedInClass)
                     }
-                }else {
+                } else {
                     self.apiCallGetTeacherCurrentOperationalClass()
                 }
             }
@@ -243,7 +253,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
 
     func apiCallGetTeacherCurrentOperationalClass(){
         let service = DashboarService()
-        service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
+        service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date:selectedDate ?? Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
             if result != nil {
                 self.arrForOperationalClass = []
                 let operationalClassArray:[OperationalClass] = result as? [OperationalClass] ?? []
@@ -254,14 +264,24 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
 //                        }
 //                    }
 //                }
-                let arrClassesId = operationalClassArray.map{$0.value}
-                self.arrForOperationalClass = self.arrForClass.filter{arrClassesId.contains($0.classesID)}
+                               
+//                let arrClassesId = operationalClassArray.map{$0.value}
+//                self.arrForOperationalClass = self.arrForClass.filter{arrClassesId.contains($0.classesID)}
                 
+            /*
                 if self.selectedClass == nil {
                     if (self.arrForOperationalClass?.count ?? 0) > 0 {
                         self.selectedClass = self.arrForOperationalClass?[0]
                     }
-                }
+                }*/
+              // shiwani
+                // shiwani, as per discussion with abhishek
+              self.arrForOperationalClass = operationalClassArray
+              self.selectedClass = nil
+              if self.arrForOperationalClass?.count ?? 0 > 0
+              {
+                self.selectedClass = self.arrForOperationalClass?[0]
+              }
                 self.apiForGetPostActivityList()
             }
         }
@@ -269,7 +289,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     
     func apiForGetPostActivityList(){
         let service = PostActivityService()
-        service.getPostActivityList(with: self, id: 0, agencyID: AppInstance.shared.user?.agencyID ?? 0, classesID: selectedClass?.classesID ?? 0, postedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()), userID: AppInstance.shared.user?.releventUserID ?? 0) { (result) in
+        service.getPostActivityList(with: self, id: 0, agencyID: AppInstance.shared.user?.agencyID ?? 0, classesID: selectedClass?.value ?? 0, postedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()), userID: AppInstance.shared.user?.releventUserID ?? 0) { (result) in
             if result != nil {
                 self.isFirstLoad = false
                 self.refreshControl.endRefreshing()
@@ -425,7 +445,7 @@ extension PostActivityVC: UITableViewDelegate,UITableViewDataSource{
             cell.selectionStyle = .none
             self.setupClassesDropDown(sender: cell.btnForToddler)
             
-            (selectedClass == nil || selectedClass?.className == nil || selectedClass?.className == "") ? cell.btnForToddler.setTitle("Select", for: .normal) : cell.btnForToddler.setTitle(selectedClass?.className, for: .normal)
+            (selectedClass == nil || selectedClass?.label == nil || selectedClass?.label == "") ? cell.btnForToddler.setTitle("Select", for: .normal) : cell.btnForToddler.setTitle(selectedClass?.label, for: .normal)
             
             cell.lblForMonthYear.text = CommonClassMethods.monthNameFromDate(date: selectedDate ?? Date()) + " " + CommonClassMethods.yearFromDate(date: selectedDate ?? Date())
             cell.lblForDate.text = CommonClassMethods.dateFromDate(date: selectedDate ?? Date())

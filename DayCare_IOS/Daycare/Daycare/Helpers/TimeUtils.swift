@@ -13,6 +13,7 @@ enum DateFormats{
     static let DD_MMM = "dd MMM"
     static let MM_DD_YYYY = "MM-dd-YYYY"
     static let YYYY_MM_DD_T_HH_MM_SS_SSSZ   =   "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+  static let YYYY_MM_DD_hh_MM_SS   =   "yyyy-MM-dd HH:mm:ss"
     static let YYYY_MM_DD_T_HH_MM_SS_SSS    =   "yyyy-MM-dd'T'HH:mm:ss.SSS"
     static let MMMM_yyyy    =   "MMMM yyyy"
     static let YYYY    =   "yyyy"
@@ -48,7 +49,7 @@ class TimeUtils: NSObject {
     }
     
     // Mark-Convert date from Formates
-    class func convertdateFormater(_ strDate:String?,fromFormat:String, toFormat:String) -> String{
+    class func convertdateFormater(_ strDate:String?,fromFormat:String, toFormat:String) -> String {
         guard let st = strDate else {
             return ""
         }

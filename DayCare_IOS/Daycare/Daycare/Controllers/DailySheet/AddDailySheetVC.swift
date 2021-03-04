@@ -26,7 +26,7 @@ class AddDailySheetVC: BaseViewController {
     
     var activityDetail:ActivityDetail?
     var dailySheetStudent: DailySheet?
-    var selectedClass:Class?
+    var selectedClass:OperationalClass?
     var arrForSelectedStudent:[DailySheet] = []
     var arrForSubActivities: [SubActivity]?
     var selectedIndex = 1
@@ -257,7 +257,7 @@ class AddDailySheetVC: BaseViewController {
             arrForSelectedStudentId.append(self.arrForSelectedStudent[i].studentID ?? 0)
         }
         dictForParameters[Macros.ApiKeys.kselectedStudents] = arrForSelectedStudentId
-        dictForParameters[Macros.ApiKeys.kclassesID] = selectedClass?.classesID ?? 0
+        dictForParameters[Macros.ApiKeys.kclassesID] = selectedClass?.value ?? 0
         dictForParameters[Macros.ApiKeys.kid] = 0
         dictForParameters[Macros.ApiKeys.kcreatedBy] = AppInstance.shared.user?.loginUserID
         dictForParameters[Macros.ApiKeys.kactivityRegisterDate] = CommonClassMethods.convertDateToServerReadableFormat(date: Date())
@@ -356,7 +356,7 @@ class AddDailySheetVC: BaseViewController {
     
     func apiCallForGetTodaysMealPlan(){
         let service = DailySheetService()
-        service.getTodaysMealPlan(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date())) { (result) in
+        service.getTodaysMealPlan(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date())) { (result) in
             if result != nil {
                 self.arrForTodaysMealPlan = result as? [ActivityMeals] ?? []
                 if self.meal.mealPlanTitle == "" || self.meal.mealPlanTitle == nil {

@@ -20,7 +20,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     var selectedClass:OperationalClass?
     var selectedDate:Date?
     var floaty = Floaty()
-    var arrForClass         :   [Class]     = []
+    var arrForClass         :   [OperationalClass]     = []
     var arrForPostActivity  :   [PostActivity]  = []
     var refreshControl = UIRefreshControl()
     var isFirstLoad:Bool = true
@@ -76,9 +76,8 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
                         }
                     }
                 }
-              // shiwani
               self.apiCallGetTeacherCurrentOperationalClass()
-              // shiwani , calling this api before soc
+              // calling this api before soc
 //                self.apiForGetPostActivityList()
             }
             return
@@ -171,16 +170,16 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     //Dropdown list
     func setupClassesDropDown(sender:UIButton) {
         var arrForClassDropDown:[OperationalClass] = []
-      // Shiwani
+      //
       let selecteddate = CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date())
       let todayDate = CommonClassMethods.convertDateWithoutTime(date: Date())
-      // Shiwani, code before
+      //  code before
         if selecteddate == todayDate {
            arrForClassDropDown = arrForOperationalClass ?? []
         } else {
             arrForClassDropDown = arrForOperationalClass ?? []
         }
-      // shiwani, changes in existing code
+      //  changes in existing code
 //          arrForClassDropDown = arrForOperationalClass ?? []
       
         dropDownForClass.anchorView = sender
@@ -236,7 +235,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
-            if let arrForClasses = result as? [Class]{
+            if let arrForClasses = result as? [OperationalClass] {
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
                     self.isFirstLoad = false
@@ -274,8 +273,8 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
                         self.selectedClass = self.arrForOperationalClass?[0]
                     }
                 }*/
-              // shiwani
-                // shiwani, as per discussion with abhishek
+              //
+                // as per discussion with abhishek
               self.arrForOperationalClass = operationalClassArray
               self.selectedClass = nil
               if self.arrForOperationalClass?.count ?? 0 > 0
@@ -283,6 +282,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
                 self.selectedClass = self.arrForOperationalClass?[0]
               }
                 self.apiForGetPostActivityList()
+//              setupClassesDropDown(sender: <#UIButton#>)
             }
         }
     }

@@ -204,12 +204,11 @@ class DashboarService: APIService {
         target?.showLoader()
         //askingDate is UTC
 //        let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-// shiwani, correct time format
+//  correct time format
       let formattedDate = TimeUtils.convertDateFormat(strDate: askingDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
       
         let localDate = TimeUtils.UTCToLocal(date: askingDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-        
-      // shiwani
+     
 //        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kteacherDailyAttendenceID : teacherDailyAttendanceID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
       
       let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kaskingDate : formattedDate, Macros.ApiKeys.kteacherID : teacherID, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]

@@ -18,7 +18,7 @@ class AttendanceVC: BaseViewController {
    
     let classesDropDown     = DropDown()
     var arrforClassesName   :   [String]    = []
-    var arrForClass         :   [Class]     = []
+    var arrForClass         :   [OperationalClass]     = []
     var arrForOperationalClass : [OperationalClass]?
     var arrForAttendance    :   [Attendance] = []
     var selectedClass       :   OperationalClass?
@@ -71,7 +71,7 @@ class AttendanceVC: BaseViewController {
         self.openAbsentPopup(sender: sender)
     }
     
-    @objc func actionForTransferStudent(sender: CustomButton){
+    @objc func actionForTransferStudent(sender: CustomButton) {
         let vc = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Popover, vcIdentifire: Macros.Identifiers.Controller.TransferStudentPopupVC) as? TransferStudentPopupVC
         vc?.show(target: self,attendance: self.arrForAttendance[sender.tag], selectedDate:  selectedDate,arrClass: self.arrForTransferClass,width: PlatformUtils.isPad ? 500 : 300, height: PlatformUtils.isPad ? 500 : 320, index: sender.tag, { (result) in
             self.apiCallForTransferStudent(studentId: self.arrForAttendance[sender.tag].studentID ?? 0, fromClassID: self.selectedClass?.value ?? 0, toClassID: result)
@@ -192,7 +192,7 @@ class AttendanceVC: BaseViewController {
     func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
-            if let arrForClasses = result as? [Class]{
+            if let arrForClasses = result as? [OperationalClass]{
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
                     self.isFirstLoad = false
@@ -331,7 +331,7 @@ class AttendanceVC: BaseViewController {
         }
     }
     
-    func apiCallForGetTransferClass(){
+    func apiCallForGetTransferClass() {
         let service = AttendanceService()
         service.getAllClassesForTransferStudents(with: self, classID: selectedClass?.value ?? 0, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
         self.arrForTransferClass = result as? [Class] ?? []
@@ -398,7 +398,6 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
             return cell
         }
         return UIView()
-        
     }
     
     //Attendance List Cell
@@ -423,11 +422,17 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
                     cell.imageViewForChild.image = UIImage(named: "placeholder")
                 }
             }
-            if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: Date()) {
-                cell.btnForTransfer.isHidden = true
+          let date = self.selectedDate?.toLocalTime() ?? Date()
+          cell.btnForAbsent.backgroundColor = .lightGray
+          if CommonClassMethods.convertDateWithoutTime(date: date) != CommonClassMethods.convertDateWithoutTime(date: Date()) {
+//                cell.btnForTransfer.isHidden = true
                 cell.btnForEdit.isHidden = false
+//            cell.btnForTransfer.setImage(UIImage.init(named: "TransferDisable"), for: .normal)
+            cell.btnForTransfer.backgroundColor = colorCode.disableColor
+            cell.btnForTransfer.removeTarget(nil, action: nil, for: .allEvents)
             } else {
-                cell.btnForTransfer.isHidden = !(arrForAttendance[indexPath.row].attendenceStatusID == AttendanceStatus.isToBeChecked)
+//                cell.btnForTransfer.isHidden = !(arrForAttendance[indexPath.row].attendenceStatusID == AttendanceStatus.isToBeChecked)
+              cell.btnForTransfer.backgroundColor = .lightGray
                 cell.btnForEdit.isHidden = (arrForAttendance[indexPath.row].attendenceStatusID == AttendanceStatus.isToBeChecked)
                 cell.btnForTransfer.addTarget(self, action: #selector(actionForTransferStudent(sender:)), for: .touchUpInside)
             }
@@ -437,7 +442,7 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
                     cell.btnForCheckout.setTitle("Check In", for: .normal)
                     cell.btnForCheckout.isEnabled = true
                     cell.btnForEdit.isEnabled = false
-                    cell.btnForAbsent.backgroundColor = colorCode.disableColor
+                  cell.btnForAbsent.backgroundColor = .lightGray
 //                    cell.btnForTransfer.isHidden = false
                     cell.btnForAbsent.addTarget(self, action: #selector(actionForAbsent(sender:)), for: .touchUpInside)
                 case AttendanceStatus.isCheckedIn:
@@ -447,7 +452,7 @@ extension AttendanceVC: UITableViewDelegate,UITableViewDataSource {
                     cell.btnForEdit.isEnabled = true
                     cell.btnForAbsent.backgroundColor = colorCode.disableColor
                     cell.btnForAbsent.removeTarget(nil, action: nil, for: .allEvents)
-                    cell.btnForTransfer.isHidden = false
+//                    cell.btnForTransfer.isHidden = false
 
                 case AttendanceStatus.isCheckedOut:
                     cell.btnForCheckout.backgroundColor = colorCode.disableColor

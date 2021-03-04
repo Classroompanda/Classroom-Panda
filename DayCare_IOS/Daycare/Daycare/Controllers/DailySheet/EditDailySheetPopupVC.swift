@@ -28,7 +28,7 @@ class EditDailySheetPopupVC: BaseViewController {
     var delegate: EditDailySheetVCDelegate?
     var activityDetail:ActivityDetail?
     var dailySheetStudent: DailySheet?
-    var selectedClass:Class?
+    var selectedClass:OperationalClass?
     var selectedActivityTypeId: Int?
     var arrForSubActivities: [SubActivity]?
     var arrForSelectedStudent:[DailySheet] = []
@@ -163,7 +163,7 @@ class EditDailySheetPopupVC: BaseViewController {
             arrForSelectedStudentId.append(self.arrForSelectedStudent[i].studentID ?? 0)
         }
         dictForParameters[Macros.ApiKeys.kselectedStudents] = arrForSelectedStudentId
-        dictForParameters[Macros.ApiKeys.kclassesID] = selectedClass?.classesID ?? 0
+        dictForParameters[Macros.ApiKeys.kclassesID] = selectedClass?.value ?? 0
         dictForParameters[Macros.ApiKeys.kupdatedBy] = AppInstance.shared.user?.loginUserID
         return dictForParameters
     }

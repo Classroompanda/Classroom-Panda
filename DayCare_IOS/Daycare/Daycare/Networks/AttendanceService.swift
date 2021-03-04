@@ -20,7 +20,7 @@ class AttendanceService: APIService {
                 switch result {
                 case .Success(let response):
                     if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
-                         let classes = Class.modelsFromDictionaryArray(array: data)
+                         let classes = OperationalClass.modelsFromDictionaryArray(array: data)
                         complition(classes)
                     } else {
                         complition(nil)
@@ -42,7 +42,7 @@ class AttendanceService: APIService {
                  switch result {
                  case .Success(let response):
                      if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
-                          let classes = Class.modelsFromDictionaryArray(array: data)
+                          let classes = OperationalClass.modelsFromDictionaryArray(array: data)
                          complition(classes)
                      } else {
                          complition(nil)
@@ -307,7 +307,7 @@ class AttendanceService: APIService {
         }
     }
     
-    func getAllClassesForTransferStudents(with target: BaseViewController?, classID: Int, agencyID: Int, complition:@escaping(Any?) -> Void){
+    func getAllClassesForTransferStudents(with target: BaseViewController?, classID: Int, agencyID: Int, complition:@escaping(Any?) -> Void) {
         target?.showLoader()
         let param = [Macros.ApiKeys.kclassID: classID, Macros.ApiKeys.kagencyID: agencyID]
         super.startService(with: .POST, path: Macros.ServiceName.GetAllClassesForStudentAttendenceTransfer, parameters: param, files: []) { (result) in

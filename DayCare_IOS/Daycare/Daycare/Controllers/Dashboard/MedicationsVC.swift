@@ -31,9 +31,9 @@ class MedicationsVC: BaseViewController {
         }
     }
     
-    @objc func actionForAddMedicationPopup(_ sender: UIButton){
-        let selectedClass = Class()
-        selectedClass.classesID = 1
+    @objc func actionForAddMedicationPopup(_ sender: UIButton) {
+      var selectedClass : OperationalClass?
+      selectedClass?.value = 1
         let dailySheet = DailySheet()
         let health = ActivityMedications()
        

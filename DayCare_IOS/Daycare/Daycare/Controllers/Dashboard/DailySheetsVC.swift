@@ -35,9 +35,9 @@ class DailySheetsVC: BaseViewController {
     var arrForDailySheet    =   [DailySheet]()
   var arrForCompleteSheet    =   [DailySheet]()
     var arrForSelectedStudent : [DailySheet] = []
-    var arrForClass         :   [Class]     = []
-    var arrForOperationalClass : [Class]?
-    var selectedClass       :   Class?
+    var arrForClass         :   [OperationalClass]     = []
+    var arrForOperationalClass : [OperationalClass]?
+    var selectedClass       :   OperationalClass?
     var selectedDate        :   Date?
     var isFirstLoad:Bool = true
     
@@ -60,7 +60,7 @@ class DailySheetsVC: BaseViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-       
+      
     }
     
     //MARK:----- @IBActions -----
@@ -121,7 +121,7 @@ class DailySheetsVC: BaseViewController {
             self.lblForMonthYear.text = CommonClassMethods.monthNameFromDate(date:dateTime) + " " + CommonClassMethods.yearFromDate(date: dateTime)
             self.lblForDate.text = CommonClassMethods.dateFromDate(date: dateTime)
             if CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: dateTime){
-                self.selectedDate = dateTime
+              self.selectedDate = CommonClassMethods.setCurrentTimeWithDate(dateTime)
                 if !self.isPreviousDate() {
                     if (self.arrForOperationalClass?.count ?? 0) > 0 {
                         self.selectedClass = self.arrForOperationalClass?[0]
@@ -132,24 +132,26 @@ class DailySheetsVC: BaseViewController {
                         self.btnForSelection.isHidden = true
                     }
                 } else {
-                    if self.selectedClass == nil || self.selectedClass?.className == "" ||
-                        self.selectedClass?.className == nil {
-                        if self.arrForClass.count > 0 {
-                            self.selectedClass = self.arrForClass[0]
+                    if self.selectedClass == nil || self.selectedClass?.label == "" ||
+                        self.selectedClass?.label == nil {
+                      if self.arrForOperationalClass?.count ?? 0 > 0 {
+                            self.selectedClass = self.arrForOperationalClass?[0]
                             self.btnForSelection.isHidden = false
                         }
                     }
                 }
                 
                 self.btnForSelection.isHidden = self.isPreviousDate()
-              if self.imgTabCurrent.isHidden {
-                self.btnForSelection.isHidden = true
-                self.btnForAdd.isHidden = true
-                self.apiForGetCompleteDailySheet(classId: self.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
-              }
-              else{
-                self.apiForGetDailySheet(classId: self.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
-              }
+//              if self.imgTabCurrent.isHidden {
+//                self.btnForSelection.isHidden = true
+//                self.btnForAdd.isHidden = true
+//                self.apiForGetCompleteDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+//              }
+//              else{
+//                self.apiForGetDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+//              }
+              // shiwani
+              self.apiCallGetTeacherCurrentOperationalClass()
             }
             return
         }, cancel: { ActionStringCancelBlock in return }, origin:sender)
@@ -168,11 +170,11 @@ class DailySheetsVC: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func actionForRefresh(sender:AnyObject) {
-        apiForGetDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+        apiForGetDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
     }
   
     @objc func actionForCompleteDailySheet(sender:AnyObject) {
-           apiForGetCompleteDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+           apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
        }
   
   @IBAction func butonActionCompleteSheet(_ sender: Any) {
@@ -186,7 +188,7 @@ class DailySheetsVC: BaseViewController {
     imgTabCurrent.isHidden = true
     viewSelect.isHidden = true
     viewSearch.isHidden = false
-    apiForGetCompleteDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+    apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
     refreshControl.removeTarget(self, action: #selector(actionForRefresh(sender:)), for: UIControl.Event.valueChanged)
     refreshControl.addTarget(self, action: #selector(actionForCompleteDailySheet(sender:)), for: UIControl.Event.valueChanged)
   }
@@ -199,7 +201,7 @@ class DailySheetsVC: BaseViewController {
     viewSelect.isHidden = false
     viewSearch.isHidden = true
     
-    apiForGetDailySheet(classId: selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+    apiForGetDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
     refreshControl.removeTarget(self, action: #selector(actionForCompleteDailySheet(sender:)), for: UIControl.Event.valueChanged)
            refreshControl.addTarget(self, action: #selector(actionForRefresh(sender:)), for: UIControl.Event.valueChanged)
   }
@@ -222,44 +224,53 @@ class DailySheetsVC: BaseViewController {
     }
     
     //Classes Dropdown list
-    func setupClassesDropDown(){
-        var arrForClassDropDown:[Class] = []
-        if CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
-            arrForClassDropDown = arrForOperationalClass ?? []
-        } else {
-            arrForClassDropDown = arrForClass
+  func setupClassesDropDown() {
+    var arrForClassDropDown:[OperationalClass] = []
+    let selecteddate = CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date())
+    let todayDate = CommonClassMethods.convertDateWithoutTime(date: Date())
+    //  code before
+      if selecteddate == todayDate {
+         arrForClassDropDown = arrForOperationalClass ?? []
+      } else {
+          arrForClassDropDown = arrForOperationalClass ?? []
+      }
+    
+   /* if CommonClassMethods.convertDateWithoutTime(date: selectedDate ?? Date()) == CommonClassMethods.convertDateWithoutTime(date: Date()) {
+      arrForClassDropDown = arrForOperationalClass ?? []
+    } else {
+      arrForClassDropDown = arrForClass
+    }*/
+    dropDownForClasses.anchorView = btnForToddler
+    dropDownForClasses.bottomOffset = CGPoint(x: 0, y: btnForToddler.bounds.height)
+    dropDownForClasses.dataSource = arrForClassDropDown.map{$0.label ?? ""}
+    dropDownForClasses.selectionAction = { [weak self] (index, item) in
+      self?.btnForToddler.setTitle(self?.dropDownForClasses.dataSource[index], for: .normal)
+      if self?.selectedClass?.label != arrForClassDropDown[index].label {
+        self?.selectedClass = arrForClassDropDown[index]
+        if self?.imgTabCurrent.isHidden ?? false {
+          self?.apiForGetCompleteDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
         }
-        dropDownForClasses.anchorView = btnForToddler
-        dropDownForClasses.bottomOffset = CGPoint(x: 0, y: btnForToddler.bounds.height)
-        dropDownForClasses.dataSource = arrForClassDropDown.map{$0.className ?? ""}
-        dropDownForClasses.selectionAction = { [weak self] (index, item) in
-            self?.btnForToddler.setTitle(self?.dropDownForClasses.dataSource[index], for: .normal)
-            if self?.selectedClass?.className != arrForClassDropDown[index].className {
-                self?.selectedClass = arrForClassDropDown[index]
-              if self?.imgTabCurrent.isHidden ?? false {
-                self?.apiForGetCompleteDailySheet(classId: self?.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
-                           }
-                           else{
-                self?.apiForGetDailySheet(classId: self?.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
-                           }
-            }
-            self?.imgForDropdownArrow.image = UIImage(named: "arrowDown")
+        else{
+          self?.apiForGetDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
         }
-        dropDownForClasses.cancelAction = { [unowned self] in
-            self.imgForDropdownArrow.image = UIImage(named: "arrowDown")
-        }
+      }
+      self?.imgForDropdownArrow.image = UIImage(named: "arrowDown")
     }
+    dropDownForClasses.cancelAction = { [unowned self] in
+      self.imgForDropdownArrow.image = UIImage(named: "arrowDown")
+    }
+  }
     
     func isPreviousDate() -> Bool {
         return   (CommonClassMethods.convertDateWithoutTime(date: self.selectedDate ?? Date()) != CommonClassMethods.convertDateWithoutTime(date: Date()))
     }
     
     //MARK:----- API Calling Function -----
-    func apiForGetAllClasses(){
+    func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
           self.isFirstLoad = false
-            if let arrForClasses = result as? [Class]{
+            if let arrForClasses = result as? [OperationalClass] {
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
                     self.collectionViewForDailysheet.reloadData()
@@ -273,40 +284,58 @@ class DailySheetsVC: BaseViewController {
         }
     }
     
-    func apiCallGetTeacherCurrentOperationalClass(){
-        let service = DashboarService()
-        service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
-            if result != nil {
-                self.arrForOperationalClass = []
-                let operationalClassArray:[OperationalClass] = result as? [OperationalClass] ?? []
-                
-                let arrClassesID = operationalClassArray.map{$0.value}
-                self.arrForOperationalClass = self.arrForClass.filter{arrClassesID.contains($0.classesID)}
-//                for classes in self.arrForClass {
-//                    for operationalClass in operationalClassArray {
-//                        if classes.classesID == operationalClass.value {
-//                            self.arrForOperationalClass?.append(classes)
-//                        }
-//                    }
-//                }
-                if self.selectedClass == nil {
-                    if (self.arrForOperationalClass?.count ?? 0) > 0 {
-                        self.selectedClass = self.arrForOperationalClass?[0]
-                    }
-                }
-                (self.selectedClass == nil || self.selectedClass?.className == "" || self.selectedClass?.className == nil) ? self.btnForToddler.setTitle("Select", for: .normal) : self.btnForToddler.setTitle(self.selectedClass?.className, for: .normal)
-              if self.imgTabCurrent.isHidden {
-                self.btnForSelection.isHidden = true
-                               self.btnForAdd.isHidden = true
-                self.apiForGetCompleteDailySheet(classId: self.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
-                           }
-                           else{
-                             self.apiForGetDailySheet(classId: self.selectedClass?.classesID ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
-                           }
-                self.setupClassesDropDown()
-            }
+  func apiCallGetTeacherCurrentOperationalClass() {
+    let service = DashboarService()
+    service.getTeacherCurrentOperationalClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, askingDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), teacherID: AppInstance.shared.teacher?.id ?? 0, teacherDailyAttendanceID: AppInstance.shared.user?.teacherTodayAttendenceId ?? 0) { (result) in
+      if result != nil {
+        self.arrForOperationalClass = []
+        let operationalClassArray:[OperationalClass] = result as? [OperationalClass] ?? []
+        
+        //                let arrClassesID = operationalClassArray.map{$0.value}
+        //                self.arrForOperationalClass = self.arrForClass.filter{arrClassesID.contains($0.value)}
+        //                for classes in self.arrForClass {
+        //                    for operationalClass in operationalClassArray {
+        //                        if classes.classesID == operationalClass.value {
+        //                            self.arrForOperationalClass?.append(classes)
+        //                        }
+        //                    }
+        //                }
+        /*  if self.selectedClass == nil {
+         if (self.arrForOperationalClass?.count ?? 0) > 0 {
+         self.selectedClass = self.arrForOperationalClass?[0]
+         }
+         }
+         (self.selectedClass == nil || self.selectedClass?.label == "" || self.selectedClass?.label == nil) ? self.btnForToddler.setTitle("Select", for: .normal) : self.btnForToddler.setTitle(self.selectedClass?.label, for: .normal)
+         if self.imgTabCurrent.isHidden {
+         self.btnForSelection.isHidden = true
+         self.btnForAdd.isHidden = true
+         self.apiForGetCompleteDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+         }
+         else{
+         self.apiForGetDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+         }
+         self.setupClassesDropDown()*/
+        self.arrForOperationalClass = operationalClassArray
+        self.selectedClass = nil
+        if self.arrForOperationalClass?.count ?? 0 > 0
+        {
+          self.selectedClass = self.arrForOperationalClass?[0]
         }
+        if self.imgTabCurrent.isHidden {
+          self.btnForSelection.isHidden = true
+          self.btnForAdd.isHidden = true
+          self.apiForGetCompleteDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+        }
+        else {
+          self.apiForGetDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+        }
+      }
     }
+    
+    // daily sheet
+//    "askedDate":"2021-03-03T07:17:1
+//    "askedDateString UTC ":"2021-03-03 12:47:16"}
+  }
     
     func apiForGetDailySheet(classId:Int,askedDate:String) {
       txtFieldSearch.resignFirstResponder()
@@ -321,7 +350,7 @@ class DailySheetsVC: BaseViewController {
                 self.refreshControl.endRefreshing()
                 self.isFirstLoad = false
                 self.arrForDailySheet = result as? [DailySheet] ?? []
-                self.btnForToddler.setTitle(self.selectedClass?.className, for: .normal)
+                self.btnForToddler.setTitle(self.selectedClass?.label, for: .normal)
                 self.collectionViewForDailysheet.reloadData()
             } else {
                 self.arrForDailySheet = []
@@ -342,7 +371,7 @@ class DailySheetsVC: BaseViewController {
         self.isFirstLoad = false
         self.arrForDailySheet = result as? [DailySheet] ?? []
         self.arrForCompleteSheet = result as? [DailySheet] ?? []
-        self.btnForToddler.setTitle(self.selectedClass?.className, for: .normal)
+        self.btnForToddler.setTitle(self.selectedClass?.label, for: .normal)
         self.collectionViewForDailysheet.reloadData()
       } else {
         self.arrForDailySheet = []

@@ -18,7 +18,8 @@ class DailySheetService: APIService {
         let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
 
         let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : UTCDate] as [String : Any]
+//      "askedDateString UTC ":"2021-03-03 12:47:16"}
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetMobile, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

@@ -16,14 +16,14 @@ class AddNewPostVC: BaseViewController {
 
     var isPhotoSelect: Bool?
     var activity = PostActivity()
-    var selectedClass       :   Class?
+    var selectedClass       :   OperationalClass?
     let dropDownForClasses = DropDown()
     var selectedVideoURL: NSURL?
-    var arrForClass         :   [Class]     = []
+    var arrForClass         :   [OperationalClass]     = []
     var arrForSelectedClassStudents     :   [Student]   =   []
     var arrForSelectedStudents  :   [Student]   =   []
     var arrForSelectedImages:[UIImage] = []
-    var arrForOperationalClass : [Class]?
+    var arrForOperationalClass : [OperationalClass]?
     
     lazy var imagePickerVC = ImagePickerVC()
     
@@ -131,7 +131,7 @@ class AddNewPostVC: BaseViewController {
     
     //Dropdown list For Classes
     func setupClassesDropDown(_ imageView: UIImageView, sender: UIButton){
-        let arrforClassesName   :   [String]    = arrForOperationalClass?.map{$0.className ?? ""} ?? []
+        let arrforClassesName   :   [String]    = arrForOperationalClass?.map{$0.label ?? ""} ?? []
 //        for i in 0 ..< (arrForOperationalClass?.count ?? 0) {
 //            arrforClassesName.append(arrForOperationalClass?[i].className ?? "")
 //        }
@@ -140,9 +140,9 @@ class AddNewPostVC: BaseViewController {
         dropDownForClasses.dataSource = arrforClassesName
         dropDownForClasses.selectionAction = { [weak self] (index, item) in
             sender.setTitle(item, for: .normal)
-            if self?.selectedClass?.className != self?.arrForOperationalClass?[index].className {
+            if self?.selectedClass?.label != self?.arrForOperationalClass?[index].label {
                 self?.selectedClass = self?.arrForOperationalClass?[index]
-                self?.activity.classesID = self?.arrForOperationalClass?[index].classesID
+                self?.activity.classesID = self?.arrForOperationalClass?[index].value
                 self?.activity.className = item
                 self?.arrForSelectedStudents = []
                 self?.apiForGetStudentsByClasses()
@@ -255,7 +255,7 @@ class AddNewPostVC: BaseViewController {
     func apiForGetAllClasses(){
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
-            if let arrForClasses = result as? [Class]{
+            if let arrForClasses = result as? [OperationalClass]{
                 self.arrForClass = arrForClasses
                 self.apiCallGetTeacherCurrentOperationalClass()
             }
@@ -268,13 +268,14 @@ class AddNewPostVC: BaseViewController {
             if result != nil {
                 self.arrForOperationalClass = []
                 let operationalClassArray:[OperationalClass] = result as? [OperationalClass] ?? []
-                for classes in self.arrForClass {
+              
+//                for classes in self.arrForClass {
                     for operationalClass in operationalClassArray {
-                        if classes.classesID == operationalClass.value {
-                            self.arrForOperationalClass?.append(classes)
-                        }
+//                        if classes.value == operationalClass.value {
+                            self.arrForOperationalClass?.append(operationalClass)
+//                        }
                     }
-                }
+//                }
                 self.tblViewForAddNewPost.reloadData()
             }
         }
@@ -282,7 +283,7 @@ class AddNewPostVC: BaseViewController {
     
     func apiForGetStudentsByClasses(){
         let service = StudentService()
-        service.getAllStudentsByClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass?.classesID ?? 0) { (result) in
+        service.getAllStudentsByClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass?.value ?? 0) { (result) in
             self.arrForSelectedClassStudents = result as? [Student] ?? []
             self.tblViewForAddNewPost.reloadData()
         }

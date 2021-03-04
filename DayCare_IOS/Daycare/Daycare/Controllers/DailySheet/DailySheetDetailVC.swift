@@ -19,7 +19,7 @@ class DailySheetDetailVC: BaseViewController {
     
     var dailySheetStudent: DailySheet?
     var selectedDate: Date?
-    var selectedClass: Class?
+    var selectedClass: OperationalClass?
     var arrForActivity:[ActivityDetail] = []
     var arrForSubActivities: [SubActivity]?
     
@@ -155,7 +155,7 @@ class DailySheetDetailVC: BaseViewController {
         dictForParameter[Macros.ApiKeys.kdeletedBy] = AppInstance.shared.user?.loginUserID
         dictForParameter[Macros.ApiKeys.kactivityTypeID] = activity.activityTypeID
         dictForParameter[Macros.ApiKeys.kselectedStudents] = [dailySheetStudent?.studentID] as? [Int]
-        dictForParameter[Macros.ApiKeys.kclassesID] = selectedClass?.classesID
+        dictForParameter[Macros.ApiKeys.kclassesID] = selectedClass?.value
         dictForParameter[Macros.ApiKeys.kstudentActivitiesID] = activity.studentActivityID
         dictForParameter[Macros.ApiKeys.kid] = activity.studentActivityID
         return dictForParameter

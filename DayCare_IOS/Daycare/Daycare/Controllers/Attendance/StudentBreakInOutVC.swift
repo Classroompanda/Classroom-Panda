@@ -164,7 +164,7 @@ class StudentBreakInOutVC: BaseViewController {
             if let date = CommonClassMethods.dateObjectFromDateString(date: self.studentBreakLog?.breakInTime ?? "") {
                 if date > (CommonClassMethods.dateObjectFromDateString(date: "2000-01-01T00:00:00") ?? Date()) {
                     studentBreak.breakInTime = studentBreakLog?.breakInTime ?? ""
-                }else {
+                } else {
                     studentBreak.breakInTime = CommonClassMethods.convertDateToServerReadableFormat(date: Date())
                 }
             } else {

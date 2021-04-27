@@ -2,7 +2,7 @@
 import Foundation
 
 
-public class OperationalClass {
+public class OperationalClass : NSObject {
 	public var value : Int?
 	public var label : String?
 	public var isActive : Bool?
@@ -16,7 +16,13 @@ public class OperationalClass {
 	public var deletedFromIP : String?
 	public var createdFromIP : String?
 	public var updatedFromIP : String?
-
+  public var isSelected : Bool?
+  public var allergyType : String?
+  public var checkInTime : String?
+  
+  public override init() {
+      super.init()
+  }
   
 
     public class func modelsFromDictionaryArray(array:Array<Dictionary<String,Any>>) -> [OperationalClass]
@@ -44,6 +50,10 @@ public class OperationalClass {
 		deletedFromIP = dictionary["deletedFromIP"] as? String ?? ""
 		createdFromIP = dictionary["createdFromIP"] as? String ?? ""
 		updatedFromIP = dictionary["updatedFromIP"] as? String ?? ""
+    
+    // new keys
+    allergyType = dictionary["allergyType"] as? String ?? ""
+    checkInTime = dictionary["checkInTime"] as? String ?? ""
 	}
 
 		

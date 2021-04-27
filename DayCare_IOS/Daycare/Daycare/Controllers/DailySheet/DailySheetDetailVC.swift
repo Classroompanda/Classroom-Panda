@@ -23,6 +23,8 @@ class DailySheetDetailVC: BaseViewController {
     var arrForActivity:[ActivityDetail] = []
     var arrForSubActivities: [SubActivity]?
     
+  @IBOutlet weak var addButton: UIButton!
+  
   var isCompleteDailySheet = false
     override func viewDidLoad() {
         super.viewDidLoad()

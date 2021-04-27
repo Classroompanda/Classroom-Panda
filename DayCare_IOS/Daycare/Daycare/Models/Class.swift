@@ -37,7 +37,25 @@ public class Class: NSObject {
 	public var createdDate : String?
 	public var updatedDate : String?
 	public var updatedBy : Int?
-    public var isSelected : Bool?
+  public var isSelected : Bool?
+  
+  public var classEnrollmentsID : Int?
+  public var categoryName : String?
+  public var enrolledStudentCount : Int?
+  public var enrollStartDate : String?
+  public var classStatusName : String?
+  public var createdFromIP : String?
+  public var deletedFromIP : String?
+  public var enrollEndDate : String?
+  public var feeTypeName : String?
+  public var updatedFromIP : String?
+  public var  msg : String?
+  public var studentID : Int?
+  public var stringId : Int?
+  public var roomId : Int?
+  public var page : Int?
+  public var limit : Int?
+  public var locationId : Int?
 
     public override init() {
         super.init()
@@ -91,6 +109,26 @@ public class Class: NSObject {
 		createdDate = dictionary["createdDate"] as? String ?? ""
 		updatedDate = dictionary["updatedDate"] as? String ?? ""
 		updatedBy = dictionary["updatedBy"] as? Int ?? 0
+    
+    classEnrollmentsID = dictionary["classEnrollmentsID"] as? Int ?? 0
+    categoryName = dictionary["categoryName"] as? String ?? ""
+    enrollStartDate = dictionary["enrollStartDate"] as? String ?? ""
+    classStatusName = dictionary["classStatusName"] as? String ?? ""
+    createdFromIP = dictionary["createdFromIP"] as? String ?? ""
+    deletedFromIP = dictionary["deletedFromIP"] as? String ?? ""
+    enrollEndDate = dictionary["enrollEndDate"] as? String ?? ""
+    feeTypeName = dictionary["feeTypeName"] as? String ?? ""
+    msg = dictionary["msg"] as? String ?? ""
+    updatedFromIP = dictionary["updatedFromIP"] as? String ?? ""
+    
+    enrolledStudentCount = dictionary["enrolledStudentCount"] as? Int ?? 0
+    stringId = dictionary["stringId"] as? Int ?? 0
+    studentID = dictionary["studentID"] as? Int ?? 0
+    roomId = dictionary["roomId"] as? Int ?? 0
+    page = dictionary["page"] as? Int ?? 0
+    limit = dictionary["limit"] as? Int ?? 0
+    locationId = dictionary["locationId"] as? Int ?? 0
+ 
 	}
 
 		

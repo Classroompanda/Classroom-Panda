@@ -17,7 +17,7 @@ class AddEventVC: BaseViewController {
     var event:Event = Event()
     var isEdited : Bool?
     var arrForClass         :   [Class]     =   []
-    var arrForSelectedClass :   [Class]     =   []
+    var arrForSelectedClass :   [OperationalClass]     =   []
     var arrForRepeatDropdown:   [Repeat]    =   []
     
     override func viewDidLoad() {
@@ -112,7 +112,7 @@ class AddEventVC: BaseViewController {
         self.resignTextFieldResponder()
         let popoverContent = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Popover, vcIdentifire: Macros.Identifiers.Controller.ClassListPopupVC) as! ClassListPopupVC
         popoverContent.delegate = self
-        popoverContent.arrForAllClass = self.arrForClass
+//        popoverContent.arrForAllClass = self.arrForClass
         popoverContent.selectedIndex = sender.tag
         popoverContent.arrForSelectedClass = self.arrForSelectedClass
         popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -179,10 +179,10 @@ class AddEventVC: BaseViewController {
 //                self.arrForSelectedClass.append(classes)
 //            }
 //        }
-        self.arrForSelectedClass = event.involvedEventClassesList?.map({ (involvedClass) -> Class in
-            let classes = Class()
-            classes.classesID = involvedClass.classesID
-            classes.className = involvedClass.className
+      self.arrForSelectedClass = event.involvedEventClassesList?.map({ (involvedClass) -> OperationalClass in
+            let classes = OperationalClass()
+            classes.value = involvedClass.classesID
+            classes.label = involvedClass.className
             classes.isSelected = true
             return classes
         }) ?? []
@@ -515,7 +515,7 @@ extension AddEventVC: UITableViewDelegate,UITableViewDataSource {
 //                    nameOfClasses.remove(at: nameOfClasses.index(before: nameOfClasses.endIndex))
 //                     nameOfClasses.remove(at: nameOfClasses.index(before: nameOfClasses.endIndex))
 //                    cell.lblForSelectedItems.text = nameOfClasses
-                    cell.lblForSelectedItems.text = arrForSelectedClass.map{$0.className ?? ""}.joined(separator: ",")
+                    cell.lblForSelectedItems.text = arrForSelectedClass.map{$0.label ?? ""}.joined(separator: ",")
                 } else {
                     cell.lblForSelectedItems.isHidden = true
                     cell.ViewForSelectedItems.isHidden = true
@@ -546,13 +546,13 @@ extension AddEventVC: UITableViewDelegate,UITableViewDataSource {
 //MARK:----- Class List Popup Delegate -----
 extension AddEventVC: ClassListVCDelegate {
  
-    func doneButtonAction(selectedIndex:Int,selectedClasses: [Class]) {
+    func doneButtonAction(selectedIndex:Int,selectedClasses: [OperationalClass]) {
         self.arrForSelectedClass = selectedClasses
         let indexPath = IndexPath(row: selectedIndex, section: 0)
         var involvedEventClasses:[InvolvedClass] = []
         for i in 0..<selectedClasses.count {
             let involvedEventClass = InvolvedClass()
-            involvedEventClass.classesID = selectedClasses[i].classesID
+            involvedEventClass.classesID = selectedClasses[i].value
             involvedEventClass.agencyID = AppInstance.shared.user?.agencyID ?? 0
             involvedEventClass.eventID = event.id ?? 0
             involvedEventClasses.append(involvedEventClass)

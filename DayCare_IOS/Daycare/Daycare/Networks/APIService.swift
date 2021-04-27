@@ -81,7 +81,7 @@ public class APIService: NSObject {
     func internalJsonResponseHandler(data: Data, completion: @escaping (Result<Any?>) -> Void) {
          do {
              if let json = try JSONSerialization.jsonObject(with: data, options: []) as? Dictionary<String,AnyObject> {
-//                 print(json)
+                 print("\n Response: " , json)
                  let status = json["statusCode"] as? Int ?? 0
                  switch status {
                  case 200:

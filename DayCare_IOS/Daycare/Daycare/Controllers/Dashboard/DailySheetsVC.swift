@@ -35,7 +35,7 @@ class DailySheetsVC: BaseViewController {
     var arrForDailySheet    =   [DailySheet]()
   var arrForCompleteSheet    =   [DailySheet]()
     var arrForSelectedStudent : [DailySheet] = []
-    var arrForClass         :   [OperationalClass]     = []
+    var arrForClass         :   [Class]     = []
     var arrForOperationalClass : [OperationalClass]?
     var selectedClass       :   OperationalClass?
     var selectedDate        :   Date?
@@ -270,7 +270,7 @@ class DailySheetsVC: BaseViewController {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
           self.isFirstLoad = false
-            if let arrForClasses = result as? [OperationalClass] {
+            if let arrForClasses = result as? [Class] {
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
                     self.collectionViewForDailysheet.reloadData()

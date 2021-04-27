@@ -20,7 +20,7 @@ class AttendanceService: APIService {
                 switch result {
                 case .Success(let response):
                     if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
-                         let classes = OperationalClass.modelsFromDictionaryArray(array: data)
+                         let classes = Class.modelsFromDictionaryArray(array: data)
                         complition(classes)
                     } else {
                         complition(nil)
@@ -33,6 +33,30 @@ class AttendanceService: APIService {
             }
         }
     }
+  
+  func getAllClasses2(with target:BaseViewController?, agencyID:Int, complition:@escaping(Any?) -> Void){
+      target?.showLoader()
+      let param   =   [Macros.ApiKeys.kagencyID : agencyID]
+      super.startService(with: .POST, path: Macros.ServiceName.getAllClassesAPI, parameters: param, files: []) { (result) in
+          DispatchQueue.main.async {
+              target?.hideLoader()
+              switch result {
+              case .Success(let response):
+                  if let data = (response as? Dictionary<String,Any>)?["data"] as? Array<Dictionary<String,Any>>{
+                       let classes = OperationalClass.modelsFromDictionaryArray(array: data)
+                      complition(classes)
+                  } else {
+                      complition(nil)
+                  }
+              case .Error(let error):
+                  target?.hideLoader()
+                  target?.showAlert(with: error)
+                  complition(nil)
+              }
+          }
+      }
+  }
+  
   func getCompleteDailySheet(with target:BaseViewController?, agencyID:Int, complition:@escaping(Any?) -> Void){
          target?.showLoader()
          let param   =   [Macros.ApiKeys.kagencyID : agencyID]

@@ -9,14 +9,14 @@
 import UIKit
 
 protocol ClassListVCDelegate : class {
-    func doneButtonAction(selectedIndex:Int,selectedClasses:[Class])
+    func doneButtonAction(selectedIndex:Int,selectedClasses:[OperationalClass])
 }
 
 class ClassListPopupVC: UIViewController {
     @IBOutlet weak var tblViewForClassList: UITableView!
-    var arrForAllClass   :   [Class]   = []
-    var arrForSelectedClass  : [Class]   = []
-    var arrForSortedClassList:[Class]?
+    var arrForAllClass   :   [OperationalClass]   = []
+    var arrForSelectedClass  : [OperationalClass]   = []
+    var arrForSortedClassList:[OperationalClass]?
     var isSearchActive = false
     var delegate : ClassListVCDelegate?
     var selectedIndex:Int?
@@ -55,7 +55,7 @@ extension ClassListPopupVC: UITableViewDelegate,UITableViewDataSource {
         if let cell = self.tblViewForClassList.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.ListTableViewCell) as? ListTableViewCell {
             cell.selectionStyle = .none
             let arrForClass = isSearchActive ? arrForSortedClassList : arrForAllClass
-            cell.lblForListItem.text = arrForClass?[indexPath.row].className ?? ""
+            cell.lblForListItem.text = arrForClass?[indexPath.row].label ?? ""
              cell.imgViewForSelection.image = arrForClass?[indexPath.row].isSelected == true ? UIImage(named: "selectedFill") : UIImage(named: "unselected")
             return cell
         }
@@ -67,23 +67,23 @@ extension ClassListPopupVC: UITableViewDelegate,UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? ListTableViewCell {
             if arrForClass?[indexPath.row].isSelected ?? false {
                 cell.imgViewForSelection.image = UIImage(named: "unselected")
-                let selectedId      = arrForClass?[indexPath.row].classesID
+                let selectedId      = arrForClass?[indexPath.row].value
                 for i in 0..<arrForAllClass.count{
-                    if arrForClass?[i].classesID == selectedId {
+                    if arrForClass?[i].value == selectedId {
                         self.arrForAllClass[i].isSelected = false
                     }
                 }
                 for i in 0..<arrForSelectedClass.count{
-                    if arrForSelectedClass[i].classesID == selectedId{
+                    if arrForSelectedClass[i].value == selectedId{
                         arrForSelectedClass.remove(at: i)
                         break
                     }
                 }
             } else{
                 cell.imgViewForSelection.image = UIImage(named: "selectedFill")
-                let selectedId = arrForClass?[indexPath.row].classesID
+                let selectedId = arrForClass?[indexPath.row].value
                 for i in 0..<arrForAllClass.count{
-                    if arrForAllClass[i].classesID == selectedId {
+                    if arrForAllClass[i].value == selectedId {
                         self.arrForAllClass[i].isSelected = true
                         self.arrForSelectedClass.append(arrForAllClass[i])
                     }
@@ -103,7 +103,7 @@ extension ClassListPopupVC:UITextFieldDelegate{
         }else {
             isSearchActive = true
             self.arrForSortedClassList = self.arrForAllClass.filter({ (classes) -> Bool in
-                return classes.className?.lowercased().contains(newString.lowercased) ?? false
+                return classes.label?.lowercased().contains(newString.lowercased) ?? false
             })
         }
         tblViewForClassList.reloadData()

@@ -31,7 +31,6 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
         self.selectedDate = Date()
         if AppInstance.shared.currentCheckInClass.classesID != 0 && AppInstance.shared.currentCheckInClass.classesID != nil {
             layoutFAB()
-            
         }
     }
     
@@ -234,7 +233,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     
     func apiForGetAllClasses() {
         let service = AttendanceService()
-        service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
+        service.getAllClasses2(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
             if let arrForClasses = result as? [OperationalClass] {
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {

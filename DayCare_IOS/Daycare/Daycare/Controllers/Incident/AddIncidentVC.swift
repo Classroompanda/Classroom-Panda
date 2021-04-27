@@ -24,7 +24,7 @@ class AddIncidentVC: BaseViewController {
     let dropDownForNameOfInjury = DropDown()
     let dropDownForTeachearList =   DropDown()
     var incident:Incident = Incident()
-    var selectedClass       :   Class?
+    var selectedClass       :    Class??
     var selectedStudent     :   Student?
     var selectedNatureOfInjury  :   NatureOfInjury?
     var selectedTeacher     :   Teacher?
@@ -208,13 +208,13 @@ class AddIncidentVC: BaseViewController {
     
     //Dropdown list For Classes
     func setupClassesDropDown(_ imageView: UIImageView, sender: UIButton){
-        let arrforClassesName   :   [String]    = arrForClass.map{$0.className ?? ""}
+      let arrforClassesName   :   [String]    = arrForClass.map{$0.className ?? ""}
         dropDownForClasses.anchorView = sender
         dropDownForClasses.bottomOffset = CGPoint(x: 0, y: sender.bounds.height )
         dropDownForClasses.dataSource = arrforClassesName
         dropDownForClasses.selectionAction = { [weak self] (index, item) in
             sender.setTitle(item, for: .normal)
-            if self?.selectedClass?.className != self?.arrForClass[index].className {
+            if self?.selectedClass??.className != self?.arrForClass[index].className {
                 self?.selectedClass = self?.arrForClass[index]
                 self?.incident.classesID = self?.arrForClass[index].classesID
                 self?.incident.className = item
@@ -379,7 +379,7 @@ class AddIncidentVC: BaseViewController {
     func apiForGetStudentsByClasses(){
         
         let service = StudentService()
-        service.getAllStudentsByClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass?.classesID ?? 0) { (result) in
+        service.getAllStudentsByClass(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, classId: selectedClass??.classesID ?? 0) { (result) in
             self.arrForSelectedClassStudents = result as? [Student] ?? []
             for student in self.arrForSelectedClassStudents {
                 if self.incident.studentID == student.studentId {

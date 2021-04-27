@@ -18,7 +18,7 @@ class AttendanceVC: BaseViewController {
    
     let classesDropDown     = DropDown()
     var arrforClassesName   :   [String]    = []
-    var arrForClass         :   [OperationalClass]     = []
+    var arrForClass         :   [Class]     = []
     var arrForOperationalClass : [OperationalClass]?
     var arrForAttendance    :   [Attendance] = []
     var selectedClass       :   OperationalClass?
@@ -192,7 +192,7 @@ class AttendanceVC: BaseViewController {
     func apiForGetAllClasses() {
         let service = AttendanceService()
         service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
-            if let arrForClasses = result as? [OperationalClass]{
+            if let arrForClasses = result as? [Class]{
                 self.arrForClass = arrForClasses
                 if AppInstance.shared.currentCheckInClass.classesID == 0 || AppInstance.shared.currentCheckInClass.classesID == nil {
                     self.isFirstLoad = false

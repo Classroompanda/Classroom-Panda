@@ -252,10 +252,10 @@ class AddNewPostVC: BaseViewController {
     
     //MARK:----- API Calling Functions -----
     
-    func apiForGetAllClasses(){
+    func apiForGetAllClasses() {
         let service = AttendanceService()
-        service.getAllClasses(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
-            if let arrForClasses = result as? [OperationalClass]{
+        service.getAllClasses2(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0) { (result) in
+            if let arrForClasses = result as? [OperationalClass] {
                 self.arrForClass = arrForClasses
                 self.apiCallGetTeacherCurrentOperationalClass()
             }

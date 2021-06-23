@@ -33,8 +33,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     self.registerNotificationFunction(application: application)
     IQKeyboardManager.shared.enable = true
     Fabric.with([Crashlytics.self])
+    if UserDefaults.standard.bool(forKey: "isLogin") == true {
+    checkIsAlreadyLogin()
+    }
     return true
   }
+    
+    
+    func checkIsAlreadyLogin(){
+        if  AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kUserDetails) != nil && AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kParentDetails) != nil {
+            if let dictForUserDetail = AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kUserDetails) as? Dictionary<String,Any> {
+                AppInstance.shared.user = User.init(dictionary: dictForUserDetail)
+            }
+            if let dictForParentDetail = AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kParentDetails) as? Dictionary<String,Any> {
+                AppInstance.shared.parent = Parent.init(dictionary: dictForParentDetail)
+            }
+            if let accessToken = AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kAccessToken) as? String {
+                AppInstance.shared.accessToken = accessToken
+            }
+            if (AppInstance.shared.user?.childCount == 0 || AppInstance.shared.user?.childCount == nil) {
+                self.navigateToAddChild()
+            } else {
+               // self.navigateToAddChild()
+               let storyboard  =   UIStoryboard(name: Macros.Identifiers.Storyboards.Main, bundle: nil)
+
+                let vc = storyboard.instantiateViewController(withIdentifier: Macros.Identifiers.Controllers.ChildListVC) as! ChildListVC
+                  let window = UIApplication.shared.delegate!.window!!
+                              window.rootViewController   =   vc
+                     }
+            }
+        }
+    
+    
+    func navigateToAddChild(){
+        let storyboard  =   UIStoryboard(name: Macros.Identifiers.Storyboards.Dashboard, bundle: nil)
+        if let navigationController    =   storyboard.instantiateViewController(withIdentifier: Macros.Identifiers.Controllers.NavigationVC) as? NavigationVC {
+            navigationController.setViewControllers([storyboard.instantiateViewController(withIdentifier: Macros.Identifiers.Controllers.MyKidsVC)], animated: false)
+            if let mainViewController  =   storyboard.instantiateInitialViewController() as? SideMenuVC {
+                mainViewController.rootViewController   =   navigationController
+                let window = UIApplication.shared.delegate!.window!!
+                window.rootViewController   =   mainViewController
+                DispatchQueue.main.async {
+                     UIView.transition(with: window, duration: 0.3, options: [.transitionCrossDissolve], animations: nil, completion: nil)
+                }
+               
+            }
+        }
+    }
   
   func registerNotificationFunction(application:UIApplication) {
     FirebaseApp.configure()
@@ -134,9 +179,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //    application.applicationIconBadgeNumber = 0;
   }
   
-      func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+      func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
           print("Firebase registration token: \(fcmToken)")
-          let dataDict:[String: String] = ["token": fcmToken]
+          let dataDict:[String: String] = ["token": fcmToken ?? ""]
           NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
           AppInstance.shared.token = fcmToken
           AppInstance.shared.kUserDefault.setValue(fcmToken, forKey: Macros.DefaultKeys.kDeviceToken)
@@ -147,9 +192,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //MARK: FIRMessaging Delegate
 extension AppDelegate : MessagingDelegate {
   // The callback to handle data message received via FCM for devices running iOS 10 or above.
-  func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
-    print(remoteMessage.appData)
-  }
+//  func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
+//    print(remoteMessage.appData)
+//  }
 }
 //login teacher app - toby@yopmail.com/daycare@123
 //Parent app - parent1@yopmail.com/daycare@123

@@ -9,14 +9,14 @@
 import UIKit
 
 protocol ClassListVCDelegate : class {
-    func doneButtonAction(selectedIndex:Int,selectedClasses:[OperationalClass])
+    func doneButtonAction(selectedIndex:Int,selectedClasses:[Class])
 }
 
 class ClassListPopupVC: UIViewController {
     @IBOutlet weak var tblViewForClassList: UITableView!
-    var arrForAllClass   :   [OperationalClass]   = []
-    var arrForSelectedClass  : [OperationalClass]   = []
-    var arrForSortedClassList:[OperationalClass]?
+    var arrForAllClass   :   [Class]   = []
+    var arrForSelectedClass  : [Class]   = []
+    var arrForSortedClassList:[Class]?
     var isSearchActive = false
     var delegate : ClassListVCDelegate?
     var selectedIndex:Int?
@@ -55,7 +55,7 @@ extension ClassListPopupVC: UITableViewDelegate,UITableViewDataSource {
         if let cell = self.tblViewForClassList.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.ListTableViewCell) as? ListTableViewCell {
             cell.selectionStyle = .none
             let arrForClass = isSearchActive ? arrForSortedClassList : arrForAllClass
-            cell.lblForListItem.text = arrForClass?[indexPath.row].label ?? ""
+            cell.lblForListItem.text = arrForClass?[indexPath.row].className ?? ""
              cell.imgViewForSelection.image = arrForClass?[indexPath.row].isSelected == true ? UIImage(named: "selectedFill") : UIImage(named: "unselected")
             return cell
         }
@@ -63,34 +63,66 @@ extension ClassListPopupVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let arrForClass = isSearchActive ? arrForSortedClassList : arrForAllClass
-        if let cell = tableView.cellForRow(at: indexPath) as? ListTableViewCell {
-            if arrForClass?[indexPath.row].isSelected ?? false {
-                cell.imgViewForSelection.image = UIImage(named: "unselected")
-                let selectedId      = arrForClass?[indexPath.row].value
-                for i in 0..<arrForAllClass.count{
-                    if arrForClass?[i].value == selectedId {
-                        self.arrForAllClass[i].isSelected = false
-                    }
-                }
-                for i in 0..<arrForSelectedClass.count{
-                    if arrForSelectedClass[i].value == selectedId{
-                        arrForSelectedClass.remove(at: i)
-                        break
-                    }
-                }
-            } else{
-                cell.imgViewForSelection.image = UIImage(named: "selectedFill")
-                let selectedId = arrForClass?[indexPath.row].value
-                for i in 0..<arrForAllClass.count{
-                    if arrForAllClass[i].value == selectedId {
-                        self.arrForAllClass[i].isSelected = true
-                        self.arrForSelectedClass.append(arrForAllClass[i])
-                    }
-                }
+    let arrForClass = isSearchActive ? arrForSortedClassList : arrForAllClass
+    if let cell = tableView.cellForRow(at: indexPath) as? ListTableViewCell {
+           let selectedId = arrForClass?[indexPath.row].classesID
+        if arrForClass?[indexPath.row].isSelected ?? false {
+            cell.imgViewForSelection.image = UIImage(named: "unselected")
+         
+           
+                
+            arrForClass?[indexPath.row].isSelected = false
+                        for i in 0..<arrForSelectedClass.count{
+                            if arrForSelectedClass[i].classesID == selectedId{
+                            arrForSelectedClass.remove(at: i)
+                            break
+                            }
+                        }
+                
+        } else {
+            arrForClass?[indexPath.row].isSelected = true
+              cell.imgViewForSelection.image = UIImage(named: "selectedFill")
+            
+            if let dict = arrForClass?[indexPath.row] {
+                                    
+            self.arrForSelectedClass.append(dict)
             }
+                                }
         }
-    }
+        self.tblViewForClassList.reloadData()
+
+        }
+ //   }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let arrForClass = isSearchActive ? arrForSortedClassList : arrForAllClass
+//        if let cell = tableView.cellForRow(at: indexPath) as? ListTableViewCell {
+//            if arrForClass?[indexPath.row].isSelected ?? false {
+//                cell.imgViewForSelection.image = UIImage(named: "unselected")
+//                let selectedId = arrForClass?[indexPath.row].value
+//                for i in 0..<arrForAllClass.count{
+//                    if arrForClass?[i].value == selectedId {
+//                        self.arrForAllClass[i].isSelected = false
+//                    }
+//                }
+//                for i in 0..<arrForSelectedClass.count{
+//                    if arrForSelectedClass[i].value == selectedId{
+//                        arrForSelectedClass.remove(at: i)
+//                        break
+//                    }
+//                }
+//            } else{
+//                cell.imgViewForSelection.image = UIImage(named: "selectedFill")
+//                let selectedId = arrForClass?[indexPath.row].value
+//                for i in 0..<arrForAllClass.count{
+//                    if arrForAllClass[i].value == selectedId {
+//                        self.arrForAllClass[i].isSelected = true
+//                      //  self.arrForSelectedClass.append(arrForAllClass[i])
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 //MARK:----- UITextField Delegates -----
@@ -103,7 +135,7 @@ extension ClassListPopupVC:UITextFieldDelegate{
         }else {
             isSearchActive = true
             self.arrForSortedClassList = self.arrForAllClass.filter({ (classes) -> Bool in
-                return classes.label?.lowercased().contains(newString.lowercased) ?? false
+              return classes.className?.lowercased().contains(newString.lowercased) ?? false
             })
         }
         tblViewForClassList.reloadData()

@@ -186,17 +186,17 @@ class AddNewPostVC: BaseViewController {
             isValidate = false
             self.showAlert(with: Macros.alertMessages.student)
         }
-        if isPhotoSelect ?? false {
-            if arrForSelectedImages.count == 0 {
-                isValidate = false
-                self.showAlert(with: Macros.alertMessages.image)
-            }
-        } else {
-            if selectedVideoURL == nil {
-                isValidate = false
-                self.showAlert(with: Macros.alertMessages.video)
-            }
-        }
+     //   if isPhotoSelect ?? false {
+//            if arrForSelectedImages.count == 0 {
+//                isValidate = false
+//                self.showAlert(with: Macros.alertMessages.image)
+//            }
+//        } else {
+//            if selectedVideoURL == nil {
+//                isValidate = false
+//                self.showAlert(with: Macros.alertMessages.video)
+//            }
+//        }
         return isValidate
     }
     

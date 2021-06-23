@@ -13,7 +13,8 @@ class PostActivityService: APIService {
     //MARK:---- Post Activity List API -----
     func getPostActivityList(with target:BaseViewController?,id: Int, agencyID:Int,classesID: Int,postedDate:String, userID: Int, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kid : id, Macros.ApiKeys.kclassesID : classesID, Macros.ApiKeys.kpostedDate : postedDate, Macros.ApiKeys.kuserID: userID] as [String : Any]
+          let localCurrentDate =  CommonClassMethods.convertDateToServerReadableFormatGET(date:  Date(), toFormat:DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kid : id, Macros.ApiKeys.kclassesID : classesID, Macros.ApiKeys.kpostedDate : postedDate, Macros.ApiKeys.kuserID: userID, Macros.ApiKeys.kaskedDateString : localCurrentDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.GetAllPostActivities, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
                 target?.hideLoader()

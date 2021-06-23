@@ -6,21 +6,25 @@ target 'Daycare Parent' do
   use_frameworks!
 
   # Pods for Daycare Parent
-  pod 'Material’
-  pod 'IQKeyboardManagerSwift'
-  pod 'OpalImagePicker'
-  pod 'SDWebImage'
-  pod 'SpinKit'
-  pod 'ActionSheetPicker-3.0'
-  pod 'DropDown'
-  pod 'Stripe'
-  pod 'Fabric'
-  pod 'Crashlytics'
-  pod 'TKImageShowing'
-  pod 'FSCalendar'
-  pod 'Firebase/Core'
-  pod 'Firebase/Messaging', '~> 6.0.9'
-  pod 'SwiftSignalRClient'
+
+     pod 'Material’
+     pod 'IQKeyboardManagerSwift'
+     pod 'OpalImagePicker'
+     pod 'TKImageShowing'
+     pod  'SDWebImage'
+     pod 'SpinKit'
+     pod 'ActionSheetPicker-3.0'
+     pod 'DropDown'
+     pod 'Stripe'
+     pod 'Fabric'
+     pod 'Crashlytics'
+     pod 'FSCalendar'
+     pod 'Firebase/Core'
+     pod 'Firebase/Messaging'
+     pod 'SwiftSignalRClient'
+  
+
+     
   target 'Daycare ParentTests' do
     inherit! :search_paths
     # Pods for testing

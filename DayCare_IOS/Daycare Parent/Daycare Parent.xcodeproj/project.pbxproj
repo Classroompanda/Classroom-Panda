@@ -980,8 +980,8 @@
 				AC3CD01E22361BA600B92D3E /* Sources */,
 				AC3CD01F22361BA600B92D3E /* Frameworks */,
 				AC3CD02022361BA600B92D3E /* Resources */,
-				8B08B6C5C043ABF2192DE488 /* [CP] Embed Pods Frameworks */,
 				AC0FF69B225B1EE1003EB22F /* ShellScript */,
+				5DA2B7DED48ED95805E7E38E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1131,7 +1131,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8B08B6C5C043ABF2192DE488 /* [CP] Embed Pods Frameworks */ = {
+		5DA2B7DED48ED95805E7E38E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1541,18 +1541,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Daycare Parent/Daycare Parent.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 924X3K6N4N;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Daycare Parent/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareparent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Daycare Parent Dist";
@@ -1569,17 +1570,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "Daycare Parent/Daycare Parent.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 924X3K6N4N;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "Daycare Parent/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.3;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareparent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Daycare Parent Dist";

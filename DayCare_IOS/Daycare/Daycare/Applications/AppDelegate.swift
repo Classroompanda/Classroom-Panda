@@ -11,7 +11,6 @@ import UserNotifications
 import IQKeyboardManagerSwift
 import Fabric
 import Crashlytics
-
 import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
@@ -136,9 +135,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //        application.applicationIconBadgeNumber = 0;
     }
     
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         print("Firebase registration token: \(fcmToken)")
-        let dataDict:[String: String] = ["token": fcmToken]
+        let dataDict:[String: String] = ["token": fcmToken ?? ""]
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         AppInstance.shared.token = fcmToken
         AppInstance.shared.kUserDefault.setValue(fcmToken, forKey: Macros.DefaultKeys.kDeviceToken)
@@ -149,9 +148,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
 //MARK: FIRMessaging Delegate
 extension AppDelegate : MessagingDelegate {
     // The callback to handle data message received via FCM for devices running iOS 10 or above.
-    func applicationReceivedRemoteMessage(_ remoteMessage: MessagingRemoteMessage) {
-        print(remoteMessage.appData)
-    }
+//   func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//    print(remoteMessage.appData)
+//    }
 }
 
 //login teacher app - toby@yopmail.com/daycare@123

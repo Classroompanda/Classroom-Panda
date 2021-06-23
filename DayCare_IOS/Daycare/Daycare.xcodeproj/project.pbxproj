@@ -891,8 +891,8 @@
 				AC418D5721B10E7800A0F1B1 /* Sources */,
 				AC418D5821B10E7800A0F1B1 /* Frameworks */,
 				AC418D5921B10E7800A0F1B1 /* Resources */,
-				8C28BCFC65626ADBBCE1ACA3 /* [CP] Embed Pods Frameworks */,
 				ACEE9D9F223BB2CF00AC4C0E /* ShellScript */,
+				E7A08DFC7CADC06A3DB2E585 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -973,23 +973,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8C28BCFC65626ADBBCE1ACA3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		96657CFC7410954B8B80D497 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1021,6 +1004,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 4ea3b1b24e578cab93c73f0ab1f9dfc8195df724 f4938bbe081dabe59b8f7ca7ea725380803c6d9e98ed00ed61e7998c8133c0f7\n";
+		};
+		E7A08DFC7CADC06A3DB2E585 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Daycare/Pods-Daycare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1314,21 +1314,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Daycare/Daycare.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Classroom Panda LLC (924X3K6N4N)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 924X3K6N4N;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Daycare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareteacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = DaycareTeacherDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = TeacherDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare/Applications/Daycare-bridging-header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1341,20 +1342,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Daycare/Daycare.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Classroom Panda LLC (924X3K6N4N)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2.1;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 924X3K6N4N;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = Daycare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.4;
+				MARKETING_VERSION = 3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.classroompanda.daycareteacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = DaycareTeacherDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = TeacherDistribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Daycare/Applications/Daycare-bridging-header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

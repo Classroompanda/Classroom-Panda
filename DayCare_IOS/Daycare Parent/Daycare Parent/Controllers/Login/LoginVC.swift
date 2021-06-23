@@ -127,6 +127,7 @@ class LoginVC: BaseViewController {
         let service = LoginService()
         service.getParentInformation(with: self, agencyId: AppInstance.shared.user?.agencyID ?? 0, parentId: AppInstance.shared.user?.releventUserID ?? 0, isParent: AppInstance.shared.user?.isParent ?? false, isSecondaryParent: AppInstance.shared.user?.isSecondaryParent ?? false, isGuardian: AppInstance.shared.user?.isGaurdian ?? false) { (result) in
             if result != nil {
+                UserDefaults.standard.set(true, forKey: "isLogin")
                 AppInstance.shared.parent = result as? Parent
                 AppInstance.shared.kUserDefault.setValue( AppInstance.shared.parent?.dictionaryRepresentation(), forKey: Macros.DefaultKeys.kParentDetails)
               SignalRConnection.sharedInstance.startConnection(currentUser: AppInstance.shared.user ?? User())

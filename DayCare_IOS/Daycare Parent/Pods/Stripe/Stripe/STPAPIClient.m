@@ -14,6 +14,7 @@
 #import "STPAPIClient.h"
 #import "STPAPIClient+ApplePay.h"
 #import "STPAPIClient+Private.h"
+#import "STPAPIClient+Beta.h"
 
 #import "NSBundle+Stripe_AppName.h"
 #import "NSError+Stripe.h"
@@ -72,6 +73,7 @@ static NSString * const APIEndpointFPXStatus = @"fpx/bank_statuses";
 
 static NSArray<PKPaymentNetwork> *_additionalEnabledApplePayNetworks;
 static NSString *_defaultPublishableKey;
+static BOOL _advancedFraudSignalsEnabled;
 
 + (void)setDefaultPublishableKey:(NSString *)publishableKey {
     _defaultPublishableKey = [publishableKey copy];
@@ -79,6 +81,19 @@ static NSString *_defaultPublishableKey;
 
 + (NSString *)defaultPublishableKey {
     return _defaultPublishableKey;
+}
+
++ (void)setAdvancedFraudSignalsEnabled:(BOOL)enabled {
+    [self advancedFraudSignalsEnabled];
+    _advancedFraudSignalsEnabled = enabled;
+}
+
++ (BOOL)advancedFraudSignalsEnabled {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _advancedFraudSignalsEnabled = YES;
+    });
+    return _advancedFraudSignalsEnabled;
 }
 
 @end
@@ -91,6 +106,8 @@ static NSString *_defaultPublishableKey;
 @property (nonatomic, strong, readwrite) dispatch_queue_t sourcePollersQueue;
 
 // See STPAPIClient+Private.h
+@property (nonatomic) NSSet<NSString *> *betas;
+
 
 @end
 
@@ -150,6 +167,7 @@ static NSString *_defaultPublishableKey;
     dispatch_once(&configToken, ^{
         STPSharedURLSessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     });
+    
     return STPSharedURLSessionConfiguration;
 }
 
@@ -167,7 +185,13 @@ static NSString *_defaultPublishableKey;
 - (NSDictionary<NSString *, NSString *> *)defaultHeaders {
     NSMutableDictionary *defaultHeaders = [NSMutableDictionary new];
     defaultHeaders[@"X-Stripe-User-Agent"] = [self.class stripeUserAgentDetailsWithAppInfo:self.appInfo];
-    defaultHeaders[@"Stripe-Version"] = APIVersion;
+    NSString *stripeVersion = APIVersion;
+    if (self.betas && self.betas.count > 0) {
+        for (NSString *betaHeader in self.betas) {
+            stripeVersion = [stripeVersion stringByAppendingString:[NSString stringWithFormat:@"; %@", betaHeader]];
+        }
+    }
+    defaultHeaders[@"Stripe-Version"] = stripeVersion;
     defaultHeaders[@"Stripe-Account"] = self.stripeAccount;
     [defaultHeaders addEntriesFromDictionary:[self authorizationHeaderUsingEphemeralKey:nil]];
     return [defaultHeaders copy];

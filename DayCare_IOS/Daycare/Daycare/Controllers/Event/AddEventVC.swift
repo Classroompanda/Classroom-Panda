@@ -17,7 +17,7 @@ class AddEventVC: BaseViewController {
     var event:Event = Event()
     var isEdited : Bool?
     var arrForClass         :   [Class]     =   []
-    var arrForSelectedClass :   [OperationalClass]     =   []
+    var arrForSelectedClass :   [Class]     =   []
     var arrForRepeatDropdown:   [Repeat]    =   []
     
     override func viewDidLoad() {
@@ -112,7 +112,7 @@ class AddEventVC: BaseViewController {
         self.resignTextFieldResponder()
         let popoverContent = self.getViewController(storyboardIdentifire: Macros.Identifiers.Storyboard.Popover, vcIdentifire: Macros.Identifiers.Controller.ClassListPopupVC) as! ClassListPopupVC
         popoverContent.delegate = self
-//        popoverContent.arrForAllClass = self.arrForClass
+        popoverContent.arrForAllClass = self.arrForClass
         popoverContent.selectedIndex = sender.tag
         popoverContent.arrForSelectedClass = self.arrForSelectedClass
         popoverContent.modalPresentationStyle = UIModalPresentationStyle.popover
@@ -136,6 +136,7 @@ class AddEventVC: BaseViewController {
     //Function For Validation
     func isValidate() -> Bool {
         var isValidate = true
+        print(monthDiffBetweenTwoDates(endDateStr: event.end ?? "", startDateStr: event.start ?? ""))
         if (event.start == nil || event.start == ""){
             isValidate = false
             self.showAlert(with: Macros.alertMessages.startDate)
@@ -164,28 +165,94 @@ class AddEventVC: BaseViewController {
             if (event.endsOn == nil || event.endsOn == ""){
                 isValidate = false
                 self.showAlert(with: Macros.alertMessages.endsOnDate)
+            } else if (dateFromStr(dateStr: event.end ?? "", format: "EEE MMM dd yyyy") > (CommonClassMethods.dateObjectFromDateString(date: event.endsOn ?? "") ?? Date())) {
+                isValidate = false
+                self.showAlert(with: Macros.alertMessages.endsOnDateGreater)
+            } else if event.plannerRepeatTypeID == 4 {
+                if (monthDiffBetweenTwoDates(endDateStr: event.end ?? "", startDateStr: event.start ?? "") == true) {
+                isValidate = false
+                self.showAlert(with: Macros.alertMessages.monthDiffError)
+            }
+            }
+            else if event.plannerRepeatTypeID == 3 {
+                    if (diffBetweenTwoDates(endDate: event.end ?? "", startDate: event.start ?? "") > 7) {
+                    isValidate = false
+                    self.showAlert(with: Macros.alertMessages.dateDiffError)
+                }
             }
         }
+        
         return isValidate
     }
     
+    func dateFromStr(dateStr: String, format: String) -> Date {
+     
+        let formatter = DateFormatter()
+            
+              // specify the format,
+              formatter.dateFormat = format
+            //  formatter.timeZone = TimeZone.current
+
+              // specify the start date
+        let date = formatter.date(from: dateStr) ?? Date()
+        return date
+    }
+    func monthDiffBetweenTwoDates(endDateStr: String, startDateStr: String)-> Bool {
+        let formatter = DateFormatter()
+          let calendar = Calendar.current
+          // specify the format,
+          formatter.dateFormat = "EEE MMM dd yyyy"
+        //  formatter.timeZone = TimeZone.current
+
+          // specify the start date
+          let startDate = formatter.date(from: startDateStr)
+          // specify the end date
+          let endDate = formatter.date(from: endDateStr)
+        let month =  calendar.dateComponents([.month], from: startDate ?? Date() , to: endDate ?? Date()).month ?? 0
+        let year = calendar.dateComponents([.year], from: startDate ?? Date() , to: endDate ?? Date()).year ?? 0
+        if month == 0 && year == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func diffBetweenTwoDates(endDate: String, startDate: String) -> Int {
+    let formatter = DateFormatter()
+    let calendar = Calendar.current
+    // specify the format,
+    formatter.dateFormat = "EEE MMM dd yyyy"
+    // specify the start date
+   // formatter.timeZone = TimeZone.current
+
+    let startDate = formatter.date(from: startDate)
+    // specify the end date
+    let endDate = formatter.date(from: endDate)
+    print(startDate ?? Date())
+    print(endDate ?? Date())
+    let diff = calendar.dateComponents([.day], from: startDate!, to: endDate!)
+    // print the diff between the two dates
+    print(diff)
+        return diff.day ?? 0
+    }
+    
     func setSelectedClasses(){
-//        if event.involvedEventClassesList?.count ?? 0 > 0 {
-//            for involvedClass in event.involvedEventClassesList ?? [] {
-//                let classes = Class()
-//                classes.classesID = involvedClass.classesID
-//                classes.className = involvedClass.className
-//                classes.isSelected = true
-//                self.arrForSelectedClass.append(classes)
-//            }
-//        }
-      self.arrForSelectedClass = event.involvedEventClassesList?.map({ (involvedClass) -> OperationalClass in
-            let classes = OperationalClass()
-            classes.value = involvedClass.classesID
-            classes.label = involvedClass.className
-            classes.isSelected = true
-            return classes
-        }) ?? []
+        if event.involvedEventClassesList?.count ?? 0 > 0 {
+            for involvedClass in event.involvedEventClassesList ?? [] {
+                let classes = Class()
+                classes.classesID = involvedClass.classesID
+                classes.className = involvedClass.className
+                classes.isSelected = true
+                self.arrForSelectedClass.append(classes)
+            }
+        }
+//      self.arrForSelectedClass = event.involvedEventClassesList?.map({ (involvedClass) -> OperationalClass in
+//            let classes = OperationalClass()
+//            classes.value = involvedClass.classesID
+//            classes.label = involvedClass.className
+//            classes.isSelected = true
+//            return classes
+//        }) ?? []
     }
     
     //Dropdown list For Repeat
@@ -515,7 +582,7 @@ extension AddEventVC: UITableViewDelegate,UITableViewDataSource {
 //                    nameOfClasses.remove(at: nameOfClasses.index(before: nameOfClasses.endIndex))
 //                     nameOfClasses.remove(at: nameOfClasses.index(before: nameOfClasses.endIndex))
 //                    cell.lblForSelectedItems.text = nameOfClasses
-                    cell.lblForSelectedItems.text = arrForSelectedClass.map{$0.label ?? ""}.joined(separator: ",")
+                    cell.lblForSelectedItems.text = arrForSelectedClass.map{$0.className ?? ""}.joined(separator: ",")
                 } else {
                     cell.lblForSelectedItems.isHidden = true
                     cell.ViewForSelectedItems.isHidden = true
@@ -546,13 +613,13 @@ extension AddEventVC: UITableViewDelegate,UITableViewDataSource {
 //MARK:----- Class List Popup Delegate -----
 extension AddEventVC: ClassListVCDelegate {
  
-    func doneButtonAction(selectedIndex:Int,selectedClasses: [OperationalClass]) {
+    func doneButtonAction(selectedIndex:Int,selectedClasses: [Class]) {
         self.arrForSelectedClass = selectedClasses
         let indexPath = IndexPath(row: selectedIndex, section: 0)
         var involvedEventClasses:[InvolvedClass] = []
         for i in 0..<selectedClasses.count {
             let involvedEventClass = InvolvedClass()
-            involvedEventClass.classesID = selectedClasses[i].value
+            involvedEventClass.classesID = selectedClasses[i].classesID
             involvedEventClass.agencyID = AppInstance.shared.user?.agencyID ?? 0
             involvedEventClass.eventID = event.id ?? 0
             involvedEventClasses.append(involvedEventClass)

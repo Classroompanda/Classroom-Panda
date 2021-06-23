@@ -122,7 +122,7 @@ class ChatVC: BaseViewController {
   }
   
   @objc func keyboardWillHide(notification: NSNotification) {
-    self.bottomConstraintForView.constant = 0
+    self.bottomConstraintForView.constant = 20
   }
   
   //MARK:----- API Calling Functions -----
@@ -189,7 +189,7 @@ extension ChatVC: UITableViewDataSource,UITableViewDelegate{
   
   func customSenderMessageTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.MessageSenderCell) as? MessageSenderCell {
-      cell.txtViewForMessage.text = self.arrForMessages[indexPath.row].message
+        cell.txtViewForMessage.text = self.arrForMessages[indexPath.row].message?.replacingOccurrences(of: "\n", with: "")
       cell.lblForDate.text = CommonClassMethods.dateFromDateStringSSS(date: self.arrForMessages[indexPath.row].CreatedDateTime ?? "")
       let fixedWidth = self.view.frame.width - 80
       let newSize = cell.txtViewForMessage.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
@@ -213,7 +213,7 @@ extension ChatVC: UITableViewDataSource,UITableViewDelegate{
   
   func customReceiverMessageTableViewCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: Macros.Identifiers.Cells.MessageReceiverCell) as? MessageReceiverCell {
-      cell.txtViewForMessage.text = self.arrForMessages[indexPath.row].message
+        cell.txtViewForMessage.text = self.arrForMessages[indexPath.row].message?.replacingOccurrences(of: "\n", with: "")
       cell.lblForDate.text = CommonClassMethods.dateFromDateStringSSS(date: self.arrForMessages[indexPath.row].CreatedDateTime ?? "")
       let fixedWidth = self.view.frame.width - 100
       

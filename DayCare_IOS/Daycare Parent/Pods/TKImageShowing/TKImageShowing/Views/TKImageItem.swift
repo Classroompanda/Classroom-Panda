@@ -65,7 +65,7 @@ open class TKImageItem: UIScrollView, Zoomable{
         } else {
             if let urlString = source.url {
                 if let url = URL(string: urlString){
-//                    self.imageView.sd_imageIndicator = SDWebImageActivityIndicator.white
+                  //  self.imageView.sd_imageIndicator = SDWebImageActivityIndicator.white
                     self.imageView.sd_setImage(with: url) { (image, _, _, _) in
                         DispatchQueue.main.async {
                             self.imageView.image = image

@@ -53,6 +53,8 @@ class DashboardVC: BaseViewController {
     }
     
     @IBAction func actionForPrivate(_ sender: Any) {
+        self.apiCallForGetPostActivityList(isPublic: false, pageNumber: self.pageNoForPrivate)
+
         self.btnForPublic.isSelected = false
         self.btnForPrivate.isSelected = true
         self.btnForPrivate.titleLabel?.textColor = colorCode.selectedButtonColor
@@ -216,9 +218,11 @@ class DashboardVC: BaseViewController {
                 if !self.isFirstLoad {
                     if self.isPublicFirstLoad {
                         self.isPublicFirstLoad = false
-                        self.apiCallForGetPostActivityList(isPublic: false, pageNumber: self.pageNoForPrivate)
-                    } else {
                         self.hideLoader()
+                        self.tblViewForPostActivity.reloadData()
+                   // self.apiCallForGetPostActivityList(isPublic: false, pageNumber: self.pageNoForPrivate)
+                    } else {
+                       self.hideLoader()
                         self.tblViewForPostActivity.reloadData()
                     }
                 }

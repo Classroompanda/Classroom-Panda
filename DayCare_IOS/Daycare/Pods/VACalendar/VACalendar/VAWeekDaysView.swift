@@ -26,11 +26,11 @@ public struct VAWeekDaysViewAppearance {
     
     public init(
         symbolsType: VAWeekDaysSymbolsType = .veryShort,
-        weekDayTextColor: UIColor = UIColor(red: 88.0/255.0, green: 167.0/255.0, blue: 254.0/255.0, alpha: 1.0),
-        weekDayTextFont: UIFont = UIFont(name: "Poppins-Regular", size: 15.0) ?? UIFont.systemFont(ofSize: 15),
+        weekDayTextColor: UIColor = .black,
+        weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 15),
         leftInset: CGFloat = 10.0,
         rightInset: CGFloat = 10.0,
-        separatorBackgroundColor: UIColor = .clear,
+        separatorBackgroundColor: UIColor = .lightGray,
         calendar: Calendar = Calendar.current) {
         self.symbolsType = symbolsType
         self.weekDayTextColor = weekDayTextColor

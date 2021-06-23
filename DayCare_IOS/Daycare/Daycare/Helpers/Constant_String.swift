@@ -407,8 +407,11 @@ struct Macros
     static let pickedUpBy           :   String  =   "Please select picked up by"
     static let dropOffBy            :   String  =   "Please select drop off by"
     static let reason               :   String  =   "Please enter reson"
+    static let dateDiffError        : String = "For weekly repeat Start date and End date difference must be less or equal to 7 days"
+    static let monthDiffError       : String = "For monthly repeat Start date and End date must belongs to same month and year"
     //        static let checkOutConfirmation :   String  =   "Are you sure you want send the DailySheet to parent?"
     static let checkOutConfirmation :   String  =   "Do you want to send the daily activity report?"
+    static let endsOnDateGreater: String =  "Ends On date should be greater than End date"
   }
   
   //MARK:----- Controller Constatnts-----

@@ -280,6 +280,9 @@ extension BaseViewController : UIPopoverPresentationControllerDelegate,TeacherBr
     
     func submitBreakButtonAction(teacherBreak: TeacherBreakLog) {
         self.apiCallForTeacherBreakStatus(teacherBreak: teacherBreak)
+        if teacherBreak.breakIn != nil {
+        NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "breakIn"), object: nil)
+        }
     }
     
     //UIPopoverPresentationControllerDelegate Functions

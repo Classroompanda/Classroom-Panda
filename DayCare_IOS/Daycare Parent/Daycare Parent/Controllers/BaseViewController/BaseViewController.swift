@@ -187,6 +187,8 @@ class BaseViewController: UIViewController {
             _ = AlertManager.showAlert(withTitle: Macros.ApplictionName , withMessage:Macros.alertMessages.sessionExpired , buttons: [alertAction], onViewController: self, animatedly: true, presentationCompletionHandler:nil, returnBlock: { (index) in
                 switch index {
                 case 0:
+                    UserDefaults.standard.removeObject(forKey: "isLogin")
+
                     self.navigateToLogin()
                 default:
                     self.dismiss(animated: true, completion: nil)

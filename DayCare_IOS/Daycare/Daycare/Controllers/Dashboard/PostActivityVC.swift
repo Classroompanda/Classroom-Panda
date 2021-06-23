@@ -36,7 +36,7 @@ class PostActivityVC: BaseViewController,FloatyDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         initialSetup()
-    }
+    }                      
     
     func initialSetup() {
         self.setNavigationBar(title: Macros.NavigationTitle.PostActivity)

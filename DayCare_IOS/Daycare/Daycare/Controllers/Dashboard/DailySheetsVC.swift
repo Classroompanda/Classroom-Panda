@@ -174,7 +174,7 @@ class DailySheetsVC: BaseViewController {
     }
   
     @objc func actionForCompleteDailySheet(sender:AnyObject) {
-           apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+           apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date:selectedDate ?? Date()))
        }
   
   @IBAction func butonActionCompleteSheet(_ sender: Any) {
@@ -188,7 +188,7 @@ class DailySheetsVC: BaseViewController {
     imgTabCurrent.isHidden = true
     viewSelect.isHidden = true
     viewSearch.isHidden = false
-    apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: selectedDate ?? Date()))
+    apiForGetCompleteDailySheet(classId: selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: selectedDate ?? Date()))
     refreshControl.removeTarget(self, action: #selector(actionForRefresh(sender:)), for: UIControl.Event.valueChanged)
     refreshControl.addTarget(self, action: #selector(actionForCompleteDailySheet(sender:)), for: UIControl.Event.valueChanged)
   }
@@ -248,10 +248,10 @@ class DailySheetsVC: BaseViewController {
       if self?.selectedClass?.label != arrForClassDropDown[index].label {
         self?.selectedClass = arrForClassDropDown[index]
         if self?.imgTabCurrent.isHidden ?? false {
-          self?.apiForGetCompleteDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
+          self?.apiForGetCompleteDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: self?.selectedDate ?? Date()))
         }
         else{
-          self?.apiForGetDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self?.selectedDate ?? Date()))
+          self?.apiForGetDailySheet(classId: self?.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: self?.selectedDate ?? Date()))
         }
       }
       self?.imgForDropdownArrow.image = UIImage(named: "arrowDown")
@@ -324,10 +324,10 @@ class DailySheetsVC: BaseViewController {
         if self.imgTabCurrent.isHidden {
           self.btnForSelection.isHidden = true
           self.btnForAdd.isHidden = true
-          self.apiForGetCompleteDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+          self.apiForGetCompleteDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: self.selectedDate ?? Date()))
         }
         else {
-          self.apiForGetDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormatGET(date: self.selectedDate ?? Date()))
+          self.apiForGetDailySheet(classId: self.selectedClass?.value ?? 0, askedDate: CommonClassMethods.convertDateToServerReadableFormat(date: self.selectedDate ?? Date()))
         }
       }
     }

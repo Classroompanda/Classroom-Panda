@@ -4,6 +4,2252 @@
    <FileRef
       location = "group:Daycare.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Daycare"
+      name = "Daycare">
+      <FileRef
+         location = "group:Daycare.entitlements">
+      </FileRef>
+      <Group
+         location = "group:Daycare/Applications"
+         name = "Applications">
+         <FileRef
+            location = "group:Daycare/Applications/AppDelegate.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Applications/Daycare-bridging-header.h">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Daycare/Stores"
+         name = "Stores">
+         <FileRef
+            location = "group:Daycare/Stores/SignalRConnection.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Stores/CoreDataStackManager.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Stores/AppInstance.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Daycare/Helpers"
+         name = "Helpers">
+         <Group
+            location = "group:Daycare/Helpers/Common"
+            name = "Common">
+            <FileRef
+               location = "group:Daycare/Helpers/Common/CommonClassMethods.swift">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Daycare/Helpers/Constant.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Helpers/TimeUtils.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Helpers/Constant_String.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Helpers/ImagePickerVC.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Helpers/SBMessageInputView.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Helpers/PlatformUtils.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Daycare/Categories"
+         name = "Categories">
+         <FileRef
+            location = "group:Daycare/Categories/AlertManager.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Categories/UIApplication.swift">
+         </FileRef>
+         <Group
+            location = "group:Daycare/Categories/Extentions"
+            name = "Extentions">
+            <FileRef
+               location = "group:Daycare/Categories/Extentions/Extensions+UIView.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Categories/Extentions/Extension+TextView.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Categories/Extentions/String+Extension.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Daycare/Models"
+         name = "Models">
+         <FileRef
+            location = "group:Daycare/Models/MessageUser.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/OperationalClass.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityDiper.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentActivityMealFoodItems.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/TeacherMedicationLog.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/TeacherBreakLog.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentBreak.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/TeacherClassLog.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/PostActivityVideos.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/PostActivity.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/PostActivityImages.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/SubActivity.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/AcitivityNap.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/OtherActivity.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityMoods.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityMealFoodItems.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityMeals.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityMedications.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityNotes.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/ActivityDetail.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/DailySheet.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/State.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Country.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/InvolvedMealFoodItems.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Meal.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Repeat.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Event.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/InvolvedClass.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Teacher.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/NatureOfInjury.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/User.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentAllergies.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentDisabilities.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentImmunizations.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentMedications.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/EnrolledClassesInformation.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Attendance.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Student.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/IncidentInvolvments.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Incident.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/LeaveReason.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Guardian.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Class.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/MealType.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/City.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/Message.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Models/StudentList.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Daycare/Views"
+         name = "Views">
+         <Group
+            location = "group:Daycare/Views/Cells"
+            name = "Cells">
+            <Group
+               location = "group:Daycare/Views/Cells/DateTimeSelectionCell"
+               name = "DateTimeSelectionCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DateTimeSelectionCell/DateTimeSelectionTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DateTimeSelectionCell/DateTimeSelectionTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/ListTableViewCell"
+               name = "ListTableViewCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/ListTableViewCell/ListTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/ListTableViewCell/ListTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/DropDownButtonCell"
+               name = "DropDownButtonCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DropDownButtonCell/DropDownButtonCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DropDownButtonCell/DropDownButtonCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/TextViewCell"
+               name = "TextViewCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/TextViewCell/TextViewTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/TextViewCell/TextViewTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/SubmitButtonTableViewCell"
+               name = "SubmitButtonTableViewCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/SubmitButtonTableViewCell/SubmitButtonTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/SubmitButtonTableViewCell/SubmitButtonTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/DropDownTextFieldCell"
+               name = "DropDownTextFieldCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DropDownTextFieldCell/DropDownTextFieldTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DropDownTextFieldCell/DropDownTextFieldTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/NoDataFoundCell"
+               name = "NoDataFoundCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/NoDataFoundCell/NoDataFoundTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/NoDataFoundCell/NoDataFoundTableViewCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/DateToddlerHeaderCell"
+               name = "DateToddlerHeaderCell">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DateToddlerHeaderCell/DateToddlerHeaderCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/DateToddlerHeaderCell/DateToddlerHeaderCell.xib">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Cells/LeftSideMenu"
+               name = "LeftSideMenu">
+               <FileRef
+                  location = "group:Daycare/Views/Cells/LeftSideMenu/LeftSideMenuHeaderCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/LeftSideMenu/LeftSideMenuHeaderCell.xib">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/LeftSideMenu/LeftSideMenuTableViewCell.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:Daycare/Views/Cells/LeftSideMenu/LeftSideMenuTableViewCell.xib">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Daycare/Views/Storyboards"
+            name = "Storyboards">
+            <Group
+               location = "group:Daycare/Views/Storyboards"
+               name = "Main.storyboard">
+               <FileRef
+                  location = "group:Daycare/Views/Storyboards/Base.lproj/Main.storyboard">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daycare/Views/Storyboards"
+               name = "LaunchScreen.storyboard">
+               <FileRef
+                  location = "group:Daycare/Views/Storyboards/Base.lproj/LaunchScreen.storyboard">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Daycare/Views/Storyboards/Dashboard.storyboard">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Views/Storyboards/Popover.storyboard">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Views/Storyboards/Other.storyboard">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Daycare/Controllers"
+         name = "Controllers">
+         <Group
+            location = "group:Daycare/Controllers/Allergy"
+            name = "Allergy">
+            <FileRef
+               location = "group:Daycare/Controllers/Allergy/AllergyVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/MealPlan"
+            name = "MealPlan">
+            <FileRef
+               location = "group:Daycare/Controllers/MealPlan/MealDetailsVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Attendance"
+            name = "Attendance">
+            <FileRef
+               location = "group:Daycare/Controllers/Attendance/StudentBreakInOutVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Attendance/BreaksVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/PostActivity"
+            name = "PostActivity">
+            <FileRef
+               location = "group:Daycare/Controllers/PostActivity/ActivityDetailsVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/PostActivity/AddNewPostVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/DailySheet"
+            name = "DailySheet">
+            <FileRef
+               location = "group:Daycare/Controllers/DailySheet/DailySheetDetailVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/DailySheet/AddDailySheetVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/DailySheet/EditDailySheetPopupVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Menu"
+            name = "Menu">
+            <FileRef
+               location = "group:Daycare/Controllers/Menu/ChangePasswordVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Menu/ProfileVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Event"
+            name = "Event">
+            <FileRef
+               location = "group:Daycare/Controllers/Event/AddEventVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Student"
+            name = "Student">
+            <FileRef
+               location = "group:Daycare/Controllers/Student/StudentDetailVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Student/StudentHealthDescriptionVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Incident"
+            name = "Incident">
+            <FileRef
+               location = "group:Daycare/Controllers/Incident/AddIncidentVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Popup"
+            name = "Popup">
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/ClockInPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/CheckInPopUpVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/AbsentPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/StudentListPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/ClassListPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/TeacherBreakOutPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/ClassCheckInCheckOutPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/StudentListByClassPopupVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Popup/TransferStudentPopupVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Dashboard"
+            name = "Dashboard">
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/ChatVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/DashboardVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/PostActivityVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/AttendanceVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/IncidentVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/StudentListVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/DailySheetsVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/CalendarVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/MessageVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/TeacherBreakLogVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Dashboard/MedicationsVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/SideMenu"
+            name = "SideMenu">
+            <FileRef
+               location = "group:Daycare/Controllers/SideMenu/SideMenuVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/SideMenu/LeftMenuTableVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/SideMenu/NavigationVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/Login"
+            name = "Login">
+            <FileRef
+               location = "group:Daycare/Controllers/Login/LoginVC.swift">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Controllers/Login/ForgotPasswordVC.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Controllers/BaseViewController"
+            name = "BaseViewController">
+            <FileRef
+               location = "group:Daycare/Controllers/BaseViewController/BaseViewController.swift">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Daycare/Networks"
+         name = "Networks">
+         <FileRef
+            location = "group:Daycare/Networks/APIService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/AttendanceService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/IncidentService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/StudentService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/LoginService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/CalendarService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/ProfileService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/DailySheetService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/PostActivityService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/DashboarService.swift">
+         </FileRef>
+         <FileRef
+            location = "group:Daycare/Networks/MessageService.swift">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Daycare/Custom"
+         name = "Custom">
+         <Group
+            location = "group:Daycare/Custom/CustomClasses"
+            name = "CustomClasses">
+            <FileRef
+               location = "group:../CustomBackgroundView.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomButton.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomLoginButton.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomLoginTextField.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomTextField.swift">
+            </FileRef>
+            <FileRef
+               location = "group:CustomTextView.swift">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Daycare/Custom/Custom Fonts"
+            name = "Custom Fonts">
+            <FileRef
+               location = "group:Daycare/Custom/Custom Fonts/poppins_bold.ttf">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Custom/Custom Fonts/poppins_light.ttf">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Custom/Custom Fonts/poppins_medium.ttf">
+            </FileRef>
+            <FileRef
+               location = "group:Daycare/Custom/Custom Fonts/poppins_regular.ttf">
+            </FileRef>
+         </Group>
+      </Group>
+      <FileRef
+         location = "group:Info.plist">
+      </FileRef>
+      <FileRef
+         location = "group:GoogleService-Info.plist">
+      </FileRef>
+      <Group
+         location = "group:Assets.xcassets"
+         name = "Assets.xcassets">
+         <Group
+            location = "group:Attendance"
+            name = "Attendance">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:TransferEnable.imageset"
+               name = "TransferEnable.imageset">
+               <FileRef
+                  location = "group:TransferEnable.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:TransferEnable@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:TransferEnable@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:TransferDisable.imageset"
+               name = "TransferDisable.imageset">
+               <FileRef
+                  location = "group:TransferDisable.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:TransferDisable@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:TransferDisable@3x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Navigation Bar"
+            name = "Navigation Bar">
+            <Group
+               location = "group:more.imageset"
+               name = "more.imageset">
+               <FileRef
+                  location = "group:more@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:more@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:more.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:menu.imageset"
+               name = "menu.imageset">
+               <FileRef
+                  location = "group:menu.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:menu@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:menu@3x.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:sent.imageset"
+            name = "sent.imageset">
+            <FileRef
+               location = "group:sent@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:sent@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:sent.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:logoLaunch.imageset"
+            name = "logoLaunch.imageset">
+            <FileRef
+               location = "group:logoLaunch@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:logoLaunch@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:logoLaunch.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Calendar"
+            name = "Calendar">
+            <Group
+               location = "group:next.imageset"
+               name = "next.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:next.png">
+               </FileRef>
+               <FileRef
+                  location = "group:next@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:next@3x.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:previous.imageset"
+               name = "previous.imageset">
+               <FileRef
+                  location = "group:previous@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:previous@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:previous.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Daily Sheet"
+            name = "Daily Sheet">
+            <Group
+               location = "group:moodHappyG.imageset"
+               name = "moodHappyG.imageset">
+               <FileRef
+                  location = "group:moodHappyG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodHappyG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodHappyG@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:health.imageset"
+               name = "health.imageset">
+               <FileRef
+                  location = "group:health.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:health@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:health@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodGrumpyG.imageset"
+               name = "moodGrumpyG.imageset">
+               <FileRef
+                  location = "group:moodGrumpyG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodGrumpyG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodGrumpyG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodHappyL.imageset"
+               name = "moodHappyL.imageset">
+               <FileRef
+                  location = "group:moodHappyL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodHappyL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodHappyL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodGrumpyL.imageset"
+               name = "moodGrumpyL.imageset">
+               <FileRef
+                  location = "group:moodGrumpyL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodGrumpyL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodGrumpyL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:noteG.imageset"
+               name = "noteG.imageset">
+               <FileRef
+                  location = "group:noteG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:noteG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:noteG@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:napL.imageset"
+               name = "napL.imageset">
+               <FileRef
+                  location = "group:napL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:napL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:napL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:napG.imageset"
+               name = "napG.imageset">
+               <FileRef
+                  location = "group:napG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:napG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:napG@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:noteL.imageset"
+               name = "noteL.imageset">
+               <FileRef
+                  location = "group:noteL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:noteL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:noteL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodTiredG.imageset"
+               name = "moodTiredG.imageset">
+               <FileRef
+                  location = "group:moodTiredG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodTiredG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodTiredG.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:nap.imageset"
+               name = "nap.imageset">
+               <FileRef
+                  location = "group:nap.png">
+               </FileRef>
+               <FileRef
+                  location = "group:nap@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:nap@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodPlayfullL.imageset"
+               name = "moodPlayfullL.imageset">
+               <FileRef
+                  location = "group:moodPlayfullL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodPlayfullL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodPlayfullL@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodPlayfullG.imageset"
+               name = "moodPlayfullG.imageset">
+               <FileRef
+                  location = "group:moodPlayfullG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodPlayfullG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodPlayfullG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:cryingL.imageset"
+               name = "cryingL.imageset">
+               <FileRef
+                  location = "group:cryingL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:cryingL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:cryingL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:meal.imageset"
+               name = "meal.imageset">
+               <FileRef
+                  location = "group:meal.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:meal@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:meal@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:diperL.imageset"
+               name = "diperL.imageset">
+               <FileRef
+                  location = "group:diperL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:diperL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:diperL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodLoveG.imageset"
+               name = "moodLoveG.imageset">
+               <FileRef
+                  location = "group:moodLoveG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodLoveG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodLoveG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mood.imageset"
+               name = "mood.imageset">
+               <FileRef
+                  location = "group:mood@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mood@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mood.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:checked.imageset"
+               name = "checked.imageset">
+               <FileRef
+                  location = "group:checked.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:checked@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:checked@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:activity.imageset"
+               name = "activity.imageset">
+               <FileRef
+                  location = "group:activity.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:activity@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:activity@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:diperG.imageset"
+               name = "diperG.imageset">
+               <FileRef
+                  location = "group:diperG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:diperG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:diperG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodL.imageset"
+               name = "moodL.imageset">
+               <FileRef
+                  location = "group:moodL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:sleepL.imageset"
+               name = "sleepL.imageset">
+               <FileRef
+                  location = "group:sleepL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sleepL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:sleepL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodFussyG.imageset"
+               name = "moodFussyG.imageset">
+               <FileRef
+                  location = "group:moodFussyG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodFussyG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodFussyG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:diper.imageset"
+               name = "diper.imageset">
+               <FileRef
+                  location = "group:diper.png">
+               </FileRef>
+               <FileRef
+                  location = "group:diper@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:diper@2x.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:moodCryingG.imageset"
+               name = "moodCryingG.imageset">
+               <FileRef
+                  location = "group:moodCryingG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodCryingG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodCryingG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:moodFussyL.imageset"
+               name = "moodFussyL.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:moodFussyL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodFussyL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:moodFussyL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:activityG.imageset"
+               name = "activityG.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:activityG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:activityG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:activityG@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:unchecked.imageset"
+               name = "unchecked.imageset">
+               <FileRef
+                  location = "group:unchecked@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:unchecked@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:unchecked.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:activityL.imageset"
+               name = "activityL.imageset">
+               <FileRef
+                  location = "group:activityL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:activityL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:activityL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:note.imageset"
+               name = "note.imageset">
+               <FileRef
+                  location = "group:note.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:note@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:note@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mealL.imageset"
+               name = "mealL.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:mealL@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mealL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mealL.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:healthG.imageset"
+               name = "healthG.imageset">
+               <FileRef
+                  location = "group:healthG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:healthG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:healthG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:mealG.imageset"
+               name = "mealG.imageset">
+               <FileRef
+                  location = "group:mealG@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mealG@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mealG.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:healthL.imageset"
+               name = "healthL.imageset">
+               <FileRef
+                  location = "group:healthL@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:healthL.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:healthL@2x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Post Activity"
+            name = "Post Activity">
+            <Group
+               location = "group:comment.imageset"
+               name = "comment.imageset">
+               <FileRef
+                  location = "group:comment@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:comment@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:comment.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:baby.imageset"
+               name = "baby.imageset">
+               <FileRef
+                  location = "group:baby3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:baby@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:baby.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:lock.imageset"
+               name = "lock.imageset">
+               <FileRef
+                  location = "group:lock@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:lock@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:lock.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:radioSelected.imageset"
+               name = "radioSelected.imageset">
+               <FileRef
+                  location = "group:radioSelected.png">
+               </FileRef>
+               <FileRef
+                  location = "group:radioSelected@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:radioSelected@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:radioUnselected.imageset"
+               name = "radioUnselected.imageset">
+               <FileRef
+                  location = "group:radioUnselected@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:radioUnselected@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:radioUnselected.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:gallery.imageset"
+               name = "gallery.imageset">
+               <FileRef
+                  location = "group:gallery.png">
+               </FileRef>
+               <FileRef
+                  location = "group:gallery@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:gallery@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:like.imageset"
+               name = "like.imageset">
+               <FileRef
+                  location = "group:like@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:like.png">
+               </FileRef>
+               <FileRef
+                  location = "group:like@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:world.imageset"
+               name = "world.imageset">
+               <FileRef
+                  location = "group:world.png">
+               </FileRef>
+               <FileRef
+                  location = "group:world@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:world@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:AppIcon.appiconset"
+            name = "AppIcon.appiconset">
+            <FileRef
+               location = "group:ipad29@1x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad20@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone20@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone20@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad84@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad40@1x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad76@1x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone40@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iTunesArtwork@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad40@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad76@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:iphone40@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone29@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone60@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone60@3x.png">
+            </FileRef>
+            <FileRef
+               location = "group:iphone29@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad20@1x.png">
+            </FileRef>
+            <FileRef
+               location = "group:ipad29@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Dashboard"
+            name = "Dashboard">
+            <Group
+               location = "group:baby-boy.imageset"
+               name = "baby-boy.imageset">
+               <FileRef
+                  location = "group:baby-boy@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:baby-boy.png">
+               </FileRef>
+               <FileRef
+                  location = "group:baby-boy@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:LeftSideMenu"
+            name = "LeftSideMenu">
+            <Group
+               location = "group:Message.imageset"
+               name = "Message.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Message@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Message.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Message@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:My Breaks.imageset"
+               name = "My Breaks.imageset">
+               <FileRef
+                  location = "group:My Breaks@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:My Breaks@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:My Breaks.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Incident.imageset"
+               name = "Incident.imageset">
+               <FileRef
+                  location = "group:Incident@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Incident@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Incident.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Calendar.imageset"
+               name = "Calendar.imageset">
+               <FileRef
+                  location = "group:Calendar@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Calendar@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Calendar.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Attendance.imageset"
+               name = "Attendance.imageset">
+               <FileRef
+                  location = "group:Attendance.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Attendance@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Attendance@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Allergy.imageset"
+               name = "Allergy.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:allergy@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:allergy@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:profilePhoto.imageset"
+               name = "profilePhoto.imageset">
+               <FileRef
+                  location = "group:profilePhoto@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:profilePhoto@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:profilePhoto.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:Medication.imageset"
+               name = "Medication.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Medication@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Medication.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Medication@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Log Out.imageset"
+               name = "Log Out.imageset">
+               <FileRef
+                  location = "group:Log Out.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Log Out@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Log Out@2x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Dashboard.imageset"
+               name = "Dashboard.imageset">
+               <FileRef
+                  location = "group:Dashboard.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Dashboard@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Dashboard@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Student.imageset"
+               name = "Student.imageset">
+               <FileRef
+                  location = "group:Student@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Student@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Student.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Daily Sheets.imageset"
+               name = "Daily Sheets.imageset">
+               <FileRef
+                  location = "group:Daily Sheets.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Daily Sheets@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Daily Sheets@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Post Activity.imageset"
+               name = "Post Activity.imageset">
+               <FileRef
+                  location = "group:Post Activity.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:Post Activity@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Post Activity@3x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Common"
+            name = "Common">
+            <Group
+               location = "group:video.imageset"
+               name = "video.imageset">
+               <FileRef
+                  location = "group:video.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:video@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:video@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:unselected.imageset"
+               name = "unselected.imageset">
+               <FileRef
+                  location = "group:unselected@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:unselected@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:unselected.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:calendar.imageset"
+               name = "calendar.imageset">
+               <FileRef
+                  location = "group:calendar@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:calendar@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:calendar.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:back.imageset"
+               name = "back.imageset">
+               <FileRef
+                  location = "group:back@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:back@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:back.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:clock.imageset"
+               name = "clock.imageset">
+               <FileRef
+                  location = "group:clock@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:clock@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:clock.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:searchGray.imageset"
+               name = "searchGray.imageset">
+               <FileRef
+                  location = "group:searchGray.png">
+               </FileRef>
+               <FileRef
+                  location = "group:searchGray@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:searchGray@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:selectAll.imageset"
+               name = "selectAll.imageset">
+               <FileRef
+                  location = "group:selectAll.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selectAll@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selectAll@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:arrowDown.imageset"
+               name = "arrowDown.imageset">
+               <FileRef
+                  location = "group:arrowDown-2.png">
+               </FileRef>
+               <FileRef
+                  location = "group:arrowDown-1.png">
+               </FileRef>
+               <FileRef
+                  location = "group:arrowDown.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:editWhite.imageset"
+               name = "editWhite.imageset">
+               <FileRef
+                  location = "group:editWhite@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:editWhite@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:editWhite.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:camera.imageset"
+               name = "camera.imageset">
+               <FileRef
+                  location = "group:camera@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:camera@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:camera.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:selectedFill.imageset"
+               name = "selectedFill.imageset">
+               <FileRef
+                  location = "group:selectedFill.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selectedFill@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selectedFill@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:noResult.imageset"
+               name = "noResult.imageset">
+               <FileRef
+                  location = "group:noResult.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:noResult@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:noResult@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:calendarBlue.imageset"
+               name = "calendarBlue.imageset">
+               <FileRef
+                  location = "group:calendarBlue@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:calendarBlue@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:calendarBlue.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:arrowUp.imageset"
+               name = "arrowUp.imageset">
+               <FileRef
+                  location = "group:arrowUp-2.png">
+               </FileRef>
+               <FileRef
+                  location = "group:arrowUp-1.png">
+               </FileRef>
+               <FileRef
+                  location = "group:arrowUp.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:edit.imageset"
+               name = "edit.imageset">
+               <FileRef
+                  location = "group:edit@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:edit@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:edit.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:delete.imageset"
+               name = "delete.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:delete.png">
+               </FileRef>
+               <FileRef
+                  location = "group:delete@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:delete@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:selected.imageset"
+               name = "selected.imageset">
+               <FileRef
+                  location = "group:selected@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selected@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:selected.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:add.imageset"
+               name = "add.imageset">
+               <FileRef
+                  location = "group:add.png">
+               </FileRef>
+               <FileRef
+                  location = "group:add@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:add@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:cam.imageset"
+               name = "cam.imageset">
+               <FileRef
+                  location = "group:cam.png">
+               </FileRef>
+               <FileRef
+                  location = "group:cam@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:cam@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:search.imageset"
+               name = "search.imageset">
+               <FileRef
+                  location = "group:search@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:search@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:search.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:placeholder.imageset"
+               name = "placeholder.imageset">
+               <FileRef
+                  location = "group:placeholder@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:placeholder@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:placeholder.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:deleteR.imageset"
+               name = "deleteR.imageset">
+               <FileRef
+                  location = "group:deleteR.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:deleteR@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:deleteR@3x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:Contents.json">
+         </FileRef>
+         <Group
+            location = "group:TransferDisable.imageset"
+            name = "TransferDisable.imageset">
+            <FileRef
+               location = "group:TransferDisable.png">
+            </FileRef>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:TransferDisable@2x.png">
+            </FileRef>
+            <FileRef
+               location = "group:TransferDisable@3x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Login"
+            name = "Login">
+            <Group
+               location = "group:lockP.imageset"
+               name = "lockP.imageset">
+               <FileRef
+                  location = "group:lockP.png">
+               </FileRef>
+               <FileRef
+                  location = "group:lockP@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:lockP@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:teacher.imageset"
+               name = "teacher.imageset">
+               <FileRef
+                  location = "group:teacher.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:teacher@3x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:teacher@2x.png">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <Group
+               location = "group:mobile.imageset"
+               name = "mobile.imageset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:mobile.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mobile@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:mobile@3x.png">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:user1.imageset"
+               name = "user1.imageset">
+               <FileRef
+                  location = "group:user1.png">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+               <FileRef
+                  location = "group:user1@2x.png">
+               </FileRef>
+               <FileRef
+                  location = "group:user1@3x.png">
+               </FileRef>
+            </Group>
+         </Group>
+         <Group
+            location = "group:Background Images"
+            name = "Background Images">
+            <Group
+               location = "group:Teacher Login Page.imageset"
+               name = "Teacher Login Page.imageset">
+               <FileRef
+                  location = "group:Post Activity-1.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:Post Activity.jpg">
+               </FileRef>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

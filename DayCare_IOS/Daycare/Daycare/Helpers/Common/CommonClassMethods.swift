@@ -29,6 +29,7 @@ class CommonClassMethods: NSObject {
   class func dateMonthNameFromDateString(date:String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    dateFormatter.timeZone = TimeZone.current
     let newDate = dateFormatter.date(from: date)
     let dateString = "\(self.dateFromDate(date: newDate ?? Date())) \(self.monthnameFromDate(date: newDate ?? Date()))"
     return dateString

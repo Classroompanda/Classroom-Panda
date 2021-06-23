@@ -15,10 +15,10 @@ class DailySheetService: APIService {
         target?.showLoader()
         // send asked Date in UTC and askeDateString in local timezone
         //askedDate is in Local
-        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-
-        let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : UTCDate] as [String : Any]
+          let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+              
+                let localDate = TimeUtils.UTCToLocal(date: askedDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kclassID : classID, Macros.ApiKeys.kaskedDate : formattedDate, Macros.ApiKeys.kaskedDateString : localDate] as [String : Any]
 //      "askedDateString UTC ":"2021-03-03 12:47:16"}
         super.startService(with: .POST, path: Macros.ServiceName.GetDailySheetMobile, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
@@ -51,10 +51,14 @@ class DailySheetService: APIService {
        */
            // send asked Date in UTC and askeDateString in local timezone
            //askedDate is in Local
-           let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+         //  let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+//            let localCurrentDate =  CommonClassMethods.convertDateToServerReadableFormatGET(date:  Date(), toFormat:DateFormats.YYYY_MM_DD_HH_MM_SS)
+//           let UTCDate = TimeUtils.localToUTC(date: localCurrentDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let formattedDate = TimeUtils.convertDateFormat(strDate: askedDate, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+        
+          let localDate = TimeUtils.UTCToLocal(date: askedDate, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
 
-           let UTCDate = TimeUtils.localToUTC(date: formattedDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
-           let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kStudentName : "", Macros.ApiKeys.kstudentAcitivityId : "0", Macros.ApiKeys.kstudentID: "0", Macros.ApiKeys.kaskedDate : UTCDate, Macros.ApiKeys.kaskedDateString : formattedDate] as [String : Any]
+           let param   =   [Macros.ApiKeys.kagencyID : agencyID, Macros.ApiKeys.kStudentName : "", Macros.ApiKeys.kstudentAcitivityId : "0", Macros.ApiKeys.kstudentID: "0", Macros.ApiKeys.kaskedDate : formattedDate, Macros.ApiKeys.kaskedDateString :  localDate] as [String : Any]
            super.startService(with: .POST, path: Macros.ServiceName.GetCompleteDailySheetMobile, parameters: param, files: []) { (result) in
                DispatchQueue.main.async {
                    target?.hideLoader()

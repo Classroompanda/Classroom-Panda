@@ -64,7 +64,7 @@ class AttendanceVC: BaseViewController {
         }
     }
     
-    func setupChildListMenu(){
+    func setupChildListMenu() {
         let studentImgbutton = UIButton(type: .custom)
         studentImgbutton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         let imageView = UIImageView()
@@ -167,7 +167,12 @@ extension AttendanceVC: UITableViewDataSource,UITableViewDelegate{
             cell.lblForClassName.text = self.arrForAttendanceList?[indexPath.row].className
             cell.lblForDropOffBy.text = self.arrForAttendanceList?[indexPath.row].dropedByName
             cell.lblForCheckInTime.text = CommonClassMethods.timeFromDateString(date: self.arrForAttendanceList?[indexPath.row].checkInTime ?? "")
+            if self.arrForAttendanceList?[indexPath.row].attendenceStatusID == 4 {
             cell.lblForCheckOutTime.text = CommonClassMethods.timeFromDateString(date: self.arrForAttendanceList?[indexPath.row].checkOutTime ?? "")
+            } else {
+            cell.lblForCheckOutTime.text = ""
+            }
+
             return cell
         }
         return UITableViewCell()

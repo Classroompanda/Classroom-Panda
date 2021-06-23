@@ -20,10 +20,13 @@ class TeacherBreakLogVC: BaseViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(getBreakList(sender:)), name:  NSNotification.Name.init(rawValue: "breakIn"), object: nil)
         self.selectedDate = Date()
         initialSetup()
         // Do any additional setup after loading the view.
     }
+    
+   
     
     //MARK:----- @IBActions ------
     @IBAction func actionForCalendar(_ sender: UIButton) {
@@ -65,6 +68,11 @@ class TeacherBreakLogVC: BaseViewController {
             }
         }
     }
+    
+    @objc func getBreakList(sender: NSNotification) {
+        apiForGetTeacherLog()
+    }
+   
 }
 
 //MARK:------ UITableView Delegates & Datasources -----

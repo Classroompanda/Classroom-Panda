@@ -14,9 +14,10 @@ class LoginService: APIService {
     //MARK:---- Teacher Login API -----
     func loginTeacher(with target:BaseViewController?, emailAddress:String, password:String, complition:@escaping(Any?) -> Void){
         target?.showLoader()
-        
-        let localCurrentDate =  CommonClassMethods.convertDateToServerReadableFormatGET(date:  Date(), toFormat:DateFormats.YYYY_MM_DD_HH_MM_SS)//Date().toLocalTime()
-        let UTCCurrentDate = TimeUtils.localToUTC(date: localCurrentDate, format: DateFormats.YYYY_MM_DD_HH_MM_SS, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
+        let date = CommonClassMethods.convertDateToServerReadableFormat(date: Date())
+        let formattedDate = TimeUtils.convertDateFormat(strDate: date, fromFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, toFormat: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ)
+               
+                 let localDate = TimeUtils.UTCToLocal(date: date, format: DateFormats.YYYY_MM_DD_T_HH_MM_SS_SSSZ, outputFormat: DateFormats.YYYY_MM_DD_HH_MM_SS)
 //        var token: String?
 //        InstanceID.instanceID().instanceID(handler: { (tokenString, error) in
 //            if error != nil {
@@ -25,7 +26,7 @@ class LoginService: APIService {
 //                token = tokenString?.token
 //            }
 //        })
-        let param   =   [Macros.ApiKeys.kemailAddress : emailAddress, Macros.ApiKeys.kpassword : password,  Macros.ApiKeys.kisValid : true,Macros.ApiKeys.kosType : 2, Macros.ApiKeys.kbusinessToken : AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kDeviceToken) as? String ?? "", Macros.ApiKeys.kaskedDate: UTCCurrentDate, Macros.ApiKeys.kaskedDateString: localCurrentDate] as [String : Any]
+        let param   =   [Macros.ApiKeys.kemailAddress : emailAddress, Macros.ApiKeys.kpassword : password,  Macros.ApiKeys.kisValid : true,Macros.ApiKeys.kosType : 2, Macros.ApiKeys.kbusinessToken : AppInstance.shared.kUserDefault.value(forKey: Macros.DefaultKeys.kDeviceToken) as? String ?? "", Macros.ApiKeys.kaskedDate: formattedDate, Macros.ApiKeys.kaskedDateString: localDate] as [String : Any]
         super.startService(with: .POST, path: Macros.ServiceName.UserLogin, parameters: param, files: []) { (result) in
             DispatchQueue.main.async {
 //                target?.hideLoader()

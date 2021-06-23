@@ -371,6 +371,7 @@ class LeftMenuTableVC: UITableViewController {
     _ = AlertManager.showAlert(withTitle: Macros.ApplictionName , withMessage:Macros.alertMessages.logout , buttons: [alertAction,alertCancelAction], onViewController: self, animatedly: true, presentationCompletionHandler:nil, returnBlock: { (index) in
       switch index {
       case 0:
+        UserDefaults.standard.removeObject(forKey: "isLogin")
         self.navigateToLogin()
       case 1:
         self.dismiss(animated: true, completion: nil)

@@ -3,7 +3,6 @@ import UIKit
 public protocol VAMonthHeaderViewDelegate: class {
     func didTapNextMonth()
     func didTapPreviousMonth()
-    func didMonthChanged(_ currentMonth: Date)
 }
 
 public struct VAMonthHeaderViewAppearance {
@@ -22,8 +21,8 @@ public struct VAMonthHeaderViewAppearance {
     }()
     
     public init(
-        monthFont: UIFont = UIFont(name: "Poppins-Medium", size: 18.0) ?? UIFont.systemFont(ofSize: 21),
-        monthTextColor: UIColor = UIColor(red: 88.0/255.0, green: 167.0/255.0, blue: 254.0/255.0, alpha: 1.0),
+        monthFont: UIFont = UIFont.systemFont(ofSize: 21),
+        monthTextColor: UIColor = UIColor.black,
         monthTextWidth: CGFloat = 150,
         previousButtonImage: UIImage = UIImage(),
         nextButtonImage: UIImage = UIImage(),
@@ -107,16 +106,12 @@ public class VAMonthHeaderView: UIView {
         delegate?.didTapPreviousMonth()
     }
     
-    private func didMonthChanged(_ currentMonth: Date) {
-        delegate?.didMonthChanged(currentMonth)
-    }
-    
 }
 
 extension VAMonthHeaderView: VACalendarMonthDelegate {
     
     public func monthDidChange(_ currentMonth: Date) {
         monthLabel.text = dateFormatter.string(from: currentMonth)
-        didMonthChanged(currentMonth)
     }
+    
 }

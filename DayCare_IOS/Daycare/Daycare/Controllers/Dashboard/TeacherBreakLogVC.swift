@@ -20,6 +20,7 @@ class TeacherBreakLogVC: BaseViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+                print(AppInstance.shared.user?.teacherTodayAttendenceId ?? 0)
         NotificationCenter.default.addObserver(self, selector: #selector(getBreakList(sender:)), name:  NSNotification.Name.init(rawValue: "breakIn"), object: nil)
         self.selectedDate = Date()
         initialSetup()
@@ -78,14 +79,13 @@ class TeacherBreakLogVC: BaseViewController {
 //MARK:------ UITableView Delegates & Datasources -----
 extension TeacherBreakLogVC: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFirstLoad ? 0 : (self.arrForTeacherBreakLogs.count == 0) ? 1 : self.arrForTeacherBreakLogs.count
+        return  (self.arrForTeacherBreakLogs.count == 0) ? 1 : self.arrForTeacherBreakLogs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if !isFirstLoad {
+    
         return (self.arrForTeacherBreakLogs.count) != 0 ? customTeacherBreakLogCell(tableView: tableView, indexPath: indexPath) : CommonClassMethods.customNoDataFoundCell(tableView: self.tblViewForTeacherBreakLog)
-        }
-        return UITableViewCell()
+       
     }
     
     func customTeacherBreakLogCell(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {

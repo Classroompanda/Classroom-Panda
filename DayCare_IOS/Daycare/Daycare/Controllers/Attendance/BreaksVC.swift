@@ -25,11 +25,15 @@ class BreaksVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+        print(AppInstance.shared.user?.teacherTodayAttendenceId ?? 0)
+        
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         apiForGetStudentLogs()
+        print(AppInstance.shared.user?.teacherTodayAttendenceId ?? 0)
+
     }
     
     //MARK:----- @IBActions -------

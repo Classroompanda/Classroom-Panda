@@ -257,7 +257,14 @@ class BaseViewController: UIViewController {
     
     func apiCallForTeacherBreakStatus(teacherBreak: TeacherBreakLog){
         let service = DashboarService()
-        service.teacherBreakInOut(with: self, param: teacherBreak.dictionaryRepresentation()) { (result) in
+        
+        print("\(AppInstance.shared.user?.teacherTodayAttendenceId)")
+        teacherBreak.teacherDailyAttendenceID = AppInstance.shared.user?.teacherTodayAttendenceId ?? 0
+        print("\(teacherBreak.teacherDailyAttendenceID)")
+                //teacherBreak.setValue(AppInstance.shared.user?.teacherTodayAttendenceId ?? 0, forKey: "teacherDailyAttendenceID")
+        let param = teacherBreak.dictionaryRepresentation()
+       print("\(param)")
+        service.teacherBreakInOut(with: self, param: param) { (result) in
             if result != nil {
                 if let id = result as? Int {
                     if id > 0 {

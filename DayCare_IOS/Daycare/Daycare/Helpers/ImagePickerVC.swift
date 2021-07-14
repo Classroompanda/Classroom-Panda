@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import OpalImagePicker
+import Photos
 
 enum ImageSelectionType {
     case Single
@@ -81,7 +82,7 @@ class ImagePickerVC: UIImagePickerController {
     
     
     
-    func showOptionAlert(viewController: UIViewController){
+    func showOptionAlert(viewController: UIViewController) {
         let alertController = UIAlertController(title: Macros.ApplictionName, message:
             Macros.alertMessages.chooseOption, preferredStyle: .alert)
         
@@ -171,9 +172,38 @@ extension ImagePickerVC: OpalImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+        dismiss(animated: true, completion: nil)
+     self.multiImageSelecionComplition(getAssetThumbnail(assets: assets))
+    }
+    
     func imagePicker(_ picker: OpalImagePickerController, didFinishPickingImages images: [UIImage]) {
         //TODO: Save Images, update UI
         dismiss(animated: true, completion: nil)
         self.multiImageSelecionComplition(images)
     }
+    
+    func getAssetThumbnail(assets: [PHAsset]) -> [UIImage] {
+        var arrayOfImages = [UIImage]()
+        for asset in assets {
+            let manager = PHImageManager.default()
+        
+            let option = PHImageRequestOptions()
+            var image = UIImage()
+            option.isSynchronous = true
+        // The compression mode of the thumbnail is set to none
+             option.resizeMode = .none
+             
+                      // The quality of the thumbnail is high quality, no matter how much time it takes to load
+            option.deliveryMode = .opportunistic
+             manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+                image = result!
+                arrayOfImages.append(image)
+            })
+        }
+
+        return arrayOfImages
+    }
+    
+    
 }

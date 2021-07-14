@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 import OpalImagePicker
 
 enum ImageSelectionType {
@@ -172,4 +173,26 @@ extension ImagePickerVC: OpalImagePickerControllerDelegate {
         dismiss(animated: true, completion: nil)
         self.multiImageSelecionComplition(images)
     }
+    
+//    func imagePicker(_ picker: OpalImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
+//        dismiss(animated: true, completion: nil)
+//     self.multiImageSelecionComplition(getAssetThumbnail(assets: assets))
+//    }
+    
+    func getAssetThumbnail(assets: [PHAsset]) -> [UIImage] {
+        var arrayOfImages = [UIImage]()
+        for asset in assets {
+            let manager = PHImageManager.default()
+            let option = PHImageRequestOptions()
+            var image = UIImage()
+            option.isSynchronous = true
+            manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info)->Void in
+                image = result!
+                arrayOfImages.append(image)
+            })
+        }
+
+        return arrayOfImages
+    }
+    
 }

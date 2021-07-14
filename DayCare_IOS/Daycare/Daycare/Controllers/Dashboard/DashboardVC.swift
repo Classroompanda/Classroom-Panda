@@ -20,6 +20,7 @@ class DashboardVC: BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
+      //  AppInstance.shared.user?.teacherTodayAttendenceStatusId = 1657
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +124,7 @@ class DashboardVC: BaseViewController{
     }
     
     func checkTeacherClockIn(){
-        if AppInstance.shared.user?.teacherTodayAttendenceStatusId == ClockInStatus.notClockIn {
+        if AppInstance.shared.user?.teacherTodayAttendenceId == ClockInStatus.notClockIn {
             let alertAction = AlertButton.init(style: .default, title: Macros.alertMessages.okString)
             _ = AlertManager.showAlert(withTitle: Macros.ApplictionName , withMessage:Macros.alertMessages.clockIn , buttons: [alertAction], onViewController: self, animatedly: true, presentationCompletionHandler:nil, returnBlock: { (index) in
                 switch index {
@@ -180,8 +181,14 @@ class DashboardVC: BaseViewController{
         let service = DashboarService()
         service.teacherClockInClockOut(with: self, agencyID: AppInstance.shared.user?.agencyID ?? 0, id: 0, classesID: 0, attendenceStatusID: (AppInstance.shared.user?.teacherTodayAttendenceStatusId == 0) ? ClockInStatus.clockedIn : ClockInStatus.clockedOut, teacherID: AppInstance.shared.user?.releventUserID ?? 0, time: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), attendanceDate: CommonClassMethods.convertDateToServerReadableFormat(date: Date()), updatedBy: AppInstance.shared.user?.loginUserID ?? 0) { (result) in
             if result != nil {
-                AppInstance.shared.user?.teacherTodayAttendenceStatusId = (AppInstance.shared.user?.teacherTodayAttendenceStatusId == 0) ? ClockInStatus.clockedIn : ClockInStatus.clockedOut
-                AppInstance.shared.kUserDefault.set(AppInstance.shared.user?.dictionaryRepresentation(), forKey: Macros.DefaultKeys.kUserDetails)
+                print((result as? Int) ?? 0)
+//                AppInstance.shared.user?.teacherTodayAttendenceStatusId = (AppInstance.shared.user?.teacherTodayAttendenceStatusId == 0) ? ClockInStatus.clockedIn : ClockInStatus.clockedOut
+                AppInstance.shared.user?.teacherTodayAttendenceId = (result as? Int) ?? 0
+                
+             //   print( AppInstance.shared.user?.teacherTodayAttendenceId ?? 0)
+              //  AppInstance.shared.user?.dictionaryRepresentation().updateValue((result as? Int) ?? 0, forKey: "teacherTodayAttendenceId")
+               AppInstance.shared.kUserDefault.setValue(AppInstance.shared.user?.dictionaryRepresentation(), forKey: Macros.DefaultKeys.kUserDetails)
+              //  print( AppInstance.shared.user?.teacherTodayAttendenceId ?? 0)
                 self.apiCallForGetClassLog()
             }
         }

@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.profile.ProfileViewModel" />
+    </data>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            app:layout_constraintBottom_toTopOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/space_20">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/updateProfileContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/space_20"
+                tools:context=".ui.profile.ProfileActivity">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/circleImageView"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:paddingTop="@dimen/space_10"
+                    android:src="@drawable/ic_placeholder"
+                    app:layout_constraintBottom_toTopOf="@+id/firstNameTxt"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/firstNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="First Name"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/circleImageView"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
+
+
+
+                <EditText
+                    android:id="@+id/edtfirstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_fname"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.firstName}"
+                    app:layout_constraintTop_toBottomOf="@+id/firstNameTxt" />
+
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/lastNameTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Last Name"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toTopOf="@+id/studentAddressTxt"
+
+                    app:layout_constraintTop_toBottomOf="@+id/edtfirstname"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtlastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_lname"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.lastName}"
+                    app:layout_constraintTop_toBottomOf="@+id/lastNameTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/emailTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Email"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtlastname"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtemail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:enabled="false"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.emailID}"
+                    app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
+
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/mobileTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Mobile"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtemail"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtmobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_mobile"
+                    android:inputType="phone"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.mobile}"
+                    app:layout_constraintTop_toBottomOf="@+id/mobileTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/addressTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Address"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtmobile"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_address"
+                    android:inputType="text"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.address}"
+                    app:layout_constraintTop_toBottomOf="@+id/addressTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/countryTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Country"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtaddress"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+
+                <Spinner
+                    android:id="@+id/countryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:arrowTint="@color/black"
+                    android:background="@drawable/spinner_background"
+                    android:entries="@array/no_data"
+                    android:textSize="@dimen/text_size_16"
+                    app:backgroundSelector="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/countryTxt"
+                    app:textTint="@color/black" />
+
+
+                <TextView
+                    android:id="@+id/countryerr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Please select country"
+                    android:textColor="@color/colorError"
+                    android:textSize="@dimen/text_size_12"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/countryName" />
+
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/stateTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="State"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/countryerr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+
+
+                <Spinner
+                    android:id="@+id/stateNameSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:arrowTint="@color/black"
+                    android:background="@drawable/spinner_background"
+                    android:entries="@array/no_data"
+                    android:textSize="@dimen/text_size_16"
+                    app:backgroundSelector="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stateTxt"
+                    app:textTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/stateerr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Please select state"
+                    android:textColor="@color/colorError"
+                    android:textSize="@dimen/text_size_12"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stateNameSpinner" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/cityTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="City"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/stateerr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+
+                <Spinner
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:arrowTint="@color/black"
+                    android:background="@drawable/spinner_background"
+                    android:entries="@array/no_data"
+                    android:textSize="@dimen/text_size_16"
+                    app:backgroundSelector="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cityTxt"
+                    app:textTint="@color/black" />
+
+                <TextView
+                    android:id="@+id/cityerr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Please select city"
+                    android:textColor="@color/colorError"
+                    android:textSize="@dimen/text_size_12"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/city" />
+
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/zipTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Zip code"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/cityerr"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtzip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_zip"
+                    android:inputType="number"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.zip}"
+                    app:layout_constraintTop_toBottomOf="@+id/zipTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/dobTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Date Of Birth"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtzip"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtdob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/write_here"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_calendar_"
+                    android:textSize="@dimen/text_size_16"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:onClick="@{viewModel::onClickDateofBirth}"
+                    android:text="@={viewModel.dateofBirth}"
+                    app:layout_constraintTop_toBottomOf="@+id/dobTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/dohTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Date Of Hiring"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtdob"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtdoh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/ic_calendar_"
+                    android:textSize="@dimen/text_size_16"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:hint="@string/write_here"
+                    android:onClick="@{viewModel::onClickDateofhiring}"
+                    android:text="@={viewModel.dateofHiring}"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    app:layout_constraintTop_toBottomOf="@+id/dohTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/grosspayTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Gross Pay"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtdoh"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtgrosspay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/write_here"
+                    android:enabled="false"
+                    android:inputType="number"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.grossPay}"
+                    app:layout_constraintTop_toBottomOf="@+id/grosspayTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/certificationTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Certification"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtgrosspay"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edtcertification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_certification"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.certification}"
+                    app:layout_constraintTop_toBottomOf="@+id/certificationTxt" />
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:textColor="@color/colorTextLight"
+                    android:id="@+id/homephoneTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Home Phone"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintTop_toBottomOf="@+id/edtcertification"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+                <EditText
+                    android:id="@+id/edthomephone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginEnd="16dp"
+                    android:ems="8"
+                    android:hint="@string/hint_homephone"
+                    android:inputType="phone"
+                    android:textColor="@color/colorTextLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:paddingBottom="@dimen/space_15"
+                    android:text="@={viewModel.homephone}"
+                    app:layout_constraintTop_toBottomOf="@+id/homephoneTxt" />
+
+                <Button
+                    android:id="@+id/btUpdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_32"
+                    android:layout_marginTop="@dimen/space_24"
+                    android:background="@drawable/rounded_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:textColor="@color/colorBtnText"
+                    android:text="@string/update"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edthomephone" />
+
+                <!--  android:onClick="@{viewModel::onClickLoginBtn}"-->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.danylovolokh:vona-logger:1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.danylovolokh/vona-logger/1.0.1/ae75f114e04c11cf298df0a74f2f7cf046e8952b/vona-logger-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.danylovolokh/vona-logger/1.0.1/9db3f297237e5025e878f7bd3f2bbe389f3078e2/vona-logger-1.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.danylovolokh/vona-logger/1.0.1/198f769af2f22ddfe6420f3df132c59c26935ba5/vona-logger-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

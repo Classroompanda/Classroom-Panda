@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.model.AllEventDataList" />
+    </data>
+    <com.daycare.daycareteacher.utill.SwipeRevealLayout
+        android:id="@+id/eventContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_8"
+        android:layout_gravity="center_vertical"
+        app:dragFromEdge="right">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/space_12"
+                android:padding="0dp"
+                android:weightSum="1">
+
+                <ImageButton
+                    android:id="@+id/edit_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:adjustViewBounds="true"
+                    android:background="@color/colorPrimary"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:text="Info"
+                    app:srcCompat="@drawable/ic_edit_"
+                    />
+
+                <ImageButton
+                    android:id="@+id/delete_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:adjustViewBounds="true"
+                    android:background="#DF4959"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:text="Edit"
+                    app:srcCompat="@drawable/ic_delete_white"/>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_8"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="@dimen/space_12">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_10"
+                    android:background="@color/colorBackground"
+                    android:paddingBottom="@dimen/space_10"
+                    android:padding="@dimen/space_10">
+
+                    <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="Start Date"
+                        android:textColor="@color/colorTextExtraLight"
+                        app:layout_constraintBottom_toTopOf="@+id/eventDateTv"
+                        app:layout_constraintEnd_toStartOf="@+id/separator"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/eventDateTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        app:convertDate="@{viewModel.start}"
+                        app:layout_constraintBottom_toTopOf="@+id/endDate"
+                        app:layout_constraintEnd_toStartOf="@+id/separator"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/startDate"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/endDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="End Date"
+                        android:textColor="@color/colorTextExtraLight"
+                        app:layout_constraintBottom_toTopOf="@id/mealTimeTv"
+                        app:layout_constraintEnd_toStartOf="@+id/separator"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eventDateTv" />
+
+                    <TextView
+                        android:id="@+id/mealTimeTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:paddingBottom="@dimen/space_20"
+                        app:convertDate="@{viewModel.end}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/separator"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/endDate" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/barrier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:barrierDirection="end"
+                        app:layout_constraintGuide_percent="0.3" />
+                    <View
+                        android:id="@+id/separator"
+                        android:layout_width="@dimen/space_2"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/barrier"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/categoryTv"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="8dp"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:text="@{viewModel.title}"-->
+                    <!--app:layout_constraintBottom_toTopOf="@+id/involvedClass"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintHorizontal_bias="0.0"-->
+                    <!--app:layout_constraintStart_toEndOf="@+id/separator"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintVertical_chainStyle="packed"/>-->
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/involvedClass"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="8dp"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:text="@{viewModel.className}"-->
+                    <!--app:layout_constraintBottom_toTopOf="@+id/beverageTv"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintHorizontal_bias="0.0"-->
+                    <!--app:layout_constraintStart_toEndOf="@+id/separator"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/categoryTv"/>-->
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/beverageTv"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginStart="8dp"-->
+                    <!--android:layout_marginEnd="8dp"-->
+                    <!--android:text="@{viewModel.description}"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintHorizontal_bias="0.0"-->
+                    <!--app:layout_constraintStart_toEndOf="@+id/separator"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/involvedClass"/>-->
+                    <TextView
+                        android:id="@+id/categoryTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="category"
+                        android:text="@{viewModel.title}"
+                        app:layout_constraintBottom_toTopOf="@+id/time"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/separator"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"/>
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="00-00"
+                        android:textColor="@color/colorTextExtraLight"
+                        app:endt="@{viewModel.endTime}"
+                        app:layout_constraintBottom_toTopOf="@+id/involvedClass"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/separator"
+                        app:layout_constraintTop_toBottomOf="@+id/categoryTv"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:startt="@{viewModel.startTime}"/>
+
+                    <TextView
+                        android:id="@+id/involvedClass"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="involved class"
+                        android:paddingBottom="@dimen/space_10"
+                        android:text="@{viewModel.className}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/separator"
+                        app:layout_constraintTop_toBottomOf="@+id/time"/>
+
+                    <TextView
+                        android:id="@+id/beverageTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="Description"
+                        android:text="@{viewModel.description}"
+                        android:paddingBottom="@dimen/space_20"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/separator"
+                        app:layout_constraintTop_toBottomOf="@+id/involvedClass"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </FrameLayout>
+    </com.daycare.daycareteacher.utill.SwipeRevealLayout>
+
+</layout>

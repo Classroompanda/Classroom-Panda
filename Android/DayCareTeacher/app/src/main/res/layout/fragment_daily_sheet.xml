@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/space_4"
+        android:paddingTop="@dimen/space_8"
+        android:paddingEnd="@dimen/space_4"
+        android:paddingBottom="@dimen/space_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dateCardSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_4"
+            tools:ignore="MissingConstraints">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dateCard"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_48"
+                app:cardCornerRadius="@dimen/space_4"
+                app:date="@{viewModel.todaysDate}"
+                app:layout_constraintEnd_toStartOf="@+id/classCard"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:viewid="@{viewModel.viewId}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dateContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/space_8"
+                    android:paddingEnd="0dp">
+
+                    <TextView
+                        android:id="@+id/dateTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="21"
+                        android:textColor="@color/colorTextLight"
+                        android:textSize="@dimen/text_size_30"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/monthYrTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="November 2018"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintBottom_toTopOf="@+id/weekDayTxt"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/dateTxt"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/weekDayTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="Monday"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/dateTxt"
+                        app:layout_constraintTop_toBottomOf="@+id/monthYrTxt" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white"
+                        android:onClick="@{viewModel::onClickCalendar}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/monthYrTxt"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_calendar"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/classCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:cardCornerRadius="@dimen/space_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/dateCard"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <org.angmarch.views.NiceSpinner
+                        android:id="@+id/classSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/space_48"
+                        android:entries="@array/class_name"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--  <android.support.v7.widget.RecyclerView
+              android:id="@+id/daily_sheet"
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:clipToPadding="false"
+              android:nestedScrollingEnabled="false"
+              android:paddingBottom="@dimen/space_100"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              android:visibility="gone"
+              android:overScrollMode="never"
+              app:layout_constraintTop_toBottomOf="@+id/dateCardSection" />
+  -->
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:horizontalSpacing="@dimen/space_5"
+            android:numColumns="2"
+            android:verticalSpacing="@dimen/space_5"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/selectAllBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateCardSection" />
+
+
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/no_record_available"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateCardSection">
+
+        </TextView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addDailySheetDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{viewModel::onClickAddDailySheetFab}"
+            app:layout_constraintBottom_toTopOf="@+id/selectAllBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_icon_add" />
+
+        <Button
+            android:id="@+id/selectAllBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_bg"
+            android:backgroundTint="@color/colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            android:minWidth="200px"
+            android:onClick="@{viewModel::onClickSelectAll}"
+            android:text="@string/select_all"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="34dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

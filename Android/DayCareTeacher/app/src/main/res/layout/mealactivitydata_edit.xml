@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <data>
+
+      <variable
+          name="viewModel"
+          type="com.daycare.daycareteacher.model.EditMealModel.Data" />
+   </data>
+
+
+   <ScrollView android:layout_height="wrap_content"
+       android:layout_width="match_parent">
+      <LinearLayout
+          android:id="@+id/mealEditLyt"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:visibility="visible"
+          android:padding="@dimen/space_10"
+          android:paddingBottom="@dimen/space_40">
+         <LinearLayout
+             android:id="@+id/mealFrameLyt"
+             android:layout_width="fill_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:visibility="visible"
+             android:paddingBottom="@dimen/space_40">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/space_16"
+                android:layout_marginTop="8dp"
+                android:text="Select Meal Plan">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/mealPlanSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_48"
+                android:padding="@dimen/space_10"
+                android:drawableRight="@drawable/arrow"
+                android:background="@color/gray"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/selectMealContainer"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+
+               <LinearLayout
+                   android:orientation="horizontal"
+                   android:layout_width="match_parent"
+                   android:gravity="center_vertical"
+                   android:weightSum="4"
+                   app:layout_constraintTop_toTopOf="parent"
+                   app:layout_constraintEnd_toStartOf="parent"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   android:layout_height="wrap_content">
+                  <TextView
+                      android:layout_weight="1"
+                      android:id="@+id/foodItemTxt"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="@dimen/space_12"
+                      android:padding="@dimen/space_10"
+                      android:layout_marginTop="@dimen/space_5"
+                      android:text="Food Item "/>
+
+                  <TextView
+                      android:layout_weight="1"
+                      android:id="@+id/amountTxt"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="@dimen/space_12"
+                      android:padding="@dimen/space_10"
+
+                      android:layout_marginTop="@dimen/space_5"
+                      android:text="Amount "/>
+
+                  <TextView
+                      android:layout_weight="1"
+                      android:id="@+id/unitTxt"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="@dimen/space_12"
+                      android:padding="@dimen/space_10"
+                      android:text="Unit"
+                      android:layout_marginTop="@dimen/space_5"
+                      />
+
+                  <TextView
+                      android:layout_weight="1"
+                      android:id="@+id/consumeTxt"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="@dimen/space_12"
+                      android:padding="@dimen/space_10"
+                      android:text="Consume"
+                      android:layout_marginTop="@dimen/space_5"
+                      />
+               </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recentMealRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/space_16"
+                android:layout_marginTop="8dp"
+                android:text="Other Than Meal Plan">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/mealdescriptionTxt"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:maxLines="2"
+                android:text="@={viewModel.otherThanPlanMeal}"
+                android:textSize="@dimen/space_16"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:hint="Enter Other Than Meal Plan ">
+
+            </EditText>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/space_16"
+                android:layout_marginTop="8dp"
+                android:text="Other Than Meal Plan Comment">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/othermealcommentTxt"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:maxLines="2"
+                android:textSize="@dimen/space_16"
+                android:text="@={viewModel.otherThanPlanMealComment}"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:hint="Enter Other Than Meal Plan Comment "/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/space_16"
+                android:layout_marginTop="8dp"
+                android:text="Comment">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/mealcommentTxt"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:minLines="2"
+                android:gravity="top|left"
+                android:maxLines="2"
+                android:textSize="@dimen/space_16"
+                android:text="@={viewModel.mealComment}"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:scrollbars="vertical"
+                android:hint="Enter Comment ">
+
+            </EditText>
+
+
+
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/space_10"
+                android:gravity="center">
+               <Button
+                   android:id="@+id/btnCCancel"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="8dp"
+
+                   android:layout_marginEnd="24dp"
+                   android:background="@drawable/btn_bg"
+                   android:backgroundTint="@color/colorBtnCancel"
+                   android:text="Cancel"
+                   android:textAllCaps="false"
+                   android:textColor="@color/colorBtnText"
+                   />
+               <Button
+                   android:id="@+id/btnUpdate"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="16dp"
+                   android:background="@drawable/btn_bg"
+
+                   android:layout_marginEnd="8dp"
+                   android:backgroundTint="@color/colorPrimary"
+                   android:text="Save"
+                   android:textAllCaps="false"
+                   android:textColor="@color/colorBtnText"
+                   />
+            </LinearLayout>
+
+         </LinearLayout>
+
+
+      </LinearLayout>
+   </ScrollView>
+</layout>

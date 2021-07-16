@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "389751679862",
+    "firebase_url": "https://daycare-sdn.firebaseio.com",
+    "project_id": "daycare-sdn",
+    "storage_bucket": "daycare-sdn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389751679862:android:2d85c6e5fc0ad073",
+        "android_client_info": {
+          "package_name": "com.daycare.daycareteacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389751679862-60e4oh7tgmqfnv9hhb14hp6fvis0hnag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePXX3UPKlIcIdYbqxigBi_rJum52olI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389751679862-60e4oh7tgmqfnv9hhb14hp6fvis0hnag.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389751679862-uij7geejtkuennkro53u7op7o6gdq1lq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.classroompanda.daycareteacher"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

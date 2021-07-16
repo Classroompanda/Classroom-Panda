@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".ui.dashboard.activities.StudentDetailActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar"
+            app:layout_constraintBottom_toTopOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_91"
+            android:src="@drawable/ic_placeholder"
+            app:layout_constraintBottom_toTopOf="@+id/studentNameTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+        <com.daycare.daycareteacher.utill.MyRegularTextView
+            android:id="@+id/studentNameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8"
+            android:text="Joe William"
+            android:textAlignment="center"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_20"
+            app:layout_constraintBottom_toTopOf="@+id/studentAddressTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
+        <com.daycare.daycareteacher.utill.MyRegularTextView
+            android:id="@+id/studentAddressTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_100"
+            android:layout_marginEnd="@dimen/space_100"
+            android:maxLength="54"
+            android:text="San Francisco, CA 22355"
+            android:textAlignment="center"
+            android:textColor="@color/colorBtnText"
+            android:textSize="@dimen/text_size_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/studentNameTxt" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/space_8"
+            android:background="@color/colorBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/studentAddressTxt">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs_student"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_4"
+                android:background="@color/white"
+                android:elevation="@dimen/space_4"
+                app:tabTextAppearance="@style/tabfontstyle"
+                app:tabSelectedTextColor="@color/colorTextLight"
+                app:layout_constraintBottom_toTopOf="@+id/viewpager_student"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabIndicatorHeight="@dimen/space_4"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabMaxWidth="0dp"
+                />
+
+            <com.daycare.daycareteacher.utill.NonSwipeableViewPager
+                android:id="@+id/viewpager_student"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/space_4"
+                android:background="@color/colorBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tabs_student" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

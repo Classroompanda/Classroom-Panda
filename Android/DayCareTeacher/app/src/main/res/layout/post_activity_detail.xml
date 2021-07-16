@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.postactivity.PostActivityViewModel"/>
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/include"
+            layout="@layout/toolbar" />
+        <androidx.cardview.widget.CardView
+            android:layout_weight="1"
+            android:id="@+id/postContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/space_5"
+            android:elevation="16dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/cardView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/space_5"
+                android:padding="@dimen/space_5">
+
+                <RelativeLayout
+                    android:id="@+id/headerLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userProfilePic"
+                        android:layout_width="@dimen/image_width"
+                        android:layout_height="@dimen/image_height"
+                        android:layout_gravity="center_horizontal" />
+
+                    <TextView
+                        android:id="@+id/txtUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toEndOf="@id/userProfilePic"
+                        android:text="@string/app_name"
+                        android:textSize="@dimen/space_16"
+                        android:textColor="@color/colorTextLight"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txtDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtUsername"
+                        android:layout_marginStart="@dimen/space_10"
+                        android:layout_toEndOf="@id/userProfilePic"
+                        android:text="@string/app_name"
+                        android:textColor="@color/colorTextExtraLight"
+                        android:textSize="@dimen/text_size_12"/>
+
+                    <ImageView
+                        android:id="@+id/imgWorld"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="@dimen/space_8"
+                        android:layout_toStartOf="@id/imgOptionArrow"
+                        android:src="@drawable/ic_public"/>
+
+                    <ImageView
+                        android:id="@+id/imgOptionArrow"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/arrow"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/headerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:background="@color/gray"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/middleLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/space_20"
+                    android:layout_marginTop="@dimen/space_8">
+
+                    <TextView
+                        android:id="@+id/txtShortDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:id="@+id/txtLongDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_5"
+                        android:text="@string/app_name"
+                        android:textSize="@dimen/text_size_12"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/mView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:background="@color/gray"/>
+
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:visibility="gone"
+                    android:focusable="true"
+                    android:id="@+id/video_view"
+                    app:show_buffering="when_playing"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/postReportRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingTop="@dimen/space_10"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingBottom="@dimen/space_20"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+</layout>

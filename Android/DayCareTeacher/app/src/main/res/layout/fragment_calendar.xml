@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.ui.dashboard.fragments.calender.CalendarViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/space_4"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorHeight="@dimen/space_4"
+            app:tabTextAppearance="@style/tabfontstyle"
+            app:tabSelectedTextColor="@color/colorTextLight"
+            app:tabMode="fixed"
+            tools:ignore="MissingConstraints" />
+
+        <com.daycare.daycareteacher.utill.NonSwipeableViewPager
+            android:layout_marginTop="@dimen/space_4"
+            android:id="@+id/viewpager_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabs_main" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

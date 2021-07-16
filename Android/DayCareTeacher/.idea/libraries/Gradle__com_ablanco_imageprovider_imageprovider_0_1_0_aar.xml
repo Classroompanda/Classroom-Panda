@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="Gradle: com.ablanco.imageprovider:imageprovider:0.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1eacd85c9a5319d64d2d386802f1a503/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1eacd85c9a5319d64d2d386802f1a503/jetified-imageprovider-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1eacd85c9a5319d64d2d386802f1a503/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f7ad3caac8e2e51bf021802ebc6251b/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f7ad3caac8e2e51bf021802ebc6251b/jetified-imageprovider-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7f7ad3caac8e2e51bf021802ebc6251b/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5370378beb48d98f8f33340aa9c8c352/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5370378beb48d98f8f33340aa9c8c352/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5370378beb48d98f8f33340aa9c8c352/jetified-imageprovider-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/12f31a971bbfbcf12946a2d72c055560/jetified-imageprovider-0.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/12f31a971bbfbcf12946a2d72c055560/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/12f31a971bbfbcf12946a2d72c055560/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b7f664310057596455e5a14547d47b19/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b7f664310057596455e5a14547d47b19/jetified-imageprovider-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b7f664310057596455e5a14547d47b19/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ca204b5ff63bbfb1cc65715c3b7c25d/jetified-imageprovider-0.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ca204b5ff63bbfb1cc65715c3b7c25d/jetified-imageprovider-0.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3ca204b5ff63bbfb1cc65715c3b7c25d/jetified-imageprovider-0.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ablanco.imageprovider/imageprovider/0.1.0/488a358761553b2fbceed354ccc0c1541894823/imageprovider-0.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ablanco.imageprovider/imageprovider/0.1.0/7cca766888a01f74ea2616a3eae76fa3e1333458/imageprovider-0.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

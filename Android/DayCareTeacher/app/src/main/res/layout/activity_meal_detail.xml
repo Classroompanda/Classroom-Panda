@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.daycare.daycareteacher.model.MealDetail"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground"
+        tools:context=".ui.dashboard.addchildform.AddFormActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/includeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/headerTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Meal Details"
+                android:textColor="@color/colorBtnText"
+                android:textSize="@dimen/text_size_19"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_8">
+
+                <TextView
+                    android:id="@+id/begins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Start Date"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/ends"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="End Date"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/begins"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/beginsDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:convertDate="@{model.start}"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/begins"/>
+
+                <TextView
+                    android:id="@+id/endsDate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:convertDate="@{model.end}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/begins"
+                    app:layout_constraintTop_toBottomOf="@+id/ends"/>
+
+                <TextView
+                    android:id="@+id/beginsT"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Start Time"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beginsDate"/>
+
+                <TextView
+                    android:id="@+id/endsT"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="End Time"
+                    android:visibility="gone"
+
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/beginsT"
+                    app:layout_constraintTop_toBottomOf="@+id/endsDate"/>
+
+                <TextView
+                    android:id="@+id/beginsTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    android:visibility="gone"
+
+                    app:convertTime="@{model.startTime}"
+                    app:layout_constraintEnd_toStartOf="@id/ends"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beginsT"/>
+
+                <TextView
+                    android:id="@+id/endsTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    android:visibility="gone"
+
+                    app:convertTime="@{model.endTime}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/beginsTime"
+                    app:layout_constraintTop_toBottomOf="@+id/endsT"/>
+
+                <TextView
+                    android:id="@+id/classes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Class"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beginsTime"/>
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Title"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/classes"
+                    app:layout_constraintTop_toBottomOf="@+id/endsTime"/>
+
+                <TextView
+                    android:id="@+id/className"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/titleName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/classes"
+                    app:setClass="@{model.involvedClass}"/>
+
+                <TextView
+                    android:id="@+id/titleName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.title}"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/className"
+                    app:layout_constraintTop_toBottomOf="@+id/title"/>
+
+                <TextView
+                    android:id="@+id/catg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Category"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/className"/>
+
+                <TextView
+                    android:id="@+id/category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.category}"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/catg"
+                    app:layout_constraintHorizontal_bias="0.0"/>
+
+                <TextView
+                    android:id="@+id/descrp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="Description"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/category"/>
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.description}"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/descrp"/>
+
+                <TextView
+                    android:id="@+id/food"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_8"
+                    android:gravity="center"
+                    android:text="Food"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@id/amount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description"/>
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_8"
+                    android:gravity="center"
+                    android:text="Amount"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toStartOf="@id/unit"
+                    app:layout_constraintStart_toEndOf="@id/food"
+                    app:layout_constraintTop_toBottomOf="@+id/description"/>
+
+                <TextView
+                    android:id="@+id/unit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_8"
+                    android:gravity="center"
+                    android:text="Unit"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/amount"
+                    app:layout_constraintTop_toBottomOf="@+id/description"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/unit"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

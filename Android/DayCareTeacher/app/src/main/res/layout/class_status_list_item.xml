@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.ui.dashboard.fragments.dashboard.HomeViewModel"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/statusContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_4"
+            android:padding="@dimen/space_10"
+            app:cardCornerRadius="@dimen/space_12">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+              android:layout_margin="@dimen/space_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               >  <!--app:classState="@{viewModel.classStatus}"-->
+
+            <com.daycare.daycareteacher.utill.MyMediumTextView
+                    android:id="@+id/classTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_16"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:text="@string/current_class"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintEnd_toStartOf="@+id/statusTxt"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+<!--
+            app:classImage="@{viewModel.classImg}"
+-->
+            <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/imageView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/classTxt"
+                    app:srcCompat="@drawable/ic_baby_boy"/>
+
+<!--
+            android:text="@{viewModel.className}"
+-->
+
+            <TextView
+                    android:id="@+id/className"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAbsent"
+                    android:textSize="@dimen/text_size_18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView10"/>
+
+
+          <!--  android:text="@{viewModel.presentStudentCount}"-->
+
+            <TextView
+                android:id="@+id/tvparent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_8"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/className"/>
+
+            <com.daycare.daycareteacher.utill.MyItalicTextView
+                    android:id="@+id/textView17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_32"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_32"
+                    android:text="@string/start_time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toStartOf="@+id/textView18"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvparent"/>
+
+            <com.daycare.daycareteacher.utill.MyItalicTextView
+                    android:id="@+id/textView18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_32"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_32"
+                    android:text="@string/end_time"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextExtraLight"
+                    android:textSize="@dimen/text_size_12"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView17"
+                    app:layout_constraintTop_toBottomOf="@+id/tvparent"/>
+
+<!--            android:text="@{viewModel.startTime}"-->
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:id="@+id/classStartTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_32"
+                    android:layout_marginEnd="@dimen/space_32"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_15"
+                    app:layout_constraintEnd_toStartOf="@+id/classEndTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView17"/>
+
+           <!-- android:text="@{viewModel.endTime}"-->
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:id="@+id/classEndTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_32"
+                    android:layout_marginEnd="@dimen/space_32"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_size_15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/classStartTime"
+                    app:layout_constraintTop_toBottomOf="@+id/textView18"/>
+
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/classStartTime"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+            >
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/checkoutLyt">
+
+<!--
+                android:onClick="@{viewModel::onClickCheckOut}"
+-->
+
+
+                <Button
+                        android:id="@+id/teacherCheckOutBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/btn_bg"
+                        android:padding="@dimen/space_5"
+                        android:backgroundTint="@color/colorAbsent"
+                        android:textSize="@dimen/text_size_14"
+                        android:text="@string/check_out"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/teacherEditBtn"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classStartTime"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/checkInLyt"
+            >
+                <Button
+                        android:id="@+id/teacherCheckedOutBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_32"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:layout_marginEnd="85dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/btn_bg"
+                        android:backgroundTint="@color/colorBtnCancel"
+                        android:padding="@dimen/space_5"
+                        android:textSize="@dimen/text_size_14"
+                        android:text="@string/check_out"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/teacherEditBtn"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classStartTime"/>
+
+
+<!--
+                android:onClick="@{viewModel::onClickCheckIn}"
+-->
+
+                <Button
+                        android:id="@+id/teacherCheckInBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/btn_bg"
+                        android:padding="@dimen/space_5"
+                        android:textSize="@dimen/text_size_14"
+                        android:textAllCaps="false"
+                        android:backgroundTint="@color/colorAbsent"
+                        android:text="@string/check_in"
+                        android:textColor="@color/colorBtnText"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/classStartTime"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/editLyt">
+
+
+<!--
+                android:onClick="@{viewModel::onClickEdit}"
+-->
+
+                <Button
+                        android:id="@+id/teacherEditBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/btn_bg"
+                        android:padding="@dimen/space_5"
+                        android:textSize="@dimen/text_size_14"
+                         android:backgroundTint="@color/colorPrimary"
+                        android:text="@string/edit"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintTop_toBottomOf="@+id/classEndTime"/>
+
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+            <com.daycare.daycareteacher.utill.MyItalicTextView
+                    android:id="@+id/statusTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_16"
+                    android:text="Over"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorAbsent"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/classTxt"
+                    app:layout_constraintTop_toTopOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

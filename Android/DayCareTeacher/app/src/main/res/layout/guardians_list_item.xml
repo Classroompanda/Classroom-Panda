@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.model.GuardianData"/>
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/guardianContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/space_4"
+        app:cardElevation="@dimen/space_4"
+        android:layout_margin="@dimen/space_8">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_16">
+
+            <ImageView
+                android:id="@+id/guardianImg"
+                android:layout_width="@dimen/space_48"
+                android:layout_height="@dimen/space_48"
+                app:image="@{viewModel.imagePath}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_placeholder" />
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/guardianNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{viewModel.guardianName}"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintBottom_toTopOf="@+id/relationTxt"
+                app:layout_constraintEnd_toStartOf="@+id/pickUpStatTxt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/guardianImg"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/relationTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.relationTypeName}"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_13"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/contactTxt"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/guardianImg"
+                app:layout_constraintTop_toBottomOf="@+id/guardianNameTxt" />
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/pickUpStatTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toTopOf="@+id/contactTxt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/guardianNameTxt"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/contactTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.mobile.toString()}"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_12"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/relationTxt"
+                app:layout_constraintTop_toBottomOf="@+id/pickUpStatTxt" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.dailysheet.DailySheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.dashboard.activities.DailysheetDetailActivity">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_250">
+
+                <include
+                    android:id="@+id/include"
+                    layout="@layout/toolbar"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/include">
+
+                    <ImageView
+                        android:id="@+id/childImg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_91"
+                        android:src="@drawable/ic_placeholder" />
+
+                    <com.daycare.daycareteacher.utill.MyMediumTextView
+                        android:id="@+id/studentname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/space_5"
+                        android:text="@string/user_name"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_20" />
+
+                    <com.daycare.daycareteacher.utill.MyRegularTextView
+                        android:id="@+id/className"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/toddler"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_18" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_210">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/space_10"
+                    app:cardCornerRadius="@dimen/space_24"
+                    app:cardElevation="@dimen/space_6"
+                    app:cardMaxElevation="@dimen/space_6">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/space_8">
+
+                        <com.daycare.daycareteacher.utill.MyRegularTextView
+                            android:id="@+id/myRegularTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/recent_activity"
+                            android:layout_marginStart="@dimen/space_16"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_18"
+                            android:layout_marginTop="@dimen/space_16"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.daycare.daycareteacher.utill.MyRegularTextView
+                            android:id="@+id/txt_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/today"
+                            android:textColor="@color/colorTextLight"
+                            android:textSize="@dimen/text_size_18"
+                            android:singleLine="true"
+                            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/imageButton2"
+                            android:layout_marginTop="@dimen/space_16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/space_16"  app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:background="@color/white"
+                            app:srcCompat="@drawable/ic_calendar_" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recentActivityRv"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/myRegularTextView" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

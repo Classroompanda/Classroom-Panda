@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.danylovolokh:android-logger:1.0.2@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3b22cddec7818613f5e14c816c44ed2/jetified-android-logger-1.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3b22cddec7818613f5e14c816c44ed2/jetified-android-logger-1.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a3b22cddec7818613f5e14c816c44ed2/jetified-android-logger-1.0.2/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.danylovolokh/android-logger/1.0.2/db712f78064485ced0eeb38dd29368ae0c56cd53/android-logger-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

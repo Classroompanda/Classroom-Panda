@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.daycare.daycareteacher.model.HealthModel.Data"/>
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <!--Health Lyt-->
+        <LinearLayout
+                android:id="@+id/healthEditLyt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:padding="@dimen/space_10"
+                android:paddingBottom="@dimen/space_40">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginTop="8dp"
+                    android:text="Add Temperature(F) ">
+
+            </TextView>
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tempEditEdtTxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="@{viewModel.recordedTemparture.toString()}"
+                    android:hint="Enter Temp">
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:layout_marginTop="8dp"
+                    android:text="Health Note* ">
+
+            </TextView>
+            <EditText
+                    android:id="@+id/healthEditDescTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:lines="4"
+                    android:ems="8"
+                    android:inputType="textMultiLine"
+                    android:hint="Enter Health Note"
+                    android:text="@{viewModel.studentHealthDescription}"
+                    android:scrollbars="vertical">
+
+            </EditText>
+            <LinearLayout
+                    android:id="@+id/medicationCardData"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_16"
+                        android:layout_marginTop="8dp"
+                        android:text="Medicine Name ">
+
+                </TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/medicineNameEdtTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:backgroundTint="@color/light_gray"
+                        android:inputType="text"
+                        android:enabled="false"
+                        android:textColor="@color/light_gray"
+                        android:text="@{viewModel.studentMedicationName}"
+                        android:hint="Medicine Name">
+                </com.google.android.material.textfield.TextInputEditText>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:layout_marginTop="8dp"
+                        android:text="How To Take ">
+
+                </TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/howtotakeNameEdtTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:backgroundTint="@color/light_gray"
+                        android:inputType="text"
+                        android:enabled="false"
+                        android:textColor="@color/light_gray"
+                        android:text="@{viewModel.howTaken}"
+                        android:hint="How Taken">
+                </com.google.android.material.textfield.TextInputEditText>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:layout_marginTop="8dp"
+                        android:text="Dosage ">
+
+                </TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dosageEdtTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:backgroundTint="@color/light_gray"
+                        android:inputType="text"
+                        android:enabled="false"
+                        android:textColor="@color/light_gray"
+                        android:text="@{viewModel.doseRepeatName}"
+                        android:hint="Dosage">
+                </com.google.android.material.textfield.TextInputEditText>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:layout_marginTop="8dp"
+                        android:text="Unit ">
+
+                </TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/unitEdtTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/space_16"
+                        android:backgroundTint="@color/light_gray"
+                        android:inputType="text"
+                        android:enabled="false"
+                        android:textColor="@color/light_gray"
+                        android:text="@{viewModel.unit.toString()}"
+                        android:hint="Unit">
+                </com.google.android.material.textfield.TextInputEditText>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/space_10"
+                    android:gravity="center">
+                <Button
+                        android:id="@+id/btnCCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/btn_bg"
+                        android:backgroundTint="@color/colorBtnCancel"
+                        android:text="Cancel"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                />
+                <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/spinner_background"
+
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:text="Save"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorBtnText"
+                />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <!--End of HealthLyt-->
+    </ScrollView>
+
+</layout>

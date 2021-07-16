@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/dashboard" />
+        <item
+            android:id="@+id/nav_student"
+            android:icon="@drawable/ic_menu_student"
+            android:title="@string/student" />
+        <item
+                android:id="@+id/nav_dailysheet"
+                android:icon="@drawable/ic_menu_dailysheet"
+                android:title="@string/dailysheet" />
+        <item
+                android:id="@+id/nav_postactivity"
+                android:icon="@drawable/ic_post"
+                android:title="@string/post_activity" />
+        <item
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_menu_attendance"
+            android:title="@string/attendance" />
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="@string/calender" />
+        <item
+                android:id="@+id/nav_message"
+                android:icon="@drawable/ic_msg"
+                android:title="@string/message" />
+        <item
+            android:id="@+id/nav_incident"
+            android:icon="@drawable/ic_incident"
+            android:title="@string/incident" />
+        <item
+                android:id="@+id/nav_breaks"
+                android:icon="@drawable/ic_mybreak"
+                android:visible="true"
+                android:title="@string/my_breaks" />
+        <item
+                android:id="@+id/nav_medication"
+                android:icon="@drawable/ic_pills"
+                android:visible="true"
+                android:title="@string/student_medication" />
+        <item
+            android:id="@+id/nav_allergy"
+            android:icon="@drawable/allergy"
+            android:visible="true"
+            android:title="@string/allergy" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:visible="true"
+            android:title="@string/logout" />
+        <item
+            android:id="@+id/nav_version"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Version Number: 11.9" />
+    </group>
+</menu>

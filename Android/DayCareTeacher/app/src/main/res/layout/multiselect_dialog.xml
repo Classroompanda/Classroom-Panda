@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.daycare.daycareteacher.ui.dashboard.fragments.incident.IncidentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <SearchView
+            android:id="@+id/searchStudent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="@string/enterstudent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/selectContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/selectContainer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/space_200"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/absBtnSave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchStudent" />
+
+        <Button
+            android:id="@+id/absBtnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/space_16"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@color/colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBtnText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnCCancel"
+            app:layout_constraintTop_toBottomOf="@+id/selectContainer" />
+
+        <Button
+            android:id="@+id/btnCCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16"
+            android:layout_marginEnd="@dimen/space_24"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@color/colorBtnCancel"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBtnText"
+            app:layout_constraintBottom_toBottomOf="@+id/absBtnSave"
+            app:layout_constraintEnd_toStartOf="@+id/absBtnSave"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/absBtnSave" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

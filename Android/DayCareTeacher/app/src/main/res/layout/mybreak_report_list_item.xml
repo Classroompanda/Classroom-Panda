@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.daycare.daycareteacher.model.MyBreakData"/>
+    </data>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/breakContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_10"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+<!--
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/incidentHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="parent">
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:id="@+id/descriptionTxt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_8"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:layout_marginBottom="@dimen/space_8"
+                    android:hint="@string/incident"
+                    android:visibility="gone"
+                    android:textColor="@color/colorAbsent"
+                    android:textSize="@dimen/text_size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/dateTxt"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <com.daycare.daycareteacher.utill.MyRegularTextView
+                    android:id="@+id/dateTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:layout_marginBottom="@dimen/space_8"
+                    android:gravity="end"
+                    android:hint="12 Nov 2018"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="@dimen/text_size_16"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/descriptionTxt"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </android.support.constraint.ConstraintLayout>
+-->
+
+            <com.daycare.daycareteacher.utill.MyLightTextView
+                android:id="@+id/breakoutHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_8"
+                android:text="@string/break_out_time"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/breakoutTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_8"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/breakoutHeader"/>
+
+            <com.daycare.daycareteacher.utill.MyLightTextView
+                android:id="@+id/reasonHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginTop="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_8"
+                android:text="@string/reason"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/breakoutTxt"/>
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/reasonTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_8"
+                android:layout_marginBottom="@dimen/space_8"
+                android:text=""
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/partitionView"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reasonHeader"/>
+
+            <View
+                android:id="@+id/partitionView"
+                android:layout_width="@dimen/space_1"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/space_8"
+                android:layout_marginEnd="@dimen/space_8"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareteacher.utill.MyLightTextView
+                android:id="@+id/breakinHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:layout_marginEnd="@dimen/space_8"
+                android:text="@string/break_in_time"
+                android:textColor="@color/colorTextExtraLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/partitionView"
+                app:layout_constraintTop_toBottomOf="@+id/incidentHeader"/>
+
+            <com.daycare.daycareteacher.utill.MyRegularTextView
+                android:id="@+id/breakinTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_8"
+                android:textColor="@color/colorTextLight"
+                android:textSize="@dimen/text_size_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/partitionView"
+                app:layout_constraintTop_toBottomOf="@+id/breakinHeader"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
